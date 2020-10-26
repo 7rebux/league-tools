@@ -1,4 +1,4 @@
-[![License](https://img.shields.io/crates/l/fontdue.svg)](https://github.com/7rebux/League-Tools/blob/main/LICENSE)
+[![License](https://img.shields.io/crates/l/fontdue.svg)](/LICENSE)
 
 
 # League-Tools

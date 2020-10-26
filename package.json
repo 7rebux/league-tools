@@ -1,0 +1,17 @@
+{
+  "name": "league-tools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "electron ."
+  },
+  "author": "rebux",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^10.1.3"
+  },
+  "dependencies": {
+    "lcu-connector": "^2.1.3"
+  }
+}

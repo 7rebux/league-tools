@@ -8,9 +8,12 @@ A simple application with many useful functions which work with the LCU api of R
 ![Screenshot](/preview/screenshot.png?raw=true)
 
 # Credits
-+[Electron](https://github.com/electron/electron)
-+[LCU-Connector](https://github.com/Pupix/lcu-connector)
-+[League Profile Tool](https://github.com/MManoah/league-profile-tool)
++ [Electron](https://github.com/electron/electron)
++ [LCU-Connector](https://github.com/Pupix/lcu-connector)
++ [League Profile Tool](https://github.com/MManoah/league-profile-tool)
 
 # License
 This project is licensed under the MIT License - see the [LICENSE file](/LICENSE) for details
+
+# Related Projects
+[Awesome League](https://github.com/CommunityDragon/awesome-league), a list of things that work with the League of Legends API.

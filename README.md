@@ -10,6 +10,7 @@ A simple application with many useful functions which work with the LCU api of R
 # Credits
 + [Node.js](https://github.com/nodejs/node)
 + [Electron](https://github.com/electron/electron)
++ [Node-Fetch](https://github.com/node-fetch/node-fetch)
 + [LCU-Connector](https://github.com/Pupix/lcu-connector)
 + [League Profile Tool](https://github.com/MManoah/league-profile-tool)
 

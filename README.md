@@ -8,6 +8,7 @@ A simple application with many useful functions which work with the LCU api of R
 ![Screenshot](/preview/screenshot.png?raw=true)
 
 # Credits
++ [Node.js](https://github.com/nodejs/node)
 + [Electron](https://github.com/electron/electron)
 + [LCU-Connector](https://github.com/Pupix/lcu-connector)
 + [League Profile Tool](https://github.com/MManoah/league-profile-tool)

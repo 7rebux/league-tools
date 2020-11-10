@@ -1,13 +1,13 @@
 const path = require('path');
 const fs = require('fs');
-const remote = require("electron").remote;
-const LCUConnector = require("lcu-connector");
+const remote = require('electron').remote;
+const LCUConnector = require('lcu-connector');
 const fetch = require('node-fetch');
 
 const connector = new LCUConnector();
 let Client;
 
-process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
 const FILES = {
   connect: 'impl/connect.html',
@@ -27,6 +27,7 @@ connector.on('connect', (data) => {
   Client = new LeagueClient(url, auth);
 
   appendContent(FILES.home);
+  document.querySelector('#home').style.visibility = 'visible';
 });
 
 connector.on('disconnect', () => {
@@ -34,6 +35,7 @@ connector.on('disconnect', () => {
   connector.stop();
 
   appendContent(FILES.connect);
+  document.querySelector('#home').style.visibility = 'hidden';
 });
 
 class LeagueClient {
@@ -75,6 +77,24 @@ class LeagueClient {
     .then(res => res.json())
     .then(res => {
       console.log('POST request finished for: %s', endpoint);
+      return res;
+    });
+  }
+
+  put = (endpoint, body) => {
+    console.log('Starting PUT %s', endpoint);
+
+    return fetch(`${this.#url}${endpoint}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: this.#auth
+      },
+      method: 'put',
+      body: JSON.stringify(body)
+    })
+    .then(res => res.json())
+    .then(res => {
+      console.log('PUT request finished for: %s', endpoint);
       return res;
     });
   }

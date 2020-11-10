@@ -4,6 +4,7 @@ function createWindow () {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
+    icon: 'assets/icon.png',
     resizable: false,
     frame: false,
     webPreferences: {
@@ -17,8 +18,8 @@ function createWindow () {
 
 app.whenReady().then(createWindow)
 
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
     app.quit();
   }
 });

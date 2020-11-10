@@ -1,19 +1,94 @@
 :root {
   --background-color: #121212;
+  --accent-color: #BB86FC;
+  --accent-color-variant: #C396FA;
   --panel-color: #000000;
   --text-color: white;
+
+  --font: Verdana;
+  --font-variant: Arial;
 
   --content-width: 100%;
   --content-height: 560px;
 
   --card-width: 145px;
   --card-height: 232px;
-
-  --container-width: 750px;
-  --champion-icon-size: 67px;
 }
 
-/* --------------------- MAIN STRUCTURE STYLE --------------------- */
+/* --------------------- PRESETS & CLASSES --------------------- */
+.center-wrapper {
+  width: var(--content-width);
+  height: var(--content-height);
+  display: grid;
+}
+
+.center-element {
+  margin: auto;
+}
+
+.button {
+  padding: 15px 32px;
+  text-align: center;
+
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  font-size: 16px;
+
+  outline: none;
+  border: none;
+  border-radius: 10px; /* round corners */
+
+  transition-duration: 0.4s;
+}
+
+.button:hover {
+  background-color: var(--accent-color-variant);
+  box-shadow: 0 12px 16px 0 rgba(55,0,179,0.24), 0 17px 50px 0 rgba(55,0,179,0.19);
+}
+
+.input {
+  padding: 5px;
+  text-align: center;
+
+  background-color: #000000;
+  color: var(--text-color);
+  font-size: 14px;
+  font-family: var(--font);
+
+  border-radius: 7px; /* round corners */
+  border: 3px solid var(--accent-color);
+  outline: none;
+}
+
+.input:focus {
+  border: 3px solid var(--accent-color-variant);
+}
+
+.container {
+  width: 750px;
+  margin: 0 20px 0 20px;
+  border: 5px solid #8460C2;
+  border-radius: 15px; /* round corners */
+
+  background-color: #362546;
+}
+
+.container-element {
+  min-width: 67px;
+  height: 67px;
+  margin: 2px;
+  display: inline-block;
+  border: 2px solid transparent;
+  border-radius: 10px; /* round corners */
+
+  -webkit-user-drag: none; /* disable dragging */
+}
+
+.container-element:hover {
+  border: 2px solid #6F25B9;
+}
+
+/* --------------------- INDEX/MAIN STRUCTURE STYLE --------------------- */
 body {
   width: 100%;
   height: 100%;
@@ -40,7 +115,7 @@ body {
 
   color: var(--text-color);
   font-size: 20px;
-  font-family: Arial;
+  font-family: var(--font-variant);
   font-weight: normal;
 }
 
@@ -64,6 +139,28 @@ body {
   background-color: #260202;
 }
 
+#home {
+  visibility: hidden; /* only visible if connected */
+
+  width: 40px;
+  height: 40px;
+  float: right;
+
+  color: white;
+
+  outline: none;
+  border: none;
+  background: none;
+
+  transition-duration: 0.4s;
+
+  -webkit-app-region: no-drag; /* remove drag mark on button */
+}
+
+#home:hover {
+  background-color: #121212;
+}
+
 #content {
   width: var(--content-width);
   height: var(--content-height);
@@ -71,34 +168,9 @@ body {
 
 
 /* --------------------- CONNECT.HTML STYLE --------------------- */
-#wrapper {
-  width: var(--content-width);
-  height: var(--content-height);
-  display: grid;
-}
-
 #connect {
   width: 150px;
-  margin: auto;
-  padding: 15px 32px;
-  text-align: center;
-
-  background-color: #BB86FC;
-  color: var(--text-color);
-  font-size: 16px;
-
-  outline: none;
-  border: none;
-  border-radius: 10px; /* round corners */
-
-  transition-duration: 0.4s;
 }
-
-#connect:hover {
-  background-color: #BB86FF;
-  box-shadow: 0 12px 16px 0 rgba(55,0,179,0.24), 0 17px 50px 0 rgba(55,0,179,0.19);
-}
-
 
 /* --------------------- HOME.HTML STYLE --------------------- */
 .card {
@@ -166,15 +238,6 @@ body {
 }
 
 /* --------------------- BACKGROUND.HTML STYLE --------------------- */
-.container {
-  width: var(--container-width);
-  margin: 0 20px 0 20px;
-  border: 5px solid #8460C2;
-  border-radius: 15px; /* round corners */
-
-  background-color: #362546;
-}
-
 #champion-container {
   height: 300px;
   overflow-y: scroll;
@@ -199,27 +262,11 @@ body {
 }
 
 #skin-container > p {
-  margin: auto;
   text-align: center;
 
   color: var(--text-color);
   font-size: 22px;
   font-family: Verdana;
-}
-
-.champion-icon {
-  min-width: var(--champion-icon-size);
-  height: var(--champion-icon-size);
-  margin: 2px;
-  display: inline-block;
-  border: 2px solid transparent;
-  border-radius: 10px; /* round corners */
-
-  -webkit-user-drag: none; /* disable dragging */
-}
-
-.champion-icon:hover {
-  border: 2px solid #6F25B9;
 }
 
 .champion-skin {
@@ -241,4 +288,18 @@ body {
 }
 
 /* --------------------- ICON.HTML STYLE --------------------- */
+#icon-container {
+  height: calc(var(--content-height) - 10px); /* subtract border */
+  overflow-y: scroll;
+
+  font-size: 0; /* removes space between inline-block elements */
+}
+
+#icon-container::-webkit-scrollbar {
+  width: 0; /* hide scrollbar */
+}
+
 /* --------------------- STATUS.HTML STYLE --------------------- */
+#status {
+    width: 350px;
+}

@@ -28,6 +28,8 @@ load().then(function () {
         var node = document.createElement('IMG');
 
         node.classList.add('container-element');
+        node.classList.add('size-icon');
+
         node.src = `http://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${property}.png`;
 
         node.addEventListener('mousedown', function () {
@@ -40,8 +42,9 @@ load().then(function () {
               var node = document.createElement('IMG');
 
               node.src = `http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${property}_${skins[i]['num']}.jpg`;
-              node.classList.add('champion-skin');
               node.alt = skins[i]['id'];
+              node.classList.add('container-element');
+              node.classList.add('size-skin')
 
               node.addEventListener('mousedown', function () {
                 payload['value'] = parseInt(this.alt);

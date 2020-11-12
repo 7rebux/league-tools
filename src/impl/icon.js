@@ -26,8 +26,9 @@ load().then(function () {
       for (const id in keys) {
         var node = document.createElement('IMG');
 
-        node.classList.add('container-element');
         node.src = `http://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${id}.png`;
+        node.classList.add('container-element');
+        node.classList.add('size-icon')
 
         node.addEventListener('mousedown', function () {
           payload['icon'] = id;

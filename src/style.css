@@ -289,3 +289,13 @@ body {
 #btn-status {
   margin-top: 5px;
 }
+
+/* --------------------- AVAILABILITY.HTML STYLE --------------------- */
+#availability {
+  width: 350px;
+  margin-bottom: 5px;
+}
+
+#availability-btn {
+  margin-top: 5px;
+}

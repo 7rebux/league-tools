@@ -9,8 +9,9 @@
   <body>
     <div id="panel">
       <p id="title">League Tools</p>
-      <button id="exit" onclick="exit();">×</button>
-      <button id="home" onclick="appendContent(FILES.home);">⮌</button>
+      <button id="exit" class="panel-button" onclick="exit();">×</button>
+      <button class="panel-button" onclick="minimize();">-</button>
+      <button id="home" class="panel-button" onclick="appendContent(FILES.home);">⮌</button>
     </div>
     <div id="content"></div>
   </body>

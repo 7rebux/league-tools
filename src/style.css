@@ -130,29 +130,7 @@ body {
   font-weight: normal;
 }
 
-#exit {
-  width: 40px;
-  height: 40px;
-  float: right;
-
-  color: red;
-
-  outline: none;
-  border: none;
-  background: none;
-
-  transition-duration: 0.4s;
-
-  -webkit-app-region: no-drag; /* remove drag mark on button */
-}
-
-#exit:hover {
-  background-color: #260202;
-}
-
-#home {
-  visibility: hidden; /* only visible if connected */
-
+.panel-button {
   width: 40px;
   height: 40px;
   float: right;
@@ -164,19 +142,29 @@ body {
   background: none;
 
   transition-duration: 0.4s;
-
   -webkit-app-region: no-drag; /* remove drag mark on button */
 }
 
-#home:hover {
+.panel-button:hover {
   background-color: #121212;
+}
+
+#exit {
+  color: red;
+}
+
+#exit:hover {
+  background-color: #260202;
+}
+
+#home {
+  visibility: hidden; /* only visible if connected */
 }
 
 #content {
   width: var(--content-width);
   height: var(--content-height);
 }
-
 
 /* --------------------- CONNECT.HTML STYLE --------------------- */
 #connect {

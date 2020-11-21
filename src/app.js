@@ -11,7 +11,7 @@ process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
 const FILES = {
   connect: 'impl/connect.html',
-  home: 'impl/home.html',
+home: 'impl/home.html',
   background: 'impl/background.html',
   icon: 'impl/icon.html',
   status: 'impl/status.html'
@@ -127,6 +127,10 @@ function loadScript(file) {
 
 function exit() {
   remote.getCurrentWindow().close();
+}
+
+function minimize() {
+  remote.getCurrentWindow().minimize();
 }
 
 function connect() {

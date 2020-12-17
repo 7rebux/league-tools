@@ -14,9 +14,15 @@ When contributing to this repository, please first discuss the change you wish t
 You can work with this project by cloning it or [downloading the code](https://github.com/7rebux/League-Tools/archive/main.zip).  
 Also make sure that you have installed Node.js ([Download](https://www.npmjs.com/get-npm)).
 
+#### Cloning
+```batch
+git clone https://github.com/7rebux/League-Tools
+```
+
+#### Running
 After downloading it make sure to navigate to the folder and run the following command to install the missing node modules:
 ```batch
-npm i
+npm install
 ```
 Now you can run the project:
 ```batch

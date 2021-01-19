@@ -10,12 +10,12 @@ let Client;
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
 const FILES = {
-  connect: 'impl/connect.html',
-  home: 'impl/home.html',
-  background: 'impl/background.html',
-  icon: 'impl/icon.html',
-  status: 'impl/status.html',
-  availability: 'impl/availability.html'
+  connect: 'impl/connect/index.html',
+  home: 'impl/home/index.html',
+  background: 'impl/background/index.html',
+  icon: 'impl/icon/index.html',
+  status: 'impl/status/index.html',
+  availability: 'impl/availability/index.html'
 };
 
 appendContent(FILES.connect);
@@ -111,11 +111,25 @@ function appendContent(file) {
 
     document.querySelector('#content').innerHTML = this.responseText;
 
+    // load stylesheet file if it exists
+    const cssFile = path.join(__dirname, file.replace(path.win32.basename(file), 'style.css'));
+    if (fs.existsSync(cssFile)) loadStyle(path.relative(__dirname, cssFile));
+
     // load javascript file if it exists
-    const jsFile = path.join(__dirname, file.replace(path.extname(file), '.js'));
+    const jsFile = path.join(__dirname, file.replace(path.win32.basename(file), 'script.js'));
     if (fs.existsSync(jsFile)) loadScript(path.relative(__dirname, jsFile));
   };
   xhr.send();
+}
+
+function loadStyle(file) {
+  var style = document.createElement("link");
+
+  style.type = "text/css";
+  style.rel = "stylesheet";
+  style.href = file;
+
+  document.head.appendChild(style);
 }
 
 function loadScript(file) {

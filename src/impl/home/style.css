@@ -1,0 +1,63 @@
+.card {
+  width: var(--card-width);
+  height: var(--card-height);
+  margin: 20px 0 0 32px;
+  display: inline-block;
+  perspective: 1000px;
+
+  background-color: transparent;
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  text-align: center;
+
+  transition: transform 1.2s;
+  transform-style: preserve-3d;
+}
+
+.card:hover .card-inner {
+  transform: rotateY(180deg);
+  box-shadow: 0 12px 16px 0 rgba(55,0,179,0.24), 0 17px 50px 0 rgba(55,0,179,0.19);
+}
+
+.card-front, .card-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+}
+
+.card-back {
+  border-radius: 15px; /* round corners */
+
+  background-color: #5A1783;
+
+  transform: rotateY(180deg);
+}
+
+.card-front > p {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  position: absolute;
+
+  line-height: var(--card-height);
+  color: var(--font-color);
+  font-size: 21px;
+  font-family: OCR A;
+}
+
+.card-back > p {
+  color: var(--font-color);
+  font-size: 12px;
+  font-family: Verdana;
+}
+
+.card-front > img {
+  width: var(--card-width);
+  height: var(--card-height);
+  border-radius: 15px; /* round corners */
+}

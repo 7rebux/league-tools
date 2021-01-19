@@ -6,7 +6,7 @@
   "scripts": {
     "test": "electron ."
   },
-  "author": "rebux",
+  "author": "Rebux",
   "license": "ISC",
   "devDependencies": {
     "electron": "^10.1.3"

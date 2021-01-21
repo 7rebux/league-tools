@@ -38,6 +38,10 @@
   transform: rotateY(180deg);
 }
 
+.card-back > p {
+  line-height: 2;
+}
+
 .card-front > p {
   width: 100%;
   height: 100%;

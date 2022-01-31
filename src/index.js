@@ -1,25 +1,25 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-import './style.sass'
+import './renderer/style.sass'
 
-import TitleBar from './components/TitleBar'
+import TitleBar from './renderer/components/TitleBar'
 
-import Login from './pages/Login'
-import Home from './pages/Home'
+import Login from './renderer/pages/Login'
+import Home from './renderer/pages/Home'
 
 ReactDOM.render(
-  <Router>
+  <BrowserRouter>
     <div>
       <TitleBar />
-      <main id="content">
+      <main className="content">
         <Routes>
           <Route exact path="/" element={<Login />} />
           <Route path="/home" element={<Home />} />
         </Routes>
       </main>
     </div>
-  </Router>,
+  </BrowserRouter>,
   document.getElementById('root')
 )

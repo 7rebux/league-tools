@@ -1,5 +1,3 @@
-import SummonerComponent from './SummonerComponent'
-
 import './TitleBar.sass'
 
 function TitleBar() {

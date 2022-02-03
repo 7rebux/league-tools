@@ -4,7 +4,7 @@ import './Login.sass'
 
 function Login() {
   return (
-    <div id="login">
+    <div className="page login">
       <div>
         <h1>
           Welcome to <span>League Tools</span>

@@ -1,10 +1,16 @@
-import SummonerComponent from '../components/SummonerComponent'
+import SummonerIcon from '../components/SummonerIcon'
+import SummonerLevel from '../components/SummonerLevel'
+import SummonerName from '../components/SummonerName'
+
+import './Home.sass'
 
 function Home() {
   return (
-    <div>
+    <div className="page home">
       <h1>Home</h1>
-      <SummonerComponent />
+      <p>Logged in as <SummonerName /></p>
+      <SummonerIcon />
+      <SummonerLevel />
     </div>
   )
 }

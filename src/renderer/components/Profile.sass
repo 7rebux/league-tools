@@ -1,0 +1,36 @@
+$height: 90px
+
+#profile
+    position: relative
+    width: fit-content
+    height: $height
+    display: flex
+    border-radius: calc($height / 4)
+    background-color: #1A1919
+
+    .summoner-icon
+        $size: calc($height - 20px)
+
+        padding: 10px
+        width: $size
+        height: $size
+        border-radius: calc($size / 4)
+
+    .info
+        padding: 10px 
+
+        .upper
+            display: inline-flex
+            gap: 10px
+
+            .name
+                font-size: 22px
+                font-weight: 600
+
+        .tag
+            font-weight: 300
+            color: #a5a3a3
+
+        .badges
+            display: inline-flex
+            gap: 10px

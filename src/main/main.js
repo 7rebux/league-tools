@@ -6,6 +6,8 @@ function createWindow() {
   const window = new BrowserWindow({
     width: 800,
     height: 600,
+    minWidth: 450,
+    minHeight: 300,
     icon: 'assets/icon.png',
     webPreferences: {
       nodeIntegration: true,
@@ -40,8 +42,6 @@ const connector = new LCUConnector()
 var url, auth
 
 ipcMain.once('connect', (event) => {
-  console.log('Connecting..')
-
   connector.on('connect', (data) => {
     url = `${data['protocol']}://${data['address']}:${data['port']}`
     auth = 'Basic ' + btoa(`${data['username']}:${data['password']}`)

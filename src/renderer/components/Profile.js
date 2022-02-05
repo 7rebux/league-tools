@@ -80,6 +80,8 @@ class Profile extends Component {
                     this.state.division
                   : 'Rank'
               }
+              outerColor="dark-green"
+              innerColor="light-green"
               icon={`https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/ranked-mini-regalia/${(this
                 .state.loaded
                 ? this.state.rank

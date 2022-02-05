@@ -9,9 +9,9 @@ class ProfileBadge extends Component {
 
   render() {
     return (
-      <div className="badge">
+      <div className={ "badge" + this.props.outerColor }>
         <div className="outer">
-          <div className="inner">
+          <div className={ "inner" + this.props.innerColor }>
             <img className="icon" src={this.props.icon} />
             <span className="text">{this.props.text}</span>
           </div>

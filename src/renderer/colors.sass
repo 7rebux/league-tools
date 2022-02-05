@@ -1,18 +1,12 @@
 $colors: ("background": "#222222", "title-bar": "#121212", "surface": "#1A1919", "text": "#ffffff", "text2": "#a5a3a3", "primary": "#BB86FC");
 
-@each $name, $color in $icons {
+@each $name, $color in $colors {
     .bg-#{$name} {
         background-color: #{$color}
     }
 }
 
-@each $name, $color in $icons {
-    .bg-#{$name} {
-        background-color: #{$color}
-    }
-}
-
-@each $name, $color in $icons {
+@each $name, $color in $colors {
     .#{$name} {
         color: #{$color}
     }

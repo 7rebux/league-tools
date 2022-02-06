@@ -1,0 +1,13 @@
+$background:    #222222
+$foreground:    #ffffff
+$titleBar:      #121212
+$surface:       #0f0f0f
+
+$badgeColors: ("default": #BB86FC, "unranked": #404241, "iron": #6b6b64, "bronze": #a46628, "silver": #b5b5b5, "gold": #d6a738, "platinum": #80aba4, "diamond": #71b0d1, "master": #7840a3, "grandmaster": #9e3342, "challenger": #1298e0)
+
+@each $name, $color in $badgeColors
+    .badge.#{$name}
+        .outer
+            background-color: darken($color, 15%)
+        .inner
+            background-color: $color

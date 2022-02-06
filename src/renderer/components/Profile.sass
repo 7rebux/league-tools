@@ -1,4 +1,6 @@
-$height: 90px
+@import '../colors.sass'
+    
+$height: 100px
 
 #profile
     position: relative
@@ -6,7 +8,7 @@ $height: 90px
     height: $height
     display: flex
     border-radius: calc($height / 4)
-    background-color: #1A1919
+    background-color: $surface
 
     .summoner-icon
         $size: calc($height - 20px)
@@ -17,7 +19,7 @@ $height: 90px
         border-radius: calc($size / 4)
 
     .info
-        padding: 10px 
+        padding: 10px
 
         .upper
             display: inline-flex
@@ -34,3 +36,4 @@ $height: 90px
         .badges
             display: inline-flex
             gap: 10px
+            float: right

@@ -2,6 +2,7 @@ const { Component } = require('react')
 const { request } = require('../Bridge')
 
 import './Profile.sass'
+
 import ProfileBadge from './ProfileBadge'
 
 class Profile extends Component {
@@ -9,37 +10,33 @@ class Profile extends Component {
     super(props)
 
     this.state = {
-      loaded: false,
-      level: null,
-      name: null,
-      icon: null,
-      rank: null,
-      division: null,
-      tag: null,
-      availability: null,
-      region: null,
+      level: 0,
+      name: 'Name',
+      icon: 29,
+      rank: 'UNRANKED',
+      division: '',
+      tag: 'TAG',
+      availability: 'offline',
+      region: 'Region',
     }
   }
 
   componentDidMount() {
-    request('/lol-summoner/v1/current-summoner', 'get').then(
-      (summonerResult) => {
-        request('/lol-chat/v1/me', 'get').then((chatResult) => {
-          console.log(chatResult)
-
-          this.setState({
-            loaded: true,
-            level: summonerResult.summonerLevel,
-            name: summonerResult.displayName,
-            icon: summonerResult.profileIconId,
-            rank: chatResult.lol.rankedLeagueTier,
-            division: chatResult.lol.rankedLeagueDivision,
-            tag: chatResult.gameTag,
-            region: chatResult.platformId,
-          })
-        })
-      }
-    )
+    Promise.all([
+      request('/lol-summoner/v1/current-summoner', 'get'),
+      request('/lol-chat/v1/me', 'get'),
+    ]).then((responses) => {
+      this.setState({
+        level: responses[0].summonerLevel,
+        name: responses[0].displayName,
+        icon: responses[0].profileIconId,
+        rank: responses[1].lol.rankedLeagueTier,
+        division: responses[1].lol.rankedLeagueDivision,
+        tag: responses[1].gameTag,
+        availability: responses[1].availability,
+        region: responses[1].platformId,
+      })
+    })
   }
 
   render() {
@@ -47,46 +44,34 @@ class Profile extends Component {
       <div id="profile">
         <img
           className="summoner-icon"
-          src={
-            this.state.loaded
-              ? `https://raw.communitydragon.org/latest/game/assets/ux/summonericons/profileicon${this.state.icon}.png`
-              : `https://raw.communitydragon.org/latest/game/assets/ux/summonericons/profileicon29.png`
-          }
+          src={`https://raw.communitydragon.org/latest/game/assets/ux/summonericons/profileicon${this.state.icon}.png`}
         />
         <div className="info">
           <div className="upper">
-            <span className="name">
-              {this.state.loaded ? this.state.name : 'Name'}
-            </span>
+            <span className="name">{this.state.name}</span>
             <ProfileBadge
-              text={this.state.loaded ? this.state.level : '0'}
+              color="default"
+              text={this.state.level}
               icon="./assets/level.png"
             />
             <ProfileBadge
-              text={this.state.loaded ? this.state.region : 'Region'}
+              color="default"
+              text={this.state.region}
               icon="./assets/region.png"
             />
           </div>
-          <div className="tag">
-            #{this.state.loaded ? this.state.tag : '0000'}
-          </div>
+          <div className="tag">#{this.state.tag}</div>
           <div className="badges">
             <ProfileBadge
+              color={this.state.rank.toLowerCase()}
               text={
-                this.state.loaded
-                  ? this.state.rank.charAt(0) +
-                    this.state.rank.substring(1).toLowerCase() +
-                    ' ' +
-                    this.state.division
-                  : 'Rank'
+                this.state.rank.charAt(0) +
+                this.state.rank.substring(1).toLowerCase() +
+                ' ' +
+                this.state.division
               }
-              icon={`https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/ranked-mini-regalia/${(this
-                .state.loaded
-                ? this.state.rank
-                : 'unranked'
-              ).toLowerCase()}.png`}
+              icon={`https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/ranked-mini-regalia/${this.state.rank.toLowerCase()}.png`}
             />
-            <ProfileBadge text="Top 6%" icon="./assets/level.png" />
           </div>
         </div>
       </div>

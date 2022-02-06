@@ -18,6 +18,8 @@ class Profile extends Component {
       tag: 'TAG',
       availability: 'offline',
       region: 'Region',
+      rp: 0,
+      be: 0,
     }
   }
 
@@ -25,16 +27,19 @@ class Profile extends Component {
     Promise.all([
       request('/lol-summoner/v1/current-summoner', 'get'),
       request('/lol-chat/v1/me', 'get'),
+      request('/lol-inventory/v1/wallet/0')
     ]).then((responses) => {
       this.setState({
         level: responses[0].summonerLevel,
         name: responses[0].displayName,
         icon: responses[0].profileIconId,
-        rank: responses[1].lol.rankedLeagueTier,
+        rank: responses[1].lol.rankedLeagueTier ?? 'UNRANKED',
         division: responses[1].lol.rankedLeagueDivision,
         tag: responses[1].gameTag,
         availability: responses[1].availability,
         region: responses[1].platformId,
+        rp: responses[2].RP ?? 0,
+        be: responses[2].lol_blue_essence ?? 0,
       })
     })
   }
@@ -71,6 +76,16 @@ class Profile extends Component {
                 this.state.division
               }
               icon={`https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/ranked-mini-regalia/${this.state.rank.toLowerCase()}.png`}
+            />
+            <ProfileBadge
+              color='be'
+              text={this.state.be}
+              icon='./assets/be.png'
+            />
+            <ProfileBadge
+              color='rp'
+              text={this.state.rp}
+              icon='./assets/rp.png'
             />
           </div>
         </div>

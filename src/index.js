@@ -2,12 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-import './renderer/style.sass'
-
 import TitleBar from './renderer/components/TitleBar'
 
 import Login from './renderer/pages/Login'
 import Home from './renderer/pages/Home'
+
+import './renderer/style.sass'
 
 ReactDOM.render(
   <BrowserRouter>

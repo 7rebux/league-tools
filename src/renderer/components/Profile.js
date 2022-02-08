@@ -1,9 +1,9 @@
 const { Component } = require('react')
 const { request } = require('../Bridge')
 
-import './Profile.sass'
-
 import ProfileBadge from './ProfileBadge'
+
+import './Profile.sass'
 
 class Profile extends Component {
   constructor(props) {
@@ -27,13 +27,13 @@ class Profile extends Component {
     Promise.all([
       request('/lol-summoner/v1/current-summoner', 'get'),
       request('/lol-chat/v1/me', 'get'),
-      request('/lol-inventory/v1/wallet/0')
+      request('/lol-inventory/v1/wallet/0'),
     ]).then((responses) => {
       this.setState({
         level: responses[0].summonerLevel,
         name: responses[0].displayName,
         icon: responses[0].profileIconId,
-        rank: responses[1].lol.rankedLeagueTier ?? 'UNRANKED',
+        rank: (responses[1].lol.rankedLeagueTier ?? 'UNRANKED').toLowerCase(),
         division: responses[1].lol.rankedLeagueDivision,
         tag: responses[1].gameTag,
         availability: responses[1].availability,
@@ -46,32 +46,32 @@ class Profile extends Component {
 
   render() {
     return (
-      <div id="profile">
+      <div id='profile'>
         <img
-          className="summoner-icon"
+          className='summoner-icon'
           src={`https://raw.communitydragon.org/latest/game/assets/ux/summonericons/profileicon${this.state.icon}.png`}
         />
-        <div className="info">
-          <div className="upper">
-            <span className="name">{this.state.name}</span>
+        <div className='info'>
+          <div className='upper'>
+            <span className='name'>{this.state.name}</span>
             <ProfileBadge
-              color="default"
+              color='default'
               text={this.state.level}
-              icon="./assets/level.png"
+              icon='./assets/level.png'
             />
             <ProfileBadge
-              color="default"
+              color='default'
               text={this.state.region}
-              icon="./assets/region.png"
+              icon='./assets/region.png'
             />
           </div>
-          <div className="tag">#{this.state.tag}</div>
-          <div className="badges">
+          <div className='tag'>#{this.state.tag}</div>
+          <div className='badges'>
             <ProfileBadge
-              color={this.state.rank.toLowerCase()}
+              color={this.state.rank}
               text={
-                this.state.rank.charAt(0) +
-                this.state.rank.substring(1).toLowerCase() +
+                this.state.rank.charAt(0).toUpperCase() +
+                this.state.rank.slice(1) +
                 ' ' +
                 this.state.division
               }

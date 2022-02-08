@@ -4,7 +4,7 @@ import './Home.sass'
 
 function Home() {
   return (
-    <div className="page home">
+    <div className='page home'>
       <Profile />
     </div>
   )

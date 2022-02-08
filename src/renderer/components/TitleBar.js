@@ -2,7 +2,7 @@ import './TitleBar.sass'
 
 function TitleBar() {
   return (
-    <header id="title-bar">
+    <header id='title-bar'>
       <span>League Tools</span>
     </header>
   )

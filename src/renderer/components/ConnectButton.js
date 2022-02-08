@@ -10,7 +10,7 @@ function ConnectButton() {
 
   return (
     <button
-      id="connect-button"
+      id='connect-button'
       onClick={() => {
         setStatus('Connecting..')
         connect().then(() => navigate('../home'))

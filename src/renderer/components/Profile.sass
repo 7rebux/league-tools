@@ -1,6 +1,7 @@
 @import '../colors.sass'
     
 $height: 110px
+$iconSize: $height - 20px
 
 #profile
     position: relative
@@ -10,13 +11,22 @@ $height: 110px
     border-radius: calc($height / 4)
     background-color: $surface
 
-    .summoner-icon
-        $size: calc($height - 20px)
+    .icon
+        position: relative
 
-        padding: 10px
-        width: $size
-        height: $size
-        border-radius: calc($size / 4)
+        .summoner-icon
+            padding: 10px
+            width: $iconSize
+            height: $iconSize
+            border-radius: calc($iconSize / 4)
+
+        .availability
+            position: absolute
+            top: calc($iconSize - 15px)
+            left: calc($iconSize - 15px)
+            width: 15px
+            height: 15px
+            border-radius: 50%
 
     .info
         padding: 15px

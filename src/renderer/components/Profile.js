@@ -47,10 +47,13 @@ class Profile extends Component {
   render() {
     return (
       <div id='profile'>
-        <img
-          className='summoner-icon'
-          src={`https://raw.communitydragon.org/latest/game/assets/ux/summonericons/profileicon${this.state.icon}.png`}
-        />
+        <div className='icon'>
+          <img
+            className='summoner-icon'
+            src={`https://raw.communitydragon.org/latest/game/assets/ux/summonericons/profileicon${this.state.icon}.png`}
+          />
+          <div className={'availability ' + this.state.availability}></div>
+        </div>
         <div className='info'>
           <div className='upper'>
             <span className='name'>{this.state.name}</span>

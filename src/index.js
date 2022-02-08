@@ -13,10 +13,10 @@ ReactDOM.render(
   <BrowserRouter>
     <div>
       <TitleBar />
-      <main id="content">
+      <main id='content'>
         <Routes>
-          <Route exact path="/" element={<Login />} />
-          <Route path="/home" element={<Home />} />
+          <Route exact path='/' element={<Login />} />
+          <Route path='/home' element={<Home />} />
         </Routes>
       </main>
     </div>

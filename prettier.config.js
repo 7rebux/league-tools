@@ -3,6 +3,7 @@ const options = {
   useTabs: false,
   semi: false,
   singleQuote: true,
+  jsxSingleQuote: true,
   trailingComma: 'es5',
   bracketSpacing: true,
   bracketSameLine: false,

@@ -1,0 +1,30 @@
+@import '../colors.sass'
+    
+.container
+    position: relative
+    background-color: $surface
+    border-radius: 30px
+    border: 3px solid $secondary
+
+    .header
+        $height: 26px
+
+        display: flex
+        position: absolute
+        height: $height
+        width: 100%
+        top: -$height / 2
+        justify-content: center
+        align-items: center
+ 
+        .inner
+            position: absolute
+            height: 100%
+            align-items: center
+            width: fit-content
+            background-color: $secondary
+            padding: 0 20px 0 20px
+            border-radius: 10px
+
+    .contents
+        padding: 10px

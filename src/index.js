@@ -6,6 +6,7 @@ import TitleBar from './renderer/components/TitleBar'
 
 import Login from './renderer/pages/Login'
 import Home from './renderer/pages/Home'
+import Availability from './renderer/pages/Availability'
 
 import './renderer/style.sass'
 
@@ -17,6 +18,7 @@ ReactDOM.render(
         <Routes>
           <Route exact path='/' element={<Login />} />
           <Route path='/home' element={<Home />} />
+          <Route path='/availability' element={<Availability />} />
         </Routes>
       </main>
     </div>

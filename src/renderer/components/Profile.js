@@ -1,6 +1,7 @@
 const { Component } = require('react')
 const { request } = require('../Bridge')
 
+import Icon from './Icon'
 import ProfileBadge from './ProfileBadge'
 
 import './Profile.sass'
@@ -12,11 +13,9 @@ class Profile extends Component {
     this.state = {
       level: 0,
       name: 'Name',
-      icon: 29,
       rank: 'UNRANKED',
       division: '',
       tag: 'TAG',
-      availability: 'offline',
       region: 'Region',
       rp: 0,
       be: 0,
@@ -32,11 +31,9 @@ class Profile extends Component {
       this.setState({
         level: responses[0].summonerLevel,
         name: responses[0].displayName,
-        icon: responses[0].profileIconId,
         rank: (responses[1].lol.rankedLeagueTier ?? 'UNRANKED').toLowerCase(),
         division: responses[1].lol.rankedLeagueDivision,
         tag: responses[1].gameTag,
-        availability: responses[1].availability,
         region: responses[1].platformId,
         rp: responses[2].RP ?? 0,
         be: responses[2].lol_blue_essence ?? 0,
@@ -47,13 +44,7 @@ class Profile extends Component {
   render() {
     return (
       <div id='profile'>
-        <div className='icon'>
-          <img
-            className='summoner-icon'
-            src={`https://raw.communitydragon.org/latest/game/assets/ux/summonericons/profileicon${this.state.icon}.png`}
-          />
-          <div className={'availability ' + this.state.availability}></div>
-        </div>
+        <Icon />
         <div className='info'>
           <div className='upper'>
             <span className='name'>{this.state.name}</span>

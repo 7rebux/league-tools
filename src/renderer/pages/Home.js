@@ -11,6 +11,7 @@ function Home() {
     <div className='page home'>
       <Profile />
       <button onClick={() => navigate('../availability')}>Availability</button>
+      <button onClick={() => navigate('../status')}>Status</button>
     </div>
   )
 }

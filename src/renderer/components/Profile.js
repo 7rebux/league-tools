@@ -32,7 +32,7 @@ class Profile extends Component {
         level: responses[0].summonerLevel,
         name: responses[0].displayName,
         rank: (responses[1].lol.rankedLeagueTier ?? 'UNRANKED').toLowerCase(),
-        division: responses[1].lol.rankedLeagueDivision,
+        division: responses[1].lol.rankedLeagueDivision ?? '',
         tag: responses[1].gameTag,
         region: responses[1].platformId,
         rp: responses[2].RP ?? 0,

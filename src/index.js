@@ -9,6 +9,7 @@ import Home from './renderer/pages/Home'
 import Availability from './renderer/pages/Availability'
 import Status from './renderer/pages/Status'
 import Background from './renderer/pages/Background'
+import Icons from './renderer/pages/Icons'
 
 import './renderer/style.sass'
 
@@ -23,6 +24,7 @@ ReactDOM.render(
           <Route path='/availability' element={<Availability />} />
           <Route path='/status' element={<Status />} />
           <Route path='/background' element={<Background />} />
+          <Route path='/icons' element={<Icons />} />
         </Routes>
       </main>
     </div>

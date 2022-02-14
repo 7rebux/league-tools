@@ -8,6 +8,7 @@ import Login from './renderer/pages/Login'
 import Home from './renderer/pages/Home'
 import Availability from './renderer/pages/Availability'
 import Status from './renderer/pages/Status'
+import Background from './renderer/pages/Background'
 
 import './renderer/style.sass'
 
@@ -21,6 +22,7 @@ ReactDOM.render(
           <Route path='/home' element={<Home />} />
           <Route path='/availability' element={<Availability />} />
           <Route path='/status' element={<Status />} />
+          <Route path='/background' element={<Background />} />
         </Routes>
       </main>
     </div>

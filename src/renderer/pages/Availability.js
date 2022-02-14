@@ -7,7 +7,9 @@ import './Availability.sass'
 
 function Availability() {
   function update() {
-    request('/lol-chat/v1/me/', 'put', { availability: document.getElementById('availability-dropdown').value })
+    request('/lol-chat/v1/me/', 'put', {
+      availability: document.getElementById('availability-dropdown').value,
+    })
   }
 
   return (

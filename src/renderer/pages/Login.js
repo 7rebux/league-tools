@@ -15,7 +15,12 @@ function Login() {
         <p>Start by connecting to your League Client</p>
       </div>
       <div>
-        <button className='connect' onClick={() => connect().then(() => navigate('../home'))}>Connect</button>
+        <button
+          className='connect'
+          onClick={() => connect().then(() => navigate('../home'))}
+        >
+          Connect
+        </button>
       </div>
       <span className='version'>v2.0.0</span>
     </div>

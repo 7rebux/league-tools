@@ -6,7 +6,9 @@ import './Status.sass'
 
 function Status() {
   function update() {
-    request('/lol-chat/v1/me/', 'put', { statusMessage: document.getElementById('status-input').value })
+    request('/lol-chat/v1/me/', 'put', {
+      statusMessage: document.getElementById('status-input').value,
+    })
   }
 
   return (

@@ -1,4 +1,4 @@
-const { Component } = require('react')
+import { Component } from 'react'
 
 import './ProfileBadge.sass'
 

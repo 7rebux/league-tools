@@ -1,8 +1,7 @@
-const { Component } = require('react')
-const { request } = require('../Bridge')
+import { Component } from 'react'
 
-import Icon from './Icon'
-import ProfileBadge from './ProfileBadge'
+import { request } from '../Bridge'
+import { Icon, ProfileBadge } from './'
 
 import './Profile.sass'
 

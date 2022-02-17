@@ -1,6 +1,6 @@
-const { useNavigate } = require('react-router-dom')
+import { useNavigate } from 'react-router-dom'
 
-import Profile from '../components/Profile'
+import { Profile } from '../components'
 
 import './Home.sass'
 

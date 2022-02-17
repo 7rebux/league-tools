@@ -1,15 +1,8 @@
-import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-import TitleBar from './renderer/components/TitleBar'
-
-import Login from './renderer/pages/Login'
-import Home from './renderer/pages/Home'
-import Availability from './renderer/pages/Availability'
-import Status from './renderer/pages/Status'
-import Background from './renderer/pages/Background'
-import Icons from './renderer/pages/Icons'
+import { TitleBar } from './renderer/components'
+import { Login, Home, Availability, Status, Background, Icons } from './renderer/pages'
 
 import './renderer/style.sass'
 

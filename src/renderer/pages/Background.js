@@ -1,6 +1,4 @@
-const { request } = require('../Bridge')
-
-import Container from '../components/Container'
+import { Container } from '../components'
 
 import './Background.sass'
 

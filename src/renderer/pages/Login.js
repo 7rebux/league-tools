@@ -1,5 +1,6 @@
-const { connect } = require('../Bridge')
-const { useNavigate } = require('react-router-dom')
+import { useNavigate } from 'react-router-dom'
+
+import { connect } from '../Bridge'
 
 import './Login.sass'
 

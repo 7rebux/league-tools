@@ -1,5 +1,6 @@
-const { Component } = require('react')
-const { request } = require('../Bridge')
+import { Component } from 'react'
+
+import { request } from '../Bridge'
 
 import './Icon.sass'
 

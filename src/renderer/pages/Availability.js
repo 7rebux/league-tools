@@ -1,7 +1,5 @@
-const { request } = require('../Bridge')
-
-import Container from '../components/Container'
-import Icon from '../components/Icon'
+import { request } from '../Bridge'
+import { Container , Icon }  from '../components'
 
 import './Availability.sass'
 

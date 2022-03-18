@@ -8,12 +8,10 @@
   "private": true,
   "scripts": {
     "client": "electron .",
-    "server": "react-scripts start",
-    "prettier": "prettier --write ."
+    "server": "react-scripts start"
   },
   "devDependencies": {
-    "electron": "^16.0.8",
-    "prettier": "^2.5.1"
+    "electron": "^16.0.8"
   },
   "dependencies": {
     "electron-fetch": "^1.7.4",

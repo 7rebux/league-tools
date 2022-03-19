@@ -23,6 +23,8 @@ function Badge({
     justifyContent: 'center',
     alignItems: 'center',
     gap: '.3rem',
+    userSelect: 'none',
+    pointerEvents: 'none',
   };
   const textStyle: React.CSSProperties = {
     color: color,
@@ -38,7 +40,7 @@ function Badge({
   return (
     <div style={badgeStyle}>
       {icon !== undefined && <img src={icon} style={iconStyle} />}
-      {text !== '' && <span style={textStyle}>{text}</span>}
+      {text !== undefined && <span style={textStyle}>{text}</span>}
     </div>
   );
 }

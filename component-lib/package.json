@@ -23,6 +23,7 @@
     "@rollup/plugin-typescript": "^8.3.1",
     "@storybook/addon-actions": "^6.4.19",
     "@storybook/addon-controls": "^6.4.19",
+    "@storybook/addon-docs": "^6.4.19",
     "@storybook/addon-measure": "^6.4.19",
     "@storybook/addon-outline": "^6.4.19",
     "@storybook/react": "^6.4.19",

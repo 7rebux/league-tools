@@ -3,8 +3,22 @@ export const Font = {
 };
 
 export const Color = {
-  surface: '#4B72FF',
+  surface: '#150233',
   primary: '#D86ADA',
-  secondary: '#F8B551',
+  secondary: '#6957E7',
   textPrimary: '#FFFBF4',
+  textSecondary: '#D4CFCD',
+};
+
+export const LeagueRankColor = {
+  unranked: '#404241',
+  iron: '#6b6b64',
+  bronze: '#a46628',
+  silver: '#b5b5b5',
+  gold: '#d6a738',
+  platinum: '#80aba4',
+  diamond: '#71b0d1',
+  master: '#7840a3',
+  grandmaster: '#9e3342',
+  challenger: '#1298e0',
 };

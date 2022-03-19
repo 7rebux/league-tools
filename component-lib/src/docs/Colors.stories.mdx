@@ -1,0 +1,98 @@
+import { Meta } from '@storybook/addon-docs';
+import { styled } from '@storybook/theming';
+
+import { Color, Font, LeagueRankColor as Rank } from '../Constants';
+
+<Meta title='Docs/Colors' />
+
+export const PaletteContainer = styled.div`
+  font-family: ${Font.text};
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+export const PaletteEntry = styled.div`
+  width: 130px;
+  height: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+`;
+
+export const ColorName = styled.span`
+  font-size: 22px;
+  color: ${Color.textPrimary};
+  user-select: none;
+`;
+
+export const ColorCode = styled.span`
+  font-size: 14px;
+  color: ${Color.textSecondary};
+  user-select: all;
+  cursor: pointer;
+`;
+
+# Colors
+
+## Palette
+
+<PaletteContainer>
+  <PaletteEntry style={{ backgroundColor: Color.primary }}>
+    <ColorName>Primary</ColorName>
+    <ColorCode>{Color.primary}</ColorCode>
+  </PaletteEntry>
+  <PaletteEntry style={{ backgroundColor: Color.secondary }}>
+    <ColorName>Secondary</ColorName>
+    <ColorCode>{Color.secondary}</ColorCode>
+  </PaletteEntry>
+  <PaletteEntry style={{ backgroundColor: Color.surface }}>
+    <ColorName>Surface</ColorName>
+    <ColorCode>{Color.surface}</ColorCode>
+  </PaletteEntry>
+</PaletteContainer>
+
+## League Ranks
+
+<PaletteContainer>
+  <PaletteEntry style={{ backgroundColor: Rank.unranked }}>
+    <ColorName>Unranked</ColorName>
+    <ColorCode>{Rank.unranked}</ColorCode>
+  </PaletteEntry>
+  <PaletteEntry style={{ backgroundColor: Rank.iron }}>
+    <ColorName>Iron</ColorName>
+    <ColorCode>{Rank.iron}</ColorCode>
+  </PaletteEntry>
+  <PaletteEntry style={{ backgroundColor: Rank.bronze }}>
+    <ColorName>Bronze</ColorName>
+    <ColorCode>{Rank.bronze}</ColorCode>
+  </PaletteEntry>
+  <PaletteEntry style={{ backgroundColor: Rank.silver }}>
+    <ColorName>Silver</ColorName>
+    <ColorCode>{Rank.silver}</ColorCode>
+  </PaletteEntry>
+  <PaletteEntry style={{ backgroundColor: Rank.gold }}>
+    <ColorName>Gold</ColorName>
+    <ColorCode>{Rank.gold}</ColorCode>
+  </PaletteEntry>
+  <PaletteEntry style={{ backgroundColor: Rank.platinum }}>
+    <ColorName>Platinum</ColorName>
+    <ColorCode>{Rank.platinum}</ColorCode>
+  </PaletteEntry>
+  <PaletteEntry style={{ backgroundColor: Rank.diamond }}>
+    <ColorName>Diamond</ColorName>
+    <ColorCode>{Rank.diamond}</ColorCode>
+  </PaletteEntry>
+  <PaletteEntry style={{ backgroundColor: Rank.master }}>
+    <ColorName>Master</ColorName>
+    <ColorCode>{Rank.master}</ColorCode>
+  </PaletteEntry>
+  <PaletteEntry style={{ backgroundColor: Rank.grandmaster }}>
+    <ColorName>Grandmaster</ColorName>
+    <ColorCode>{Rank.grandmaster}</ColorCode>
+  </PaletteEntry>
+  <PaletteEntry style={{ backgroundColor: Rank.challenger }}>
+    <ColorName>Challenger</ColorName>
+    <ColorCode>{Rank.challenger}</ColorCode>
+  </PaletteEntry>
+</PaletteContainer>

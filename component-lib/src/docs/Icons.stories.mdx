@@ -1,0 +1,88 @@
+import { Meta } from '@storybook/addon-docs';
+import { styled } from '@storybook/theming';
+
+import { Color, Font } from '../Constants';
+
+<Meta title='Docs/Icons' />
+
+export const IconContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  user-select: none;
+  pointer-events: none;
+  border: 1px solid gray;
+  row-gap: 5px;
+  justify-content: center;
+`;
+
+export const IconWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+`;
+
+export const Icon = styled.img`
+  width: 32px;
+  height: 32px;
+`;
+
+export const leagueRankUrl =
+  'https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/ranked-mini-regalia/';
+
+# Icons
+
+## Default
+
+> TODO
+
+## League Ranks
+
+<IconContainer>
+  <IconWrapper>
+    <Icon src={`${leagueRankUrl}unranked.png`} />
+    <span>| Unranked</span>
+  </IconWrapper>
+  <IconWrapper>
+    <Icon src={`${leagueRankUrl}iron.png`} />
+    <span>| Iron</span>
+  </IconWrapper>
+  <IconWrapper>
+    <Icon src={`${leagueRankUrl}bronze.png`} />
+    <span>| Bronze</span>
+  </IconWrapper>
+  <IconWrapper>
+    <Icon src={`${leagueRankUrl}silver.png`} />
+    <span>| Silver</span>
+  </IconWrapper>
+  <IconWrapper>
+    <Icon src={`${leagueRankUrl}gold.png`} />
+    <span>| Gold</span>
+  </IconWrapper>
+  <IconWrapper>
+    <Icon src={`${leagueRankUrl}platinum.png`} />
+    <span>| Platinum</span>
+  </IconWrapper>
+  <IconWrapper>
+    <Icon src={`${leagueRankUrl}diamond.png`} />
+    <span>| Diamond</span>
+  </IconWrapper>
+  <IconWrapper>
+    <Icon src={`${leagueRankUrl}master.png`} />
+    <span>| Master</span>
+  </IconWrapper>
+  <IconWrapper>
+    <Icon src={`${leagueRankUrl}grandmaster.png`} />
+    <span>| Grandmaster</span>
+  </IconWrapper>
+  <IconWrapper>
+    <Icon src={`${leagueRankUrl}challenger.png`} />
+    <span>| Challenger</span>
+  </IconWrapper>
+</IconContainer>
+
+## Availability Dots
+
+> TODO

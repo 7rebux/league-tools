@@ -8,6 +8,8 @@ specifiers:
   '@rollup/plugin-typescript': ^8.3.1
   '@storybook/addon-actions': ^6.4.19
   '@storybook/addon-controls': ^6.4.19
+  '@storybook/addon-measure': ^6.4.19
+  '@storybook/addon-outline': ^6.4.19
   '@storybook/react': ^6.4.19
   babel-loader: ^8.2.3
   babel-preset-react-app: ^10.0.1
@@ -27,6 +29,8 @@ devDependencies:
   '@rollup/plugin-typescript': 8.3.1_859e05ab655ea3c900a5f26a0311c0b5
   '@storybook/addon-actions': 6.4.19_react-dom@17.0.2+react@17.0.2
   '@storybook/addon-controls': 6.4.19_aeaba09eb00f7665e5acdd7c57ed6790
+  '@storybook/addon-measure': 6.4.19_react-dom@17.0.2+react@17.0.2
+  '@storybook/addon-outline': 6.4.19_react-dom@17.0.2+react@17.0.2
   '@storybook/react': 6.4.19_44244f646b85cc27b4e186d5843e9d3b
   babel-loader: 8.2.3_@babel+core@7.17.7
   babel-preset-react-app: 10.0.1
@@ -1829,6 +1833,58 @@ packages:
       - vue-template-compiler
       - webpack-cli
       - webpack-command
+    dev: true
+
+  /@storybook/addon-measure/6.4.19_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-PXeU0AlpnGEvnzBQ6snkzmlIpwE0ci8LdFtL1Vz1V1Xk5fbuETWYuEkPuk1oZ7L9igB9cfT32SyJlE5MC1iaGg==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0
+      react-dom: ^16.8.0 || ^17.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      '@storybook/addons': 6.4.19_react-dom@17.0.2+react@17.0.2
+      '@storybook/api': 6.4.19_react-dom@17.0.2+react@17.0.2
+      '@storybook/client-logger': 6.4.19
+      '@storybook/components': 6.4.19_react-dom@17.0.2+react@17.0.2
+      '@storybook/core-events': 6.4.19
+      '@storybook/csf': 0.0.2--canary.87bc651.0
+      core-js: 3.21.1
+      global: 4.4.0
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+    transitivePeerDependencies:
+      - '@types/react'
+    dev: true
+
+  /@storybook/addon-outline/6.4.19_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-7ZDXo8qrms6dx0KRP9PInXIie82h5g9XCNrGOUdfZkQPvgofJVj0kNv6p+WOiGiaVfKPC5KMgIofqzBTFV+k6Q==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0
+      react-dom: ^16.8.0 || ^17.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      '@storybook/addons': 6.4.19_react-dom@17.0.2+react@17.0.2
+      '@storybook/api': 6.4.19_react-dom@17.0.2+react@17.0.2
+      '@storybook/client-logger': 6.4.19
+      '@storybook/components': 6.4.19_react-dom@17.0.2+react@17.0.2
+      '@storybook/core-events': 6.4.19
+      '@storybook/csf': 0.0.2--canary.87bc651.0
+      core-js: 3.21.1
+      global: 4.4.0
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      regenerator-runtime: 0.13.9
+      ts-dedent: 2.2.0
+    transitivePeerDependencies:
+      - '@types/react'
     dev: true
 
   /@storybook/addons/6.4.19_react-dom@17.0.2+react@17.0.2:

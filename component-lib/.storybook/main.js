@@ -6,6 +6,8 @@ module.exports = {
     '@storybook/addon-controls',
     '@storybook/addon-actions',
     'storybook-dark-mode',
+    '@storybook/addon-measure',
+    '@storybook/addon-outline',
   ],
   webpackFinal: async (config) => {
     config.module.rules.push({

@@ -1,31 +1,29 @@
 import typescript from '@rollup/plugin-typescript';
 import dts from 'rollup-plugin-dts';
 
-const package = require('package.json');
+const pack = require('./package.json');
 
 export default [
   {
     input: 'src/index.ts',
     output: [
       {
-        file: package.main,
+        file: pack.main,
         format: 'cjs',
         sourcemap: true,
       },
       {
-        file: package.module,
+        file: pack.module,
         format: 'esm',
         sourcemap: true,
       },
     ],
-    plugins: [
-      typescript({ tsconfig: "./tsconfig.json" }),
-    ],
+    plugins: [typescript({ tsconfig: './tsconfig.json' })],
   },
   {
     input: 'dist/esm/types/index.d.ts',
     output: [{ file: 'dist/index.d.ts', format: 'esm' }],
-    plugins: [ dts() ],
-    external: [ /\.css$/ ],
+    plugins: [dts()],
+    external: [/\.css$/],
   },
 ];

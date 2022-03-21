@@ -1,6 +1,0 @@
-export { default as Login } from './Login'
-export { default as Home } from  './Home'
-export { default as Availability } from './Availability'
-export { default as Status } from './Status'
-export { default as Background } from './Background'
-export { default as Icons } from './Icons'

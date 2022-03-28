@@ -33,11 +33,11 @@ Text.args = {
 
 export const Icon = Template.bind({});
 Icon.args = {
-  icon: 'https://raw.githubusercontent.com/7rebux/League-Tools/main/public/assets/level.png',
+  icon: 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/items/icons2d/3041_mage_t2_mejaissoulstealer.png',
 };
 
 export const Both = Template.bind({});
 Both.args = {
   text: 'Title',
-  icon: 'https://raw.githubusercontent.com/7rebux/League-Tools/main/public/assets/level.png',
+  icon: 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/items/icons2d/3041_mage_t2_mejaissoulstealer.png',
 };

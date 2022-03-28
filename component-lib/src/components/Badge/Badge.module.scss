@@ -1,0 +1,24 @@
+.badge {
+  min-width: 4rem;
+  min-height: 1.3rem;
+  width: fit-content;
+  padding: 0.3rem 0.8rem 0.3rem 0.8rem;
+  border: 0.4rem solid;
+  border-radius: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+  user-select: none;
+  pointer-events: none;
+
+  img {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+
+  span {
+    font-size: 15px;
+    font-weight: 300;
+  }
+}

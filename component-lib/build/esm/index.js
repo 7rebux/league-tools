@@ -44,9 +44,9 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = ".Badge-module_badge__ZbEBU {\n  min-width: 4rem;\n  min-height: 1.3rem;\n  width: fit-content;\n  padding: 0.3rem 0.8rem 0.3rem 0.8rem;\n  border: 0.4rem solid;\n  border-radius: 100vw;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 0.3rem;\n  user-select: none;\n  pointer-events: none;\n}\n.Badge-module_badge__ZbEBU img {\n  width: 1.3rem;\n  height: 1.3rem;\n}\n.Badge-module_badge__ZbEBU span {\n  font-size: 15px;\n  font-weight: 300;\n}";
-var styles = {"badge":"Badge-module_badge__ZbEBU"};
-styleInject(css_248z);
+var css_248z$1 = ".Badge-module_badge__ZbEBU {\n  min-width: 4rem;\n  min-height: 1.3rem;\n  width: fit-content;\n  padding: 0.3rem 0.8rem 0.3rem 0.8rem;\n  border: 0.4rem solid;\n  border-radius: 100vw;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 0.3rem;\n  user-select: none;\n  pointer-events: none;\n}\n.Badge-module_badge__ZbEBU img {\n  width: 1.3rem;\n  height: 1.3rem;\n}\n.Badge-module_badge__ZbEBU span {\n  font-size: 15px;\n  font-weight: 300;\n}";
+var styles$1 = {"badge":"Badge-module_badge__ZbEBU"};
+styleInject(css_248z$1);
 
 function Badge(_a) {
     var text = _a.text, icon = _a.icon, _b = _a.backgroundColor, backgroundColor = _b === void 0 ? Color.primary : _b, _c = _a.color, color = _c === void 0 ? Color.textPrimary : _c;
@@ -58,10 +58,27 @@ function Badge(_a) {
         color: color,
         fontFamily: Font.text,
     };
-    return (React.createElement("div", { className: styles.badge, style: badgeStyle },
+    return (React.createElement("div", { className: styles$1.badge, style: badgeStyle },
         icon !== undefined && React.createElement("img", { src: icon }),
         text !== undefined && React.createElement("span", { style: textStyle }, text)));
 }
 
-export { Badge };
+var css_248z = ".Button-module_button__18Bed {\n  padding: 8px;\n  min-width: 7rem;\n  width: fit-content;\n  user-select: none;\n  border-radius: 5px;\n  text-align: center;\n}\n.Button-module_button__18Bed span {\n  font-size: 17px;\n  font-weight: 600;\n}";
+var styles = {"button":"Button-module_button__18Bed"};
+styleInject(css_248z);
+
+function Button(_a) {
+    var title = _a.title;
+    var buttonStyle = {
+        background: "linear-gradient(72deg, ".concat(Color.primary, ", ").concat(Color.secondary, ")"),
+    };
+    var textStyle = {
+        color: Color.textPrimary,
+        fontFamily: Font.text,
+    };
+    return (React.createElement("div", { className: styles.button, style: buttonStyle },
+        React.createElement("span", { style: textStyle }, title)));
+}
+
+export { Badge, Button };
 //# sourceMappingURL=index.js.map

@@ -1,0 +1,13 @@
+.button {
+  padding: 8px;
+  min-width: 7rem;
+  width: fit-content;
+  user-select: none;
+  border-radius: 5px;
+  text-align: center;
+
+  span {
+    font-size: 17px;
+    font-weight: 600;
+  }
+}

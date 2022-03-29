@@ -1,3 +1,5 @@
+@use '../../theme';
+
 .button {
   padding: 8px;
   min-width: 7rem;
@@ -5,9 +7,16 @@
   user-select: none;
   border-radius: 5px;
   text-align: center;
+  background: linear-gradient(72deg, theme.$primary, theme.$secondary);
+
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
+  }
 
   span {
     font-size: 17px;
     font-weight: 600;
+    color: theme.$textPrimary;
+    font-family: theme.$font;
   }
 }

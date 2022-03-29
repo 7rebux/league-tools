@@ -2,7 +2,7 @@ import React from 'react';
 
 import { BadgeProps } from './Badge.types';
 
-import { Font, Color } from '../../Constants';
+import { Color } from '../../Constants';
 import { adjustColor } from '../../Utils';
 
 import styles from './Badge.module.scss';
@@ -19,7 +19,6 @@ function Badge({
   };
   const textStyle: React.CSSProperties = {
     color: color,
-    fontFamily: Font.text,
   };
 
   return (

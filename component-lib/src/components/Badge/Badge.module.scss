@@ -1,3 +1,5 @@
+@use '../../theme';
+
 .badge {
   min-width: 4rem;
   min-height: 1.3rem;
@@ -20,5 +22,6 @@
   span {
     font-size: 15px;
     font-weight: 300;
+    font-family: theme.$font;
   }
 }

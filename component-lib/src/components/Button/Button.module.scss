@@ -1,7 +1,7 @@
 @use '../../theme';
 
 .button {
-  padding: 8px;
+  padding: 9px;
   min-width: 7rem;
   width: fit-content;
   user-select: none;
@@ -14,8 +14,8 @@
   }
 
   span {
-    font-size: 17px;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 500;
     color: theme.$textPrimary;
     font-family: theme.$font;
   }

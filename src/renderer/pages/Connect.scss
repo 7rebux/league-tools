@@ -1,0 +1,62 @@
+@use '../theme';
+
+.connect-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: theme.$font;
+
+  .content {
+    width: 80vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      .title {
+        color: theme.$textPrimary;
+        font-size: 28px;
+        font-weight: 200;
+        margin: 0;
+
+        .name {
+          font-weight: 600;
+          color: theme.$primary;
+        }
+      }
+
+      .subtitle {
+        color: theme.$textSecondary;
+        font-size: 15px;
+        font-weight: 300;
+      }
+
+      .button-wrapper {
+        display: flex;
+        flex-direction: row;
+        gap: 40px;
+      }
+    }
+
+    .preview {
+      height: 375px;
+      width: 250px;
+      background-color: #343544;
+      border: 2px solid #583e83;
+    }
+  }
+
+  .version {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 5px;
+    font-size: 13px;
+    color: theme.$textSecondary;
+  }
+}

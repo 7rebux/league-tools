@@ -6,7 +6,6 @@ if (require('electron-squirrel-startup')) app.quit();
 
 const createWindow = (): void => {
   const mainWindow = new BrowserWindow({
-    title: 'League Tools',
     height: 600,
     width: 800,
     webPreferences: {

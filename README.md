@@ -1,60 +1,61 @@
-[![License](https://img.shields.io/crates/l/fontdue.svg)](/LICENSE)
-
 # League-Tools
 
-A simple application with many useful functions which work with the LCU api of Riot Games
+![Issues](https://img.shields.io/github/issues-raw/7rebux/league-tools)
+![Pull requests](https://img.shields.io/github/issues-pr/7rebux/league-tools)
+![Last commit](https://img.shields.io/github/last-commit/7rebux/league-tools/main)
+![License](https://img.shields.io/github/license/7rebux/league-tools)
+![Stars](https://img.shields.io/github/stars/7rebux/league-tools)
 
-## Preview
+A simple application with many useful functions that work with the LCU api of Riot Games.
 
-![Screenshot](/preview/screenshot.png?raw=true)
+## 🧩 Demo
 
-## Contributing
+`TODO`
 
-When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
+## 💾 Installation
 
-### Installation
+Either download and install the latest release or make your own changes to this project by cloning this repository.
 
-You can work with this project by cloning it or [downloading the code](https://github.com/7rebux/League-Tools/archive/main.zip).  
-Also make sure that you have installed Node.js ([Download](https://www.npmjs.com/get-npm)).
+### Download
 
-#### Cloning
+- Windows
+- Linux
+- Mac
 
-```batch
-git clone https://github.com/7rebux/League-Tools
+### Development
+
+#### App
+
+```bash
+git clone "https://github.com/7rebux/league-tools"
+npm i -G pnpm
+cd "./league-tools"
+pnpm i
+pnpm start
 ```
 
-#### Running
+#### Component Library
 
-After downloading it make sure to navigate to the folder and run the following command to install the missing node modules:
-
-```batch
-npm install
+```bash
+cd "./component-lib"
+pnpm i
+pnpm start # This will start a local storybook instance
 ```
 
-Now you can run the project:
+Make sure to run `pnpm build` after you made changes, to update the library for the app project.
 
-```batch
-npm test
-```
+## 👨‍💻 Contributing
 
-Good luck and have fun!
+Just open a pull request and explain your additions and changes.
 
-## Built with
-
-- [Node.js](https://github.com/nodejs/node)
-- [Electron](https://github.com/electron/electron)
-- [Node-Fetch](https://github.com/node-fetch/node-fetch)
-- [LCU-Connector](https://github.com/Pupix/lcu-connector)
-- [League Profile Tool](https://github.com/MManoah/league-profile-tool)
-
-## Riot Games
+## ℹ️ Riot Games
 
 This project isn’t endorsed by Riot Games and doesn’t reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.
 
-## License
+## ⚖️ License
 
 This project is licensed under the MIT License - see the [LICENSE file](/LICENSE) for details
 
-## Related Projects
+## 🔗 Related Projects
 
 [Awesome League](https://github.com/CommunityDragon/awesome-league), a list of things that work with the League of Legends API.

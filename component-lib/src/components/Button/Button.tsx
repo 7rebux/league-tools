@@ -4,9 +4,9 @@ import { ButtonProps } from './Button.types';
 
 import styles from './Button.module.scss';
 
-function Button({ title, onClick }: ButtonProps) {
+function Button({ title, variant = 'primary', onClick }: ButtonProps) {
   return (
-    <div className={styles.button} onClick={onClick}>
+    <div className={styles[variant]} onClick={onClick}>
       <span>{title}</span>
     </div>
   );

@@ -17,4 +17,13 @@ export const Primary: Story<ButtonProps> = (args) => (
 );
 Primary.args = {
   title: 'Title',
+  variant: 'primary',
+};
+
+export const Secondary: Story<ButtonProps> = (args) => (
+  <Button onClick={() => action('onClick')({})} {...args} />
+);
+Secondary.args = {
+  title: 'Title',
+  variant: 'secondary',
 };

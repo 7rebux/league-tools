@@ -59,13 +59,13 @@ function Badge(_a) {
         text !== undefined && React.createElement("span", { style: textStyle }, text)));
 }
 
-var css_248z = ".Button-module_button__18Bed {\n  padding: 9px;\n  min-width: 7rem;\n  width: fit-content;\n  user-select: none;\n  border-radius: 5px;\n  text-align: center;\n  background: linear-gradient(72deg, #d86ada, #6957e7);\n}\n.Button-module_button__18Bed:hover {\n  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;\n}\n.Button-module_button__18Bed span {\n  font-size: 15px;\n  font-weight: 500;\n  color: #fffbf4;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif;\n}";
-var styles = {"button":"Button-module_button__18Bed"};
+var css_248z = ".Button-module_button__18Bed, .Button-module_secondary__j-3rj, .Button-module_primary__st6yY {\n  padding: 9px;\n  min-width: 7rem;\n  width: fit-content;\n  user-select: none;\n  border-radius: 5px;\n  text-align: center;\n}\n.Button-module_button__18Bed:hover, .Button-module_secondary__j-3rj:hover, .Button-module_primary__st6yY:hover {\n  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;\n}\n.Button-module_button__18Bed span, .Button-module_secondary__j-3rj span, .Button-module_primary__st6yY span {\n  font-size: 15px;\n  font-weight: 500;\n  color: #fffbf4;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif;\n}\n\n.Button-module_primary__st6yY {\n  background: linear-gradient(72deg, #d86ada, #6957e7);\n}";
+var styles = {"button":"Button-module_button__18Bed","secondary":"Button-module_secondary__j-3rj","primary":"Button-module_primary__st6yY"};
 styleInject(css_248z);
 
 function Button(_a) {
-    var title = _a.title, onClick = _a.onClick;
-    return (React.createElement("div", { className: styles.button, onClick: onClick },
+    var title = _a.title, _b = _a.variant, variant = _b === void 0 ? 'primary' : _b, onClick = _a.onClick;
+    return (React.createElement("div", { className: styles[variant], onClick: onClick },
         React.createElement("span", null, title)));
 }
 

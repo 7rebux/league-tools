@@ -6,6 +6,8 @@
   align-items: center;
   height: 100vh;
   font-family: theme.$font;
+  overflow: hidden;
+  position: relative;
 
   .content {
     width: 80vw;
@@ -58,5 +60,17 @@
     margin: 5px;
     font-size: 13px;
     color: theme.$textSecondary;
+  }
+
+  .wave {
+    position: absolute;
+    bottom: 0;
+    z-index: -1;
+
+    &.second {
+      bottom: 7%;
+      transform: scaleX(1.2);
+      z-index: -2;
+    }
   }
 }

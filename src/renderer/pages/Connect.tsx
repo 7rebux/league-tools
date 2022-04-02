@@ -19,7 +19,7 @@ function Connect() {
           </div>
           <div className='button-wrapper'>
             <Button variant='primary' title='Connect' />
-            <Button variant='secondary' title='Functions' />
+            <Button variant='secondary' title='Functions -->' />
           </div>
         </div>
         <div className='preview'></div>

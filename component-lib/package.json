@@ -35,6 +35,7 @@
     "css-loader": "5.2.7",
     "node-sass": "^7.0.1",
     "rollup": "^2.70.1",
+    "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-typescript2": "^0.31.2",

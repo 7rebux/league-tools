@@ -1,11 +1,11 @@
-@use '~component-lib/build/theme.scss';
+@use '~component-lib/build/_theme' as *;
 
 .connect-page {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  font-family: theme.$font;
+  font-family: $font;
   overflow: hidden;
   position: relative;
 
@@ -21,19 +21,19 @@
       gap: 20px;
 
       .title {
-        color: theme.$textPrimary;
+        color: $textPrimary;
         font-size: 28px;
         font-weight: 200;
         margin: 0;
 
         .name {
           font-weight: 600;
-          color: theme.$primary;
+          color: $primary;
         }
       }
 
       .subtitle {
-        color: theme.$textSecondary;
+        color: $textSecondary;
         font-size: 15px;
         font-weight: 300;
       }
@@ -59,7 +59,7 @@
     right: 0;
     margin: 5px;
     font-size: 13px;
-    color: theme.$textSecondary;
+    color: $textSecondary;
   }
 
   .wave {

@@ -30,9 +30,9 @@ export default {
     copy({
       targets: [
         {
-          src: 'src/theme.scss',
+          src: 'src/_theme.scss',
           dest: 'build',
-          rename: 'theme.scss',
+          rename: '_theme.scss',
         },
       ],
     }),

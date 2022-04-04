@@ -1,0 +1,7 @@
+@use '~component-lib/build/_theme' as *;
+
+body {
+  margin: 0;
+  background-color: $background;
+  user-select: none;
+}

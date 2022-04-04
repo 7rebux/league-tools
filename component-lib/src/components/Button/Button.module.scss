@@ -1,4 +1,4 @@
-@use '../../theme';
+@use '../../theme' as *;
 
 .button {
   padding: 9px;
@@ -15,14 +15,14 @@
   span {
     font-size: 15px;
     font-weight: 500;
-    color: theme.$textPrimary;
-    font-family: theme.$buttonFont;
+    color: $textPrimary;
+    font-family: $buttonFont;
   }
 }
 
 .primary {
   @extend .button;
-  background: linear-gradient(72deg, theme.$primary, theme.$secondary);
+  background: linear-gradient(72deg, $primary, $secondary);
 }
 
 .secondary {

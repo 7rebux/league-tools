@@ -1,4 +1,4 @@
-@use '../../theme';
+@use '../../_theme' as *;
 
 .badge {
   min-width: 4rem;
@@ -22,6 +22,6 @@
   span {
     font-size: 15px;
     font-weight: 300;
-    font-family: theme.$font;
+    font-family: $font;
   }
 }

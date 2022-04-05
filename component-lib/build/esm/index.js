@@ -1,19 +1,5 @@
 import React from 'react';
 
-var Color = {
-    surface: '#150233',
-    primary: '#D86ADA',
-    secondary: '#6957E7',
-    textPrimary: '#FFFBF4',
-    textSecondary: '#D4CFCD',
-};
-
-function adjustColor(color, anmount) {
-    return color.replace(/\w\w/g, function (m) {
-        return Math.min(255, Math.max(0, parseInt(m, 16) + anmount)).toString(16);
-    });
-}
-
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
@@ -41,12 +27,17 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$1 = "@import url(\"https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap\");\n.Badge-module_badge__ZbEBU {\n  min-width: 4rem;\n  min-height: 1.3rem;\n  width: fit-content;\n  padding: 0.3rem 0.8rem 0.3rem 0.8rem;\n  border: 0.4rem solid;\n  border-radius: 100vw;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 0.3rem;\n  user-select: none;\n  pointer-events: none;\n}\n.Badge-module_badge__ZbEBU img {\n  width: 1.3rem;\n  height: 1.3rem;\n}\n.Badge-module_badge__ZbEBU span {\n  font-size: 15px;\n  font-weight: 300;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif;\n}";
+var css_248z$1 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Badge-module_badge__ZbEBU {\n  min-width: 4rem;\n  min-height: 1.3rem;\n  width: fit-content;\n  padding: 0.3rem 0.8rem 0.3rem 0.8rem;\n  border: 0.4rem solid;\n  border-radius: 100vw;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 0.3rem;\n  user-select: none;\n  pointer-events: none;\n}\n.Badge-module_badge__ZbEBU img {\n  width: 1.3rem;\n  height: 1.3rem;\n}\n.Badge-module_badge__ZbEBU span {\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n}";
 var styles$1 = {"badge":"Badge-module_badge__ZbEBU"};
 styleInject(css_248z$1);
 
-function Badge(_a) {
-    var text = _a.text, icon = _a.icon, _b = _a.backgroundColor, backgroundColor = _b === void 0 ? Color.primary : _b, _c = _a.color, color = _c === void 0 ? Color.textPrimary : _c;
+function adjustColor(color, anmount) {
+    return color.replace(/\w\w/g, function (m) {
+        return Math.min(255, Math.max(0, parseInt(m, 16) + anmount)).toString(16);
+    });
+}
+var Badge = function (_a) {
+    var text = _a.text, icon = _a.icon, _b = _a.backgroundColor, backgroundColor = _b === void 0 ? '#d86ada' : _b, _c = _a.color, color = _c === void 0 ? '#fffbf4' : _c;
     var badgeStyle = {
         backgroundColor: backgroundColor,
         borderColor: adjustColor(backgroundColor, -20),
@@ -54,20 +45,20 @@ function Badge(_a) {
     var textStyle = {
         color: color,
     };
-    return (React.createElement("div", { className: styles$1.badge, style: badgeStyle },
+    return (React.createElement("div", { style: badgeStyle, className: styles$1.badge },
         icon !== undefined && React.createElement("img", { src: icon }),
         text !== undefined && React.createElement("span", { style: textStyle }, text)));
-}
+};
 
-var css_248z = "@import url(\"https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap\");\n.Button-module_button__18Bed, .Button-module_secondary__j-3rj, .Button-module_primary__st6yY {\n  padding: 9px;\n  min-width: 7rem;\n  width: fit-content;\n  user-select: none;\n  border-radius: 5px;\n  text-align: center;\n}\n.Button-module_button__18Bed:hover, .Button-module_secondary__j-3rj:hover, .Button-module_primary__st6yY:hover {\n  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;\n}\n.Button-module_button__18Bed span, .Button-module_secondary__j-3rj span, .Button-module_primary__st6yY span {\n  font-size: 15px;\n  font-weight: 500;\n  color: #fffbf4;\n  font-family: Inter;\n}\n\n.Button-module_primary__st6yY {\n  background: linear-gradient(72deg, #d86ada, #6957e7);\n}";
+var css_248z = "@import url(\"https://rsms.me/inter/inter.css\");\n.Button-module_button__18Bed, .Button-module_secondary__j-3rj, .Button-module_primary__st6yY {\n  padding: 9px;\n  min-width: 7rem;\n  width: fit-content;\n  user-select: none;\n  border-radius: 5px;\n  text-align: center;\n}\n.Button-module_button__18Bed:hover, .Button-module_secondary__j-3rj:hover, .Button-module_primary__st6yY:hover {\n  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;\n}\n.Button-module_button__18Bed span, .Button-module_secondary__j-3rj span, .Button-module_primary__st6yY span {\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  font-size: 16px;\n}\n\n.Button-module_primary__st6yY {\n  background: linear-gradient(72deg, #d86ada, #6957e7);\n}";
 var styles = {"button":"Button-module_button__18Bed","secondary":"Button-module_secondary__j-3rj","primary":"Button-module_primary__st6yY"};
 styleInject(css_248z);
 
-function Button(_a) {
+var Button = function (_a) {
     var title = _a.title, _b = _a.variant, variant = _b === void 0 ? 'primary' : _b, onClick = _a.onClick;
     return (React.createElement("div", { className: styles[variant], onClick: onClick },
         React.createElement("span", null, title)));
-}
+};
 
 export { Badge, Button };
 //# sourceMappingURL=index.js.map

@@ -1,18 +1,20 @@
 import React from 'react';
 
 import { BadgeProps } from './Badge.types';
-
-import { Color } from '../../Constants';
-import { adjustColor } from '../../Utils';
-
 import styles from './Badge.module.scss';
 
-function Badge({
+export function adjustColor(color: string, anmount: number) {
+  return color.replace(/\w\w/g, (m) =>
+    Math.min(255, Math.max(0, parseInt(m, 16) + anmount)).toString(16)
+  );
+}
+
+const Badge: React.FC<BadgeProps> = ({
   text,
   icon,
-  backgroundColor = Color.primary,
-  color = Color.textPrimary,
-}: BadgeProps) {
+  backgroundColor = '#d86ada',
+  color = '#fffbf4',
+}) => {
   const badgeStyle: React.CSSProperties = {
     backgroundColor: backgroundColor,
     borderColor: adjustColor(backgroundColor, -20),
@@ -22,11 +24,11 @@ function Badge({
   };
 
   return (
-    <div className={styles.badge} style={badgeStyle}>
+    <div style={badgeStyle} className={styles.badge}>
       {icon !== undefined && <img src={icon} />}
       {text !== undefined && <span style={textStyle}>{text}</span>}
     </div>
   );
-}
+};
 
 export default Badge;

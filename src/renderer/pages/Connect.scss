@@ -5,7 +5,6 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  font-family: $font;
   overflow: hidden;
   position: relative;
 
@@ -21,21 +20,17 @@
       gap: 20px;
 
       .title {
-        color: $textPrimary;
-        font-size: 28px;
-        font-weight: 200;
+        @include font('headline');
         margin: 0;
 
         .name {
-          font-weight: 600;
-          color: $primary;
+          font-weight: 700;
+          color: color('primary');
         }
       }
 
       .subtitle {
-        color: $textSecondary;
-        font-size: 15px;
-        font-weight: 300;
+        @include font('subtitle');
       }
 
       .button-wrapper {
@@ -54,12 +49,12 @@
   }
 
   .version {
+    @include font('subtitle');
+    font-size: 12px;
     position: absolute;
     bottom: 0;
     right: 0;
     margin: 5px;
-    font-size: 13px;
-    color: $textSecondary;
   }
 
   .wave {

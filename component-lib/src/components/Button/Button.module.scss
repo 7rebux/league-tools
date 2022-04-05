@@ -13,16 +13,14 @@
   }
 
   span {
-    font-size: 15px;
-    font-weight: 500;
-    color: $textPrimary;
-    font-family: $buttonFont;
+    @include font('body');
+    font-size: 16px;
   }
 }
 
 .primary {
   @extend .button;
-  background: linear-gradient(72deg, $primary, $secondary);
+  background: linear-gradient(72deg, color('primary'), color('secondary'));
 }
 
 .secondary {

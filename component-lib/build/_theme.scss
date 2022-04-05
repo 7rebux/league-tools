@@ -1,13 +1,40 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
+@import url('https://rsms.me/inter/inter.css');
 
-$background: #222222;
-$surface: #150233;
-$primary: #d86ada;
-$secondary: #6957e7;
-$textPrimary: #fffbf4;
-$textSecondary: #d4cfcd;
+$colors: (
+  background: #222222,
+  surface: #150233,
+  primary: #d86ada,
+  secondary: #6957e7,
+);
 
-$font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans,
-  Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+@function color($name) {
+  @return map-get($colors, $name);
+}
 
-$buttonFont: Inter;
+$fonts: (
+  headline: (
+    family: Inter,
+    size: 28px,
+    weight: 300,
+    color: #fffbf4,
+  ),
+  subtitle: (
+    family: Inter,
+    size: 15px,
+    weight: 300,
+    color: #d4cfcd,
+  ),
+  body: (
+    family: Inter,
+    size: 13px,
+    weight: normal,
+    color: #fffbf4,
+  ),
+);
+
+@mixin font($name) {
+  font-family: map-get($fonts, $name, 'family');
+  font-size: map-get($fonts, $name, 'size');
+  font-weight: map-get($fonts, $name, 'weight');
+  color: map-get($fonts, $name, 'color');
+}

@@ -10,7 +10,7 @@ A simple application with many useful functions that work with the LCU api of Ri
 
 ## 🧩 Demo
 
-`TODO`
+![Preview](./preview.png)
 
 ## 💾 Installation
 

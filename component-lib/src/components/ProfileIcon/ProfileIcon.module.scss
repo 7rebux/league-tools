@@ -1,0 +1,34 @@
+$availabilities: (
+  chat: #29c45a,
+  away: #c73c3c,
+  dnd: #4ab3e4,
+  offline: #8f8b8b,
+  mobile: #8f8b8b,
+);
+
+.profileIcon {
+  position: relative;
+  width: 128px;
+  height: 128px;
+
+  img {
+    border-radius: 25%;
+  }
+}
+
+@each $name, $color in $availabilities {
+  .availability[availability='#{$name}'] {
+    background-color: $color;
+    border-color: darken($color, 20);
+  }
+}
+
+.availability {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 50%;
+  border: 4px solid;
+}

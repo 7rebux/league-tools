@@ -6,6 +6,8 @@
 ![License](https://img.shields.io/github/license/7rebux/league-tools)
 ![Stars](https://img.shields.io/github/stars/7rebux/league-tools)
 
+_This branch is still under development! Please check out the [legacy branch](https://github.com/7rebux/league-tools/tree/legacy) for the old working version._
+
 A simple application with many useful functions that work with the LCU api of Riot Games.
 
 ## 🧩 Demo

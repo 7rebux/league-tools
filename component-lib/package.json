@@ -34,6 +34,7 @@
     "babel-preset-react-app": "^10.0.1",
     "css-loader": "5.2.7",
     "node-sass": "^7.0.1",
+    "react-icons": "^4.3.1",
     "rollup": "^2.70.1",
     "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",

@@ -15,6 +15,7 @@ specifiers:
   babel-preset-react-app: ^10.0.1
   css-loader: 5.2.7
   node-sass: ^7.0.1
+  react-icons: ^4.3.1
   rollup: ^2.70.1
   rollup-plugin-copy: ^3.4.0
   rollup-plugin-peer-deps-external: ^2.2.4
@@ -42,6 +43,7 @@ devDependencies:
   babel-preset-react-app: 10.0.1
   css-loader: 5.2.7
   node-sass: 7.0.1
+  react-icons: 4.3.1
   rollup: 2.70.1
   rollup-plugin-copy: 3.4.0
   rollup-plugin-peer-deps-external: 2.2.4_rollup@2.70.1
@@ -9524,6 +9526,12 @@ packages:
       prop-types: 15.8.1
       react-fast-compare: 3.2.0
       shallowequal: 1.1.0
+    dev: true
+
+  /react-icons/4.3.1:
+    resolution: {integrity: sha512-cB10MXLTs3gVuXimblAdI71jrJx8njrJZmNMEMC+sQu5B/BIOmlsAjskdqpn81y8UBVEGuHODd7/ci5DvoSzTQ==}
+    peerDependencies:
+      react: '*'
     dev: true
 
   /react-inspector/5.1.1:

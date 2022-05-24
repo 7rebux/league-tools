@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { ProfileIconProps } from './ProfileIcon.types';
-import styles from './ProfileIcon.module.scss';
+import { SummonerIconProps } from './SummonerIcon.types';
+import styles from './SummonerIcon.module.scss';
 
-const ProfileIcon: React.FC<ProfileIconProps> = ({ id, availability }) => {
+const ProfileIcon: React.FC<SummonerIconProps> = ({ iconId, availability }) => {
   return (
     <div className={styles.profileIcon}>
       <img
-        src={`https://raw.communitydragon.org/latest/game/assets/ux/summonericons/profileicon${id}.png`}
+        src={`https://raw.communitydragon.org/latest/game/assets/ux/summonericons/profileicon${iconId}.png`}
       ></img>
       {availability !== undefined && (
         <div

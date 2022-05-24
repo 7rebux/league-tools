@@ -1,0 +1,20 @@
+@use '../../_theme' as *;
+
+.filterCheckbox {
+  display: flex;
+  gap: 1rem;
+  background-color: color('secondary');
+  padding: 0.4rem;
+  width: fit-content;
+  align-items: center;
+  user-select: none;
+}
+
+.title {
+  @include font('body');
+}
+
+.box {
+  width: 1rem;
+  height: 1rem;
+}

@@ -1,0 +1,22 @@
+@use '../../_theme' as *;
+
+.filterDropdown {
+  user-select: none;
+  width: fit-content;
+}
+
+.head {
+  display: flex;
+  gap: 1rem;
+  background-color: color('secondary');
+  padding: 0.5rem;
+  align-items: center;
+}
+
+.title {
+  @include font('body');
+}
+
+.items > * {
+  background-color: darken(color('secondary'), 4);
+}

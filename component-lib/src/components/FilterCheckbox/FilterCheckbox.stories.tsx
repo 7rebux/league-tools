@@ -7,7 +7,7 @@ import FilterCheckbox from './FilterCheckbox';
 import { FilterCheckboxProps } from './FilterCheckbox.types';
 
 export default {
-  title: 'Library/FilterCheckbox',
+  title: 'Library/Filter/Checkbox',
   component: FilterCheckbox,
 } as Meta;
 

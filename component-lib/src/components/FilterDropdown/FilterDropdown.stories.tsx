@@ -7,11 +7,11 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import { FilterDropdownProps } from './FilterDropdown.types';
 
 export default {
-  title: 'Library/FilterDropdown',
+  title: 'Library/Filter/Dropdown',
   component: FilterDropdown,
 } as Meta;
 
-export const Default: Story<FilterDropdownProps> = (args) => (
+const Template: Story<FilterDropdownProps> = (args) => (
   <FilterDropdown {...args}>
     <FilterCheckbox title='Test1' />
     <FilterCheckbox title='Test2' />
@@ -19,6 +19,14 @@ export const Default: Story<FilterDropdownProps> = (args) => (
     <FilterCheckbox title='Test4' />
   </FilterDropdown>
 );
+
+export const Default = Template.bind({});
 Default.args = {
   title: 'Dropdown',
+};
+
+export const SearchBar = Template.bind({});
+SearchBar.args = {
+  title: 'Dropdown',
+  searchBar: true,
 };

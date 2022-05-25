@@ -11,6 +11,9 @@
   background-color: color('secondary');
   padding: 0.5rem;
   align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  border-radius: 10px 10px 0 0;
 }
 
 .title {
@@ -19,4 +22,10 @@
 
 .items > * {
   background-color: darken(color('secondary'), 4);
+  width: auto;
+}
+
+.items > input {
+  border: none;
+  border-radius: 0;
 }

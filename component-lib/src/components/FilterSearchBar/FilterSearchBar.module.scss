@@ -1,0 +1,10 @@
+@use '../../_theme' as *;
+
+.filterSearchBar {
+  @include font('body');
+  border: 4px solid color('secondary');
+  border-radius: 10px;
+  outline: none;
+  background-color: darken(color('secondary'), 45);
+  padding: 0.5rem;
+}

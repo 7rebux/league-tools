@@ -12,7 +12,7 @@ const ProfileIcon: React.FC<SummonerIconProps> = ({ iconId, availability }) => {
       {availability !== undefined && (
         <div
           className={`${styles.availability}`}
-          availability={availability}
+          data-custom={availability}
         ></div>
       )}
     </div>

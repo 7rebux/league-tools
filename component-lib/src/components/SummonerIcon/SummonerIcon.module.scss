@@ -17,7 +17,7 @@ $availabilities: (
 }
 
 @each $name, $color in $availabilities {
-  .availability[availability='#{$name}'] {
+  .availability[data-custom='#{$name}'] {
     background-color: $color;
     border-color: darken($color, 20);
   }

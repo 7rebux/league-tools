@@ -1,6 +1,6 @@
 # Component Library
 
-This module is linked locally to the main project. After making changs make sure to run `pnpm build` and update the dependency in the main project using `pnpm update component-lib`
+This module is linked locally to the main project. After making changes make sure to run `pnpm build` and update the dependency in the main project using `pnpm update component-lib`
 
 ## Storybook
 

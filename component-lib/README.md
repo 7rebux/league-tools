@@ -8,7 +8,7 @@ Run `pnpm start` for a local storybook instance
 
 ## Theme
 
-The applications theme is provided via a [SCSS file](component-lib/src/_theme.scss). It provides the color scheme as well as some text styles.
+The applications theme is provided via a [SCSS file](src/_theme.scss). It provides the color scheme as well as some text styles.
 
 Use colors:
 ```scss
@@ -30,10 +30,10 @@ Use text style:
 
 ## Components
 
-- [Badge](component-lib/src/components/Badge)
-- [Button](component-lib/src/components/Button)
-- [FilterCheckbox](component-lib/src/components/FilterCheckbox)
-- [FilterDropdown](component-lib/src/components/FilterDropdown)
-- [FilterSearchBar](component-lib/src/components/FilterSearchBar)
+- [Badge](src/components/Badge)
+- [Button](src/components/Button)
+- [FilterCheckbox](src/components/FilterCheckbox)
+- [FilterDropdown](src/components/FilterDropdown)
+- [FilterSearchBar](src/components/FilterSearchBar)
 - [Profile](component-lib/src/components/Profile)
-- [SummonerIcon](component-lib/src/components/SummonerIcon)
+- [SummonerIcon](src/components/SummonerIcon)

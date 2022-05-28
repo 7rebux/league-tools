@@ -15,7 +15,7 @@ const FilterCheckbox: React.FC<FilterCheckboxProps> = ({
         className={styles.box}
         type='checkbox'
         defaultChecked={initialState}
-        onChange={onChange}
+        onChange={(e) => onChange(e.currentTarget.checked)}
       />
     </div>
   );

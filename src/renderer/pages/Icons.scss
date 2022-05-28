@@ -1,0 +1,25 @@
+@use '~component-lib/build/_theme' as *;
+
+.icons-page {
+  .filter {
+    background-color: color('surface');
+    display: flex;
+    padding: 0.5rem;
+    align-items: center;
+    gap: 0.5rem;
+
+    :last-child {
+      margin-left: auto;
+    }
+  }
+
+  .icons-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1rem;
+    position: absolute;
+    height: 400px;
+    overflow-y: scroll;
+  }
+}

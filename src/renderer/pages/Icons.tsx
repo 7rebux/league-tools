@@ -3,6 +3,7 @@ import React, { useState, useEffect, useMemo, Key } from 'react';
 import {
   FilterCheckbox,
   FilterDropdown,
+  FilterDropdownItem,
   FilterSearchBar,
   SummonerIcon,
 } from 'component-lib';
@@ -24,32 +25,28 @@ const ICON_DATA_URL =
   'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-icons.json';
 
 const Icons: React.FC = () => {
-  const [iconData, setIconData] = useState<Icon[]>();
-
-  // filter data
-  const rarities = [{ title: 'Test', key: 1, value: true }];
-  const releaseYears = [{ title: 'Test', key: 2016, value: true }];
-  const eSportsEvents = [
-    { title: 'Test', key: 'League of Legends Masters Series', value: true },
-  ];
-  const eSportsTeams = [
-    { title: 'Test', key: 'Hong Kong Esports', value: true },
-  ];
+  // data
+  const [iconData, setIconData] = useState<Icon[]>([]);
+  const [rarityData, setRarityData] = useState<FilterDropdownItem[]>([]);
+  const [releaseYearData, setReleaseYearData] = useState<FilterDropdownItem[]>(
+    []
+  );
+  const [eSportsEventData, setESportsEventData] = useState<
+    FilterDropdownItem[]
+  >([]);
+  const [eSportsTeamData, setESportsTeamData] = useState<FilterDropdownItem[]>(
+    []
+  );
 
   // filter states
   const [legacyFilter, setLegacyFilter] = useState<boolean>(false);
-  const [rarityFilter, setRarityFilter] = useState<Key[]>(
-    rarities.map((i) => i.key)
-  );
-  const [releaseYearFilter, setReleaseYearFilter] = useState<Key[]>(
-    releaseYears.map((i) => i.key)
-  );
-  const [eSportsEventFilter, setESportsEventFilter] = useState<Key[]>(
-    eSportsEvents.map((i) => i.key)
-  );
-  const [eSportsTeamFilter, setESportsTeamFilter] = useState<Key[]>(
-    eSportsTeams.map((i) => i.key)
-  );
+  const [rarityFilter, setRarityFilter] = useState<FilterDropdownItem[]>();
+  const [releaseYearFilter, setReleaseYearFilter] =
+    useState<FilterDropdownItem[]>();
+  const [eSportsEventFilter, setESportsEventFilter] =
+    useState<FilterDropdownItem[]>();
+  const [eSportsTeamFilter, setESportsTeamFilter] =
+    useState<FilterDropdownItem[]>();
   const [titleFilter, setTitleFilter] = useState<string>('');
 
   // filter chain
@@ -60,20 +57,29 @@ const Icons: React.FC = () => {
         : iconData,
     [iconData, legacyFilter]
   );
-  const filter2 = useMemo(
-    () => filter1.filter((i) => rarityFilter.includes(i.rarity)),
-    [filter1, rarityFilter]
-  );
+  // const filter2 = useMemo(
+  //   () => filter1.filter((i) => rarityFilter.includes(i.rarity)),
+  //   [filter1, rarityFilter]
+  // );
   const filter3 = useMemo(
-    () => filter2.filter((i) => releaseYearFilter.includes(i.yearReleased)),
-    [filter2, releaseYearFilter]
+    () =>
+      filter1.filter((i) =>
+        releaseYearFilter.map((i) => i.key).includes(i.yearReleased)
+      ),
+    [filter1, releaseYearFilter]
   );
   const filter4 = useMemo(
-    () => filter3.filter((i) => eSportsEventFilter.includes(i.eSportsEvent)),
+    () =>
+      filter3.filter((i) =>
+        eSportsEventFilter.map((i) => i.key).includes(i.eSportsEvent)
+      ),
     [filter3, eSportsEventFilter]
   );
   const filter5 = useMemo(
-    () => filter4.filter((i) => eSportsTeamFilter.includes(i.eSportsTeam)),
+    () =>
+      filter4.filter((i) =>
+        eSportsTeamFilter.map((i) => i.key).includes(i.eSportsTeam)
+      ),
     [filter4, eSportsTeamFilter]
   );
   const filter6 = useMemo(
@@ -89,13 +95,41 @@ const Icons: React.FC = () => {
     const fetchData = async () => {
       const response = await fetch(ICON_DATA_URL);
       const data = await response.json();
+
+      const releaseYears = new Set(data.map((x: any) => x.yearReleased).sort());
+      const eSportsEvents = new Set(
+        data.map((x: any) => x.esportsEvent).sort()
+      );
+      const eSportsTeams = new Set(data.map((x: any) => x.esportsTeam).sort());
+
+      setReleaseYearData(
+        Array.from(releaseYears).map(
+          (x) =>
+            ({ title: String(x), key: x, value: true } as FilterDropdownItem)
+        )
+      );
+      setReleaseYearFilter(releaseYearData);
+      setESportsEventData(
+        Array.from(eSportsEvents)
+          .filter((x) => x !== undefined)
+          .map((x) => ({ title: x, key: x, value: true } as FilterDropdownItem))
+      );
+      setESportsEventFilter(eSportsEventData);
+      setESportsTeamData(
+        Array.from(eSportsTeams)
+          .filter((x) => x !== undefined)
+          .map((x) => ({ title: x, key: x, value: true } as FilterDropdownItem))
+      );
+      setESportsTeamFilter(eSportsTeamData);
+
       const icons = data.map((icon: any) => ({
         id: icon.id,
         title: icon.title,
         yearReleased: icon.yearReleased,
+        rarity: 1,
         isLegacy: icon.isLegacy,
-        eSportsEvent: icon.eSportsEvent,
-        eSportsTeam: icon.eSportsTeam,
+        eSportsEvent: icon.esportsEvent,
+        eSportsTeam: icon.esportsTeam,
       }));
 
       setIconData(icons);
@@ -113,29 +147,31 @@ const Icons: React.FC = () => {
         />
         <FilterDropdown
           title='Rarity'
-          items={rarities}
-          onChange={(items) => setRarityFilter(items.map(({ key }) => key))}
+          items={rarityData}
+          onChange={(items) =>
+            setRarityFilter(items.filter((i) => i.value === true))
+          }
         />
         <FilterDropdown
           title='Release Year'
-          items={releaseYears}
+          items={releaseYearData}
           onChange={(items) =>
-            setReleaseYearFilter(items.map(({ key }) => key))
+            setReleaseYearFilter(items.filter((i) => i.value === true))
           }
         />
         <FilterDropdown
           title='eSports Event'
-          items={eSportsEvents}
+          items={eSportsEventData}
           onChange={(items) =>
-            setESportsEventFilter(items.map(({ key }) => key))
+            setESportsEventFilter(items.filter((i) => i.value === true))
           }
           searchBar
         />
         <FilterDropdown
           title='eSports Team'
-          items={eSportsTeams}
+          items={eSportsTeamData}
           onChange={(items) =>
-            setESportsTeamFilter(items.map(({ key }) => key))
+            setESportsTeamFilter(items.filter((i) => i.value === true))
           }
           searchBar
         />
@@ -144,9 +180,13 @@ const Icons: React.FC = () => {
           onInput={(value) => setTitleFilter(value)}
         />
       </div>
+      <div style={{ background: 'gray', width: '100vw', height: '150px' }}>
+        {/*<h4>{`${filter1.length} | ${filter2.length} | ${filter3.length} | ${filter4.length} | ${filter5.length} | ${filter6.length}`}</h4>*/}
+        <h4>{`${filter1.length} | ${filter3.length} | ${filter4.length} | ${filter5.length} | ${filter6.length}`}</h4>
+      </div>
       <div className='icons-container'>
         {filter6?.map(({ id }) => (
-          <SummonerIcon iconId={id} />
+          <SummonerIcon key={id} iconId={id} />
         ))}
       </div>
     </div>

@@ -5,3 +5,50 @@ body {
   background-color: color('background');
   user-select: none;
 }
+
+#navbar {
+  background-color: #1c173c;
+  display: flex;
+  justify-content: space-between;
+  max-height: 50px;
+  @include font('body');
+
+  .nav {
+    display: flex;
+    gap: 1rem;
+    margin-left: 5px;
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 10px;
+      font-size: 14px;
+
+      img {
+        height: 16px;
+        pointer-events: none;
+      }
+
+      &.selected {
+        font-weight: bold;
+        color: color('secondary');
+      }
+    }
+  }
+
+  .profile {
+    background-color: color('secondary');
+    border-radius: 20px 0 0 20px;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    width: fit-content;
+    padding: 10px;
+    justify-content: flex-end;
+
+    .icon {
+      width: 35px;
+    }
+  }
+}

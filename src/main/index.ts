@@ -1,6 +1,6 @@
 import { app, BrowserWindow, session } from 'electron';
 
-declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
+declare const CONNECT_WEBPACK_ENTRY: string;
 
 if (require('electron-squirrel-startup')) app.quit();
 
@@ -13,7 +13,7 @@ const createWindow = (): void => {
     },
   });
 
-  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+  mainWindow.loadURL(CONNECT_WEBPACK_ENTRY);
 };
 
 app.on('ready', () => {

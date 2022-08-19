@@ -1,0 +1,6 @@
+@use '~component-lib/build/_theme' as *;
+
+.home-page {
+  @include font('headline');
+  padding: 2rem;
+}

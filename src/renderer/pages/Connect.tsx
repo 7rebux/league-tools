@@ -1,10 +1,14 @@
 import React from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
 import { Button } from 'component-lib';
 
 import './Connect.scss';
 
 function Connect() {
+  const navigate = useNavigate();
+
   return (
     <div className='connect-page'>
       <div className='content'>
@@ -18,7 +22,11 @@ function Connect() {
             </p>
           </div>
           <div className='button-wrapper'>
-            <Button variant='primary' title='Connect' />
+            <Button
+              variant='primary'
+              title='Connect'
+              onClick={() => navigate('/home')}
+            />
             <Button variant='secondary' title='Functions -->' />
           </div>
         </div>

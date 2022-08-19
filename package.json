@@ -48,7 +48,17 @@
                 {
                   "html": "./src/renderer/index.html",
                   "js": "./src/renderer/index.ts",
-                  "name": "main_window"
+                  "name": "connect"
+                },
+                {
+                  "html": "./src/renderer/index.html",
+                  "js": "./src/renderer/index.ts",
+                  "name": "home"
+                },
+                {
+                  "html": "./src/renderer/index.html",
+                  "js": "./src/renderer/index.ts",
+                  "name": "icons"
                 }
               ]
             }
@@ -69,6 +79,7 @@
     "@typescript-eslint/eslint-plugin": "^5.16.0",
     "@typescript-eslint/parser": "^5.16.0",
     "@vercel/webpack-asset-relocator-loader": "^1.7.0",
+    "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.1",
     "electron": "17.1.2",
     "eslint": "^8.11.0",

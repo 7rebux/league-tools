@@ -8,11 +8,12 @@ $availabilities: (
 
 .profileIcon {
   position: relative;
-  width: 128px;
-  height: 128px;
 
   img {
     border-radius: 25%;
+    pointer-events: none;
+    max-width: 100%;
+    max-height: 100%;
   }
 }
 
@@ -25,10 +26,10 @@ $availabilities: (
 
 .availability {
   position: absolute;
-  bottom: 0.5rem;
-  right: 0.5rem;
-  height: 1.5rem;
-  width: 1.5rem;
+  bottom: 10%;
+  right: 10%;
+  height: 15%;
+  width: 15%;
   border-radius: 50%;
   border: 4px solid;
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Meta, Story } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 
 import FilterDropdown from './FilterDropdown';
 import { FilterDropdownProps } from './FilterDropdown.types';
@@ -18,7 +19,10 @@ const items = [
 ];
 
 const Template: Story<FilterDropdownProps> = (args) => (
-  <FilterDropdown {...args} />
+  <FilterDropdown
+    {...args}
+    onChange={(items) => action('onChange')({ items: items })}
+  />
 );
 
 export const Default = Template.bind({});

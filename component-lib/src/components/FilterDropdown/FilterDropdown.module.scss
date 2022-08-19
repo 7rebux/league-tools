@@ -24,6 +24,11 @@
   @include font('body');
 }
 
+.items {
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
 .items > * {
   background-color: darken(color('secondary'), 4);
   width: auto;

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-import { FilterSearchBarProps } from './FilterSearchBar.types';
-import styles from './FilterSearchBar.module.scss';
+import { SearchBarProps } from './SearchBar.types';
+import styles from './SearchBar.module.scss';
 
-const FilterSearchBar: React.FC<FilterSearchBarProps> = ({
+const SearchBar: React.FC<SearchBarProps> = ({
   placeholder = 'Search..',
   onInput,
 }) => {
@@ -18,7 +18,7 @@ const FilterSearchBar: React.FC<FilterSearchBarProps> = ({
 
   return (
     <input
-      className={styles.filterSearchBar}
+      className={styles.searchBar}
       value={input}
       onInput={(e) => handleInput(e)}
       placeholder={placeholder}
@@ -26,4 +26,4 @@ const FilterSearchBar: React.FC<FilterSearchBarProps> = ({
   );
 };
 
-export default FilterSearchBar;
+export default SearchBar;

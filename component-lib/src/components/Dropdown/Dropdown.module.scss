@@ -1,6 +1,6 @@
 @use '../../_theme' as *;
 
-.filterDropdown {
+.dropdown {
   user-select: none;
   width: fit-content;
 }
@@ -30,7 +30,7 @@
 }
 
 .items > * {
-  background-color: darken(color('secondary'), 4);
+  background-color: darken(color('secondary'), 5);
   width: auto;
   border-radius: 0;
 }
@@ -38,4 +38,14 @@
 .items > input {
   border: none;
   border-radius: 0;
+  background-color: color('secondary');
+}
+
+.item {
+  @include font('body');
+  padding: 0.5rem;
+
+  &[data-custom='true'] {
+    background-color: darken(color('secondary'), 10);
+  }
 }

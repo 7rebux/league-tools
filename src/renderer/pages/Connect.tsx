@@ -25,7 +25,7 @@ function Connect() {
             <Button
               variant='primary'
               title='Connect'
-              onClick={() => navigate('/home')}
+              onClick={() => navigate('/icons')}
             />
             <Button variant='secondary' title='Functions -->' />
           </div>

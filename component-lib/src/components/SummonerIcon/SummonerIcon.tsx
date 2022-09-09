@@ -6,13 +6,16 @@ import styles from './SummonerIcon.module.scss';
 const ProfileIcon: React.FC<SummonerIconProps> = ({
   iconId,
   availability,
-  width = 128,
-  height = 128,
+  selected = false,
+  favorite = false,
+  size = 128,
 }) => {
   return (
     <div
       className={styles.profileIcon}
-      style={{ width: width, height: height }}
+      style={{ width: size, height: size }}
+      data-selected={selected}
+      data-favorite={favorite}
     >
       <img
         src={`https://raw.communitydragon.org/latest/game/assets/ux/summonericons/profileicon${iconId}.png`}
@@ -20,7 +23,7 @@ const ProfileIcon: React.FC<SummonerIconProps> = ({
       {availability !== undefined && (
         <div
           className={`${styles.availability}`}
-          data-custom={availability}
+          data-availability={availability}
         ></div>
       )}
     </div>

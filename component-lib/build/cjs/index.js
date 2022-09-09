@@ -68,15 +68,15 @@ var Button = function (_a) {
         React__default["default"].createElement("span", null, title)));
 };
 
-var css_248z$4 = ".SummonerIcon-module_profileIcon__DtiAc {\n  position: relative;\n}\n.SummonerIcon-module_profileIcon__DtiAc img {\n  border-radius: 25%;\n  pointer-events: none;\n  max-width: 100%;\n  max-height: 100%;\n}\n\n.SummonerIcon-module_availability__LEzzj[data-custom=chat] {\n  background-color: #29c45a;\n  border-color: #177033;\n}\n\n.SummonerIcon-module_availability__LEzzj[data-custom=away] {\n  background-color: #c73c3c;\n  border-color: #7a2323;\n}\n\n.SummonerIcon-module_availability__LEzzj[data-custom=dnd] {\n  background-color: #4ab3e4;\n  border-color: #1a7fae;\n}\n\n.SummonerIcon-module_availability__LEzzj[data-custom=offline] {\n  background-color: #8f8b8b;\n  border-color: #5c5858;\n}\n\n.SummonerIcon-module_availability__LEzzj[data-custom=mobile] {\n  background-color: #8f8b8b;\n  border-color: #5c5858;\n}\n\n.SummonerIcon-module_availability__LEzzj {\n  position: absolute;\n  bottom: 10%;\n  right: 10%;\n  height: 15%;\n  width: 15%;\n  border-radius: 50%;\n  border: 4px solid;\n}";
+var css_248z$4 = "@import url(\"https://rsms.me/inter/inter.css\");\n.SummonerIcon-module_profileIcon__DtiAc {\n  position: relative;\n  box-sizing: border-box;\n  border-radius: 25%;\n}\n.SummonerIcon-module_profileIcon__DtiAc img {\n  pointer-events: none;\n  max-width: 100%;\n  max-height: 100%;\n  border-radius: 25%;\n}\n.SummonerIcon-module_profileIcon__DtiAc[data-selected=true] {\n  border: 4px solid #6957e7;\n}\n\n.SummonerIcon-module_availability__LEzzj[data-availability=chat] {\n  background-color: #29c45a;\n  border-color: #177033;\n}\n\n.SummonerIcon-module_availability__LEzzj[data-availability=away] {\n  background-color: #c73c3c;\n  border-color: #7a2323;\n}\n\n.SummonerIcon-module_availability__LEzzj[data-availability=dnd] {\n  background-color: #4ab3e4;\n  border-color: #1a7fae;\n}\n\n.SummonerIcon-module_availability__LEzzj[data-availability=offline] {\n  background-color: #8f8b8b;\n  border-color: #5c5858;\n}\n\n.SummonerIcon-module_availability__LEzzj[data-availability=mobile] {\n  background-color: #8f8b8b;\n  border-color: #5c5858;\n}\n\n.SummonerIcon-module_availability__LEzzj {\n  position: absolute;\n  bottom: 10%;\n  right: 10%;\n  height: 15%;\n  width: 15%;\n  border-radius: 50%;\n  border: 4px solid;\n}";
 var styles$4 = {"profileIcon":"SummonerIcon-module_profileIcon__DtiAc","availability":"SummonerIcon-module_availability__LEzzj"};
 styleInject(css_248z$4);
 
 var ProfileIcon = function (_a) {
-    var iconId = _a.iconId, availability = _a.availability, _b = _a.width, width = _b === void 0 ? 128 : _b, _c = _a.height, height = _c === void 0 ? 128 : _c;
-    return (React__default["default"].createElement("div", { className: styles$4.profileIcon, style: { width: width, height: height } },
+    var iconId = _a.iconId, availability = _a.availability, _b = _a.selected, selected = _b === void 0 ? false : _b, _c = _a.favorite, favorite = _c === void 0 ? false : _c, _d = _a.size, size = _d === void 0 ? 128 : _d;
+    return (React__default["default"].createElement("div", { className: styles$4.profileIcon, style: { width: size, height: size }, "data-selected": selected, "data-favorite": favorite },
         React__default["default"].createElement("img", { src: "https://raw.communitydragon.org/latest/game/assets/ux/summonericons/profileicon".concat(iconId, ".png") }),
-        availability !== undefined && (React__default["default"].createElement("div", { className: "".concat(styles$4.availability), "data-custom": availability }))));
+        availability !== undefined && (React__default["default"].createElement("div", { className: "".concat(styles$4.availability), "data-availability": availability }))));
 };
 
 var css_248z$3 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Profile-module_profile__h1lkJ {\n  display: flex;\n  gap: 2rem;\n  padding: 1.5rem;\n  border-radius: 30px;\n  background-color: #313131;\n  width: fit-content;\n  user-select: none;\n}\n\n.Profile-module_content__KpGNh {\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n}\n\n.Profile-module_header__aCh-O {\n  display: flex;\n  flex-direction: row;\n  gap: 1rem;\n}\n\n.Profile-module_badges__4e8ms {\n  display: flex;\n  gap: 1rem;\n}\n\n.Profile-module_name__XG5Nd {\n  font-family: Inter;\n  font-size: 28px;\n  font-weight: 300;\n  color: #fffbf4;\n}\n\n.Profile-module_riotId__CjT9U {\n  font-family: Inter;\n  font-size: 15px;\n  font-weight: 300;\n  color: #d4cfcd;\n  font-size: 28px;\n}";
@@ -99,19 +99,19 @@ var Profile = function (_a) {
                 React__default["default"].createElement(Badge, { text: rank, icon: '' })))));
 };
 
-var css_248z$2 = "@import url(\"https://rsms.me/inter/inter.css\");\n.FilterCheckbox-module_filterCheckbox__TobmK {\n  display: flex;\n  gap: 1rem;\n  background-color: #6957e7;\n  padding: 0.4rem;\n  width: fit-content;\n  align-items: center;\n  justify-content: space-between;\n  user-select: none;\n  border-radius: 10px;\n}\n\n.FilterCheckbox-module_title__48VBY {\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n}\n\n.FilterCheckbox-module_box__Aedsp {\n  width: 1rem;\n  height: 1rem;\n  cursor: pointer;\n}";
-var styles$2 = {"filterCheckbox":"FilterCheckbox-module_filterCheckbox__TobmK","title":"FilterCheckbox-module_title__48VBY","box":"FilterCheckbox-module_box__Aedsp"};
+var css_248z$2 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Checkbox-module_checkbox__D0D4S {\n  display: flex;\n  padding: 0.4rem;\n  min-width: 120px;\n  width: fit-content;\n  align-items: center;\n  justify-content: space-between;\n  user-select: none;\n  box-sizing: border-box;\n  border: 3px solid #6957e7;\n  border-radius: 10px;\n}\n\n.Checkbox-module_title__4wPSH {\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n}\n\n.Checkbox-module_box__KLUVK {\n  width: 1rem;\n  height: 1rem;\n  cursor: pointer;\n}";
+var styles$2 = {"checkbox":"Checkbox-module_checkbox__D0D4S","title":"Checkbox-module_title__4wPSH","box":"Checkbox-module_box__KLUVK"};
 styleInject(css_248z$2);
 
-var FilterCheckbox = function (_a) {
+var Checkbox = function (_a) {
     var title = _a.title, _b = _a.initialState, initialState = _b === void 0 ? false : _b, onChange = _a.onChange;
-    return (React__default["default"].createElement("div", { className: styles$2.filterCheckbox },
+    return (React__default["default"].createElement("div", { className: styles$2.checkbox },
         React__default["default"].createElement("span", { className: styles$2.title }, title),
         React__default["default"].createElement("input", { className: styles$2.box, type: 'checkbox', defaultChecked: initialState, onChange: function (e) { return onChange(e.currentTarget.checked); } })));
 };
 
-var css_248z$1 = "@import url(\"https://rsms.me/inter/inter.css\");\n.FilterDropdown-module_filterDropdown__4Fsam {\n  user-select: none;\n  width: fit-content;\n}\n\n.FilterDropdown-module_head__yTfC4 {\n  display: flex;\n  gap: 1rem;\n  background-color: #6957e7;\n  padding: 0.5rem;\n  align-items: center;\n  justify-content: space-between;\n  cursor: pointer;\n  border-radius: 10px;\n}\n.FilterDropdown-module_head__yTfC4[data-custom=true] {\n  border-radius: 10px 10px 0 0;\n}\n\n.FilterDropdown-module_title__2c0pJ {\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n}\n\n.FilterDropdown-module_items__RsQy1 {\n  max-height: 200px;\n  overflow-y: scroll;\n}\n\n.FilterDropdown-module_items__RsQy1 > * {\n  background-color: #5945e4;\n  width: auto;\n  border-radius: 0;\n}\n\n.FilterDropdown-module_items__RsQy1 > input {\n  border: none;\n  border-radius: 0;\n}";
-var styles$1 = {"filterDropdown":"FilterDropdown-module_filterDropdown__4Fsam","head":"FilterDropdown-module_head__yTfC4","title":"FilterDropdown-module_title__2c0pJ","items":"FilterDropdown-module_items__RsQy1"};
+var css_248z$1 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Dropdown-module_dropdown__HMCqD {\n  user-select: none;\n  width: fit-content;\n}\n\n.Dropdown-module_head__6dcyy {\n  display: flex;\n  gap: 1rem;\n  background-color: #6957e7;\n  padding: 0.5rem;\n  align-items: center;\n  justify-content: space-between;\n  cursor: pointer;\n  border-radius: 10px;\n}\n.Dropdown-module_head__6dcyy[data-custom=true] {\n  border-radius: 10px 10px 0 0;\n}\n\n.Dropdown-module_title__fLsjF {\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n}\n\n.Dropdown-module_items__COHNO {\n  max-height: 200px;\n  overflow-y: scroll;\n}\n\n.Dropdown-module_items__COHNO > * {\n  background-color: #5541e4;\n  width: auto;\n  border-radius: 0;\n}\n\n.Dropdown-module_items__COHNO > input {\n  border: none;\n  border-radius: 0;\n  background-color: #6957e7;\n}\n\n.Dropdown-module_item__f-Rhh {\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  padding: 0.5rem;\n}\n.Dropdown-module_item__f-Rhh[data-custom=true] {\n  background-color: #412ae1;\n}";
+var styles$1 = {"dropdown":"Dropdown-module_dropdown__HMCqD","head":"Dropdown-module_head__6dcyy","title":"Dropdown-module_title__fLsjF","items":"Dropdown-module_items__COHNO","item":"Dropdown-module_item__f-Rhh"};
 styleInject(css_248z$1);
 
 var DefaultContext = {
@@ -201,42 +201,38 @@ function AiFillCaretDown (props) {
   return GenIcon({"tag":"svg","attr":{"viewBox":"0 0 1024 1024"},"child":[{"tag":"path","attr":{"d":"M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"}}]})(props);
 }
 
-var FilterDropdown = function (_a) {
-    var title = _a.title, _b = _a.searchBar, searchBar = _b === void 0 ? false : _b, items = _a.items, onChange = _a.onChange;
-    var _c = React.useState(false), extended = _c[0], setExtended = _c[1];
-    var _d = React.useState(''), filter = _d[0], setFilter = _d[1];
+var Dropdown = function (_a) {
+    var items = _a.items, _b = _a.initialItem, initialItem = _b === void 0 ? 'Select..' : _b, _c = _a.searchBar, searchBar = _c === void 0 ? false : _c, onChange = _a.onChange;
+    var _d = React.useState(false), extended = _d[0], setExtended = _d[1];
+    var _e = React.useState(initialItem), selected = _e[0], setSelected = _e[1];
+    var _f = React.useState(''), filter = _f[0], setFilter = _f[1];
     var filtered = React.useMemo(function () {
-        return items.filter(function (_a) {
-            var title = _a.title;
+        return items.filter(function (title) {
             return title.toLowerCase().includes(filter.toLowerCase());
         });
     }, [items, filter]);
-    var handleChange = function (itemKey, value) {
-        var item = items.find(function (_a) {
-            var key = _a.key;
-            return key === itemKey;
-        });
-        item.value = value;
-        onChange(items);
-    };
     var icon = extended ? (React__default["default"].createElement(AiFillCaretUp, { color: '#fff' })) : (React__default["default"].createElement(AiFillCaretDown, { color: '#fff' }));
-    return (React__default["default"].createElement("div", { className: styles$1.filterDropdown },
+    var handleChange = function (item) {
+        if (selected === item)
+            return;
+        setSelected(item);
+        onChange(item);
+        setExtended(false);
+    };
+    return (React__default["default"].createElement("div", { className: styles$1.dropdown },
         React__default["default"].createElement("div", { className: styles$1.head, "data-custom": extended, onClick: function () { return setExtended(!extended); } },
-            React__default["default"].createElement("span", { className: styles$1.title }, title),
+            React__default["default"].createElement("span", { className: styles$1.title }, selected),
             icon),
         extended && (React__default["default"].createElement("div", { className: styles$1.items },
-            searchBar && (React__default["default"].createElement(FilterSearchBar, { onInput: function (value) { return setFilter(value); } })),
-            filtered.map(function (_a) {
-                var title = _a.title, key = _a.key, value = _a.value;
-                return (React__default["default"].createElement(FilterCheckbox, { onChange: function (value) { return handleChange(key, value); }, title: title, key: key, initialState: value }));
-            })))));
+            searchBar && React__default["default"].createElement(SearchBar, { onInput: function (value) { return setFilter(value); } }),
+            filtered.map(function (title) { return (React__default["default"].createElement("div", { className: styles$1.item, "data-custom": selected === title, onClick: function () { return handleChange(title); } }, title)); })))));
 };
 
-var css_248z = "@import url(\"https://rsms.me/inter/inter.css\");\n.FilterSearchBar-module_filterSearchBar__mOk3U {\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  border: 4px solid #6957e7;\n  border-radius: 10px;\n  outline: none;\n  background-color: #130b4d;\n  padding: 0.5rem;\n}";
-var styles = {"filterSearchBar":"FilterSearchBar-module_filterSearchBar__mOk3U"};
+var css_248z = "@import url(\"https://rsms.me/inter/inter.css\");\n.SearchBar-module_searchBar__5ak1g {\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  border: 3px solid #6957e7;\n  border-radius: 10px;\n  outline: none;\n  background-color: #313131;\n  padding: 0.5rem;\n}";
+var styles = {"searchBar":"SearchBar-module_searchBar__5ak1g"};
 styleInject(css_248z);
 
-var FilterSearchBar = function (_a) {
+var SearchBar = function (_a) {
     var _b = _a.placeholder, placeholder = _b === void 0 ? 'Search..' : _b, onInput = _a.onInput;
     var _c = React.useState(''), input = _c[0], setInput = _c[1];
     function handleInput(e) {
@@ -244,14 +240,14 @@ var FilterSearchBar = function (_a) {
         setInput(value);
         onInput(value);
     }
-    return (React__default["default"].createElement("input", { className: styles.filterSearchBar, value: input, onInput: function (e) { return handleInput(e); }, placeholder: placeholder }));
+    return (React__default["default"].createElement("input", { className: styles.searchBar, value: input, onInput: function (e) { return handleInput(e); }, placeholder: placeholder }));
 };
 
 exports.Badge = Badge;
 exports.Button = Button;
-exports.FilterCheckbox = FilterCheckbox;
-exports.FilterDropdown = FilterDropdown;
-exports.FilterSearchBar = FilterSearchBar;
+exports.Checkbox = Checkbox;
+exports.Dropdown = Dropdown;
 exports.Profile = Profile;
+exports.SearchBar = SearchBar;
 exports.SummonerIcon = ProfileIcon;
 //# sourceMappingURL=index.js.map

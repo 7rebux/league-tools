@@ -26,6 +26,8 @@ export const Default: Story<SummonerIconProps> = (args) => (
 );
 Default.args = {
   iconId: 7,
+  selected: true,
+  favorite: false,
 };
 
 export const Profile: Story<SummonerIconProps> = (args) => (
@@ -34,4 +36,6 @@ export const Profile: Story<SummonerIconProps> = (args) => (
 Profile.args = {
   iconId: 3899,
   availability: 'chat',
+  selected: false,
+  favorite: false,
 };

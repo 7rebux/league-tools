@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { FilterCheckboxProps } from './FilterCheckbox.types';
-import styles from './FilterCheckbox.module.scss';
+import { CheckboxProps } from './Checkbox.types';
+import styles from './Checkbox.module.scss';
 
-const FilterCheckbox: React.FC<FilterCheckboxProps> = ({
+const Checkbox: React.FC<CheckboxProps> = ({
   title,
   initialState = false,
   onChange,
 }) => {
   return (
-    <div className={styles.filterCheckbox}>
+    <div className={styles.checkbox}>
       <span className={styles.title}>{title}</span>
       <input
         className={styles.box}
@@ -21,4 +21,4 @@ const FilterCheckbox: React.FC<FilterCheckboxProps> = ({
   );
 };
 
-export default FilterCheckbox;
+export default Checkbox;

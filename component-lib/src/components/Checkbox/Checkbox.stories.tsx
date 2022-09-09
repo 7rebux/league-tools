@@ -3,16 +3,16 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
-import FilterCheckbox from './FilterCheckbox';
-import { FilterCheckboxProps } from './FilterCheckbox.types';
+import Checkbox from './Checkbox';
+import { CheckboxProps } from './Checkbox.types';
 
 export default {
-  title: 'Library/Filter/Checkbox',
-  component: FilterCheckbox,
+  title: 'Library/Checkbox',
+  component: Checkbox,
 } as Meta;
 
-export const Default: Story<FilterCheckboxProps> = (args) => (
-  <FilterCheckbox
+export const Default: Story<CheckboxProps> = (args) => (
+  <Checkbox
     {...args}
     onChange={(value) => action('onChange')({ value: value })}
   />

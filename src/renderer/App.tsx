@@ -29,12 +29,7 @@ function NavBar() {
       </div>
       <div className='profile'>
         <div className='icon'>
-          <SummonerIcon
-            width={35}
-            height={35}
-            iconId={3333}
-            availability='chat'
-          />
+          <SummonerIcon size={35} iconId={3333} availability='chat' />
         </div>
         <span>Summoner Name</span>
         <Badge text='34231' icon='assets/be.png' backgroundColor='#5098DA' />

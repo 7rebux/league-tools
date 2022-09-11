@@ -59,6 +59,16 @@
                   "html": "./src/renderer/index.html",
                   "js": "./src/renderer/index.ts",
                   "name": "icons"
+                },
+                {
+                  "html": "./src/renderer/index.html",
+                  "js": "./src/renderer/index.ts",
+                  "name": "backgrounds"
+                },
+                {
+                  "html": "./src/renderer/index.html",
+                  "js": "./src/renderer/index.ts",
+                  "name": "status"
                 }
               ]
             }

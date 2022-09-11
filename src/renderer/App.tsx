@@ -1,31 +1,39 @@
-import { Badge, SummonerIcon } from 'component-lib';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 
-import { Connect, Home, Icons } from './pages';
+import { Badge, SummonerIcon } from 'component-lib';
 
-function NavBar() {
+import { Backgrounds, Connect, Home, Icons, Status } from './pages';
+
+interface NavItemProps {
+  name: string;
+}
+
+const NavItem: React.FC<NavItemProps> = ({ name }) => {
+  const navigate = useNavigate();
+  const current = window.location.pathname.replace('/', '');
+
+  return (
+    <div
+      className={'nav-item' + (current === name ? ' selected' : '')}
+      onClick={() => navigate(`/${name}`)}
+    >
+      <img src={`assets/${name}.png`} />
+      <span>{name}</span>
+    </div>
+  );
+};
+
+const NavBar: React.FC = () => {
   return (
     <div id='navbar'>
       <div className='nav'>
-        <div className='nav-item selected'>
-          <img src='assets/home.png' />
-          <span>Home</span>
-        </div>
-        <div className='nav-item'>
-          <img src='assets/icon.png' />
-          <span>Icon</span>
-        </div>
-        <div className='nav-item'>
-          <img src='assets/background.png' />
-          <span>Background</span>
-        </div>
-        <div className='nav-item'>
-          <img src='assets/status.png' />
-          <span>Status</span>
-        </div>
+        <NavItem name='home' />
+        <NavItem name='icons' />
+        <NavItem name='backgrounds' />
+        <NavItem name='status' />
       </div>
       <div className='profile'>
         <div className='icon'>
@@ -37,24 +45,26 @@ function NavBar() {
       </div>
     </div>
   );
-}
+};
 
-function render() {
+const render = () => {
   ReactDOM.render(
     <div id='main'>
-      <NavBar />
-      <div id='content'>
-        <BrowserRouter>
+      <BrowserRouter>
+        <NavBar />
+        <div id='content'>
           <Routes>
             <Route path='/connect' element={<Connect />} />
             <Route path='/home' element={<Home />} />
             <Route path='/icons' element={<Icons />} />
+            <Route path='/backgrounds' element={<Backgrounds />} />
+            <Route path='/status' element={<Status />} />
           </Routes>
-        </BrowserRouter>
-      </div>
+        </div>
+      </BrowserRouter>
     </div>,
     document.body
   );
-}
+};
 
 render();

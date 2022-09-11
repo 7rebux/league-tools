@@ -30,6 +30,10 @@ body {
         pointer-events: none;
       }
 
+      span::first-letter {
+        text-transform: capitalize;
+      }
+
       &.selected {
         font-weight: bold;
         color: color('secondary');

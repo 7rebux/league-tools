@@ -6,7 +6,7 @@ import { Button } from 'component-lib';
 
 import './Connect.scss';
 
-function Connect() {
+const Connect: React.FC = () => {
   const navigate = useNavigate();
 
   return (
@@ -25,7 +25,7 @@ function Connect() {
             <Button
               variant='primary'
               title='Connect'
-              onClick={() => navigate('/icons')}
+              onClick={() => navigate('/home')}
             />
             <Button variant='secondary' title='Functions -->' />
           </div>
@@ -69,6 +69,6 @@ function Connect() {
       </svg>
     </div>
   );
-}
+};
 
 export default Connect;

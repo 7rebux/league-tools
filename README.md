@@ -10,6 +10,11 @@ _This branch is still under development! Please check out the [legacy branch](ht
 
 A simple application with many useful functions that work with the LCU api of Riot Games.
 
+- Change your profile icon to any icon
+- Change your profile background to any splashart
+- Bypass status character limit
+- Change your availability (for example appear as offline)
+
 ## 🧩 Demo
 
 ![Preview](./preview.png)

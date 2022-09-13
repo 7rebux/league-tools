@@ -35,12 +35,6 @@
   border-radius: 0;
 }
 
-.items > input {
-  border: none;
-  border-radius: 0;
-  background-color: color('secondary');
-}
-
 .item {
   @include font('body');
   padding: 0.5rem;

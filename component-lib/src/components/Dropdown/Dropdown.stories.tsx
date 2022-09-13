@@ -21,12 +21,5 @@ export const Default = Template.bind({});
 Default.args = {
   title: 'Dropdown',
   items: items,
-};
-
-export const SearchBar = Template.bind({});
-SearchBar.args = {
-  title: 'Dropdown',
-  items: items,
-  initialItem: 'Test2',
-  searchBar: true,
+  initialItem: 'Test4',
 };

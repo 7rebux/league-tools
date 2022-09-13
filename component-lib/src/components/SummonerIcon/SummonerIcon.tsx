@@ -18,6 +18,7 @@ const ProfileIcon: React.FC<SummonerIconProps> = ({
       data-favorite={favorite}
     >
       <img
+        loading='lazy'
         src={`https://raw.communitydragon.org/latest/game/assets/ux/summonericons/profileicon${iconId}.png`}
       ></img>
       {availability !== undefined && (

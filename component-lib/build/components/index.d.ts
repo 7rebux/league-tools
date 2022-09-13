@@ -4,4 +4,5 @@ export { default as SummonerIcon } from './SummonerIcon';
 export { default as Profile } from './Profile';
 export { default as Checkbox } from './Checkbox';
 export { default as Dropdown } from './Dropdown';
-export { default as SearchBar } from './SearchBar';
+export { default as Textbox } from './Textbox';
+export { default as Splashart } from './Splashart';

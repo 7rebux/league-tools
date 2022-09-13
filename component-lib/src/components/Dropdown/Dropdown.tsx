@@ -4,7 +4,7 @@ import { DropdownProps } from './Dropdown.types';
 import styles from './Dropdown.module.scss';
 
 import { AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
-import { SearchBar } from '..';
+import { Textbox } from '..';
 
 const Dropdown: React.FC<DropdownProps> = ({
   items,
@@ -35,7 +35,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 
     setSelected(item);
     onChange(item);
-    setExtended(false);
+    setExtended(false); // not working
   };
 
   return (
@@ -50,7 +50,7 @@ const Dropdown: React.FC<DropdownProps> = ({
       </div>
       {extended && (
         <div className={styles.items}>
-          {searchBar && <SearchBar onInput={(value) => setFilter(value)} />}
+          {searchBar && <Textbox onInput={(value) => setFilter(value)} />}
           {filtered.map((title) => (
             <div
               className={styles.item}

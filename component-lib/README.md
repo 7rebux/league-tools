@@ -27,13 +27,3 @@ Use text style:
   @include font('subtitle');
 }
 ```
-
-## Components
-
-- [Badge](src/components/Badge)
-- [Button](src/components/Button)
-- [FilterCheckbox](src/components/FilterCheckbox)
-- [FilterDropdown](src/components/FilterDropdown)
-- [FilterSearchBar](src/components/FilterSearchBar)
-- [Profile](component-lib/src/components/Profile)
-- [SummonerIcon](src/components/SummonerIcon)

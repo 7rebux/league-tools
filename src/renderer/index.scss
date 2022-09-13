@@ -43,6 +43,7 @@ body {
       img {
         height: 16px;
         pointer-events: none;
+        position: relative;
       }
 
       span::first-letter {
@@ -52,6 +53,10 @@ body {
       &.selected {
         font-weight: bold;
         color: color('secondary');
+
+        > img {
+          filter: opacity(0.3) drop-shadow(0 0 0 color('secondary'));
+        }
       }
     }
   }

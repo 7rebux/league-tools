@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 
-import { SearchBarProps } from './SearchBar.types';
-import styles from './SearchBar.module.scss';
+import { TextboxProps } from './Textbox.types';
+import styles from './Textbox.module.scss';
 
-const SearchBar: React.FC<SearchBarProps> = ({
-  placeholder = 'Search..',
-  onInput,
-}) => {
+const Textbox: React.FC<TextboxProps> = ({ placeholder, onInput }) => {
   const [input, setInput] = useState<string>('');
 
   function handleInput(e) {
@@ -18,7 +15,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
   return (
     <input
-      className={styles.searchBar}
+      className={styles.textbox}
       value={input}
       onInput={(e) => handleInput(e)}
       placeholder={placeholder}
@@ -26,4 +23,4 @@ const SearchBar: React.FC<SearchBarProps> = ({
   );
 };
 
-export default SearchBar;
+export default Textbox;

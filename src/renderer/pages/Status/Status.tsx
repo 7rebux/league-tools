@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Dropdown, SearchBar, SummonerIcon } from 'component-lib';
+import { Button, Dropdown, Textbox, SummonerIcon } from 'component-lib';
 
 import './Status.scss';
 
@@ -10,7 +10,7 @@ const Status: React.FC = () => {
       <div className='wrapper'>
         <div className='left'>
           <SummonerIcon iconId={3333} availability='chat' size={50} />
-          <SearchBar /> {/* replace with textbox */}
+          <Textbox placeholder='Status message' />
           <Dropdown
             items={['Online', 'Away', 'Ingame', 'Mobile', 'Offline']}
             initialItem='Online'

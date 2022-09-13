@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 
-import { Checkbox, Dropdown, SearchBar, SummonerIcon } from 'component-lib';
+import { Checkbox, Dropdown, Textbox, SummonerIcon } from 'component-lib';
 
 import './Icons.scss';
 
@@ -53,7 +53,10 @@ const Icons: React.FC = () => {
   return (
     <div className='icons-page'>
       <div className='filter'>
-        <SearchBar onInput={(value) => setTitleFilter(value)} />
+        <Textbox
+          placeholder='Search..'
+          onInput={(value) => setTitleFilter(value)}
+        />
         <div className='settings'>
           <Dropdown items={['All', 'Favorites']} initialItem='All' />
           <Checkbox

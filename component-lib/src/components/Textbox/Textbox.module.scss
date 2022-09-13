@@ -1,6 +1,6 @@
 @use '../../_theme' as *;
 
-.searchBar {
+.textbox {
   @include font('body');
   border: 3px solid color('secondary');
   border-radius: 10px;

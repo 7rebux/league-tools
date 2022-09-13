@@ -2,9 +2,10 @@
 
 .icons-page {
   display: flex;
+  box-sizing: border-box;
   padding: 20px;
   gap: 20px;
-  max-height: 535px; // why is 100% not working ???!!
+  height: 100%;
 
   .filter {
     background-color: color('surface');
@@ -40,6 +41,7 @@
     gap: 20px;
     flex-wrap: wrap;
     overflow-y: scroll;
+    width: 100%;
 
     &::-webkit-scrollbar {
       width: 6px;

@@ -40,5 +40,14 @@
     gap: 20px;
     flex-wrap: wrap;
     overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: color('primary');
+      height: 50px;
+    }
   }
 }

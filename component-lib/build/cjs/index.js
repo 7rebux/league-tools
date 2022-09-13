@@ -110,7 +110,7 @@ var Checkbox = function (_a) {
         React__default["default"].createElement("input", { className: styles$3.box, type: 'checkbox', defaultChecked: initialState, onChange: function (e) { return onChange(e.currentTarget.checked); } })));
 };
 
-var css_248z$2 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Dropdown-module_dropdown__HMCqD {\n  user-select: none;\n  width: fit-content;\n}\n\n.Dropdown-module_head__6dcyy {\n  display: flex;\n  gap: 1rem;\n  background-color: #6957e7;\n  padding: 0.5rem;\n  align-items: center;\n  justify-content: space-between;\n  cursor: pointer;\n  border-radius: 10px;\n}\n.Dropdown-module_head__6dcyy[data-custom=true] {\n  border-radius: 10px 10px 0 0;\n}\n\n.Dropdown-module_title__fLsjF {\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n}\n\n.Dropdown-module_items__COHNO {\n  max-height: 200px;\n  overflow-y: scroll;\n}\n\n.Dropdown-module_items__COHNO > * {\n  background-color: #5541e4;\n  width: auto;\n  border-radius: 0;\n}\n\n.Dropdown-module_items__COHNO > input {\n  border: none;\n  border-radius: 0;\n  background-color: #6957e7;\n}\n\n.Dropdown-module_item__f-Rhh {\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  padding: 0.5rem;\n}\n.Dropdown-module_item__f-Rhh[data-custom=true] {\n  background-color: #412ae1;\n}";
+var css_248z$2 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Dropdown-module_dropdown__HMCqD {\n  user-select: none;\n  width: fit-content;\n}\n\n.Dropdown-module_head__6dcyy {\n  display: flex;\n  gap: 1rem;\n  background-color: #6957e7;\n  padding: 0.5rem;\n  align-items: center;\n  justify-content: space-between;\n  cursor: pointer;\n  border-radius: 10px;\n}\n.Dropdown-module_head__6dcyy[data-custom=true] {\n  border-radius: 10px 10px 0 0;\n}\n\n.Dropdown-module_title__fLsjF {\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n}\n\n.Dropdown-module_items__COHNO {\n  max-height: 200px;\n  overflow-y: scroll;\n}\n\n.Dropdown-module_items__COHNO > * {\n  background-color: #5541e4;\n  width: auto;\n  border-radius: 0;\n}\n\n.Dropdown-module_item__f-Rhh {\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  padding: 0.5rem;\n}\n.Dropdown-module_item__f-Rhh[data-custom=true] {\n  background-color: #412ae1;\n}";
 var styles$2 = {"dropdown":"Dropdown-module_dropdown__HMCqD","head":"Dropdown-module_head__6dcyy","title":"Dropdown-module_title__fLsjF","items":"Dropdown-module_items__COHNO","item":"Dropdown-module_item__f-Rhh"};
 styleInject(css_248z$2);
 
@@ -202,30 +202,22 @@ function AiFillCaretDown (props) {
 }
 
 var Dropdown = function (_a) {
-    var items = _a.items, _b = _a.initialItem, initialItem = _b === void 0 ? 'Select..' : _b, _c = _a.searchBar, searchBar = _c === void 0 ? false : _c, onChange = _a.onChange;
-    var _d = React.useState(false), extended = _d[0], setExtended = _d[1];
-    var _e = React.useState(initialItem), selected = _e[0], setSelected = _e[1];
-    var _f = React.useState(''), filter = _f[0], setFilter = _f[1];
-    var filtered = React.useMemo(function () {
-        return items.filter(function (title) {
-            return title.toLowerCase().includes(filter.toLowerCase());
-        });
-    }, [items, filter]);
+    var items = _a.items, _b = _a.initialItem, initialItem = _b === void 0 ? 'Select..' : _b, onChange = _a.onChange;
+    var _c = React.useState(false), extended = _c[0], setExtended = _c[1];
+    var _d = React.useState(initialItem), selected = _d[0], setSelected = _d[1];
     var icon = extended ? (React__default["default"].createElement(AiFillCaretUp, { color: '#fff' })) : (React__default["default"].createElement(AiFillCaretDown, { color: '#fff' }));
     var handleChange = function (item) {
+        setExtended(false);
         if (selected === item)
             return;
         setSelected(item);
         onChange(item);
-        setExtended(false); // not working
     };
     return (React__default["default"].createElement("div", { className: styles$2.dropdown },
         React__default["default"].createElement("div", { className: styles$2.head, "data-custom": extended, onClick: function () { return setExtended(!extended); } },
             React__default["default"].createElement("span", { className: styles$2.title }, selected),
             icon),
-        extended && (React__default["default"].createElement("div", { className: styles$2.items },
-            searchBar && React__default["default"].createElement(Textbox, { onInput: function (value) { return setFilter(value); } }),
-            filtered.map(function (title) { return (React__default["default"].createElement("div", { className: styles$2.item, "data-custom": selected === title, onClick: function () { return handleChange(title); } }, title)); })))));
+        extended && (React__default["default"].createElement("div", { className: styles$2.items }, items.map(function (title) { return (React__default["default"].createElement("div", { className: styles$2.item, "data-custom": selected === title, onClick: function () { return handleChange(title); } }, title)); })))));
 };
 
 var css_248z$1 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Textbox-module_textbox__y3fY0 {\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  border: 3px solid #6957e7;\n  border-radius: 10px;\n  outline: none;\n  background-color: #313131;\n  padding: 0.5rem;\n}";

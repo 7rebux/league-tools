@@ -11,6 +11,12 @@ html {
   @include font('body');
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
 html,
 body,
 #main {

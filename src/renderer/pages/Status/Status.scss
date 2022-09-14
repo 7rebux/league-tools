@@ -1,27 +1,24 @@
 @use '~component-lib/build/_theme' as *;
 
 .status-page {
+  height: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
-  height: 100%; // NOT WORKING
+  align-items: center;
 
   .wrapper {
     background-color: color('surface');
-    box-sizing: border-box;
-    height: 90px;
-    padding: 20px;
-    align-items: center;
     width: 75%;
-    border-radius: 20px;
-
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    border-radius: 20px;
+    padding: 20px;
 
     .left {
       display: flex;
-      gap: 10px;
       align-items: center;
+      gap: 10px;
     }
   }
 }

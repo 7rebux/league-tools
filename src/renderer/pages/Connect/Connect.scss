@@ -1,18 +1,19 @@
 @use '~component-lib/build/_theme' as *;
 
 .connect-page {
+  position: relative;
+  height: 100vh; // overrides navbar height
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   overflow: hidden;
-  position: relative;
 
   .content {
-    width: 80vw;
+    width: 80%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 3;
 
     .wrapper {
       display: flex;
@@ -24,8 +25,8 @@
         margin: 0;
 
         .name {
-          font-weight: 700;
           color: color('primary');
+          font-weight: 700;
         }
       }
 
@@ -44,28 +45,28 @@
       height: 375px;
       width: 250px;
       background-color: color('surface');
-      border: 2px solid #583e83;
+      border: 2px solid color('primary');
     }
   }
 
   .version {
-    @include font('subtitle');
-    font-size: 12px;
     position: absolute;
     bottom: 0;
     right: 0;
+    @include font('subtitle');
+    font-size: 13px;
     margin: 5px;
   }
 
   .wave {
     position: absolute;
     bottom: 0;
-    z-index: -1;
+    z-index: 2;
 
     &.second {
       bottom: 7%;
       transform: scaleX(1.2);
-      z-index: -2;
+      z-index: 1;
     }
   }
 }

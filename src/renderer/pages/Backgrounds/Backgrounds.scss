@@ -1,31 +1,32 @@
 @use '~component-lib/build/_theme' as *;
 
+$gap: 20px;
+$border-radius: 20px;
+
 .backgrounds-page {
-  display: flex;
-  padding: 20px;
-  gap: 20px;
   height: 100%;
-  box-sizing: border-box;
+  display: flex;
+  gap: $gap;
+  padding: $gap;
 
   .filter {
     background-color: color('surface');
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 20px;
-    border-radius: 20px;
     align-items: center;
+    gap: $gap;
+    padding: $gap;
+    border-radius: $border-radius;
 
     .settings {
       background-color: color('background');
-      display: flex;
-      box-sizing: border-box;
-      flex-direction: column;
-      border-radius: 20px;
-      gap: 15px;
-      padding: 20px;
       width: 100%;
+      display: flex;
+      flex-direction: column;
       align-items: center;
+      gap: $gap / 2;
+      border-radius: $border-radius;
+      padding: $gap;
 
       > * {
         width: 100%;
@@ -35,13 +36,13 @@
 
   .backgrounds {
     background-color: color('surface');
-    display: flex;
-    border-radius: 20px;
-    padding: 20px;
-    gap: 20px;
-    flex-wrap: wrap;
-    overflow-y: scroll;
     width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $gap;
+    border-radius: $border-radius;
+    padding: $gap;
+    overflow-y: scroll;
 
     &::-webkit-scrollbar {
       width: 6px;

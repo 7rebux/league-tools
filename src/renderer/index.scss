@@ -1,53 +1,51 @@
 @use '~component-lib/build/_theme' as *;
 
-$navbarHeight: 50px;
+$navbar-height: 50px;
+$navbar-background: #1c173c;
+$navbar-gap: 1rem;
+$navbar-icon-size: 20px;
 
 html {
-  height: 100%;
-}
-
-body {
-  margin: 0;
-  background-color: color('background');
   user-select: none;
-  min-height: 100%;
+  box-sizing: border-box;
+  @include font('body');
 }
 
+html,
+body,
 #main {
   height: 100%;
+  margin: 0;
 }
 
 #content {
-  height: calc(100vh - $navbarHeight);
+  height: calc(100vh - $navbar-height);
+  background-color: color('background');
 }
 
 #navbar {
-  background-color: #1c173c;
+  height: $navbar-height;
+  background-color: $navbar-background;
   display: flex;
   justify-content: space-between;
-  max-height: $navbarHeight;
-  @include font('body');
 
   .nav {
     display: flex;
-    gap: 1rem;
-    margin-left: 5px;
+    gap: $navbar-gap;
+    margin-left: $navbar-gap;
 
     .nav-item {
       display: flex;
       align-items: center;
-      gap: 4px;
-      padding: 10px;
-      font-size: 14px;
+      gap: 0.5rem;
+      padding: 0.75rem;
+      font-size: 15px;
+      cursor: pointer;
 
       img {
-        height: 16px;
+        width: $navbar-icon-size;
+        height: $navbar-icon-size;
         pointer-events: none;
-        position: relative;
-      }
-
-      span::first-letter {
-        text-transform: capitalize;
       }
 
       &.selected {
@@ -63,16 +61,11 @@ body {
 
   .profile {
     background-color: color('secondary');
-    border-radius: 20px 0 0 20px;
     display: flex;
-    gap: 1rem;
     align-items: center;
-    width: fit-content;
-    padding: 10px;
     justify-content: flex-end;
-
-    .icon {
-      width: 35px;
-    }
+    gap: $navbar-gap;
+    border-radius: 20px 0 0 20px;
+    padding: 0.75rem;
   }
 }

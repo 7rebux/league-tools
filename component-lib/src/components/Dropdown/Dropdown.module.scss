@@ -25,8 +25,7 @@
 }
 
 .items {
-  max-height: 200px;
-  overflow-y: scroll;
+  position: absolute;
 }
 
 .items > * {

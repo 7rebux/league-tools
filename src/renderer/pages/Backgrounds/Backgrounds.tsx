@@ -61,7 +61,9 @@ const Backgrounds: React.FC = () => {
       <div className='filter'>
         <Textbox
           placeholder='Search..'
-          onInput={(value) => setNameFilter(value)}
+          onInput={(event) =>
+            setNameFilter((event.target as HTMLInputElement).value)
+          }
         />
         <div className='settings'>
           <Dropdown items={['All', 'Favorites']} initialItem='All' />

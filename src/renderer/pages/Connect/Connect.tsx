@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from 'component-lib';
 
 import './Connect.scss';
+import { connect } from '../../ipcBridge';
 
 const Connect: React.FC = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const Connect: React.FC = () => {
             <Button
               variant='primary'
               title='Connect'
-              onClick={() => navigate('/home')}
+              onClick={() => connect().then(navigate('/home'))}
             />
             <Button variant='secondary' title='Functions -->' />
           </div>

@@ -55,7 +55,9 @@ const Icons: React.FC = () => {
       <div className='filter'>
         <Textbox
           placeholder='Search..'
-          onInput={(value) => setTitleFilter(value)}
+          onInput={(event) =>
+            setTitleFilter((event.target as HTMLInputElement).value)
+          }
         />
         <div className='settings'>
           <Dropdown items={['All', 'Favorites']} initialItem='All' />

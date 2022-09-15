@@ -110,7 +110,7 @@ var Checkbox = function (_a) {
         React__default["default"].createElement("input", { className: styles$3.box, type: 'checkbox', defaultChecked: initialState, onChange: function (e) { return onChange(e.currentTarget.checked); } })));
 };
 
-var css_248z$2 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Dropdown-module_dropdown__HMCqD {\n  user-select: none;\n  width: fit-content;\n}\n\n.Dropdown-module_head__6dcyy {\n  display: flex;\n  gap: 1rem;\n  background-color: #6957e7;\n  padding: 0.5rem;\n  align-items: center;\n  justify-content: space-between;\n  cursor: pointer;\n  border-radius: 10px;\n}\n.Dropdown-module_head__6dcyy[data-custom=true] {\n  border-radius: 10px 10px 0 0;\n}\n\n.Dropdown-module_title__fLsjF {\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n}\n\n.Dropdown-module_items__COHNO {\n  max-height: 200px;\n  overflow-y: scroll;\n}\n\n.Dropdown-module_items__COHNO > * {\n  background-color: #5541e4;\n  width: auto;\n  border-radius: 0;\n}\n\n.Dropdown-module_item__f-Rhh {\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  padding: 0.5rem;\n}\n.Dropdown-module_item__f-Rhh[data-custom=true] {\n  background-color: #412ae1;\n}";
+var css_248z$2 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Dropdown-module_dropdown__HMCqD {\n  user-select: none;\n  width: fit-content;\n}\n\n.Dropdown-module_head__6dcyy {\n  display: flex;\n  gap: 1rem;\n  background-color: #6957e7;\n  padding: 0.5rem;\n  align-items: center;\n  justify-content: space-between;\n  cursor: pointer;\n  border-radius: 10px;\n}\n.Dropdown-module_head__6dcyy[data-custom=true] {\n  border-radius: 10px 10px 0 0;\n}\n\n.Dropdown-module_title__fLsjF {\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n}\n\n.Dropdown-module_items__COHNO {\n  position: absolute;\n  max-height: 200px;\n  overflow-y: scroll;\n}\n\n.Dropdown-module_items__COHNO > * {\n  background-color: #5541e4;\n  width: auto;\n  border-radius: 0;\n}\n\n.Dropdown-module_item__f-Rhh {\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  padding: 0.5rem;\n}\n.Dropdown-module_item__f-Rhh[data-custom=true] {\n  background-color: #412ae1;\n}";
 var styles$2 = {"dropdown":"Dropdown-module_dropdown__HMCqD","head":"Dropdown-module_head__6dcyy","title":"Dropdown-module_title__fLsjF","items":"Dropdown-module_items__COHNO","item":"Dropdown-module_item__f-Rhh"};
 styleInject(css_248z$2);
 
@@ -123,8 +123,8 @@ var DefaultContext = {
 };
 var IconContext = React__default["default"].createContext && React__default["default"].createContext(DefaultContext);
 
-var __assign = undefined && undefined.__assign || function () {
-  __assign = Object.assign || function (t) {
+var __assign$1 = undefined && undefined.__assign || function () {
+  __assign$1 = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
 
@@ -134,7 +134,7 @@ var __assign = undefined && undefined.__assign || function () {
     return t;
   };
 
-  return __assign.apply(this, arguments);
+  return __assign$1.apply(this, arguments);
 };
 
 var __rest = undefined && undefined.__rest || function (s, e) {
@@ -150,7 +150,7 @@ var __rest = undefined && undefined.__rest || function (s, e) {
 
 function Tree2Element(tree) {
   return tree && tree.map(function (node, i) {
-    return React__default["default"].createElement(node.tag, __assign({
+    return React__default["default"].createElement(node.tag, __assign$1({
       key: i
     }, node.attr), Tree2Element(node.child));
   });
@@ -158,8 +158,8 @@ function Tree2Element(tree) {
 
 function GenIcon(data) {
   return function (props) {
-    return React__default["default"].createElement(IconBase, __assign({
-      attr: __assign({}, data.attr)
+    return React__default["default"].createElement(IconBase, __assign$1({
+      attr: __assign$1({}, data.attr)
     }, props), Tree2Element(data.child));
   };
 }
@@ -174,13 +174,13 @@ function IconBase(props) {
     var className;
     if (conf.className) className = conf.className;
     if (props.className) className = (className ? className + ' ' : '') + props.className;
-    return React__default["default"].createElement("svg", __assign({
+    return React__default["default"].createElement("svg", __assign$1({
       stroke: "currentColor",
       fill: "currentColor",
       strokeWidth: "0"
     }, conf.attr, attr, svgProps, {
       className: className,
-      style: __assign(__assign({
+      style: __assign$1(__assign$1({
         color: props.color || conf.color
       }, conf.style), props.style),
       height: computedSize,
@@ -220,20 +220,39 @@ var Dropdown = function (_a) {
         extended && (React__default["default"].createElement("div", { className: styles$2.items }, items.map(function (title) { return (React__default["default"].createElement("div", { className: styles$2.item, "data-custom": selected === title, onClick: function () { return handleChange(title); } }, title)); })))));
 };
 
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
 var css_248z$1 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Textbox-module_textbox__y3fY0 {\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  border: 3px solid #6957e7;\n  border-radius: 10px;\n  outline: none;\n  background-color: #313131;\n  padding: 0.5rem;\n}";
 var styles$1 = {"textbox":"Textbox-module_textbox__y3fY0"};
 styleInject(css_248z$1);
 
-var Textbox = function (_a) {
-    var placeholder = _a.placeholder, onInput = _a.onInput;
-    var _b = React.useState(''), input = _b[0], setInput = _b[1];
-    function handleInput(e) {
-        var value = e.target.value;
-        setInput(value);
-        onInput(value);
-    }
-    return (React__default["default"].createElement("input", { className: styles$1.textbox, value: input, onInput: function (e) { return handleInput(e); }, placeholder: placeholder }));
-};
+var Textbox = React__default["default"].forwardRef(function (props, ref) {
+    return React__default["default"].createElement("input", __assign({}, props, { ref: ref, className: styles$1.textbox }));
+});
 
 var css_248z = "@import url(\"https://rsms.me/inter/inter.css\");\n.Splashart-module_splashart__9th0d {\n  border-radius: 20px;\n  width: 160px;\n}\n.Splashart-module_splashart__9th0d img {\n  pointer-events: none;\n  max-width: 100%;\n  max-height: 100%;\n  border-radius: 20px;\n}\n.Splashart-module_splashart__9th0d[data-selected=true] {\n  border: 4px solid #6957e7;\n}";
 var styles = {"splashart":"Splashart-module_splashart__9th0d"};

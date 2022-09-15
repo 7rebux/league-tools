@@ -1,4 +1,3 @@
 import React from 'react';
-import { TextboxProps } from './Textbox.types';
-declare const Textbox: React.FC<TextboxProps>;
+declare const Textbox: React.ForwardRefExoticComponent<React.HTMLAttributes<HTMLInputElement> & React.RefAttributes<HTMLInputElement>>;
 export default Textbox;

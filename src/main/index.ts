@@ -1,6 +1,8 @@
-import { app, BrowserWindow, session } from 'electron';
+import { app, BrowserWindow, session, ipcMain } from 'electron';
+import LCU from './lcu';
 
 declare const CONNECT_WEBPACK_ENTRY: string;
+const leagueClient = new LCU();
 
 if (require('electron-squirrel-startup')) app.quit();
 
@@ -10,6 +12,7 @@ const createWindow = (): void => {
     width: 900,
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: false,
     },
   });
 
@@ -23,9 +26,21 @@ app.on('ready', () => {
     callback({
       responseHeaders: {
         ...details.responseHeaders,
-        'Content-Security-Policy': ['*'],
+        'Content-Security-Policy': ['*'], // is this the best solution?
       },
     });
+  });
+});
+
+ipcMain.once('lcu-connect', (event) => {
+  leagueClient
+    .connect()
+    .then((connected) => event.reply('lcu-connected', connected));
+});
+
+ipcMain.on('lcu-request', (event, id, method, endpoint, body?) => {
+  leagueClient.request(method, endpoint, body).then((data) => {
+    event.reply(`lcu-response-${id}`, data);
   });
 });
 

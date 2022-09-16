@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { Button, Dropdown, Textbox, SummonerIcon } from 'component-lib';
 
 import { request } from '../../ipcBridge';
 
 import './Status.scss';
-
-const ENDPOINT = '/lol-chat/v1/me/';
+import { useLcuData } from '../../LcuContext';
 
 type Availability = 'chat' | 'away' | 'dnd' | 'mobile' | 'offline';
 const availabilites = new Map<Availability, string>([
@@ -18,33 +17,18 @@ const availabilites = new Map<Availability, string>([
 ]);
 
 const Status: React.FC = () => {
-  const [currentStatus, setCurrentStatus] =
-    useState<string>('Fetching status..');
-  const [currentAvailability, setCurrentAvailability] =
-    useState<Availability>('offline');
+  const lcuData = useLcuData();
 
   const textbox = React.createRef<HTMLInputElement>();
-
-  const fetchStatus = async () => {
-    const data = await request('GET', ENDPOINT);
-    const status = data['statusMessage'] as string;
-    const availability = data['availability'] as Availability;
-
-    setCurrentStatus(status);
-    setCurrentAvailability(availability);
-    // also fetch icon
-  };
-
   const setStatus = (status: string) => {
     textbox.current.value = '';
     textbox.current.disabled = true;
 
     const body = { statusMessage: status };
 
-    request('PUT', ENDPOINT, body).then(
+    request('PUT', '/lol-chat/v1/me/', body).then(
       (_response) => {
         textbox.current.disabled = false;
-        return fetchStatus(); // why return? @Kai
       },
       (reason) => {}
     );
@@ -53,9 +37,9 @@ const Status: React.FC = () => {
   const setAvailabilty = (availability: Availability) => {
     const body = { availability: availability };
 
-    if (availability === currentAvailability) return;
+    if (availability === lcuData.me.availability) return;
 
-    request('PUT', ENDPOINT, body).then(
+    request('PUT', '/lol-chat/v1/me/', body).then(
       (_response) => {},
       (reason) => {}
     );
@@ -64,7 +48,7 @@ const Status: React.FC = () => {
   const updateStatus = () => {
     const status = textbox.current.value;
 
-    if (status === '' || status === currentStatus) return;
+    if (status === '' || status === lcuData.me.statusMessage) return;
 
     setStatus(status);
   };
@@ -73,22 +57,24 @@ const Status: React.FC = () => {
     setStatus('');
   };
 
-  useEffect(() => {
-    fetchStatus();
-  }, []); // is the array needed
-
   return (
     <div className='status-page'>
       <div className='wrapper'>
         <div className='left'>
           <SummonerIcon iconId={3333} availability='chat' size={50} />
           <Textbox
-            placeholder={currentStatus === '' ? 'Empty status' : currentStatus}
+            placeholder={
+              lcuData.me.statusMessage === ''
+                ? 'Empty status'
+                : lcuData.me.statusMessage
+            }
             ref={textbox}
           />
           <Dropdown
             items={Array.from(availabilites.values())}
-            initialItem={availabilites.get(currentAvailability)}
+            initialItem={availabilites.get(
+              lcuData.me.availability as Availability
+            )}
           />
         </div>
         <div className='right'>

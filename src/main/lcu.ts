@@ -8,6 +8,7 @@ import {
   LeagueClient,
 } from 'league-connect';
 import { WebSocket } from 'ws';
+import { BrowserWindow, ipcMain } from 'electron';
 import https from 'https';
 
 class LCU {
@@ -43,11 +44,10 @@ class LCU {
 
     socket.on('message', (content: string) => {
       // Attempt to parse into JSON and dispatch events
-      console.log(content);
       try {
         const json = JSON.parse(content);
         const [res]: [EventResponse] = json.slice(2);
-        console.log(res);
+        this.handle_message(res);
       } catch {}
     });
 
@@ -81,9 +81,9 @@ class LCU {
   connect = async () => {
     // this.credentials = await authenticate(authOptions);
     this.credentials = {
-      password: '3LR2XAMzuaT9L8yICdETEA',
-      port: 36779,
-      pid: 1608,
+      password: 'n0LYii03KSSdOjt8XxoRdQ',
+      port: 40535,
+      pid: 2552,
     };
     console.log(this.credentials);
     this.onConnect();
@@ -126,6 +126,12 @@ class LCU {
           resolve(json);
         });
     });
+  };
+
+  handle_message = (message: EventResponse) => {
+    BrowserWindow.getAllWindows().forEach((win) =>
+      win.webContents.send('lcu-event', message)
+    );
   };
 }
 

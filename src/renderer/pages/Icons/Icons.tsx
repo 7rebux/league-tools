@@ -5,6 +5,7 @@ import { Checkbox, Dropdown, Textbox, SummonerIcon } from 'component-lib';
 import { request } from '../../ipcBridge';
 
 import './Icons.scss';
+import { useLcuData } from '../../LcuContext';
 
 // some icons end on 404???
 const ICON_DATA_URL =
@@ -16,13 +17,11 @@ type Icon = {
   isLegacy: boolean;
 };
 
-const ENDPOINT = '/lol-chat/v1/me/';
-
 const Icons: React.FC = () => {
   const [iconData, setIconData] = useState<Icon[]>([]);
   const [titleFilter, setTitleFilter] = useState<string>('');
   const [legacyFilter, setLegacyFilter] = useState<boolean>(true);
-  const [currentIcon, setCurrentIcon] = useState<number>(29);
+  const lcuData = useLcuData();
 
   const filter1 = useMemo(
     () =>
@@ -37,28 +36,18 @@ const Icons: React.FC = () => {
     [filter1, legacyFilter]
   );
 
-  const fetchIcon = () => {
-    return request('GET', ENDPOINT).then((data) => {
-      const icon = data['icon'] as number;
-
-      setCurrentIcon(icon);
-      console.log('test');
-    });
-  }
-
   const setIcon = (id: number) => {
     const body = { icon: id };
 
-    if (id === currentIcon) return;
+    if (id === lcuData.me.icon) return;
 
-    request('PUT', ENDPOINT, body).then(
+    request('PUT', '/lol-chat/v1/me', body).then(
       (response) => {
         console.log(response);
-        fetchIcon();
       },
       (reason) => {}
-    )
-  }
+    );
+  };
 
   useEffect(() => {
     const fetchIconData = async () => {
@@ -75,12 +64,7 @@ const Icons: React.FC = () => {
     };
 
     fetchIconData();
-    fetchIcon();
   }, []);
-
-  useEffect(() => {
-    console.log('Hallo Welt');
-  }, [currentIcon]);
 
   return (
     <div className='icons-page'>
@@ -109,7 +93,7 @@ const Icons: React.FC = () => {
             key={icon.id}
             iconId={icon.id}
             size={80}
-            selected={currentIcon === icon.id}
+            selected={lcuData.me.icon === icon.id}
             onClick={() => setIcon(icon.id)}
           />
         ))}

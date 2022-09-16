@@ -6,7 +6,7 @@ const leagueClient = new LCU();
 
 if (require('electron-squirrel-startup')) app.quit();
 
-const createWindow = (): void => {
+const createWindow = (): BrowserWindow => {
   const mainWindow = new BrowserWindow({
     height: 650,
     width: 900,
@@ -17,6 +17,8 @@ const createWindow = (): void => {
   });
 
   mainWindow.loadURL(CONNECT_WEBPACK_ENTRY);
+
+  return mainWindow;
 };
 
 app.on('ready', () => {

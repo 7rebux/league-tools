@@ -3,6 +3,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Checkbox, Dropdown, Splashart, Textbox } from 'component-lib';
 
 import { request } from '../../ipcBridge';
+import { useLcuData } from '../../LcuContext';
 
 import './Backgrounds.scss';
 
@@ -23,7 +24,8 @@ const Backgrounds: React.FC = () => {
   const [nameFilter, setNameFilter] = useState<string>('');
   const [legacyFilter, setLegacyFilter] = useState<boolean>(true);
   const [baseFilter, setBaseFilter] = useState<boolean>(true);
-  const [currentBackground, setCurrentBackground] = useState<number>(0);
+
+  const lcuData = useLcuData();
 
   const filter1 = useMemo(
     () =>
@@ -45,7 +47,7 @@ const Backgrounds: React.FC = () => {
   const setBackground = (id: number) => {
      const body = { key: 'backgroundSkinId', value: id };
 
-    if (id === currentBackground) return;
+    if (id === lcuData.profile.backgroundSkinId) return;
 
     request('POST', ENDPOINT, body).then(
       (response) => {
@@ -104,6 +106,7 @@ const Backgrounds: React.FC = () => {
           <Splashart 
             key={splashart.id} 
             skinId={splashart.id} 
+            selected={lcuData.profile.backgroundSkinId === splashart.id}
             onClick={() => setBackground(splashart.id)} 
           />
         ))}

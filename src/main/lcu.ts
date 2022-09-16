@@ -1,6 +1,5 @@
 import {
   authenticate,
-  AuthenticationOptions,
   createHttp1Request,
   Credentials,
   EventResponse,
@@ -8,13 +7,13 @@ import {
   LeagueClient,
 } from 'league-connect';
 import { WebSocket } from 'ws';
-import { BrowserWindow, ipcMain } from 'electron';
+import { BrowserWindow } from 'electron';
 import https from 'https';
 
 class LCU {
   private credentials: Credentials;
+  private ws: WebSocket;
   connected: boolean;
-  ws: WebSocket;
 
   createSocket = () => {
     const url = `wss://riot:${this.credentials.password}@127.0.0.1:${this.credentials.port}`;
@@ -79,58 +78,56 @@ class LCU {
   };
 
   connect = async () => {
-    // this.credentials = await authenticate(authOptions);
-    this.credentials = {
-      password: 'n0LYii03KSSdOjt8XxoRdQ',
-      port: 40535,
-      pid: 2552,
-    };
-    console.log(this.credentials);
+    this.credentials = await authenticate();
+
     this.onConnect();
-    const client = new LeagueClient(this.credentials);
 
-    // fired on reconnects
-    client.on('connect', (newCredentials) => {
-      this.credentials = newCredentials;
-      this.onConnect();
-    });
+    try {
+      const client = new LeagueClient(this.credentials);
 
-    // fired on disconnects
-    client.on('disconnect', () => {
-      this.connected = false;
+      // fired on reconnects
+      client.on('connect', (newCredentials) => {
+        this.credentials = newCredentials;
+        this.onConnect();
+      });
 
-      console.log('Lost connection');
-    });
+      // fired on disconnects
+      client.on('disconnect', () => {
+        this.connected = false;
 
-    console.log('starting client');
-    client.credentials = this.credentials;
-    client.start();
+        console.log('Lost connection');
+      });
+
+      client.credentials = this.credentials;
+      client.start();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  request = (
+  request = async (
     method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
     endpoint: string,
     body?: any
   ): Promise<JsonObjectLike> => {
-    return new Promise((resolve, _reject) => {
-      createHttp1Request(
-        {
-          method: method,
-          url: endpoint,
-          body: body,
-        },
-        this.credentials
-      )
-        .then((response) => response.json())
-        .then((json) => {
-          resolve(json);
-        });
-    });
+    const response = await createHttp1Request(
+      {
+        method: method,
+        url: endpoint,
+        body: body,
+      },
+      this.credentials
+    );
+    const json = await response.json();
+
+    return json;
   };
 
   handle_message = (message: EventResponse) => {
-    BrowserWindow.getAllWindows().forEach((win) =>
-      win.webContents.send('lcu-event', message)
+    BrowserWindow.getAllWindows().forEach(
+      (
+        win // shit code
+      ) => win.webContents.send('lcu-event', message)
     );
   };
 }

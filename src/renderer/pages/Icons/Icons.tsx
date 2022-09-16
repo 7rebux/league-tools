@@ -3,9 +3,9 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { Checkbox, Dropdown, Textbox, SummonerIcon } from 'component-lib';
 
 import { request } from '../../ipcBridge';
+import { useLcuData } from '../../LcuContext';
 
 import './Icons.scss';
-import { useLcuData } from '../../LcuContext';
 
 // some icons end on 404???
 const ICON_DATA_URL =
@@ -21,6 +21,7 @@ const Icons: React.FC = () => {
   const [iconData, setIconData] = useState<Icon[]>([]);
   const [titleFilter, setTitleFilter] = useState<string>('');
   const [legacyFilter, setLegacyFilter] = useState<boolean>(true);
+
   const lcuData = useLcuData();
 
   const filter1 = useMemo(
@@ -43,7 +44,7 @@ const Icons: React.FC = () => {
 
     request('PUT', '/lol-chat/v1/me', body).then(
       (response) => {
-        console.log(response);
+        
       },
       (reason) => {}
     );

@@ -6,7 +6,7 @@ const leagueClient = new LCU();
 
 if (require('electron-squirrel-startup')) app.quit();
 
-const createWindow = (): void => {
+const createWindow = (): BrowserWindow => {
   const mainWindow = new BrowserWindow({
     height: 650,
     width: 900,
@@ -17,6 +17,8 @@ const createWindow = (): void => {
   });
 
   mainWindow.loadURL(CONNECT_WEBPACK_ENTRY);
+
+  return mainWindow;
 };
 
 app.on('ready', () => {
@@ -33,9 +35,7 @@ app.on('ready', () => {
 });
 
 ipcMain.once('lcu-connect', (event) => {
-  leagueClient
-    .connect()
-    .then((connected) => event.reply('lcu-connected', connected));
+  leagueClient.connect().then(() => event.reply('lcu-connected'));
 });
 
 ipcMain.on('lcu-request', (event, id, method, endpoint, body?) => {

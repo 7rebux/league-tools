@@ -2,10 +2,14 @@ import React, { useState, useEffect, useMemo } from 'react';
 
 import { Checkbox, Dropdown, Splashart, Textbox } from 'component-lib';
 
+import { request } from '../../ipcBridge';
+
 import './Backgrounds.scss';
 
 const SPLASHART_DATA_URL =
   'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/skins.json';
+
+const ENDPOINT = '/lol-summoner/v1/current-summoner/summoner-profile/';
 
 type Splashart = {
   id: number;
@@ -16,10 +20,10 @@ type Splashart = {
 
 const Backgrounds: React.FC = () => {
   const [splashartData, setSplashartData] = useState<Splashart[]>([]);
-
   const [nameFilter, setNameFilter] = useState<string>('');
   const [legacyFilter, setLegacyFilter] = useState<boolean>(true);
   const [baseFilter, setBaseFilter] = useState<boolean>(true);
+  const [currentBackground, setCurrentBackground] = useState<number>(0);
 
   const filter1 = useMemo(
     () =>
@@ -37,6 +41,19 @@ const Backgrounds: React.FC = () => {
     () => (baseFilter ? filter2 : filter2.filter((i) => i.isBase === false)),
     [filter2, baseFilter]
   );
+
+  const setBackground = (id: number) => {
+     const body = { key: 'backgroundSkinId', value: id };
+
+    if (id === currentBackground) return;
+
+    request('POST', ENDPOINT, body).then(
+      (response) => {
+        
+      },
+      (reason) => {}
+    )
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -84,7 +101,11 @@ const Backgrounds: React.FC = () => {
       </div>
       <div className='backgrounds'>
         {filter3.map((splashart) => (
-          <Splashart key={splashart.id} skinId={splashart.id} />
+          <Splashart 
+            key={splashart.id} 
+            skinId={splashart.id} 
+            onClick={() => setBackground(splashart.id)} 
+          />
         ))}
       </div>
     </div>

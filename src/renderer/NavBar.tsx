@@ -48,8 +48,8 @@ const NavBar: React.FC = () => {
       setSummonerName(meData['name'] as string);
       setSummonerIcon(meData['icon'] as number);
       setAvailability(meData['availability'] as string);
-      setBlueEssence(inventoryData['lol_blue_essence'] as number);
-      setRiotPoints(inventoryData['RP'] as number);
+      setBlueEssence((inventoryData['lol_blue_essence'] ?? 0) as number);
+      setRiotPoints((inventoryData['RP'] ?? 0) as number);
     }
 
     fetchData();

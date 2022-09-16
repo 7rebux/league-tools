@@ -1,4 +1,4 @@
-import React, { ReactText, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Button, Dropdown, Textbox, SummonerIcon } from 'component-lib';
 
@@ -8,17 +8,31 @@ import './Status.scss';
 
 const ENDPOINT = '/lol-chat/v1/me/';
 
+type Availability = 'chat' | 'away' | 'dnd' | 'mobile' | 'offline';
+const availabilites = new Map<Availability, string>([
+  ['chat', 'Online'],
+  ['away', 'Away'],
+  ['dnd', 'Ingame'],
+  ['mobile', 'Mobile'],
+  ['offline', 'Offline'],
+]);
+
 const Status: React.FC = () => {
   const [currentStatus, setCurrentStatus] =
     useState<string>('Fetching status..');
+  const [currentAvailability, setCurrentAvailability] =
+    useState<Availability>('offline');
 
   const textbox = React.createRef<HTMLInputElement>();
 
   const fetchStatus = async () => {
     const data = await request('GET', ENDPOINT);
     const status = data['statusMessage'] as string;
+    const availability = data['availability'] as Availability;
 
     setCurrentStatus(status);
+    setCurrentAvailability(availability);
+    // also fetch icon
   };
 
   const setStatus = (status: string) => {
@@ -30,8 +44,19 @@ const Status: React.FC = () => {
     request('PUT', ENDPOINT, body).then(
       (_response) => {
         textbox.current.disabled = false;
-        return fetchStatus();
+        return fetchStatus(); // why return? @Kai
       },
+      (reason) => {}
+    );
+  };
+
+  const setAvailabilty = (availability: Availability) => {
+    const body = { availability: availability };
+
+    if (availability === currentAvailability) return;
+
+    request('PUT', ENDPOINT, body).then(
+      (_response) => {},
       (reason) => {}
     );
   };
@@ -50,7 +75,7 @@ const Status: React.FC = () => {
 
   useEffect(() => {
     fetchStatus();
-  }, []);
+  }, []); // is the array needed
 
   return (
     <div className='status-page'>
@@ -62,12 +87,14 @@ const Status: React.FC = () => {
             ref={textbox}
           />
           <Dropdown
-            items={['Online', 'Away', 'Ingame', 'Mobile', 'Offline']}
-            initialItem='Online'
+            items={Array.from(availabilites.values())}
+            initialItem={availabilites.get(currentAvailability)}
           />
         </div>
-        <Button title='Apply' onClick={updateStatus} />
-        <Button title='Clear' onClick={clearStatus} />
+        <div className='right'>
+          <Button title='Apply' onClick={updateStatus} />
+          <Button title='Clear' onClick={clearStatus} />
+        </div>
       </div>
     </div>
   );

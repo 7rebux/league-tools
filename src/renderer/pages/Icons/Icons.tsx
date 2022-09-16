@@ -2,6 +2,8 @@ import React, { useEffect, useState, useMemo } from 'react';
 
 import { Checkbox, Dropdown, Textbox, SummonerIcon } from 'component-lib';
 
+import { request } from '../../ipcBridge';
+
 import './Icons.scss';
 
 // some icons end on 404???
@@ -14,11 +16,13 @@ type Icon = {
   isLegacy: boolean;
 };
 
+const ENDPOINT = '/lol-chat/v1/me/';
+
 const Icons: React.FC = () => {
   const [iconData, setIconData] = useState<Icon[]>([]);
-
   const [titleFilter, setTitleFilter] = useState<string>('');
   const [legacyFilter, setLegacyFilter] = useState<boolean>(true);
+  const [currentIcon, setCurrentIcon] = useState<number>(29);
 
   const filter1 = useMemo(
     () =>
@@ -33,8 +37,31 @@ const Icons: React.FC = () => {
     [filter1, legacyFilter]
   );
 
+  const fetchIcon = () => {
+    return request('GET', ENDPOINT).then((data) => {
+      const icon = data['icon'] as number;
+
+      setCurrentIcon(icon);
+      console.log('test');
+    });
+  }
+
+  const setIcon = (id: number) => {
+    const body = { icon: id };
+
+    if (id === currentIcon) return;
+
+    request('PUT', ENDPOINT, body).then(
+      (response) => {
+        console.log(response);
+        fetchIcon();
+      },
+      (reason) => {}
+    )
+  }
+
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchIconData = async () => {
       const response = await fetch(ICON_DATA_URL);
       const data = await response.json();
 
@@ -47,8 +74,13 @@ const Icons: React.FC = () => {
       setIconData(icons);
     };
 
-    fetchData();
+    fetchIconData();
+    fetchIcon();
   }, []);
+
+  useEffect(() => {
+    console.log('Hallo Welt');
+  }, [currentIcon]);
 
   return (
     <div className='icons-page'>
@@ -73,7 +105,13 @@ const Icons: React.FC = () => {
       </div>
       <div className='icons'>
         {filter2.map((icon) => (
-          <SummonerIcon key={icon.id} iconId={icon.id} size={80} />
+          <SummonerIcon
+            key={icon.id}
+            iconId={icon.id}
+            size={80}
+            selected={currentIcon === icon.id}
+            onClick={() => setIcon(icon.id)}
+          />
         ))}
       </div>
     </div>

@@ -3,19 +3,15 @@ import React from 'react';
 import { SummonerIconProps } from './SummonerIcon.types';
 import styles from './SummonerIcon.module.scss';
 
-const ProfileIcon: React.FC<SummonerIconProps> = ({
-  iconId,
-  availability,
-  selected = false,
-  favorite = false,
-  size = 128,
-}) => {
+const SummonerIcon = React.forwardRef<HTMLDivElement, SummonerIconProps & React.HTMLAttributes<HTMLDivElement>>(({iconId, size = 128, selected = false, favorite = false, availability, ...props}, ref) => {
   return (
     <div
+      {...props}
       className={styles.profileIcon}
       style={{ width: size, height: size }}
       data-selected={selected}
       data-favorite={favorite}
+      ref={ref}
     >
       <img
         loading='lazy'
@@ -29,6 +25,6 @@ const ProfileIcon: React.FC<SummonerIconProps> = ({
       )}
     </div>
   );
-};
+});
 
-export default ProfileIcon;
+export default SummonerIcon;

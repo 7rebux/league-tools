@@ -1,11 +1,23 @@
 @use '../../_theme' as *;
 
 .dropdown {
+  position: relative;
   user-select: none;
-  width: fit-content;
+  width: max-content;
+
+  &[data-extended='true'] {
+    .head {
+      border-radius: 10px 10px 0 0;
+    }
+
+    .items {
+      visibility: visible;
+    }
+  }
 }
 
 .head {
+  position: relative;
   display: flex;
   gap: 1rem;
   background-color: color('secondary');
@@ -14,10 +26,6 @@
   justify-content: space-between;
   cursor: pointer;
   border-radius: 10px;
-
-  &[data-custom='true'] {
-    border-radius: 10px 10px 0 0;
-  }
 }
 
 .title {
@@ -26,19 +34,27 @@
 
 .items {
   position: absolute;
+  visibility: hidden;
+  min-width: 100%;
+  width: max-content;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-auto-rows: max-content;
 }
 
 .items > * {
   background-color: darken(color('secondary'), 5);
-  width: auto;
+  width: 100%;
+  position: relative;
   border-radius: 0;
 }
 
 .item {
   @include font('body');
-  padding: 0.5rem;
+  padding: 0.5rem 0 0.5rem 0;
+  text-align: center;
 
-  &[data-custom='true'] {
+  &[data-selected='true'] {
     background-color: darken(color('secondary'), 10);
   }
 }

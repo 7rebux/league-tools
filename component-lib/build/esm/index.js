@@ -60,16 +60,55 @@ var Button = function (_a) {
         React.createElement("span", null, title)));
 };
 
-var css_248z$5 = "@import url(\"https://rsms.me/inter/inter.css\");\n.SummonerIcon-module_profileIcon__DtiAc {\n  position: relative;\n  box-sizing: border-box;\n  border-radius: 25%;\n}\n.SummonerIcon-module_profileIcon__DtiAc img {\n  pointer-events: none;\n  max-width: 100%;\n  max-height: 100%;\n  border-radius: 25%;\n}\n.SummonerIcon-module_profileIcon__DtiAc[data-selected=true] {\n  border: 4px solid #6957e7;\n}\n\n.SummonerIcon-module_availability__LEzzj[data-availability=chat] {\n  background-color: #29c45a;\n  border-color: #177033;\n}\n\n.SummonerIcon-module_availability__LEzzj[data-availability=away] {\n  background-color: #c73c3c;\n  border-color: #7a2323;\n}\n\n.SummonerIcon-module_availability__LEzzj[data-availability=dnd] {\n  background-color: #4ab3e4;\n  border-color: #1a7fae;\n}\n\n.SummonerIcon-module_availability__LEzzj[data-availability=offline] {\n  background-color: #8f8b8b;\n  border-color: #5c5858;\n}\n\n.SummonerIcon-module_availability__LEzzj[data-availability=mobile] {\n  background-color: #8f8b8b;\n  border-color: #5c5858;\n}\n\n.SummonerIcon-module_availability__LEzzj {\n  position: absolute;\n  bottom: 10%;\n  right: 10%;\n  height: 15%;\n  width: 15%;\n  border-radius: 50%;\n  border: 4px solid;\n}";
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+
+var __assign$1 = function() {
+    __assign$1 = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign$1.apply(this, arguments);
+};
+
+function __rest$1(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+}
+
+var css_248z$5 = "@import url(\"https://rsms.me/inter/inter.css\");\n.SummonerIcon-module_profileIcon__DtiAc {\n  position: relative;\n  box-sizing: border-box;\n  border-radius: 25%;\n}\n.SummonerIcon-module_profileIcon__DtiAc img {\n  pointer-events: none;\n  max-width: 100%;\n  max-height: 100%;\n  border-radius: 25%;\n}\n.SummonerIcon-module_profileIcon__DtiAc[data-selected=true] {\n  border: 4px solid #6957e7;\n}\n\n.SummonerIcon-module_availability__LEzzj[data-availability=chat] {\n  background-color: #29c45a;\n  border-color: #177033;\n}\n\n.SummonerIcon-module_availability__LEzzj[data-availability=away] {\n  background-color: #c73c3c;\n  border-color: #7a2323;\n}\n\n.SummonerIcon-module_availability__LEzzj[data-availability=dnd] {\n  background-color: #4ab3e4;\n  border-color: #1a7fae;\n}\n\n.SummonerIcon-module_availability__LEzzj[data-availability=offline] {\n  background-color: #8f8b8b;\n  border-color: #5c5858;\n}\n\n.SummonerIcon-module_availability__LEzzj[data-availability=mobile] {\n  background-color: #8f8b8b;\n  border-color: #5c5858;\n}\n\n.SummonerIcon-module_availability__LEzzj {\n  position: absolute;\n  bottom: 10%;\n  right: 10%;\n  height: 15%;\n  width: 15%;\n  border-radius: 50%;\n  border: 2px solid;\n  box-sizing: content-box;\n}";
 var styles$5 = {"profileIcon":"SummonerIcon-module_profileIcon__DtiAc","availability":"SummonerIcon-module_availability__LEzzj"};
 styleInject(css_248z$5);
 
-var ProfileIcon = function (_a) {
-    var iconId = _a.iconId, availability = _a.availability, _b = _a.selected, selected = _b === void 0 ? false : _b, _c = _a.favorite, favorite = _c === void 0 ? false : _c, _d = _a.size, size = _d === void 0 ? 128 : _d;
-    return (React.createElement("div", { className: styles$5.profileIcon, style: { width: size, height: size }, "data-selected": selected, "data-favorite": favorite },
+var SummonerIcon = React.forwardRef(function (_a, ref) {
+    var iconId = _a.iconId, _b = _a.size, size = _b === void 0 ? 128 : _b, _c = _a.selected, selected = _c === void 0 ? false : _c, _d = _a.favorite, favorite = _d === void 0 ? false : _d, availability = _a.availability, props = __rest$1(_a, ["iconId", "size", "selected", "favorite", "availability"]);
+    console.log(selected);
+    return (React.createElement("div", __assign$1({}, props, { className: styles$5.profileIcon, style: { width: size, height: size }, "data-selected": selected, "data-favorite": favorite, ref: ref }),
         React.createElement("img", { loading: 'lazy', src: "https://raw.communitydragon.org/latest/game/assets/ux/summonericons/profileicon".concat(iconId, ".png") }),
         availability !== undefined && (React.createElement("div", { className: "".concat(styles$5.availability), "data-availability": availability }))));
-};
+});
 
 var css_248z$4 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Profile-module_profile__h1lkJ {\n  display: flex;\n  gap: 2rem;\n  padding: 1.5rem;\n  border-radius: 30px;\n  background-color: #313131;\n  width: fit-content;\n  user-select: none;\n}\n\n.Profile-module_content__KpGNh {\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n}\n\n.Profile-module_header__aCh-O {\n  display: flex;\n  flex-direction: row;\n  gap: 1rem;\n}\n\n.Profile-module_badges__4e8ms {\n  display: flex;\n  gap: 1rem;\n}\n\n.Profile-module_name__XG5Nd {\n  font-family: Inter;\n  font-size: 28px;\n  font-weight: 300;\n  color: #fffbf4;\n}\n\n.Profile-module_riotId__CjT9U {\n  font-family: Inter;\n  font-size: 15px;\n  font-weight: 300;\n  color: #d4cfcd;\n  font-size: 28px;\n}";
 var styles$4 = {"profile":"Profile-module_profile__h1lkJ","content":"Profile-module_content__KpGNh","header":"Profile-module_header__aCh-O","badges":"Profile-module_badges__4e8ms","name":"Profile-module_name__XG5Nd","riotId":"Profile-module_riotId__CjT9U"};
@@ -78,7 +117,7 @@ styleInject(css_248z$4);
 var Profile = function (_a) {
     var name = _a.name, riotId = _a.riotId, iconId = _a.iconId, availability = _a.availability, level = _a.level, rank = _a.rank, region = _a.region;
     return (React.createElement("div", { className: styles$4.profile },
-        React.createElement(ProfileIcon, { iconId: iconId, availability: availability }),
+        React.createElement(SummonerIcon, { iconId: iconId, availability: availability }),
         React.createElement("div", { className: styles$4.content },
             React.createElement("div", { className: styles$4.header },
                 React.createElement("span", { className: styles$4.name }, name),
@@ -102,8 +141,8 @@ var Checkbox = function (_a) {
         React.createElement("input", { className: styles$3.box, type: 'checkbox', defaultChecked: initialState, onChange: function (e) { return onChange(e.currentTarget.checked); } })));
 };
 
-var css_248z$2 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Dropdown-module_dropdown__HMCqD {\n  user-select: none;\n  width: fit-content;\n}\n\n.Dropdown-module_head__6dcyy {\n  display: flex;\n  gap: 1rem;\n  background-color: #6957e7;\n  padding: 0.5rem;\n  align-items: center;\n  justify-content: space-between;\n  cursor: pointer;\n  border-radius: 10px;\n}\n.Dropdown-module_head__6dcyy[data-custom=true] {\n  border-radius: 10px 10px 0 0;\n}\n\n.Dropdown-module_title__fLsjF {\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n}\n\n.Dropdown-module_items__COHNO {\n  position: absolute;\n  max-height: 200px;\n  overflow-y: scroll;\n}\n\n.Dropdown-module_items__COHNO > * {\n  background-color: #5541e4;\n  width: auto;\n  border-radius: 0;\n}\n\n.Dropdown-module_item__f-Rhh {\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  padding: 0.5rem;\n}\n.Dropdown-module_item__f-Rhh[data-custom=true] {\n  background-color: #412ae1;\n}";
-var styles$2 = {"dropdown":"Dropdown-module_dropdown__HMCqD","head":"Dropdown-module_head__6dcyy","title":"Dropdown-module_title__fLsjF","items":"Dropdown-module_items__COHNO","item":"Dropdown-module_item__f-Rhh"};
+var css_248z$2 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Dropdown-module_dropdown__HMCqD {\n  position: relative;\n  user-select: none;\n  width: max-content;\n}\n.Dropdown-module_dropdown__HMCqD[data-extended=true] .Dropdown-module_head__6dcyy {\n  border-radius: 10px 10px 0 0;\n}\n.Dropdown-module_dropdown__HMCqD[data-extended=true] .Dropdown-module_items__COHNO {\n  visibility: visible;\n}\n\n.Dropdown-module_head__6dcyy {\n  position: relative;\n  display: flex;\n  gap: 1rem;\n  background-color: #6957e7;\n  padding: 0.5rem;\n  align-items: center;\n  justify-content: space-between;\n  cursor: pointer;\n  border-radius: 10px;\n}\n\n.Dropdown-module_title__fLsjF {\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n}\n\n.Dropdown-module_items__COHNO {\n  position: absolute;\n  visibility: hidden;\n  min-width: 100%;\n  width: max-content;\n  display: grid;\n  grid-template-columns: 100%;\n  grid-auto-rows: max-content;\n}\n\n.Dropdown-module_items__COHNO > * {\n  background-color: #5541e4;\n  width: 100%;\n  position: relative;\n  border-radius: 0;\n}\n\n.Dropdown-module_item__f-Rhh {\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  padding: 0.5rem 0 0.5rem 0;\n  text-align: center;\n}\n.Dropdown-module_item__f-Rhh[data-selected=true] {\n  background-color: #412ae1;\n}";
+var styles$2 = {"dropdown":"Dropdown-module_dropdown__HMCqD","head":"Dropdown-module_head__6dcyy","items":"Dropdown-module_items__COHNO","title":"Dropdown-module_title__fLsjF","item":"Dropdown-module_item__f-Rhh"};
 styleInject(css_248z$2);
 
 var DefaultContext = {
@@ -115,8 +154,8 @@ var DefaultContext = {
 };
 var IconContext = React.createContext && React.createContext(DefaultContext);
 
-var __assign$1 = undefined && undefined.__assign || function () {
-  __assign$1 = Object.assign || function (t) {
+var __assign = undefined && undefined.__assign || function () {
+  __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
 
@@ -126,7 +165,7 @@ var __assign$1 = undefined && undefined.__assign || function () {
     return t;
   };
 
-  return __assign$1.apply(this, arguments);
+  return __assign.apply(this, arguments);
 };
 
 var __rest = undefined && undefined.__rest || function (s, e) {
@@ -142,7 +181,7 @@ var __rest = undefined && undefined.__rest || function (s, e) {
 
 function Tree2Element(tree) {
   return tree && tree.map(function (node, i) {
-    return React.createElement(node.tag, __assign$1({
+    return React.createElement(node.tag, __assign({
       key: i
     }, node.attr), Tree2Element(node.child));
   });
@@ -150,8 +189,8 @@ function Tree2Element(tree) {
 
 function GenIcon(data) {
   return function (props) {
-    return React.createElement(IconBase, __assign$1({
-      attr: __assign$1({}, data.attr)
+    return React.createElement(IconBase, __assign({
+      attr: __assign({}, data.attr)
     }, props), Tree2Element(data.child));
   };
 }
@@ -166,13 +205,13 @@ function IconBase(props) {
     var className;
     if (conf.className) className = conf.className;
     if (props.className) className = (className ? className + ' ' : '') + props.className;
-    return React.createElement("svg", __assign$1({
+    return React.createElement("svg", __assign({
       stroke: "currentColor",
       fill: "currentColor",
       strokeWidth: "0"
     }, conf.attr, attr, svgProps, {
       className: className,
-      style: __assign$1(__assign$1({
+      style: __assign(__assign({
         color: props.color || conf.color
       }, conf.style), props.style),
       height: computedSize,
@@ -205,37 +244,11 @@ var Dropdown = function (_a) {
         setSelected(item);
         onChange(item);
     };
-    return (React.createElement("div", { className: styles$2.dropdown },
-        React.createElement("div", { className: styles$2.head, "data-custom": extended, onClick: function () { return setExtended(!extended); } },
+    return (React.createElement("div", { className: styles$2.dropdown, "data-extended": extended },
+        React.createElement("div", { className: styles$2.head, onClick: function () { return setExtended(!extended); } },
             React.createElement("span", { className: styles$2.title }, selected),
             icon),
-        extended && (React.createElement("div", { className: styles$2.items }, items.map(function (title) { return (React.createElement("div", { className: styles$2.item, "data-custom": selected === title, onClick: function () { return handleChange(title); } }, title)); })))));
-};
-
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation.
-
-Permission to use, copy, modify, and/or distribute this software for any
-purpose with or without fee is hereby granted.
-
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
-AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
-LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
-OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-PERFORMANCE OF THIS SOFTWARE.
-***************************************************************************** */
-
-var __assign = function() {
-    __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
+        React.createElement("div", { className: styles$2.items }, items.map(function (title) { return (React.createElement("div", { className: styles$2.item, "data-selected": selected === title, onClick: function () { return handleChange(title); } }, title)); }))));
 };
 
 var css_248z$1 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Textbox-module_textbox__y3fY0 {\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  border: 3px solid #6957e7;\n  border-radius: 10px;\n  outline: none;\n  background-color: #313131;\n  padding: 0.5rem;\n}";
@@ -243,7 +256,7 @@ var styles$1 = {"textbox":"Textbox-module_textbox__y3fY0"};
 styleInject(css_248z$1);
 
 var Textbox = React.forwardRef(function (props, ref) {
-    return React.createElement("input", __assign({}, props, { ref: ref, className: styles$1.textbox }));
+    return React.createElement("input", __assign$1({}, props, { ref: ref, className: styles$1.textbox }));
 });
 
 var css_248z = "@import url(\"https://rsms.me/inter/inter.css\");\n.Splashart-module_splashart__9th0d {\n  border-radius: 20px;\n  width: 160px;\n}\n.Splashart-module_splashart__9th0d img {\n  pointer-events: none;\n  max-width: 100%;\n  max-height: 100%;\n  border-radius: 20px;\n}\n.Splashart-module_splashart__9th0d[data-selected=true] {\n  border: 4px solid #6957e7;\n}";
@@ -257,5 +270,5 @@ var Splashart = function (_a) {
         React.createElement("img", { loading: 'lazy', src: "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/".concat(championId, "/").concat(skinId, ".jpg") })));
 };
 
-export { Badge, Button, Checkbox, Dropdown, Profile, Splashart, ProfileIcon as SummonerIcon, Textbox };
+export { Badge, Button, Checkbox, Dropdown, Profile, Splashart, SummonerIcon, Textbox };
 //# sourceMappingURL=index.js.map

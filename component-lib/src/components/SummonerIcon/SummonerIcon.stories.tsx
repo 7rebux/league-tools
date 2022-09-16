@@ -18,6 +18,9 @@ export default {
       },
       options: ['chat', 'away', 'dnd', 'offline', 'mobile'],
     },
+    size: {
+      type: 'number',
+    },
   },
 } as Meta;
 

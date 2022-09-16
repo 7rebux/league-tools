@@ -1,4 +1,4 @@
-import React, { useState, useMemo, Key } from 'react';
+import React, { useState } from 'react';
 
 import { DropdownProps } from './Dropdown.types';
 import styles from './Dropdown.module.scss';
@@ -29,28 +29,22 @@ const Dropdown: React.FC<DropdownProps> = ({
   };
 
   return (
-    <div className={styles.dropdown}>
-      <div
-        className={styles.head}
-        data-custom={extended}
-        onClick={() => setExtended(!extended)}
-      >
+    <div className={styles.dropdown} data-extended={extended}>
+      <div className={styles.head} onClick={() => setExtended(!extended)}>
         <span className={styles.title}>{selected}</span>
         {icon}
       </div>
-      {extended && (
-        <div className={styles.items}>
-          {items.map((title) => (
-            <div
-              className={styles.item}
-              data-custom={selected === title}
-              onClick={() => handleChange(title)}
-            >
-              {title}
-            </div>
-          ))}
-        </div>
-      )}
+      <div className={styles.items}>
+        {items.map((title) => (
+          <div
+            className={styles.item}
+            data-selected={selected === title}
+            onClick={() => handleChange(title)}
+          >
+            {title}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

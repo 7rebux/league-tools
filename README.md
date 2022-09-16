@@ -1,4 +1,4 @@
-# League-Tools
+# League Tools
 
 ![Issues](https://img.shields.io/github/issues-raw/7rebux/league-tools)
 ![Pull requests](https://img.shields.io/github/issues-pr/7rebux/league-tools)

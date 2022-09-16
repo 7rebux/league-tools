@@ -33,9 +33,7 @@ app.on('ready', () => {
 });
 
 ipcMain.once('lcu-connect', (event) => {
-  leagueClient
-    .connect()
-    .then((connected) => event.reply('lcu-connected', connected));
+  leagueClient.connect().then(() => event.reply('lcu-connected'));
 });
 
 ipcMain.on('lcu-request', (event, id, method, endpoint, body?) => {

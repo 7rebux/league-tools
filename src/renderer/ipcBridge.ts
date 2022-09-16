@@ -4,8 +4,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 export function connect() {
   return new Promise((resolve, _reject) => {
-    ipcRenderer.on('lcu-connected', (_event, connected) => {
-      resolve(connected);
+    ipcRenderer.once('lcu-connected', (_event) => {
+      resolve(null);
     });
 
     ipcRenderer.send('lcu-connect');

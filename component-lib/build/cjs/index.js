@@ -111,9 +111,8 @@ var styles$5 = {"profileIcon":"SummonerIcon-module_profileIcon__DtiAc","availabi
 styleInject(css_248z$5);
 
 var SummonerIcon = React__default["default"].forwardRef(function (_a, ref) {
-    var iconId = _a.iconId, _b = _a.size, size = _b === void 0 ? 128 : _b, _c = _a.selected, selected = _c === void 0 ? false : _c, _d = _a.favorite, favorite = _d === void 0 ? false : _d, availability = _a.availability, props = __rest$1(_a, ["iconId", "size", "selected", "favorite", "availability"]);
-    console.log(selected);
-    return (React__default["default"].createElement("div", __assign$1({}, props, { className: styles$5.profileIcon, style: { width: size, height: size }, "data-selected": selected, "data-favorite": favorite, ref: ref }),
+    var iconId = _a.iconId, _b = _a.size, size = _b === void 0 ? 128 : _b, selected = _a.selected, favorite = _a.favorite, availability = _a.availability, props = __rest$1(_a, ["iconId", "size", "selected", "favorite", "availability"]);
+    return (React__default["default"].createElement("div", __assign$1({}, props, { ref: ref, className: styles$5.profileIcon, style: { width: size, height: size }, "data-selected": selected, "data-favorite": favorite }),
         React__default["default"].createElement("img", { loading: 'lazy', src: "https://raw.communitydragon.org/latest/game/assets/ux/summonericons/profileicon".concat(iconId, ".png") }),
         availability !== undefined && (React__default["default"].createElement("div", { className: "".concat(styles$5.availability), "data-availability": availability }))));
 });
@@ -271,12 +270,12 @@ var css_248z = "@import url(\"https://rsms.me/inter/inter.css\");\n.Splashart-mo
 var styles = {"splashart":"Splashart-module_splashart__9th0d"};
 styleInject(css_248z);
 
-var Splashart = function (_a) {
-    var skinId = _a.skinId, _b = _a.selected, selected = _b === void 0 ? false : _b, _c = _a.favorite, favorite = _c === void 0 ? false : _c;
+var Splashart = React__default["default"].forwardRef(function (_a, ref) {
+    var skinId = _a.skinId, selected = _a.selected, favorite = _a.favorite, props = __rest$1(_a, ["skinId", "selected", "favorite"]);
     var championId = Math.floor(skinId / 1000);
-    return (React__default["default"].createElement("div", { className: styles.splashart, "data-selected": selected, "data-favorite": favorite },
+    return (React__default["default"].createElement("div", __assign$1({}, props, { ref: ref, className: styles.splashart, "data-selected": selected, "data-favorite": favorite }),
         React__default["default"].createElement("img", { loading: 'lazy', src: "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/".concat(championId, "/").concat(skinId, ".jpg") })));
-};
+});
 
 exports.Badge = Badge;
 exports.Button = Button;

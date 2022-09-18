@@ -1,18 +1,20 @@
 import React from 'react';
-
 import { ButtonProps } from './Button.types';
 import styles from './Button.module.scss';
 
-const Button: React.FC<ButtonProps> = ({
-  title,
-  variant = 'primary',
-  onClick,
-}) => {
+const Button = React.forwardRef<
+  HTMLDivElement,
+  ButtonProps & React.HTMLAttributes<HTMLDivElement>
+>(({title, variant = 'primary', ...props}, ref) => {
   return (
-    <div className={styles[variant]} onClick={onClick}>
+    <div 
+      {...props}
+      ref={ref}
+      className={styles[variant]}
+    >
       <span>{title}</span>
     </div>
   );
-};
+});
 
 export default Button;

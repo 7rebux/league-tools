@@ -1,20 +1,17 @@
 @use '../../theme' as *;
 
 .button {
-  padding: 9px;
-  min-width: 7rem;
   width: fit-content;
-  user-select: none;
+  min-width: 7rem;
   border-radius: 5px;
+  @include font('body');
+  font-size: 16px;
   text-align: center;
+  padding: 9px;
+  user-select: none; // disable text selection
 
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
-  }
-
-  span {
-    @include font('body');
-    font-size: 16px;
   }
 }
 

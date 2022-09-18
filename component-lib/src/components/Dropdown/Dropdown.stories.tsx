@@ -1,8 +1,6 @@
 import React from 'react';
-
 import { Meta, Story } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-
 import Dropdown from './Dropdown';
 import { DropdownProps } from './Dropdown.types';
 
@@ -11,15 +9,13 @@ export default {
   component: Dropdown,
 } as Meta;
 
-const items = ['Test1', 'Test2', 'Test3', 'Test4', 'Test5', 'Test6'];
-
-const Template: Story<DropdownProps> = (args) => (
-  <Dropdown {...args} onChange={(item) => action('onChange')({ item: item })} />
+export const Default: Story<DropdownProps> = (args) => (
+  <Dropdown 
+    {...args} 
+    onChange={(value) => action('onChange')({ value: value })} 
+  />
 );
-
-export const Default = Template.bind({});
 Default.args = {
-  title: 'Dropdown',
-  items: items,
+  items: ['Test1', 'Test2', 'Test3', 'Test4', 'Test5', 'Test6'],
   initialItem: 'Test4',
 };

@@ -1,5 +1,4 @@
 import React from 'react';
 import { BadgeProps } from './Badge.types';
-export declare function adjustColor(color: string, anmount: number): string;
-declare const Badge: React.FC<BadgeProps>;
+declare const Badge: React.ForwardRefExoticComponent<BadgeProps & React.HTMLAttributes<HTMLDivElement> & React.RefAttributes<HTMLDivElement>>;
 export default Badge;

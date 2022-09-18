@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
-
 import { DropdownProps } from './Dropdown.types';
+import { AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
 import styles from './Dropdown.module.scss';
 
-import { AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
-
-const Dropdown: React.FC<DropdownProps> = ({
-  items,
-  initialItem = 'Select..',
-  onChange,
-}) => {
+const Dropdown = React.forwardRef<
+  HTMLDivElement,
+  DropdownProps & React.HTMLAttributes<HTMLDivElement>
+>(({items, initialItem, onChange, ...props}, ref) => {
   const [extended, setExtended] = useState<Boolean>(false);
   const [selected, setSelected] = useState<string>(initialItem);
 
+  const iconColor = '#fff';
   const icon = extended ? (
-    <AiFillCaretUp color='#fff' />
+    <AiFillCaretUp color={iconColor} />
   ) : (
-    <AiFillCaretDown color='#fff' />
+    <AiFillCaretDown color={iconColor} />
   );
 
   const handleChange = (item: string) => {
@@ -29,7 +27,12 @@ const Dropdown: React.FC<DropdownProps> = ({
   };
 
   return (
-    <div className={styles.dropdown} data-extended={extended}>
+    <div
+      {...props}
+      ref={ref}
+      className={styles.dropdown} 
+      data-extended={extended}
+    >
       <div className={styles.head} onClick={() => setExtended(!extended)}>
         <span className={styles.title}>{selected}</span>
         {icon}
@@ -41,12 +44,12 @@ const Dropdown: React.FC<DropdownProps> = ({
             data-selected={selected === title}
             onClick={() => handleChange(title)}
           >
-            {title}
+            <span>{title}</span>
           </div>
         ))}
       </div>
     </div>
   );
-};
+});
 
 export default Dropdown;

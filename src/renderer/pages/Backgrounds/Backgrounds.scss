@@ -44,6 +44,10 @@ $border-radius: 20px;
     padding: $gap;
     overflow-y: scroll;
 
+    > * {
+      cursor: pointer;
+    }
+
     &::-webkit-scrollbar {
       width: 6px;
     }

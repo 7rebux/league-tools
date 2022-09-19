@@ -5,7 +5,7 @@ import styles from './Dropdown.module.scss';
 
 const Dropdown = React.forwardRef<
   HTMLDivElement,
-  DropdownProps & React.HTMLAttributes<HTMLDivElement>
+  DropdownProps & Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>
 >(({items, initialItem, onChange, ...props}, ref) => {
   const [extended, setExtended] = useState<Boolean>(false);
   const [selected, setSelected] = useState<string>(initialItem);

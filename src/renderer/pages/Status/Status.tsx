@@ -1,85 +1,64 @@
-import React from 'react';
-
-import { Button, Dropdown, Textbox, SummonerIcon } from 'component-lib';
-
+import React, { useState } from 'react';
 import { request } from '../../ipcBridge';
-
-import './Status.scss';
 import { useLcuData } from '../../LcuContext';
+import { Button, Dropdown, Textbox, SummonerIcon } from 'component-lib';
+import './Status.scss';
 
 type Availability = 'chat' | 'away' | 'dnd' | 'mobile' | 'offline';
-const availabilites = new Map<Availability, string>([
-  ['chat', 'Online'],
-  ['away', 'Away'],
-  ['dnd', 'Ingame'],
-  ['mobile', 'Mobile'],
-  ['offline', 'Offline'],
-]);
+
+const AVAILABILITES = ['chat', 'away', 'dnd', 'mobile', 'offline'];
+const ENDPOINT = '/lol-chat/v1/me/';
 
 const Status: React.FC = () => {
   const lcuData = useLcuData();
+  const [availability, setAvailabilty] = useState<Availability>(lcuData.me.availability);
+  const statusBox = React.createRef<HTMLInputElement>();
 
-  const textbox = React.createRef<HTMLInputElement>();
-  const setStatus = (status: string) => {
-    textbox.current.value = '';
-    textbox.current.disabled = true;
+  const apply = () => {
+    const updateStatus = async () => {
+      const status = statusBox.current.value;
 
-    const body = { statusMessage: status };
+      if (status === '' || status === lcuData.me.statusMessage) return;
 
-    request('PUT', '/lol-chat/v1/me/', body).then(
-      (_response) => {
-        textbox.current.disabled = false;
-      },
-      (reason) => {}
-    );
+      statusBox.current.value = '';
+      request('PUT', ENDPOINT, { statusMessage: status });
+    };
+
+    const updateAvailability = async () => {
+      if (availability === lcuData.me.availability) return;
+
+      return request('PUT', ENDPOINT, { availability: availability });
+    };
+
+    updateStatus().then(updateAvailability);
   };
 
-  const setAvailabilty = (availability: Availability) => {
-    const body = { availability: availability };
-
-    if (availability === lcuData.me.availability) return;
-
-    request('PUT', '/lol-chat/v1/me/', body).then(
-      (_response) => {},
-      (reason) => {}
-    );
-  };
-
-  const updateStatus = () => {
-    const status = textbox.current.value;
-
-    if (status === '' || status === lcuData.me.statusMessage) return;
-
-    setStatus(status);
-  };
-
-  const clearStatus = () => {
-    setStatus('');
+  const clear = () => {
+    request('PUT', ENDPOINT, { statusMessage: '' });
   };
 
   return (
     <div className='status-page'>
       <div className='wrapper'>
         <div className='left'>
-          <SummonerIcon iconId={3333} availability='chat' size={50} />
+          <SummonerIcon 
+            iconId={lcuData.me.icon} 
+            availability={lcuData.me.availability}
+            size={50} 
+          />
           <Textbox
-            placeholder={
-              lcuData.me.statusMessage === ''
-                ? 'Empty status'
-                : lcuData.me.statusMessage
-            }
-            ref={textbox}
+            ref={statusBox}
+            placeholder={lcuData.me.statusMessage === '' ? 'Empty status' : lcuData.me.statusMessage}
           />
           <Dropdown
-            items={Array.from(availabilites.values())}
-            initialItem={availabilites.get(
-              lcuData.me.availability as Availability
-            )}
+            items={AVAILABILITES}
+            initialItem={lcuData.me.availability}
+            onChange={(item) => {setAvailabilty(item as Availability)}}
           />
         </div>
         <div className='right'>
-          <Button title='Apply' onClick={updateStatus} />
-          <Button title='Clear' onClick={clearStatus} />
+          <Button title='Apply' onClick={apply} />
+          <Button title='Clear' onClick={clear} />
         </div>
       </div>
     </div>

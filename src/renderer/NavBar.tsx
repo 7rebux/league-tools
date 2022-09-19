@@ -1,9 +1,7 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-
-import { Badge, SummonerIcon } from 'component-lib';
-
 import { useLcuData } from './LcuContext';
+import { Badge, SummonerIcon } from 'component-lib';
 
 interface NavItemProps {
   title: string;

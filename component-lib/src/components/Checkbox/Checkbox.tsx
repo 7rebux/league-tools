@@ -4,7 +4,7 @@ import styles from './Checkbox.module.scss';
 
 const Checkbox = React.forwardRef<
   HTMLDivElement,
-  CheckboxProps & React.HTMLAttributes<HTMLDivElement>
+  CheckboxProps & Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>
 >(({title, initialState = false, onChange, ...props}, ref) => {
   return (
     <div 

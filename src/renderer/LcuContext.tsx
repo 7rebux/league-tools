@@ -25,7 +25,7 @@ const DEFAULT_STATE: State = {
 
 type MeState = {
   icon: number;
-  availability: string;
+  availability: 'chat' | 'away' | 'dnd' | 'mobile' | 'offline';
   name: string;
   puuid: string;
   statusMessage: string;

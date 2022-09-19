@@ -227,7 +227,7 @@ var Dropdown = React.forwardRef(function (_a, ref) {
         React.createElement("div", { className: styles$2.head, onClick: function () { return setExtended(!extended); } },
             React.createElement("span", { className: styles$2.title }, selected),
             icon),
-        React.createElement("div", { className: styles$2.items }, items.map(function (title) { return (React.createElement("div", { className: styles$2.item, "data-selected": selected === title, onClick: function () { return handleChange(title); } },
+        React.createElement("div", { className: styles$2.items }, items.map(function (title) { return (React.createElement("div", { className: styles$2.item, key: title, "data-selected": selected === title, onClick: function () { return handleChange(title); } },
             React.createElement("span", null, title))); }))));
 });
 

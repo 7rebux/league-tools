@@ -2,9 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { LcuContext } from './LcuContext';
-
 import NavBar from './NavBar';
-
 import { Backgrounds, Connect, Home, Icons, Status } from './pages';
 
 const render = () => {

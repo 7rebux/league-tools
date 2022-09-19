@@ -41,6 +41,7 @@ const Dropdown = React.forwardRef<
         {items.map((title) => (
           <div
             className={styles.item}
+            key={title}
             data-selected={selected === title}
             onClick={() => handleChange(title)}
           >

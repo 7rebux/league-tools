@@ -235,7 +235,7 @@ var Dropdown = React__default["default"].forwardRef(function (_a, ref) {
         React__default["default"].createElement("div", { className: styles$2.head, onClick: function () { return setExtended(!extended); } },
             React__default["default"].createElement("span", { className: styles$2.title }, selected),
             icon),
-        React__default["default"].createElement("div", { className: styles$2.items }, items.map(function (title) { return (React__default["default"].createElement("div", { className: styles$2.item, "data-selected": selected === title, onClick: function () { return handleChange(title); } },
+        React__default["default"].createElement("div", { className: styles$2.items }, items.map(function (title) { return (React__default["default"].createElement("div", { className: styles$2.item, key: title, "data-selected": selected === title, onClick: function () { return handleChange(title); } },
             React__default["default"].createElement("span", null, title))); }))));
 });
 

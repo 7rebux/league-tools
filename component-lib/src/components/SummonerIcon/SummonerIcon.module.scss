@@ -1,6 +1,5 @@
 @use '../../_theme' as *;
 
-$border-radius: 25%;
 $availabilities: (
   chat: #29c45a,
   away: #c73c3c,
@@ -12,7 +11,8 @@ $availabilities: (
 .profileIcon {
   box-sizing: border-box;
   position: relative;
-  border-radius: $border-radius;
+  border-radius: 25%;
+  overflow: hidden;
 
   // favorite
   &[data-favorite='true'] {
@@ -27,7 +27,6 @@ $availabilities: (
   img {
     max-width: 100%;
     max-height: 100%;
-    border-radius: $border-radius;
     pointer-events: none; // set untargetable
   }
 }

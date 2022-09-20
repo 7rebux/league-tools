@@ -26,5 +26,4 @@ const Splashart = React.forwardRef<
   );
 });
 
-
 export default Splashart;

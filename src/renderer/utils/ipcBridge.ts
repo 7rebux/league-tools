@@ -26,7 +26,3 @@ export function request(
     });
   });
 }
-
-// STORE IMPORTANT VALUES HERE
-// ENDPOINTS
-// CURRENT ICON, NAME ETC

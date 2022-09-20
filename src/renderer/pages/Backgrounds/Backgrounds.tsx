@@ -1,15 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
-
+import { request } from '../../utils/ipcBridge';
+import { useLcuData } from '../../components/LcuContext';
 import { Checkbox, Dropdown, Splashart, Textbox } from 'component-lib';
-
-import { request } from '../../ipcBridge';
-import { useLcuData } from '../../LcuContext';
-
 import './Backgrounds.scss';
 
-const SPLASHART_DATA_URL =
-  'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/skins.json';
-
+const SPLASHART_DATA_URL = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/skins.json';
 const ENDPOINT = '/lol-summoner/v1/current-summoner/summoner-profile/';
 
 type Splashart = {
@@ -20,12 +15,11 @@ type Splashart = {
 };
 
 const Backgrounds: React.FC = () => {
+  const lcuData = useLcuData();
   const [splashartData, setSplashartData] = useState<Splashart[]>([]);
   const [nameFilter, setNameFilter] = useState<string>('');
   const [legacyFilter, setLegacyFilter] = useState<boolean>(true);
   const [baseFilter, setBaseFilter] = useState<boolean>(true);
-
-  const lcuData = useLcuData();
 
   const filter1 = useMemo(
     () =>
@@ -45,16 +39,9 @@ const Backgrounds: React.FC = () => {
   );
 
   const setBackground = (id: number) => {
-     const body = { key: 'backgroundSkinId', value: id };
-
     if (id === lcuData.profile.backgroundSkinId) return;
 
-    request('POST', ENDPOINT, body).then(
-      (response) => {
-        
-      },
-      (reason) => {}
-    )
+    request('POST', ENDPOINT, { key: 'backgroundSkinId', value: id });
   }
 
   useEffect(() => {

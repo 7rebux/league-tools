@@ -38,6 +38,7 @@ $border-radius: 20px;
     background-color: color('surface');
     width: 100%;
     display: flex;
+    align-content: flex-start;
     flex-wrap: wrap;
     gap: $gap;
     border-radius: $border-radius;

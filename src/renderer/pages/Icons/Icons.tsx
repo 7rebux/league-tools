@@ -1,15 +1,11 @@
 import React, { useEffect, useState, useMemo } from 'react';
-
+import { request } from '../../utils/ipcBridge';
+import { useLcuData } from '../../components/LcuContext';
 import { Checkbox, Dropdown, Textbox, SummonerIcon } from 'component-lib';
-
-import { request } from '../../ipcBridge';
-import { useLcuData } from '../../LcuContext';
-
 import './Icons.scss';
 
 // some icons end on 404???
-const ICON_DATA_URL =
-  'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-icons.json';
+const ICON_DATA_URL = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-icons.json';
 
 type Icon = {
   id: number;
@@ -18,11 +14,10 @@ type Icon = {
 };
 
 const Icons: React.FC = () => {
+  const lcuData = useLcuData();
   const [iconData, setIconData] = useState<Icon[]>([]);
   const [titleFilter, setTitleFilter] = useState<string>('');
   const [legacyFilter, setLegacyFilter] = useState<boolean>(true);
-
-  const lcuData = useLcuData();
 
   const filter1 = useMemo(
     () =>
@@ -38,16 +33,9 @@ const Icons: React.FC = () => {
   );
 
   const setIcon = (id: number) => {
-    const body = { icon: id };
-
     if (id === lcuData.me.icon) return;
 
-    request('PUT', '/lol-chat/v1/me', body).then(
-      (response) => {
-        
-      },
-      (reason) => {}
-    );
+    request('PUT', '/lol-chat/v1/me', { icon: id });
   };
 
   useEffect(() => {
@@ -72,12 +60,13 @@ const Icons: React.FC = () => {
       <div className='filter'>
         <Textbox
           placeholder='Search..'
-          onInput={(event) =>
-            setTitleFilter((event.target as HTMLInputElement).value)
-          }
+          onInput={(event) => setTitleFilter((event.target as HTMLInputElement).value)}
         />
         <div className='settings'>
-          <Dropdown items={['All', 'Favorites']} initialItem='All' />
+          <Dropdown 
+            items={['All', 'Favorites']} 
+            initialItem='All'
+          />
           <Checkbox
             initialState={legacyFilter}
             title='Legacy'
@@ -93,7 +82,7 @@ const Icons: React.FC = () => {
           <SummonerIcon
             key={icon.id}
             iconId={icon.id}
-            size={80}
+            size={85}
             selected={lcuData.me.icon === icon.id}
             onClick={() => setIcon(icon.id)}
           />

@@ -1,10 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { connect } from '../../utils/ipcBridge';
 import { Button } from 'component-lib';
-
 import './Connect.scss';
-import { connect } from '../../ipcBridge';
 
 const Connect: React.FC = () => {
   const navigate = useNavigate();

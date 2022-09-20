@@ -1,7 +1,8 @@
 import { app, BrowserWindow, session, ipcMain } from 'electron';
 import LCU from './lcu';
 
-declare const CONNECT_WEBPACK_ENTRY: string;
+declare const MAIN_WEBPACK_ENTRY: string;
+
 const leagueClient = new LCU();
 
 if (require('electron-squirrel-startup')) app.quit();
@@ -16,7 +17,7 @@ const createWindow = (): BrowserWindow => {
     },
   });
 
-  mainWindow.loadURL(CONNECT_WEBPACK_ENTRY);
+  mainWindow.loadURL(MAIN_WEBPACK_ENTRY);
 
   return mainWindow;
 };

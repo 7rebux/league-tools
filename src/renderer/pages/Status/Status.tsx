@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { request } from '../../ipcBridge';
-import { useLcuData } from '../../LcuContext';
+import { request } from '../../utils/ipcBridge';
+import { useLcuData } from '../../components/LcuContext';
 import { Button, Dropdown, Textbox, SummonerIcon } from 'component-lib';
 import './Status.scss';
 

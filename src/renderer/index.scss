@@ -41,6 +41,7 @@ body,
     margin-left: $navbar-gap;
 
     .nav-item {
+      all: unset;
       display: flex;
       align-items: center;
       gap: 0.5rem;

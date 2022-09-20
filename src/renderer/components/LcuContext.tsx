@@ -2,7 +2,7 @@ const { ipcRenderer } = window.require('electron');
 import type { EventResponse } from 'league-connect';
 import React, { ReactNode, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { request } from './ipcBridge';
+import { request } from '../utils/ipcBridge';
 
 type State = { me: MeState; wallet: WalletState; profile: ProfileState };
 

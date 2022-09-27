@@ -7,6 +7,10 @@ import './Connect.scss';
 const Connect: React.FC = () => {
   const navigate = useNavigate();
 
+  const handleConnect = () => {
+    connect().then(() => navigate('/home'));
+  };
+
   return (
     <div className='connect-page'>
       <div className='content'>
@@ -23,7 +27,7 @@ const Connect: React.FC = () => {
             <Button
               variant='primary'
               title='Connect'
-              onClick={() => connect().then(navigate('/home'))}
+              onClick={handleConnect}
             />
             <Button variant='secondary' title='Functions -->' />
           </div>

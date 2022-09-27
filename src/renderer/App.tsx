@@ -11,7 +11,6 @@ const App: React.FC = () => {
         <NavBar />
         <div id='content'>
           <Routes>
-            {/* TODO if connected go to home else go to connect */}
             <Route path='/'             element={<Navigate to='/connect' />} />
             <Route path='/connect'      element={<Connect />} />
             <Route path='/home'         element={<Home />} />

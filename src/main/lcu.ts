@@ -4,7 +4,7 @@ import {
   Credentials,
   EventResponse,
   JsonObjectLike,
-  LeagueClient,
+  LeagueClient
 } from 'league-connect';
 import { WebSocket } from 'ws';
 import { BrowserWindow } from 'electron';
@@ -15,7 +15,13 @@ class LCU {
   private ws: WebSocket;
   connected: boolean;
 
-  createSocket = () => {
+  private handleMessage = (message: EventResponse) => {
+    BrowserWindow.getAllWindows().forEach((win) =>
+      win.webContents.send('lcu-event', message) // bad code
+    );
+  };
+
+  private createSocket = () => {
     const url = `wss://riot:${this.credentials.password}@127.0.0.1:${this.credentials.port}`;
 
     let socket: WebSocket | null = null;
@@ -46,7 +52,7 @@ class LCU {
       try {
         const json = JSON.parse(content);
         const [res]: [EventResponse] = json.slice(2);
-        this.handle_message(res);
+        this.handleMessage(res);
       } catch {}
     });
 
@@ -57,12 +63,10 @@ class LCU {
         socket.send(JSON.stringify([5, 'OnJsonApiEvent']));
       });
 
-    console.log('done with creation');
     return socket;
   };
 
-  onConnect = () => {
-    console.log('onConnect');
+  private onConnect = () => {
     this.connected = true;
 
     if (this.ws) {
@@ -70,11 +74,7 @@ class LCU {
       this.ws = undefined;
     }
 
-    console.log('creating WS');
     this.ws = this.createSocket();
-    console.log('success creating WS');
-
-    console.log('Reconnected');
   };
 
   connect = async () => {
@@ -94,8 +94,6 @@ class LCU {
       // fired on disconnects
       client.on('disconnect', () => {
         this.connected = false;
-
-        console.log('Lost connection');
       });
 
       client.credentials = this.credentials;
@@ -104,12 +102,14 @@ class LCU {
       console.log(e);
     }
   };
-
+  
   request = async (
     method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
     endpoint: string,
     body?: any
   ): Promise<JsonObjectLike> => {
+    if (!this.connected) return { };
+
     const response = await createHttp1Request(
       {
         method: method,
@@ -119,16 +119,7 @@ class LCU {
       this.credentials
     );
     const json = await response.json();
-
     return json;
-  };
-
-  handle_message = (message: EventResponse) => {
-    BrowserWindow.getAllWindows().forEach(
-      (
-        win // shit code
-      ) => win.webContents.send('lcu-event', message)
-    );
   };
 }
 

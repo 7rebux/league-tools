@@ -45,7 +45,11 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
 
   useEffect(() => {
-    if (state !== DEFAULT_STATE || location.pathname === '/connect') return;
+    // only fetch if connected and if not already fetched
+    if (state !== DEFAULT_STATE || location.pathname === '/connect' || location.pathname === '/') 
+      return;
+
+    console.log('Fetching inital LCU data..');
 
     request('GET', '/lol-chat/v1/me').then((response) => {
       setState(
@@ -103,6 +107,7 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
               statusMessage: message.data.statusMessage,
             },
           }));
+          break;
         }
         case '/lol-summoner/v1/current-summoner/summoner-profile': {
           setState((oldState) => ({
@@ -111,6 +116,7 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
               backgroundSkinId: message.data.backgroundSkinId,
             },
           }));
+          break;
         }
         case '/lol-store/v1/wallet': {
           setState((oldState) => ({

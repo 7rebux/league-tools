@@ -6,16 +6,14 @@ import { Badge, SummonerIcon } from 'component-lib';
 interface NavItemProps {
   title:  string;
   href:   string;
-  icon:   string;
 }
 
-const NavItem: React.FC<NavItemProps> = ({ title, href, icon }) => {
+const NavItem: React.FC<NavItemProps> = ({ title, href }) => {
   return (
     <NavLink 
       to={href} 
       className={({ isActive }) => isActive ? 'nav-item selected' : 'nav-item'}
     >
-      <img src={icon} />
       <span>{title}</span>
     </NavLink>
   );
@@ -31,16 +29,28 @@ const NavBar: React.FC = () => {
   return (
     <div id='navbar'>
       <div className='nav'>
-        <NavItem title='Home'         href='/home'        icon='assets/home.png' />
-        <NavItem title='Icons'        href='/icons'       icon='assets/icons.png' />
-        <NavItem title='Backgrounds'  href='/backgrounds' icon='assets/backgrounds.png' />
-        <NavItem title='Status'       href='/status'      icon='assets/status.png' />
+        <NavItem title='Home'         href='/home' />
+        <NavItem title='Icon'         href='/icons' />
+        <NavItem title='Background'   href='/backgrounds' />
+        <NavItem title='Status'       href='/status' />
       </div>
       <div className='profile'>
-        <SummonerIcon size={35} iconId={lcuData.me.icon} availability={lcuData.me.availability} />
+        <SummonerIcon 
+          size={35} 
+          iconId={lcuData.me.icon} 
+          availability={lcuData.me.availability} 
+        />
         <span>{lcuData.me.name}</span>
-        <Badge text={lcuData.wallet.blueEssence.toString()} icon='assets/be.png' backgroundColor='#5098DA' />
-        <Badge text={lcuData.wallet.riotPoints.toString()} icon='assets/rp.png' backgroundColor='#EA5D5F' />
+        <Badge 
+          text={lcuData.wallet.blueEssence.toString()} 
+          icon='assets/be.png' 
+          backgroundColor='#5098DA' 
+        />
+        <Badge 
+          text={lcuData.wallet.riotPoints.toString()} 
+          icon='assets/rp.png' 
+          backgroundColor='#EA5D5F' 
+        />
       </div>
     </div>
   );

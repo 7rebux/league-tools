@@ -43,11 +43,14 @@ const Icons: React.FC = () => {
       const response = await fetch(ICON_DATA_URL);
       const data = await response.json();
 
-      const icons = data.map((icon: any) => ({
-        id: icon.id,
-        title: icon.title,
-        isLegacy: icon.isLegacy,
-      }));
+      const icons = data
+        .filter((icon: any) => icon.imagePath)
+        .map((icon: any) => ({
+          id: icon.id,
+          title: icon.title,
+          isLegacy: icon.isLegacy,
+        }
+      ));
 
       setIconData(icons);
     };

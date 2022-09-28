@@ -2,7 +2,7 @@ import React from 'react';
 import { SummonerIconProps } from './SummonerIcon.types';
 import styles from './SummonerIcon.module.scss';
 
-const ICONS_URL = 'https://raw.communitydragon.org/latest/game/assets/ux/summonericons';
+const ICONS_URL = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons';
 
 const SummonerIcon = React.forwardRef<
   HTMLDivElement, 
@@ -19,7 +19,7 @@ const SummonerIcon = React.forwardRef<
     >
       <img
         loading='lazy'
-        src={`${ICONS_URL}/profileicon${iconId}.png`}
+        src={`${ICONS_URL}/${iconId}.jpg`}
       />
       {availability !== undefined && (
         <div

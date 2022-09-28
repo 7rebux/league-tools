@@ -108,11 +108,11 @@ var css_248z$4 = "@import url(\"https://rsms.me/inter/inter.css\");\n.SummonerIc
 var styles$4 = {"profileIcon":"SummonerIcon-module_profileIcon__DtiAc","availability":"SummonerIcon-module_availability__LEzzj"};
 styleInject(css_248z$4);
 
-var ICONS_URL = 'https://raw.communitydragon.org/latest/game/assets/ux/summonericons';
+var ICONS_URL = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons';
 var SummonerIcon = React__default["default"].forwardRef(function (_a, ref) {
     var iconId = _a.iconId, _b = _a.size, size = _b === void 0 ? 128 : _b, selected = _a.selected, favorite = _a.favorite, availability = _a.availability, props = __rest$1(_a, ["iconId", "size", "selected", "favorite", "availability"]);
     return (React__default["default"].createElement("div", __assign$1({}, props, { ref: ref, className: styles$4.profileIcon, style: { width: size, height: size }, "data-selected": selected, "data-favorite": favorite }),
-        React__default["default"].createElement("img", { loading: 'lazy', src: "".concat(ICONS_URL, "/profileicon").concat(iconId, ".png") }),
+        React__default["default"].createElement("img", { loading: 'lazy', src: "".concat(ICONS_URL, "/").concat(iconId, ".jpg") }),
         availability !== undefined && (React__default["default"].createElement("div", { className: styles$4.availability, "data-availability": availability }))));
 });
 

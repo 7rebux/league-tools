@@ -8,7 +8,7 @@ const Connect: React.FC = () => {
   const navigate = useNavigate();
 
   const handleConnect = () => {
-    connect().then(() => navigate('/home'));
+    connect(navigate).then(() => navigate('/home'));
   };
 
   return (

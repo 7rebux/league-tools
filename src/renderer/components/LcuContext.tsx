@@ -45,11 +45,13 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
 
   useEffect(() => {
+    // reset state on reconnects
+    if (location.pathname === '/connect')
+      setState(DEFAULT_STATE);
+
     // only fetch if connected and if not already fetched
     if (state !== DEFAULT_STATE || location.pathname === '/connect' || location.pathname === '/') 
       return;
-
-    console.log('Fetching inital LCU data..');
 
     request('GET', '/lol-chat/v1/me').then((response) => {
       setState(
@@ -126,9 +128,6 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
               blueEssence: message.data.ip ?? 0,
             },
           }));
-        }
-        default: {
-          console.log(message);
         }
       }
     };

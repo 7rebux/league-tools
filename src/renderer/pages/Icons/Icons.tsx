@@ -4,7 +4,6 @@ import { useLcuData } from '../../components/LcuContext';
 import { Checkbox, Dropdown, Textbox, SummonerIcon } from 'component-lib';
 import './Icons.scss';
 
-// some icons end on 404???
 const ICON_DATA_URL = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-icons.json';
 
 type Icon = {
@@ -35,7 +34,8 @@ const Icons: React.FC = () => {
   const setIcon = (id: number) => {
     if (id === lcuData.me.icon) return;
 
-    request('PUT', '/lol-chat/v1/me', { icon: id });
+    request('PUT', '/lol-chat/v1/me', { icon: id })
+      .then((data) => console.log('Set icon to', data.icon));
   };
 
   useEffect(() => {
@@ -51,6 +51,8 @@ const Icons: React.FC = () => {
           isLegacy: icon.isLegacy,
         }
       ));
+
+      console.log('Fetched %d icons', icons.length);
 
       setIconData(icons);
     };

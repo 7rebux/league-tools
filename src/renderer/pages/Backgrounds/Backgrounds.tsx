@@ -41,7 +41,8 @@ const Backgrounds: React.FC = () => {
   const setBackground = (id: number) => {
     if (id === lcuData.profile.backgroundSkinId) return;
 
-    request('POST', ENDPOINT, { key: 'backgroundSkinId', value: id });
+    request('POST', ENDPOINT, { key: 'backgroundSkinId', value: id })
+      .then((data) => console.log('Set background to', data.backgroundSkinId));
   }
 
   useEffect(() => {
@@ -55,6 +56,8 @@ const Backgrounds: React.FC = () => {
         isLegacy: splashart.isLegacy,
         isBase: splashart.isBase,
       }));
+
+      console.log('Fetched %d backgrounds', splasharts.length);
 
       setSplashartData(splasharts);
     };

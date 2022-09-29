@@ -4,10 +4,10 @@ import { useLcuData } from '../../components/LcuContext';
 import { Button, Dropdown, Textbox, SummonerIcon } from 'component-lib';
 import './Status.scss';
 
-type Availability = 'chat' | 'away' | 'dnd' | 'mobile' | 'offline';
-
-const AVAILABILITES = ['chat', 'away', 'dnd', 'mobile', 'offline'];
+const AVAILABILITES = ['chat', 'away', 'dnd', 'mobile', 'offline'] as const;
 const ENDPOINT = '/lol-chat/v1/me/';
+
+type Availability = typeof AVAILABILITES[number];
 
 const Status: React.FC = () => {
   const lcuData = useLcuData();
@@ -21,7 +21,7 @@ const Status: React.FC = () => {
       if (status === '' || status === lcuData.me.statusMessage) return;
 
       statusBox.current.value = '';
-      request('PUT', ENDPOINT, { statusMessage: status });
+      return request('PUT', ENDPOINT, { statusMessage: status });
     };
 
     const updateAvailability = async () => {
@@ -30,11 +30,15 @@ const Status: React.FC = () => {
       return request('PUT', ENDPOINT, { availability: availability });
     };
 
-    updateStatus().then(updateAvailability);
+    updateStatus()
+      .then((data) => { if (data) console.log('Update status to', data.statusMessage) });
+    updateAvailability()
+      .then((data) => { if (data) console.log('Set availability to', data.availability) });
   };
 
   const clear = () => {
-    request('PUT', ENDPOINT, { statusMessage: '' });
+    request('PUT', ENDPOINT, { statusMessage: '' })
+      .then(() => console.log('Cleared status'));
   };
 
   return (
@@ -51,7 +55,7 @@ const Status: React.FC = () => {
             placeholder={lcuData.me.statusMessage === '' ? 'Empty status' : lcuData.me.statusMessage}
           />
           <Dropdown
-            items={AVAILABILITES}
+            items={Array.from(AVAILABILITES)}
             initialItem={lcuData.me.availability}
             onChange={(item) => {setAvailabilty(item as Availability)}}
           />

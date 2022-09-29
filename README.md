@@ -17,7 +17,7 @@ A simple application with many useful functions that work with the LCU api of Ri
 
 ## 🧩 Demo
 
-![Preview](./preview.png)
+<img src='demo.gif' width=650>
 
 ## 💾 Installation
 

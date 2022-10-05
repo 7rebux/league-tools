@@ -123,6 +123,7 @@ const Icons: React.FC = () => {
             selected={lcuData.me.icon === icon.id}
             favorite={icon.isFavorite}
             onClick={() => setIcon(icon.id)}
+            onContextMenu={() => toggleFavorite(icon.id)}
           />
         ))}
       </div>

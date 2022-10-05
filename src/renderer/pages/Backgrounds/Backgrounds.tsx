@@ -133,6 +133,7 @@ const Backgrounds: React.FC = () => {
             selected={lcuData.profile.backgroundSkinId === splashart.id}
             favorite={splashart.isFavorite}
             onClick={() => setBackground(splashart.id)}
+            onContextMenu={() => toggleFavorite(splashart.id)}
           />
         ))}
       </div>

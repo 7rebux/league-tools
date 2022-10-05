@@ -121,7 +121,7 @@ const Backgrounds: React.FC = () => {
             onChange={(value) => setBaseFilter(value)}
           />
         </div>
-        <span style={{ color: 'white' }}>
+        <span className='info'>
           Showing <b>{filter4.length}</b> / {splashartData.length} splasharts
         </span>
       </div>

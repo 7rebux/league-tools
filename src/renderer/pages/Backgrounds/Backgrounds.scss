@@ -32,6 +32,12 @@ $border-radius: 20px;
         width: 100%;
       }
     }
+
+    .info {
+      @include font('subtitle');
+      text-align: center;
+      font-size: 12px;
+    }
   }
 
   .backgrounds {

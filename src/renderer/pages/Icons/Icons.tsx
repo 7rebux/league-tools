@@ -110,7 +110,7 @@ const Icons: React.FC = () => {
             onChange={(value) => setLegacyFilter(value)}
           />
         </div>
-        <span style={{ color: 'white' }}>
+        <span className='info'>
           Showing <b>{filter3.length}</b> / {iconData.length} icons
         </span>
       </div>

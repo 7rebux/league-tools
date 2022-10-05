@@ -65,6 +65,8 @@ const Backgrounds: React.FC = () => {
     else
       addFavorite('background', id);
 
+    console.log((background.isFavorite ? 'Removed' : 'Added') + ' favorite background:', background.id);
+
     setSplashartData(splashartData.map((i) =>
       i === background ? {...i, isFavorite: !i.isFavorite } : i
     ));
@@ -85,6 +87,7 @@ const Backgrounds: React.FC = () => {
       }));
 
       console.log('Fetched %d backgrounds', splasharts.length);
+      console.log('Found %d favorite backgrounds:', favorites.backgrounds.length, favorites.backgrounds);
 
       setSplashartData(splasharts);
     };
@@ -129,7 +132,7 @@ const Backgrounds: React.FC = () => {
             skinId={splashart.id} 
             selected={lcuData.profile.backgroundSkinId === splashart.id}
             favorite={splashart.isFavorite}
-            onClick={() => setBackground(splashart.id)} 
+            onClick={() => setBackground(splashart.id)}
           />
         ))}
       </div>

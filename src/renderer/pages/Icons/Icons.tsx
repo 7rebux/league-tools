@@ -59,6 +59,8 @@ const Icons: React.FC = () => {
     else
       addFavorite('icon', id);
 
+    console.log((icon.isFavorite ? 'Removed' : 'Added') + ' favorite icon:', icon.id);
+
     setIconData(iconData.map((i) =>
       i === icon ? {...i, isFavorite: !i.isFavorite } : i
     ));
@@ -81,6 +83,7 @@ const Icons: React.FC = () => {
       ));
 
       console.log('Fetched %d icons', icons.length);
+      console.log('Found %d favorite icons:', favorites.icons.length, favorites.icons);
 
       setIconData(icons);
     };

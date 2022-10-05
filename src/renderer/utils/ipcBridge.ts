@@ -2,7 +2,12 @@ const { ipcRenderer } = window.require('electron');
 import { JsonObjectLike } from 'league-connect';
 import { v4 as uuidv4 } from 'uuid';
 
-export function connect(navigate: any): Promise<undefined> {
+type Favorites = {
+  icons: number[],
+  backgrounds: number[],
+};
+
+const connect = (navigate: any): Promise<undefined> => {
   return new Promise((resolve) => {
     ipcRenderer.once('lcu-connected', () => {
       console.log('Connected to league client');
@@ -17,14 +22,14 @@ export function connect(navigate: any): Promise<undefined> {
     ipcRenderer.send('lcu-connect');
     console.log('Connecting to league client..');
   });
-}
+};
 
-export function request(
+const request = (
   method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
   endpoint: string,
   body?: any
-): Promise<JsonObjectLike> {
-  return new Promise((resolve, _reject) => {
+): Promise<JsonObjectLike> => {
+  return new Promise((resolve) => {
     const id = uuidv4();
 
     ipcRenderer.once('lcu-response-' + id, (_event, data) => {
@@ -35,4 +40,30 @@ export function request(
     ipcRenderer.send('lcu-request', id, method, endpoint, body);
     console.log(`Sent ${method} request to ${endpoint} with id ${id}`);
   });
-}
+};
+
+const getFavorites = (): Promise<Favorites> => {
+  return new Promise((resolve) => {
+    ipcRenderer.once('store-favorites', (_event, favorites) => {
+      resolve(favorites);
+    });
+
+    ipcRenderer.send('store-get-favorites');
+  });
+};
+
+const addFavorite = (type: 'icon' | 'background', id: number) => {
+  ipcRenderer.send('store-add-favorite', type, id);
+};
+
+const removeFavorite = (type: 'icon' | 'background', id: number) => {
+  ipcRenderer.send('store-remove-favorite', type, id);
+};
+
+export {
+  connect,
+  request,
+  getFavorites,
+  addFavorite,
+  removeFavorite,
+};

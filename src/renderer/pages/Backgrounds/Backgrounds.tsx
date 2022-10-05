@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { request } from '../../utils/ipcBridge';
+import { request, getFavorites, addFavorite, removeFavorite } from '../../utils/ipcBridge';
 import { useLcuData } from '../../components/LcuContext';
 import { Checkbox, Dropdown, Splashart, Textbox } from 'component-lib';
 import './Backgrounds.scss';
@@ -12,30 +12,42 @@ type Splashart = {
   name: string;
   isLegacy: boolean;
   isBase: boolean;
+  isFavorite: boolean;
 };
 
 const Backgrounds: React.FC = () => {
   const lcuData = useLcuData();
   const [splashartData, setSplashartData] = useState<Splashart[]>([]);
+  const [typeFilter, setTypeFilter] = useState<string>('All');
   const [nameFilter, setNameFilter] = useState<string>('');
   const [legacyFilter, setLegacyFilter] = useState<boolean>(true);
   const [baseFilter, setBaseFilter] = useState<boolean>(true);
 
   const filter1 = useMemo(
-    () =>
-      splashartData.filter((i) =>
-        i.name.toLowerCase().includes(nameFilter.toLowerCase())
-      ),
-    [splashartData, nameFilter]
+    () => {
+      if (typeFilter === 'All') {
+        return splashartData;
+      } else if (typeFilter === 'Favorites') {
+        return splashartData.filter((i) => i.isFavorite);
+      };
+    },
+    [splashartData, typeFilter]
   );
   const filter2 = useMemo(
     () =>
-      legacyFilter ? filter1 : filter1.filter((i) => i.isLegacy === false),
-    [filter1, legacyFilter]
+      filter1.filter((i) =>
+        i.name.toLowerCase().includes(nameFilter.toLowerCase())
+      ),
+    [filter1, nameFilter]
   );
   const filter3 = useMemo(
-    () => (baseFilter ? filter2 : filter2.filter((i) => i.isBase === false)),
-    [filter2, baseFilter]
+    () =>
+      legacyFilter ? filter2 : filter2.filter((i) => i.isLegacy === false),
+    [filter2, legacyFilter]
+  );
+  const filter4 = useMemo(
+    () => (baseFilter ? filter3 : filter3.filter((i) => i.isBase === false)),
+    [filter3, baseFilter]
   );
 
   const setBackground = (id: number) => {
@@ -43,18 +55,33 @@ const Backgrounds: React.FC = () => {
 
     request('POST', ENDPOINT, { key: 'backgroundSkinId', value: id })
       .then((data) => console.log('Set background to', data.backgroundSkinId));
-  }
+  };
+
+  const toggleFavorite = (id: number) => {
+    const background = splashartData.find((i) => i.id === id);
+
+    if (background.isFavorite)
+      removeFavorite('background', id) 
+    else
+      addFavorite('background', id);
+
+    setSplashartData(splashartData.map((i) =>
+      i === background ? {...i, isFavorite: !i.isFavorite } : i
+    ));
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(SPLASHART_DATA_URL);
       const data = await response.json();
+      const favorites = await getFavorites();
 
       const splasharts = Object.values(data).map((splashart: any) => ({
         id: splashart.id,
         name: splashart.name,
         isLegacy: splashart.isLegacy,
         isBase: splashart.isBase,
+        isFavorite: favorites.backgrounds.includes(splashart.id),
       }));
 
       console.log('Fetched %d backgrounds', splasharts.length);
@@ -75,7 +102,11 @@ const Backgrounds: React.FC = () => {
           }
         />
         <div className='settings'>
-          <Dropdown items={['All', 'Favorites']} initialItem='All' />
+          <Dropdown 
+            items={['All', 'Favorites']} 
+            initialItem={typeFilter} 
+            onChange={(value) => setTypeFilter(value)}
+          />
           <Checkbox
             title='Legacy'
             initialState={legacyFilter}
@@ -88,15 +119,16 @@ const Backgrounds: React.FC = () => {
           />
         </div>
         <span style={{ color: 'white' }}>
-          Showing <b>{filter3.length}</b> / {splashartData.length} splasharts
+          Showing <b>{filter4.length}</b> / {splashartData.length} splasharts
         </span>
       </div>
       <div className='backgrounds'>
-        {filter3.map((splashart) => (
+        {filter4.map((splashart) => (
           <Splashart 
             key={splashart.id} 
             skinId={splashart.id} 
             selected={lcuData.profile.backgroundSkinId === splashart.id}
+            favorite={splashart.isFavorite}
             onClick={() => setBackground(splashart.id)} 
           />
         ))}

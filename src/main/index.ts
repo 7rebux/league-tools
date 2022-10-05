@@ -1,4 +1,5 @@
 import { app, BrowserWindow, session, ipcMain } from 'electron';
+import { setBounds, getBounds, addFavorite, removeFavorite, getFavorites } from './settings';
 import LCU from './lcu';
 
 // electron forge entry point declared in package.json
@@ -7,13 +8,20 @@ declare const MAIN_WEBPACK_ENTRY: string;
 if (require('electron-squirrel-startup')) app.quit();
 
 const createWindow = (): BrowserWindow => {
+  const bounds = getBounds();
   const mainWindow = new BrowserWindow({
-    height: 650,
-    width: 900,
+    width: bounds.width,
+    height: bounds.height,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
     },
+  });
+
+  mainWindow.on('resize', () => {
+    const size = mainWindow.getSize();
+
+    setBounds(size[0], size[1]);
   });
 
   mainWindow.loadURL(MAIN_WEBPACK_ENTRY);
@@ -37,11 +45,23 @@ app.on('ready', () => {
     });
   });
 
+  ipcMain.on('store-get-favorites', (event) => {
+    event.reply('store-favorites', getFavorites());
+  });
+
+  ipcMain.on('store-add-favorite', (_event, type, id) => {
+    addFavorite(type, id);
+  });
+
+  ipcMain.on('store-remove-favorite', (_event, type, id) => {
+    removeFavorite(type, id);
+  });
+
   session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
     callback({
       responseHeaders: {
         ...details.responseHeaders,
-        'Content-Security-Policy': ['*'], // is this the best solution?
+        'Content-Security-Policy': ['*'], // TODO: is this the best solution?
       },
     });
   });

@@ -11,8 +11,13 @@ const DEFAULT_STATE: State = {
     availability: 'offline',
     icon: 29,
     name: 'Loading...',
-    puuid: '',
     statusMessage: 'Loading...',
+    gameTag: '0000',
+    lol: {
+      level: 0,
+      rankedLeagueTier: 'UNRANKED',
+      rankedLeagueDivision: '',
+    },
   },
   profile: {
     backgroundSkinId: 0,
@@ -27,8 +32,13 @@ type MeState = {
   icon: number;
   availability: 'chat' | 'away' | 'dnd' | 'mobile' | 'offline';
   name: string;
-  puuid: string;
   statusMessage: string;
+  gameTag: string;
+  lol: {
+    level: number;
+    rankedLeagueTier: string;
+    rankedLeagueDivision: string;
+  }
 };
 type WalletState = {
   riotPoints: number;
@@ -53,7 +63,7 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
     if (state !== DEFAULT_STATE || location.pathname === '/connect' || location.pathname === '/') 
       return;
 
-    request('GET', '/lol-chat/v1/me').then((response) => {
+    request('GET', '/lol-chat/v1/me').then((response: any) => {
       setState(
         (oldState) =>
           ({
@@ -62,8 +72,13 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
               icon: response.icon,
               availability: response.availability,
               name: response.name,
-              puuid: response.puuid,
               statusMessage: response.statusMessage,
+              gameTag: response.gameTag,
+              lol: {
+                level: response.lol.level,
+                rankedLeagueTier: response.lol.rankedLeagueTier ?? 'UNRANKED',
+                rankedLeagueDivision: response.lol.rankedLeagueDivision ?? '',
+              },
             },
           } as State)
       );
@@ -105,8 +120,13 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
               icon: message.data.icon,
               availability: message.data.availability,
               name: message.data.name,
-              puuid: message.data.puuid,
               statusMessage: message.data.statusMessage,
+              gameTag: message.data.gameTag,
+              lol: {
+                level: message.data.lol.level,
+                rankedLeagueTier: message.data.lol.rankedLeagueTier ?? 'UNRANKED',
+                rankedLeagueDivision: message.data.lol.rankedLeagueDivision ?? '',
+              },
             },
           }));
           break;

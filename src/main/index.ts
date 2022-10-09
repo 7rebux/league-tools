@@ -34,9 +34,10 @@ app.on('ready', () => {
   const leagueClient = new LCU(browserWindow.id);
 
   ipcMain.on('lcu-connect', (event) => {
-    leagueClient.connect().then(() => {
-      event.reply('lcu-connected');
-    });
+    leagueClient.connect().then(
+      () => event.reply('lcu-connected'),
+      (reason) => event.reply('lcu-connected', reason)
+    );
   });
 
   ipcMain.on('lcu-request', (event, id, method, endpoint, body?) => {

@@ -32,7 +32,6 @@ class LCU {
     new LeagueClient(this.credentials)
       .on('disconnect', () => {
         this.connected = false;
-        console.log('Disconnected');
         this.window.webContents.send('lcu-disconnect');
       })
       .start();

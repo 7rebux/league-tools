@@ -8,8 +8,12 @@ type Favorites = {
 };
 
 const connect = (navigate: any): Promise<undefined> => {
-  return new Promise((resolve) => {
-    ipcRenderer.once('lcu-connected', () => {
+  return new Promise((resolve, reject) => {
+    ipcRenderer.once('lcu-connected', (_event, reason) => {
+      if (reason) {
+        console.log(reason);
+        return reject(reason);
+      }
       console.log('Connected to league client');
       resolve(undefined);
     });

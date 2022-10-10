@@ -42,7 +42,7 @@ class LCU {
     endpoint: string,
     body?: any
   ): Promise<JsonObjectLike> => {
-    return new Promise((resolve, _reject) => {
+    return new Promise((resolve, reject) => {
       createHttp1Request(
         {
           method: method,
@@ -54,7 +54,8 @@ class LCU {
         .then((response) => response.json())
         .then((json) => {
           resolve(json);
-        });
+        })
+        .catch((reason) => reject(reason));
     });
   };
 }

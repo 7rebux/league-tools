@@ -38,10 +38,9 @@ ipcMain.once('lcu-connect', (event) => {
     .then((connected) => event.reply('lcu-connected', connected));
 });
 
-ipcMain.on('lcu-request', (event, id, method, endpoint, body?) => {
-  leagueClient.request(method, endpoint, body).then((data) => {
-    event.reply(`lcu-response-${id}`, data);
-  });
+ipcMain.handle('lcu-request', async (event, id, method, endpoint, body?) => {
+  let response = await leagueClient.request(method, endpoint, body);
+  return response;
 });
 
 app.on('window-all-closed', () => {

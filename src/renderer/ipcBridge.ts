@@ -17,14 +17,7 @@ export function request(
   endpoint: string,
   body?: any
 ): Promise<JsonObjectLike> {
-  return new Promise((resolve, _reject) => {
-    const id = uuidv4();
-    ipcRenderer.send('lcu-request', id, method, endpoint, body);
-
-    ipcRenderer.once('lcu-response-' + id, (_event, data) => {
-      resolve(data);
-    });
-  });
+  return ipcRenderer.invoke('lcu-request', method, endpoint, body);
 }
 
 // STORE IMPORTANT VALUES HERE

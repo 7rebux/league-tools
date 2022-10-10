@@ -1,6 +1,5 @@
 const { ipcRenderer } = window.require('electron');
-import { JsonObjectLike } from 'league-connect';
-import { v4 as uuidv4 } from 'uuid';
+import { JsonObjectLike } from 'league-connect-v2';
 
 export function connect() {
   return new Promise((resolve, _reject) => {

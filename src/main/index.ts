@@ -33,12 +33,19 @@ app.on('ready', () => {
 });
 
 ipcMain.once('lcu-connect', (event) => {
-  leagueClient
-    .connect()
-    .then((connected) => event.reply('lcu-connected', connected));
+  if (!leagueClient.connected) {
+    leagueClient.connect().then((connected) => {
+      event.reply('lcu-connected', connected);
+    });
+  } else {
+    event.reply('lcu-connected', true);
+  }
 });
 
-ipcMain.handle('lcu-request', async (event, id, method, endpoint, body?) => {
+ipcMain.handle('lcu-request', async (event, method, endpoint, body?) => {
+  if (!leagueClient.connected) {
+    await leagueClient.connect();
+  }
   let response = await leagueClient.request(method, endpoint, body);
   return response;
 });

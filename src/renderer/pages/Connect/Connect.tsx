@@ -25,7 +25,7 @@ const Connect: React.FC = () => {
             <Button
               variant='primary'
               title='Connect'
-              onClick={() => connect().then(navigate('/home'))}
+              onClick={() => connect().then((_) => navigate('/home'))}
             />
             <Button variant='secondary' title='Functions -->' />
           </div>

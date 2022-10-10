@@ -4,21 +4,29 @@ import {
   Credentials,
   JsonObjectLike,
   LeagueClient,
-} from 'league-connect';
+} from 'league-connect-v2';
 
 class LCU {
   private credentials: Credentials;
+  private client: LeagueClient;
   connected: boolean;
 
   // shit code clean this up
   connect = async () => {
-    this.credentials = await authenticate();
-    const client = new LeagueClient(this.credentials);
+    if (this.client) {
+      this.client.start();
+      return this.connected;
+    }
+
+    this.credentials = await authenticate({
+      awaitConnection: true,
+    });
+    this.client = new LeagueClient(this.credentials);
 
     this.connected = true;
 
     // fired on reconnects
-    client.on('connect', (newCredentials) => {
+    this.client.on('connect', (newCredentials) => {
       this.credentials = newCredentials;
       this.connected = true;
 
@@ -26,37 +34,32 @@ class LCU {
     });
 
     // fired on disconnects
-    client.on('disconnect', () => {
+    this.client.on('disconnect', () => {
       this.connected = false;
 
       console.log('Lost connection');
     });
 
-    client.start();
+    this.client.start();
 
     return this.connected;
   };
 
-  request = (
+  request = async (
     method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
     endpoint: string,
     body?: any
   ): Promise<JsonObjectLike> => {
-    return new Promise((resolve, reject) => {
-      createHttp1Request(
-        {
-          method: method,
-          url: endpoint,
-          body: body,
-        },
-        this.credentials
-      )
-        .then((response) => response.json())
-        .then((json) => {
-          resolve(json);
-        })
-        .catch((reason) => reject(reason));
-    });
+    if (!this.connected) throw 'not connected yet';
+    const response = await createHttp1Request(
+      {
+        method: method,
+        url: endpoint,
+        body: body,
+      },
+      this.credentials
+    );
+    return await response.json();
   };
 }
 

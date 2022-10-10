@@ -1,53 +1,82 @@
 import { app, BrowserWindow, session, ipcMain } from 'electron';
+import {
+  setBounds,
+  getBounds,
+  addFavorite,
+  removeFavorite,
+  getFavorites,
+} from './settings';
 import LCU from './lcu';
 
-declare const CONNECT_WEBPACK_ENTRY: string;
-const leagueClient = new LCU();
+// electron forge entry point declared in package.json
+declare const MAIN_WEBPACK_ENTRY: string;
 
 if (require('electron-squirrel-startup')) app.quit();
 
-const createWindow = (): void => {
+const createWindow = (): BrowserWindow => {
+  const bounds = getBounds();
   const mainWindow = new BrowserWindow({
-    height: 650,
-    width: 900,
+    width: bounds.width,
+    height: bounds.height,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
     },
   });
 
-  mainWindow.loadURL(CONNECT_WEBPACK_ENTRY);
+  mainWindow.on('resize', () => {
+    const size = mainWindow.getSize();
+
+    setBounds(size[0], size[1]);
+  });
+
+  mainWindow.loadURL(MAIN_WEBPACK_ENTRY);
+
+  return mainWindow;
 };
 
 app.on('ready', () => {
-  createWindow();
+  const browserWindow = createWindow();
+  const leagueClient = new LCU(browserWindow.id);
+
+  ipcMain.once('lcu-connect', (event) => {
+    if (!leagueClient.connected) {
+      leagueClient.connect().then((connected) => {
+        event.reply('lcu-connected', connected);
+      });
+    } else {
+      event.reply('lcu-connected', true);
+    }
+  });
+
+  ipcMain.handle('lcu-request', async (event, method, endpoint, body?) => {
+    if (!leagueClient.connected) {
+      await leagueClient.connect();
+    }
+    let response = await leagueClient.request(method, endpoint, body);
+    return response;
+  });
+
+  ipcMain.on('store-get-favorites', (event) => {
+    event.reply('store-favorites', getFavorites());
+  });
+
+  ipcMain.on('store-add-favorite', (_event, type, id) => {
+    addFavorite(type, id);
+  });
+
+  ipcMain.on('store-remove-favorite', (_event, type, id) => {
+    removeFavorite(type, id);
+  });
 
   session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
     callback({
       responseHeaders: {
         ...details.responseHeaders,
-        'Content-Security-Policy': ['*'], // is this the best solution?
+        'Content-Security-Policy': ['*'], // TODO: is this the best solution?
       },
     });
   });
-});
-
-ipcMain.once('lcu-connect', (event) => {
-  if (!leagueClient.connected) {
-    leagueClient.connect().then((connected) => {
-      event.reply('lcu-connected', connected);
-    });
-  } else {
-    event.reply('lcu-connected', true);
-  }
-});
-
-ipcMain.handle('lcu-request', async (event, method, endpoint, body?) => {
-  if (!leagueClient.connected) {
-    await leagueClient.connect();
-  }
-  let response = await leagueClient.request(method, endpoint, body);
-  return response;
 });
 
 app.on('window-all-closed', () => {

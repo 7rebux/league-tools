@@ -54,6 +54,10 @@
   padding: 0.5rem 0 0.5rem 0;
   text-align: center;
 
+  &:hover {
+    cursor: pointer;
+  }
+
   &[data-selected='true'] {
     background-color: darken(color('secondary'), 10);
   }

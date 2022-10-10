@@ -1,14 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
-
+import { request, getFavorites, addFavorite, removeFavorite } from '../../utils/ipcBridge';
+import { useLcuData } from '../../components/LcuContext';
 import { Checkbox, Dropdown, Splashart, Textbox } from 'component-lib';
-
-import { request } from '../../ipcBridge';
-
 import './Backgrounds.scss';
 
-const SPLASHART_DATA_URL =
-  'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/skins.json';
-
+const SPLASHART_DATA_URL = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/skins.json';
 const ENDPOINT = '/lol-summoner/v1/current-summoner/summoner-profile/';
 
 type Splashart = {
@@ -16,56 +12,82 @@ type Splashart = {
   name: string;
   isLegacy: boolean;
   isBase: boolean;
+  isFavorite: boolean;
 };
 
 const Backgrounds: React.FC = () => {
+  const lcuData = useLcuData();
   const [splashartData, setSplashartData] = useState<Splashart[]>([]);
+  const [typeFilter, setTypeFilter] = useState<string>('All');
   const [nameFilter, setNameFilter] = useState<string>('');
   const [legacyFilter, setLegacyFilter] = useState<boolean>(true);
   const [baseFilter, setBaseFilter] = useState<boolean>(true);
-  const [currentBackground, setCurrentBackground] = useState<number>(0);
 
   const filter1 = useMemo(
-    () =>
-      splashartData.filter((i) =>
-        i.name.toLowerCase().includes(nameFilter.toLowerCase())
-      ),
-    [splashartData, nameFilter]
+    () => {
+      if (typeFilter === 'All') {
+        return splashartData;
+      } else if (typeFilter === 'Favorites') {
+        return splashartData.filter((i) => i.isFavorite);
+      };
+    },
+    [splashartData, typeFilter]
   );
   const filter2 = useMemo(
     () =>
-      legacyFilter ? filter1 : filter1.filter((i) => i.isLegacy === false),
-    [filter1, legacyFilter]
+      filter1.filter((i) =>
+        i.name.toLowerCase().includes(nameFilter.toLowerCase())
+      ),
+    [filter1, nameFilter]
   );
   const filter3 = useMemo(
-    () => (baseFilter ? filter2 : filter2.filter((i) => i.isBase === false)),
-    [filter2, baseFilter]
+    () =>
+      legacyFilter ? filter2 : filter2.filter((i) => i.isLegacy === false),
+    [filter2, legacyFilter]
+  );
+  const filter4 = useMemo(
+    () => (baseFilter ? filter3 : filter3.filter((i) => i.isBase === false)),
+    [filter3, baseFilter]
   );
 
   const setBackground = (id: number) => {
-     const body = { key: 'backgroundSkinId', value: id };
+    if (id === lcuData.profile.backgroundSkinId) return;
 
-    if (id === currentBackground) return;
+    request('POST', ENDPOINT, { key: 'backgroundSkinId', value: id })
+      .then((data) => console.log('Set background to', data.backgroundSkinId));
+  };
 
-    request('POST', ENDPOINT, body).then(
-      (response) => {
-        
-      },
-      (reason) => {}
-    )
-  }
+  const toggleFavorite = (id: number) => {
+    const background = splashartData.find((i) => i.id === id);
+
+    if (background.isFavorite)
+      removeFavorite('background', id) 
+    else
+      addFavorite('background', id);
+
+    console.log((background.isFavorite ? 'Removed' : 'Added') + ' favorite background:', background.id);
+
+    setSplashartData(splashartData.map((i) =>
+      i === background ? {...i, isFavorite: !i.isFavorite } : i
+    ));
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(SPLASHART_DATA_URL);
       const data = await response.json();
+      const favorites = await getFavorites();
 
       const splasharts = Object.values(data).map((splashart: any) => ({
         id: splashart.id,
         name: splashart.name,
         isLegacy: splashart.isLegacy,
         isBase: splashart.isBase,
+        isFavorite: favorites.backgrounds.includes(splashart.id),
       }));
+
+      console.log('Fetched %d backgrounds', splasharts.length);
+      console.log('Found %d favorite backgrounds:', favorites.backgrounds.length, favorites.backgrounds);
 
       setSplashartData(splasharts);
     };
@@ -83,7 +105,11 @@ const Backgrounds: React.FC = () => {
           }
         />
         <div className='settings'>
-          <Dropdown items={['All', 'Favorites']} initialItem='All' />
+          <Dropdown 
+            items={['All', 'Favorites']} 
+            initialItem={typeFilter} 
+            onChange={(value) => setTypeFilter(value)}
+          />
           <Checkbox
             title='Legacy'
             initialState={legacyFilter}
@@ -95,16 +121,19 @@ const Backgrounds: React.FC = () => {
             onChange={(value) => setBaseFilter(value)}
           />
         </div>
-        <span style={{ color: 'white' }}>
-          Showing <b>{filter3.length}</b> / {splashartData.length} splasharts
+        <span className='info'>
+          Showing <b>{filter4.length}</b> / {splashartData.length} splasharts
         </span>
       </div>
       <div className='backgrounds'>
-        {filter3.map((splashart) => (
+        {filter4.map((splashart) => (
           <Splashart 
             key={splashart.id} 
             skinId={splashart.id} 
-            onClick={() => setBackground(splashart.id)} 
+            selected={lcuData.profile.backgroundSkinId === splashart.id}
+            favorite={splashart.isFavorite}
+            onClick={() => setBackground(splashart.id)}
+            onContextMenu={() => toggleFavorite(splashart.id)}
           />
         ))}
       </div>

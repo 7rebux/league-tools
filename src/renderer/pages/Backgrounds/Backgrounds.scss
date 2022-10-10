@@ -32,17 +32,28 @@ $border-radius: 20px;
         width: 100%;
       }
     }
+
+    .info {
+      @include font('subtitle');
+      text-align: center;
+      font-size: 12px;
+    }
   }
 
   .backgrounds {
     background-color: color('surface');
     width: 100%;
     display: flex;
+    align-content: flex-start;
     flex-wrap: wrap;
     gap: $gap;
     border-radius: $border-radius;
     padding: $gap;
     overflow-y: scroll;
+
+    > * {
+      cursor: pointer;
+    }
 
     &::-webkit-scrollbar {
       width: 6px;

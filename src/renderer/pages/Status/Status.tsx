@@ -1,99 +1,68 @@
-import React, { useEffect, useState } from 'react';
-
+import React, { useState } from 'react';
+import { request } from '../../utils/ipcBridge';
+import { useLcuData } from '../../components/LcuContext';
 import { Button, Dropdown, Textbox, SummonerIcon } from 'component-lib';
-
-import { request } from '../../ipcBridge';
-
 import './Status.scss';
 
+const AVAILABILITES = ['chat', 'away', 'dnd', 'mobile', 'offline'] as const;
 const ENDPOINT = '/lol-chat/v1/me/';
 
-type Availability = 'chat' | 'away' | 'dnd' | 'mobile' | 'offline';
-const availabilites = new Map<Availability, string>([
-  ['chat', 'Online'],
-  ['away', 'Away'],
-  ['dnd', 'Ingame'],
-  ['mobile', 'Mobile'],
-  ['offline', 'Offline'],
-]);
+type Availability = typeof AVAILABILITES[number];
 
 const Status: React.FC = () => {
-  const [currentStatus, setCurrentStatus] =
-    useState<string>('Fetching status..');
-  const [currentAvailability, setCurrentAvailability] =
-    useState<Availability>('offline');
+  const lcuData = useLcuData();
+  const [availability, setAvailabilty] = useState<Availability>(lcuData.me.availability);
+  const statusBox = React.createRef<HTMLInputElement>();
 
-  const textbox = React.createRef<HTMLInputElement>();
+  const apply = () => {
+    const updateStatus = async () => {
+      const status = statusBox.current.value;
 
-  const fetchStatus = async () => {
-    const data = await request('GET', ENDPOINT);
-    const status = data['statusMessage'] as string;
-    const availability = data['availability'] as Availability;
+      if (status === '' || status === lcuData.me.statusMessage) return;
 
-    setCurrentStatus(status);
-    setCurrentAvailability(availability);
-    // also fetch icon
+      statusBox.current.value = '';
+      return request('PUT', ENDPOINT, { statusMessage: status });
+    };
+
+    const updateAvailability = async () => {
+      if (availability === lcuData.me.availability) return;
+
+      return request('PUT', ENDPOINT, { availability: availability });
+    };
+
+    updateStatus()
+      .then((data) => { if (data) console.log('Update status to', data.statusMessage) });
+    updateAvailability()
+      .then((data) => { if (data) console.log('Set availability to', data.availability) });
   };
 
-  const setStatus = (status: string) => {
-    textbox.current.value = '';
-    textbox.current.disabled = true;
-
-    const body = { statusMessage: status };
-
-    request('PUT', ENDPOINT, body).then(
-      (_response) => {
-        textbox.current.disabled = false;
-        return fetchStatus(); // why return? @Kai
-      },
-      (reason) => {}
-    );
+  const clear = () => {
+    request('PUT', ENDPOINT, { statusMessage: '' })
+      .then(() => console.log('Cleared status'));
   };
-
-  const setAvailabilty = (availability: Availability) => {
-    const body = { availability: availability };
-
-    if (availability === currentAvailability) return;
-
-    request('PUT', ENDPOINT, body).then(
-      (_response) => {},
-      (reason) => {}
-    );
-  };
-
-  const updateStatus = () => {
-    const status = textbox.current.value;
-
-    if (status === '' || status === currentStatus) return;
-
-    setStatus(status);
-  };
-
-  const clearStatus = () => {
-    setStatus('');
-  };
-
-  useEffect(() => {
-    fetchStatus();
-  }, []); // is the array needed
 
   return (
     <div className='status-page'>
       <div className='wrapper'>
         <div className='left'>
-          <SummonerIcon iconId={3333} availability='chat' size={50} />
+          <SummonerIcon 
+            iconId={lcuData.me.icon} 
+            availability={lcuData.me.availability}
+            size={50} 
+          />
           <Textbox
-            placeholder={currentStatus === '' ? 'Empty status' : currentStatus}
-            ref={textbox}
+            ref={statusBox}
+            placeholder={lcuData.me.statusMessage === '' ? 'Empty status' : lcuData.me.statusMessage}
           />
           <Dropdown
-            items={Array.from(availabilites.values())}
-            initialItem={availabilites.get(currentAvailability)}
+            items={Array.from(AVAILABILITES)}
+            initialItem={lcuData.me.availability}
+            onChange={(item) => {setAvailabilty(item as Availability)}}
           />
         </div>
         <div className='right'>
-          <Button title='Apply' onClick={updateStatus} />
-          <Button title='Clear' onClick={clearStatus} />
+          <Button title='Apply' onClick={apply} />
+          <Button title='Clear' onClick={clear} />
         </div>
       </div>
     </div>

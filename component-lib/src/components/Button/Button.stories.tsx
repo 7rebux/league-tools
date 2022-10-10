@@ -1,9 +1,5 @@
 import React from 'react';
-
 import { Meta, Story } from '@storybook/react';
-
-import { action } from '@storybook/addon-actions';
-
 import Button from './Button';
 import { ButtonProps } from './Button.types';
 
@@ -12,18 +8,17 @@ export default {
   component: Button,
 } as Meta;
 
-export const Primary: Story<ButtonProps> = (args) => (
-  <Button onClick={() => action('onClick')({})} {...args} />
-);
+const TITLE = 'Title';
+
+const Template: Story<ButtonProps> = (args) => <Button {...args} />;
+
+export const Primary = Template.bind({});
 Primary.args = {
-  title: 'Title',
-  variant: 'primary',
+  title: TITLE,
 };
 
-export const Secondary: Story<ButtonProps> = (args) => (
-  <Button onClick={() => action('onClick')({})} {...args} />
-);
+export const Secondary = Template.bind({});
 Secondary.args = {
-  title: 'Title',
+  title: TITLE,
   variant: 'secondary',
 };

@@ -1,116 +1,129 @@
 import React, { useEffect, useState, useMemo } from 'react';
-
+import { request, getFavorites, addFavorite, removeFavorite } from '../../utils/ipcBridge';
+import { useLcuData } from '../../components/LcuContext';
 import { Checkbox, Dropdown, Textbox, SummonerIcon } from 'component-lib';
-
-import { request } from '../../ipcBridge';
-
 import './Icons.scss';
 
-// some icons end on 404???
-const ICON_DATA_URL =
-  'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-icons.json';
+const ICON_DATA_URL = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-icons.json';
+const ENDPOINT = '/lol-chat/v1/me';
 
 type Icon = {
   id: number;
   title: string;
   isLegacy: boolean;
+  isFavorite: boolean;
 };
 
-const ENDPOINT = '/lol-chat/v1/me/';
-
 const Icons: React.FC = () => {
+  const lcuData = useLcuData();
   const [iconData, setIconData] = useState<Icon[]>([]);
+  const [typeFilter, setTypeFilter] = useState<string>('All');
   const [titleFilter, setTitleFilter] = useState<string>('');
   const [legacyFilter, setLegacyFilter] = useState<boolean>(true);
-  const [currentIcon, setCurrentIcon] = useState<number>(29);
 
   const filter1 = useMemo(
-    () =>
-      iconData.filter((i) =>
-        i.title.toLowerCase().includes(titleFilter.toLowerCase())
-      ),
-    [iconData, titleFilter]
+    () => {
+      if (typeFilter === 'All') {
+        return iconData;
+      } else if (typeFilter === 'Favorites') {
+        return iconData.filter((i) => i.isFavorite);
+      };
+    },
+    [iconData, typeFilter]
   );
   const filter2 = useMemo(
     () =>
-      legacyFilter ? filter1 : filter1.filter((i) => i.isLegacy === false),
-    [filter1, legacyFilter]
+      filter1.filter((i) =>
+        i.title.toLowerCase().includes(titleFilter.toLowerCase())
+      ),
+    [filter1, titleFilter]
+  );
+  const filter3 = useMemo(
+    () =>
+      legacyFilter ? filter2 : filter2.filter((i) => i.isLegacy === false),
+    [filter2, legacyFilter]
   );
 
-  const fetchIcon = () => {
-    return request('GET', ENDPOINT).then((data) => {
-      const icon = data['icon'] as number;
-
-      setCurrentIcon(icon);
-      console.log('test');
-    });
-  }
-
   const setIcon = (id: number) => {
-    const body = { icon: id };
+    if (id === lcuData.me.icon) return;
 
-    if (id === currentIcon) return;
+    request('PUT', ENDPOINT, { icon: id })
+      .then((data) => console.log('Set icon to', data.icon));
+  };
 
-    request('PUT', ENDPOINT, body).then(
-      (response) => {
-        console.log(response);
-        fetchIcon();
-      },
-      (reason) => {}
-    )
-  }
+  const toggleFavorite = (id: number) => {
+    const icon = iconData.find((i) => i.id === id);
+
+    if (icon.isFavorite)
+      removeFavorite('icon', id) 
+    else
+      addFavorite('icon', id);
+
+    console.log((icon.isFavorite ? 'Removed' : 'Added') + ' favorite icon:', icon.id);
+
+    setIconData(iconData.map((i) =>
+      i === icon ? {...i, isFavorite: !i.isFavorite } : i
+    ));
+  };
 
   useEffect(() => {
     const fetchIconData = async () => {
       const response = await fetch(ICON_DATA_URL);
       const data = await response.json();
+      const favorites = await getFavorites();
 
-      const icons = data.map((icon: any) => ({
-        id: icon.id,
-        title: icon.title,
-        isLegacy: icon.isLegacy,
-      }));
+      const icons = data
+        .filter((icon: any) => icon.imagePath) // filter out non existent icons
+        .map((icon: any) => ({
+          id: icon.id,
+          title: icon.title,
+          isLegacy: icon.isLegacy,
+          isFavorite: favorites.icons.includes(icon.id),
+        }
+      ));
+
+      console.log('Fetched %d icons', icons.length);
+      console.log('Found %d favorite icons:', favorites.icons.length, favorites.icons);
 
       setIconData(icons);
     };
 
     fetchIconData();
-    fetchIcon();
   }, []);
-
-  useEffect(() => {
-    console.log('Hallo Welt');
-  }, [currentIcon]);
 
   return (
     <div className='icons-page'>
       <div className='filter'>
         <Textbox
           placeholder='Search..'
-          onInput={(event) =>
-            setTitleFilter((event.target as HTMLInputElement).value)
-          }
+          onInput={(event) => setTitleFilter((event.target as HTMLInputElement).value)}
         />
         <div className='settings'>
-          <Dropdown items={['All', 'Favorites']} initialItem='All' />
+          <Dropdown 
+            items={['All', 'Favorites']} 
+            initialItem={typeFilter}
+            onChange={(value) => setTypeFilter(value)}
+          />
           <Checkbox
             initialState={legacyFilter}
             title='Legacy'
             onChange={(value) => setLegacyFilter(value)}
           />
         </div>
-        <span style={{ color: 'white' }}>
-          Showing <b>{filter2.length}</b> / {iconData.length} icons
+        <span className='info'>
+          Showing <b>{filter3.length}</b> / {iconData.length} icons
         </span>
       </div>
       <div className='icons'>
-        {filter2.map((icon) => (
+        {filter3.map((icon) => (
           <SummonerIcon
             key={icon.id}
             iconId={icon.id}
-            size={80}
-            selected={currentIcon === icon.id}
+            size={85}
+            selected={lcuData.me.icon === icon.id}
+            favorite={icon.isFavorite}
             onClick={() => setIcon(icon.id)}
+            onContextMenu={() => toggleFavorite(icon.id)}
           />
         ))}
       </div>

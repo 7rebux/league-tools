@@ -1,9 +1,8 @@
 @use '~component-lib/build/_theme' as *;
 
 $navbar-height: 50px;
-$navbar-background: #1c173c;
+$navbar-background: #1A1A1A;
 $navbar-gap: 1rem;
-$navbar-icon-size: 20px;
 
 html {
   user-select: none;
@@ -41,26 +40,16 @@ body,
     margin-left: $navbar-gap;
 
     .nav-item {
+      all: unset;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
       padding: 0.75rem;
       font-size: 15px;
       cursor: pointer;
 
-      img {
-        width: $navbar-icon-size;
-        height: $navbar-icon-size;
-        pointer-events: none;
-      }
-
       &.selected {
         font-weight: bold;
         color: color('secondary');
-
-        > img {
-          filter: opacity(0.3) drop-shadow(0 0 0 color('secondary'));
-        }
       }
     }
   }

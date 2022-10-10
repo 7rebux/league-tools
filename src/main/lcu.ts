@@ -2,49 +2,44 @@ import {
   authenticate,
   createHttp1Request,
   Credentials,
+  EventResponse,
   JsonObjectLike,
   LeagueClient,
 } from 'league-connect-v2';
+import { WebSocket } from 'ws';
+import { BrowserWindow } from 'electron';
+import https from 'https';
 
 class LCU {
+  private window: BrowserWindow;
   private credentials: Credentials;
-  private client: LeagueClient;
+  private webSocket: WebSocket;
   connected: boolean;
 
-  // shit code clean this up
-  connect = async () => {
-    if (this.client) {
-      this.client.start();
-      return this.connected;
-    }
+  constructor(windowId: number) {
+    this.window = BrowserWindow.fromId(windowId);
+  }
 
+  connect = async () => {
     this.credentials = await authenticate({
       awaitConnection: true,
     });
-    this.client = new LeagueClient(this.credentials);
+
+    if (this.webSocket) {
+      this.webSocket.terminate();
+      this.webSocket = undefined;
+    }
+    this.webSocket = this.createSocket();
+
+    new LeagueClient(this.credentials)
+      .on('disconnect', () => {
+        this.connected = false;
+        this.window.webContents.send('lcu-disconnect');
+      })
+      .start();
 
     this.connected = true;
-
-    // fired on reconnects
-    this.client.on('connect', (newCredentials) => {
-      this.credentials = newCredentials;
-      this.connected = true;
-
-      console.log('Reconnected');
-    });
-
-    // fired on disconnects
-    this.client.on('disconnect', () => {
-      this.connected = false;
-
-      console.log('Lost connection');
-    });
-
-    this.client.start();
-
-    return this.connected;
   };
-
   request = async (
     method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
     endpoint: string,
@@ -60,6 +55,50 @@ class LCU {
       this.credentials
     );
     return await response.json();
+  };
+
+  private createSocket = () => {
+    const url = `wss://riot:${this.credentials.password}@127.0.0.1:${this.credentials.port}`;
+    let socket: WebSocket;
+
+    do {
+      socket = new WebSocket(url, {
+        headers: {
+          Authorization:
+            'Basic ' +
+            Buffer.from(`riot:${this.credentials.password}`).toString('base64'),
+        },
+        agent: new https.Agent(
+          typeof this.credentials?.certificate === 'undefined'
+            ? { rejectUnauthorized: false }
+            : { ca: this.credentials?.certificate }
+        ),
+      });
+    } while (
+      socket?.readyState !== WebSocket.OPEN &&
+      socket?.readyState !== WebSocket.CONNECTING
+    );
+
+    // handle incoming messages
+    socket.on('message', (content: string) => {
+      try {
+        const json = JSON.parse(content);
+        const [res]: [EventResponse] = json.slice(2);
+
+        this.window.webContents.send('lcu-event', res);
+      } catch {}
+    });
+
+    // subscribe to Json API
+    if (socket.readyState == WebSocket.OPEN)
+      socket.send(JSON.stringify([5, 'OnJsonApiEvent']));
+    else {
+      socket.on('open', () => {
+        socket.send(JSON.stringify([5, 'OnJsonApiEvent']));
+      });
+    }
+
+    return socket;
   };
 }
 

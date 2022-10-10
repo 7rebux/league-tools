@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { connect } from '../../utils/ipcBridge';
 import { Button } from 'component-lib';
-
 import './Connect.scss';
-import { connect } from '../../ipcBridge';
 
 const Connect: React.FC = () => {
   const navigate = useNavigate();
+  const [status, setStatus] = useState<string>('Connect');
+
+  const handleConnect = () => {
+    connect(navigate).then(
+      () => navigate('/home'), 
+      () => setStatus('Try again')
+    );
+    setStatus('Connecting...');
+  };
 
   return (
     <div className='connect-page'>
@@ -24,8 +31,8 @@ const Connect: React.FC = () => {
           <div className='button-wrapper'>
             <Button
               variant='primary'
-              title='Connect'
-              onClick={() => connect().then((_) => navigate('/home'))}
+              title={status}
+              onClick={handleConnect}
             />
             <Button variant='secondary' title='Functions -->' />
           </div>

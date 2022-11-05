@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { NavBar, LcuContext } from './components';
@@ -24,4 +24,11 @@ const App: React.FC = () => {
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('main'));
+ReactDOM.render(
+  (
+    <StrictMode>
+      <App />
+    </StrictMode>
+  ),
+  document.getElementById('main')
+);

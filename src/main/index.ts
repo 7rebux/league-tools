@@ -1,18 +1,23 @@
-import { app, BrowserWindow, session, ipcMain } from 'electron';
+import { app, BrowserWindow, session, ipcMain, Menu } from 'electron';
+import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer'
 import { setBounds, getBounds, addFavorite, removeFavorite, getFavorites } from './settings';
 import LCU from './lcu';
 
 // electron forge entry point declared in package.json
 declare const MAIN_WEBPACK_ENTRY: string;
 
+const isDevelopment = process.env.NODE_ENV !== 'production';
+
 if (require('electron-squirrel-startup')) app.quit();
 
 const createWindow = (): BrowserWindow => {
   const bounds = getBounds();
   const mainWindow = new BrowserWindow({
+    show: false,
     width: bounds.width,
     height: bounds.height,
     webPreferences: {
+      devTools: isDevelopment,
       nodeIntegration: true,
       contextIsolation: false,
     },
@@ -25,11 +30,18 @@ const createWindow = (): BrowserWindow => {
   });
 
   mainWindow.loadURL(MAIN_WEBPACK_ENTRY);
+  
+  if (isDevelopment) 
+    mainWindow.webContents.openDevTools();
+  else
+    Menu.setApplicationMenu(null);
 
   return mainWindow;
 };
 
 app.on('ready', () => {
+  if (isDevelopment) installExtension(REACT_DEVELOPER_TOOLS)
+
   const browserWindow = createWindow();
   const leagueClient = new LCU(browserWindow.id);
 
@@ -66,6 +78,8 @@ app.on('ready', () => {
       },
     });
   });
+
+  browserWindow.once('ready-to-show', browserWindow.show);
 });
 
 app.on('window-all-closed', () => {

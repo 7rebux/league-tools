@@ -2,7 +2,7 @@ import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { NavBar, LcuContext } from './components';
-import { Backgrounds, Connect, Home, Icons, Status } from './pages';
+import { Backgrounds, Challenges, Connect, Home, Icons, Status } from './pages';
 
 const App: React.FC = () => {
   return (
@@ -17,6 +17,7 @@ const App: React.FC = () => {
             <Route path='/icons'        element={<Icons />} />
             <Route path='/backgrounds'  element={<Backgrounds />} />
             <Route path='/status'       element={<Status />} />
+            <Route path='/challenges'   element={<Challenges />} />
           </Routes>
         </div>
       </LcuContext>

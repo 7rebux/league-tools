@@ -6,14 +6,13 @@
 ![License](https://img.shields.io/github/license/7rebux/league-tools)
 ![Stars](https://img.shields.io/github/stars/7rebux/league-tools)
 
-_This branch is still under development! Please check out the [legacy branch](https://github.com/7rebux/league-tools/tree/legacy) for the old working version._
-
 A cross-platform desktop app with many League Client exploits:
 
 - Change your profile icon to any icon
 - Change your profile background to any splashart
 - Bypass status character limit
 - Change your availability (for example appear as offline)
+- Clear selected challenge tokens
 
 ## 🧩 Demo
 
@@ -23,7 +22,7 @@ A cross-platform desktop app with many League Client exploits:
 
 Either download and install the latest release or make your own changes to this project by cloning this repository.
 
-### Download
+### Download (coming soon)
 
 - Windows
 - Linux

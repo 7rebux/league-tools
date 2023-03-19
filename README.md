@@ -22,11 +22,10 @@ A cross-platform desktop app with many League Client exploits:
 
 Either download and install the latest release or make your own changes to this project by cloning this repository.
 
-### Download (coming soon)
+### Download
 
-- Windows
-- Linux
-- Mac
+- [Windows](https://github.com/7rebux/league-tools/releases/download/0.1.0/league-tools-0.1.0-win32-x64.zip)
+- Linux (Coming soon)
 
 ### Development
 

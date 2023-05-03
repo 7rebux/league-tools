@@ -1,5 +1,5 @@
 import React, { StrictMode } from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { NavBar, LcuContext } from './components';
 import { Backgrounds, Challenges, Connect, Home, Icons, Status } from './pages';
@@ -25,11 +25,11 @@ const App: React.FC = () => {
   );
 };
 
-ReactDOM.render(
-  (
-    <StrictMode>
-      <App />
-    </StrictMode>
-  ),
-  document.getElementById('main')
+const container = document.getElementById('main');
+const root = createRoot(container!);
+
+root.render(
+  <StrictMode>
+    <App />
+  </StrictMode>
 );

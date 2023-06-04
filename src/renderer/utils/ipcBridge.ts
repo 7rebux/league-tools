@@ -3,8 +3,8 @@ import { JsonObjectLike } from 'league-connect';
 import { v4 as uuidv4 } from 'uuid';
 
 type Favorites = {
-  icons: number[],
-  backgrounds: number[],
+  icons: number[];
+  backgrounds: number[];
 };
 
 const connect = (navigate: any): Promise<undefined> => {
@@ -64,10 +64,4 @@ const removeFavorite = (type: 'icon' | 'background', id: number) => {
   ipcRenderer.send('store-remove-favorite', type, id);
 };
 
-export {
-  connect,
-  request,
-  getFavorites,
-  addFavorite,
-  removeFavorite,
-};
+export { connect, request, getFavorites, addFavorite, removeFavorite };

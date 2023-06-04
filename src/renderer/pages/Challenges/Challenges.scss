@@ -1,6 +1,102 @@
+@use '~component-lib/build/_theme' as *;
+
+$gap: 20px;
+$border-radius: 20px;
+
 .challengesPage {
   height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  gap: $gap;
+  padding: $gap;
+
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: $gap;
+
+    .showcase {
+      background-color: color('surface');
+      display: flex;
+      flex-direction: column;
+      gap: $gap;
+      padding: $gap;
+      border-radius: $border-radius;
+
+      .activeTokens {
+        height: 55px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        > * {
+          width: 55px;
+          height: 55px;
+        }
+      }
+
+      > div {
+        width: 100%;
+      }
+    }
+
+    .filter {
+      background-color: color('surface');
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: $gap;
+      padding: $gap;
+      border-radius: $border-radius;
+      height: 100%;
+
+      .settings {
+        background-color: color('background');
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: calc($gap / 2);
+        border-radius: $border-radius;
+        padding: $gap;
+
+        > * {
+          width: 100%;
+        }
+      }
+
+      .info {
+        @include font('subtitle');
+        text-align: center;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .challenges {
+    background-color: color('surface');
+    width: 100%;
+    display: flex;
+    align-content: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: $gap;
+    border-radius: $border-radius;
+    padding: $gap;
+    overflow-y: scroll;
+
+    > * {
+      width: 85px;
+      height: 85px;
+      cursor: pointer;
+    }
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: color('primary');
+      height: 50px;
+    }
+  }
 }

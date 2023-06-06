@@ -85,7 +85,7 @@ const DEFAULT_STATE: State = {
     lol: {
       level: 0,
       rankedLeagueTier: 'UNRANKED',
-      rankedLeagueDivision: '',
+      rankedLeagueDivision: 'NA',
     },
   },
   profile: {
@@ -128,8 +128,8 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
           gameTag: response.gameTag,
           lol: {
             level: response.lol.level,
-            rankedLeagueTier: response.lol.rankedLeagueTier ?? 'UNRANKED',
-            rankedLeagueDivision: response.lol.rankedLeagueDivision ?? '',
+            rankedLeagueTier: response.lol.rankedLeagueTier === '' ? 'UNRANKED' : response.lol.rankedLeagueTier,
+            rankedLeagueDivision: response.lol.rankedLeagueDivision,
           },
         },
       }));
@@ -185,8 +185,8 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
               gameTag: message.data.gameTag,
               lol: {
                 level: message.data.lol.level,
-                rankedLeagueTier: message.data.lol.rankedLeagueTier ?? 'UNRANKED',
-                rankedLeagueDivision: message.data.lol.rankedLeagueDivision ?? '',
+                rankedLeagueTier: message.data.lol.rankedLeagueTier === '' ? 'UNRANKED' : message.data.lol.rankedLeagueTier,
+                rankedLeagueDivision: message.data.lol.rankedLeagueDivision,
               },
             },
           }));

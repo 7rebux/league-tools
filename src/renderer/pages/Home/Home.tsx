@@ -24,7 +24,7 @@ const Home: React.FC = () => {
     const rank = lcuData.me.lol.rankedLeagueTier;
     const division = lcuData.me.lol.rankedLeagueDivision;
 
-    return `${rank.charAt(0) + rank.substring(1).toLowerCase()} ${division}`;
+    return `${rank.charAt(0) + rank.substring(1).toLowerCase()} ${division === 'NA' ? '' : division}`;
   };
 
   return (

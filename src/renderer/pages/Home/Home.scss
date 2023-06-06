@@ -5,6 +5,10 @@ $border-radius: 20px;
 
 .home-page {
   padding: $gap;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   .profile {
     width: fit-content;

@@ -69,7 +69,7 @@ const Challenges: React.FC = () => {
   const updateTokens = (ids: number[]) => {
     request('POST', UPDATE_ENDPOINT, { 
       'challengeIds': ids,
-      'title': lcuData.challenges.title,
+      'title': lcuData.challenges.title === -1 ? '' : lcuData.challenges.title.toString(),
     });
   };
 

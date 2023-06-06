@@ -64,6 +64,7 @@ type ProfileState = {
 
 type ChallengesState = {
   tokens: Token[];
+  title: string,
 };
 
 type State = { 
@@ -96,6 +97,7 @@ const DEFAULT_STATE: State = {
   },
   challenges: {
     tokens: [],
+    title: '',
   },
 };
 
@@ -161,7 +163,8 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
             name: token.name,
             tier: token.currentLevel,
             legacy: token.retireTimestamp !== 0
-          }))
+          })),
+          title: response.title.itemId?.toString() ?? '',
         },
       }));
     });
@@ -217,6 +220,7 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
                 tier: token.currentLevel,
                 legacy: token.retireTimestamp !== 0
               })),
+              title: message.data.title.itemId?.toString() ?? '',
             },
           }));
         };

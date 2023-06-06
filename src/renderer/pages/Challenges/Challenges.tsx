@@ -41,9 +41,6 @@ type Token = {
 const getTokenIcon = (id: number, tier: TokenTier) =>
   `${TOKEN_ICON_URL}/${id}/tokens/${tier.toLowerCase()}.png`;
 
-const updateTokens = (ids: number[]) =>
-  request('POST', UPDATE_ENDPOINT, { 'challengeIds': ids });
-
 const Challenges: React.FC = () => {
   const lcuData = useLcuData();
   const [tokens, setTokens] = useState<Token[]>([]);
@@ -68,6 +65,13 @@ const Challenges: React.FC = () => {
     else
       return filter2.filter(({ legacy }) => legacy === false);
   }, [filter2, legacyFilter]);
+
+  const updateTokens = (ids: number[]) => {
+    request('POST', UPDATE_ENDPOINT, { 
+      'challengeIds': ids,
+      'title': lcuData.challenges.title,
+    });
+  };
 
   useEffect(() => {
     const fetchChallenges = async () => {

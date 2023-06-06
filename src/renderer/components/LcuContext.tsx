@@ -1,16 +1,77 @@
 const { ipcRenderer } = window.require('electron');
 import type { EventResponse } from 'league-connect';
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { 
+  ReactNode, 
+  useEffect, 
+  useState 
+} from 'react';
 import { useLocation } from 'react-router-dom';
 import { request } from '../utils/ipcBridge';
+
+const AVAILABILITIES = [
+  'chat',
+  'away',
+  'dnd',
+  'mobile',
+  'offline',
+] as const;
+
+type Availability = typeof AVAILABILITIES[number];
+
+const TOKEN_TIERS = [
+  'IRON',
+  'BRONZE',
+  'SILVER',
+  'GOLD',
+  'PLATINUM',
+  'DIAMOND',
+  'MASTER',
+  'GRANDMASTER',
+  'CHALLENGER',
+] as const;
+
+type TokenTier = typeof TOKEN_TIERS[number];
 
 type Token = {
   id: number;
   name: string;
-  level: 'IRON' | 'BRONZE' | 'SILVER' | 'GOLD' | 'PLATINUM' | 'DIAMOND' | 'MASTER' | 'GRANDMASTER' | 'CHALLENGER';
+  tier: TokenTier;
+  legacy: boolean;
 };
 
-type State = { me: MeState; wallet: WalletState; profile: ProfileState, challenges: ChallengesState };
+type MeState = {
+  puuid: string;
+  icon: number;
+  availability: Availability;
+  name: string;
+  statusMessage: string;
+  gameTag: string;
+  lol: {
+    level: number;
+    rankedLeagueTier: string;
+    rankedLeagueDivision: string;
+  };
+};
+
+type WalletState = {
+  riotPoints: number;
+  blueEssence: number;
+};
+
+type ProfileState = {
+  backgroundSkinId: number;
+};
+
+type ChallengesState = {
+  tokens: Token[];
+};
+
+type State = { 
+  me: MeState;
+  wallet: WalletState;
+  profile: ProfileState; 
+  challenges: ChallengesState;
+};
 
 const DEFAULT_STATE: State = {
   me: {
@@ -38,35 +99,11 @@ const DEFAULT_STATE: State = {
   },
 };
 
-type MeState = {
-  puuid: string;
-  icon: number;
-  availability: 'chat' | 'away' | 'dnd' | 'mobile' | 'offline';
-  name: string;
-  statusMessage: string;
-  gameTag: string;
-  lol: {
-    level: number;
-    rankedLeagueTier: string;
-    rankedLeagueDivision: string;
-  }
-};
-type WalletState = {
-  riotPoints: number;
-  blueEssence: number;
-};
-type ProfileState = {
-  backgroundSkinId: number;
-};
-type ChallengesState = {
-  tokens: Token[];
-}
-
 const context = React.createContext<State>(DEFAULT_STATE);
 
 export const LcuContext = ({ children }: { children: ReactNode }) => {
-  const [state, setState] = useState<State>(DEFAULT_STATE);
   const location = useLocation();
+  const [state, setState] = useState<State>(DEFAULT_STATE);
 
   useEffect(() => {
     // reset state on reconnects
@@ -78,65 +115,55 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
       return;
 
     request('GET', '/lol-chat/v1/me').then((response: any) => {
-      setState(
-        (oldState) =>
-        ({
-          ...oldState,
-          me: {
-            puuid: response.puuid,
-            icon: response.icon,
-            availability: response.availability,
-            name: response.name,
-            statusMessage: response.statusMessage,
-            gameTag: response.gameTag,
-            lol: {
-              level: response.lol.level,
-              rankedLeagueTier: response.lol.rankedLeagueTier ?? 'UNRANKED',
-              rankedLeagueDivision: response.lol.rankedLeagueDivision ?? '',
-            },
+      setState((oldState) => ({
+        ...oldState,
+        me: {
+          puuid: response.puuid,
+          icon: response.icon,
+          availability: response.availability,
+          name: response.name,
+          statusMessage: response.statusMessage,
+          gameTag: response.gameTag,
+          lol: {
+            level: response.lol.level,
+            rankedLeagueTier: response.lol.rankedLeagueTier ?? 'UNRANKED',
+            rankedLeagueDivision: response.lol.rankedLeagueDivision ?? '',
           },
-        } as State)
-      );
+        },
+      }));
     });
-    request('GET', '/lol-summoner/v1/current-summoner/summoner-profile').then(
-      (response) => {
-        setState(
-          (oldState) =>
-          ({
-            ...oldState,
-            profile: {
-              backgroundSkinId: response.backgroundSkinId,
-            },
-          } as State)
-        );
-      }
-    );
-    request('GET', '/lol-store/v1/wallet').then((response) => {
-      setState(
-        (oldState) =>
-        ({
-          ...oldState,
-          wallet: {
-            riotPoints: response.rp ?? 0,
-            blueEssence: response.ip ?? 0,
-          },
-        } as State)
-      );
+
+    request('GET', '/lol-summoner/v1/current-summoner/summoner-profile').then((response: any) => {
+      setState((oldState) => ({
+        ...oldState,
+        profile: {
+          backgroundSkinId: response.backgroundSkinId,
+        },
+      }));
     });
-    request('GET', '/lol-challenges/v1/summary-player-data/local-player').then((response) => {
-      setState(
-        (oldState) =>
-        ({
-          ...oldState,
-          challenges: {
-            tokens: (response.topChallenges as any[]).map((token: any) => ({
-              id: token.id,
-              name: token.name,
-              level: token.currentLevel,
-            }))
-          },
-        } as State)
-      )
+
+    request('GET', '/lol-store/v1/wallet').then((response: any) => {
+      setState((oldState) => ({
+        ...oldState,
+        wallet: {
+          riotPoints: response.rp ?? 0,
+          blueEssence: response.ip ?? 0,
+        },
+      }));
+    });
+
+    request('GET', '/lol-challenges/v1/summary-player-data/local-player').then((response: any) => {
+      setState((oldState) => ({
+        ...oldState,
+        challenges: {
+          tokens: (response.topChallenges as any[]).map((token: any) => ({
+            id: token.id,
+            name: token.name,
+            tier: token.currentLevel,
+            legacy: token.retireTimestamp !== 0
+          }))
+        },
+      }));
     });
   }, [location]);
 
@@ -161,7 +188,7 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
             },
           }));
           break;
-        }
+        };
         case '/lol-summoner/v1/current-summoner/summoner-profile': {
           setState((oldState) => ({
             ...oldState,
@@ -179,7 +206,7 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
               blueEssence: message.data.ip ?? 0,
             },
           }));
-        }
+        };
         case `/lol-challenges/v1/summary-player-data/player/${state.me.puuid}`: {
           setState((oldState) => ({
             ...oldState,
@@ -187,12 +214,16 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
               tokens: (message.data.topChallenges as any[]).map((token: any) => ({
                 id: token.id,
                 name: token.name,
-                level: token.currentLevel,
-              }))
-            }
-          }))
+                tier: token.currentLevel,
+                legacy: token.retireTimestamp !== 0
+              })),
+            },
+          }));
+        };
+        default: {
+          console.log(message);
         }
-      }
+      };
     };
 
     ipcRenderer.on('lcu-event', listener);
@@ -202,7 +233,11 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
     };
   });
 
-  return <context.Provider value={state}>{children}</context.Provider>;
+  return (
+    <context.Provider value={state}>
+      {children}
+    </context.Provider>
+  );
 };
 
 export const useLcuData = () => React.useContext(context);

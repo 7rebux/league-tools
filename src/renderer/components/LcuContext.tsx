@@ -39,6 +39,41 @@ type Token = {
   legacy: boolean;
 };
 
+const QUEUES = [
+  'RANKED_SOLO_5x5',
+  'RANKED_FLEX_SR',
+  'RANKED_FLEX_TT',
+  'RANKED_TFT',
+  'RANKED_TFT_TURBO',
+  'RANKED_TFT_PAIRS',
+  'RANKED_TFT_DOUBLE_UP',
+] as const;
+
+const TIERS = [
+  'UNRANKED',
+  'IRON',
+  'BRONZE',
+  'SILVER',
+  'GOLD',
+  'PLATINUM',
+  'DIAMOND',
+  'MASTER',
+  'GRANDMASTER',
+  'CHALLENGER',
+] as const;
+
+const DIVISIONS = [
+  'NA',
+  'I',
+  'II',
+  'III',
+  'IV',
+] as const;
+
+type Queue = typeof QUEUES[number];
+type Tier = typeof TIERS[number];
+type Division = typeof DIVISIONS[number];
+
 type MeState = {
   puuid: string;
   icon: number;
@@ -48,8 +83,11 @@ type MeState = {
   gameTag: string;
   lol: {
     level: number;
-    rankedLeagueTier: string;
-    rankedLeagueDivision: string;
+    rankedLeagueQueue: Queue;
+    rankedLeagueTier: Tier;
+    rankedLeagueDivision: Division;
+    challengeCrystalLevel: Tier;
+    challengePoints: number;
   };
 };
 
@@ -84,8 +122,11 @@ const DEFAULT_STATE: State = {
     gameTag: '0000',
     lol: {
       level: 0,
+      rankedLeagueQueue: 'RANKED_SOLO_5x5',
       rankedLeagueTier: 'UNRANKED',
       rankedLeagueDivision: 'NA',
+      challengeCrystalLevel: 'UNRANKED',
+      challengePoints: 0,
     },
   },
   profile: {
@@ -128,8 +169,11 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
           gameTag: response.gameTag,
           lol: {
             level: response.lol.level,
+            rankedLeagueQueue: response.lol.rankedLeagueQueue,
             rankedLeagueTier: response.lol.rankedLeagueTier === '' ? 'UNRANKED' : response.lol.rankedLeagueTier,
             rankedLeagueDivision: response.lol.rankedLeagueDivision,
+            challengeCrystalLevel: response.lol.challengeCrystalLevel,
+            challengePoints: response.lol.challengePoints,
           },
         },
       }));
@@ -185,8 +229,11 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
               gameTag: message.data.gameTag,
               lol: {
                 level: message.data.lol.level,
+                rankedLeagueQueue: message.data.lol.rankedLeagueQueue,
                 rankedLeagueTier: message.data.lol.rankedLeagueTier === '' ? 'UNRANKED' : message.data.lol.rankedLeagueTier,
                 rankedLeagueDivision: message.data.lol.rankedLeagueDivision,
+                challengeCrystalLevel: message.data.lol.challengeCrystalLevel,
+                challengePoints: message.data.lol.challengePoints,
               },
             },
           }));

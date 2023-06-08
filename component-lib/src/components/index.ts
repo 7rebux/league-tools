@@ -5,3 +5,4 @@ export { default as Checkbox } from './Checkbox';
 export { default as Dropdown } from './Dropdown';
 export { default as Textbox } from './Textbox';
 export { default as Splashart } from './Splashart';
+export { default as Select } from './Select';

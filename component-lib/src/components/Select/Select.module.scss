@@ -1,0 +1,54 @@
+@use '../../_theme' as *;
+
+$width: 150px;
+$padding: 5px;
+$borderRadius: 6px;
+
+.trigger {
+  all: unset;
+  min-width: $width;
+  padding: $padding;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: color('secondary');
+  @include font('body');
+  user-select: none;
+
+  &[data-state='closed'] {
+    border-radius: $borderRadius;
+  }
+
+  &[data-state='open'] {
+    border-radius: $borderRadius $borderRadius 0 0;
+  }
+}
+
+.content {
+  background-color: color('surface');
+  border-radius: 0 0 $borderRadius $borderRadius;
+}
+
+.label {
+  padding: $padding;
+  background-color: lighten(color('surface'), 5);
+  @include font('subtitle');
+  font-size: 12px;
+  user-select: none;
+}
+
+.item {
+  min-width: $width;
+  padding: $padding;
+  @include font('body');
+  border-radius: $borderRadius;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  outline: none;
+  user-select: none;
+
+  &[data-highlighted] {
+    background-color: darken(color('surface'), 10);
+  }
+}

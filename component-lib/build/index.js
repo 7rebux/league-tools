@@ -1,34 +1,7 @@
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-var React = require('react');
-var ReactDOM = require('react-dom');
-
-function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
-
-function _interopNamespace(e) {
-  if (e && e.__esModule) return e;
-  var n = Object.create(null);
-  if (e) {
-    Object.keys(e).forEach(function (k) {
-      if (k !== 'default') {
-        var d = Object.getOwnPropertyDescriptor(e, k);
-        Object.defineProperty(n, k, d.get ? d : {
-          enumerable: true,
-          get: function () { return e[k]; }
-        });
-      }
-    });
-  }
-  n["default"] = e;
-  return Object.freeze(n);
-}
-
-var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
-var React__namespace = /*#__PURE__*/_interopNamespace(React);
-var ReactDOM__namespace = /*#__PURE__*/_interopNamespace(ReactDOM);
-var ReactDOM__default = /*#__PURE__*/_interopDefaultLegacy(ReactDOM);
+import * as React from 'react';
+import React__default, { useState, createContext, useMemo, createElement, useContext, useCallback, forwardRef, Children, isValidElement, cloneElement, Fragment, useEffect, useRef, useLayoutEffect } from 'react';
+import * as ReactDOM from 'react-dom';
+import ReactDOM__default, { flushSync, createPortal } from 'react-dom';
 
 /******************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -114,26 +87,26 @@ var adjustColor = function (color, anmount) {
         return Math.min(255, Math.max(0, parseInt(m, 16) + anmount)).toString(16);
     });
 };
-var Badge = React__default["default"].forwardRef(function (_a, ref) {
+var Badge = React__default.forwardRef(function (_a, ref) {
     var text = _a.text, icon = _a.icon, _b = _a.backgroundColor, backgroundColor = _b === void 0 ? '#d86ada' : _b, _c = _a.color, color = _c === void 0 ? '#fffbf4' : _c, props = __rest$1(_a, ["text", "icon", "backgroundColor", "color"]);
     var customStyle = {
         backgroundColor: backgroundColor,
         borderColor: adjustColor(backgroundColor, -20),
         color: color,
     };
-    return (React__default["default"].createElement("div", __assign$1({}, props, { ref: ref, style: customStyle, className: styles$7.badge }),
-        icon !== undefined && React__default["default"].createElement("img", { src: icon }),
-        text !== undefined && React__default["default"].createElement("span", null, text)));
+    return (React__default.createElement("div", __assign$1({}, props, { ref: ref, style: customStyle, className: styles$7.badge }),
+        icon !== undefined && React__default.createElement("img", { src: icon }),
+        text !== undefined && React__default.createElement("span", null, text)));
 });
 
 var css_248z$6 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Button-module_button__18Bed, .Button-module_secondary__j-3rj, .Button-module_primary__st6yY {\n  width: fit-content;\n  min-width: 7rem;\n  border-radius: 5px;\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  text-align: center;\n  padding: 9px;\n  cursor: pointer;\n  user-select: none;\n}\n.Button-module_button__18Bed:hover, .Button-module_secondary__j-3rj:hover, .Button-module_primary__st6yY:hover {\n  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;\n}\n\n.Button-module_primary__st6yY {\n  background: linear-gradient(72deg, #d86ada, #6957e7);\n}";
 var styles$6 = {"button":"Button-module_button__18Bed","secondary":"Button-module_secondary__j-3rj","primary":"Button-module_primary__st6yY"};
 styleInject(css_248z$6);
 
-var Button = React__default["default"].forwardRef(function (_a, ref) {
+var Button = React__default.forwardRef(function (_a, ref) {
     var title = _a.title, _b = _a.variant, variant = _b === void 0 ? 'primary' : _b, props = __rest$1(_a, ["title", "variant"]);
-    return (React__default["default"].createElement("div", __assign$1({}, props, { ref: ref, className: styles$6[variant] }),
-        React__default["default"].createElement("span", null, title)));
+    return (React__default.createElement("div", __assign$1({}, props, { ref: ref, className: styles$6[variant] }),
+        React__default.createElement("span", null, title)));
 });
 
 var css_248z$5 = "@import url(\"https://rsms.me/inter/inter.css\");\n.SummonerIcon-module_profileIcon__DtiAc {\n  box-sizing: border-box;\n  position: relative;\n  border-radius: 25%;\n  overflow: hidden;\n}\n.SummonerIcon-module_profileIcon__DtiAc[data-favorite=true] {\n  border: 4px solid #d86ada;\n}\n.SummonerIcon-module_profileIcon__DtiAc[data-selected=true] {\n  border: 4px solid #6957e7;\n}\n.SummonerIcon-module_profileIcon__DtiAc img {\n  max-width: 100%;\n  max-height: 100%;\n  pointer-events: none;\n}\n\n.SummonerIcon-module_availability__LEzzj {\n  box-sizing: content-box;\n  position: absolute;\n  bottom: 10%;\n  right: 10%;\n  height: 15%;\n  width: 15%;\n  border-radius: 50%;\n  border: 2px solid;\n}\n.SummonerIcon-module_availability__LEzzj[data-availability=chat] {\n  background-color: #29c45a;\n  border-color: #177033;\n}\n.SummonerIcon-module_availability__LEzzj[data-availability=away] {\n  background-color: #c73c3c;\n  border-color: #7a2323;\n}\n.SummonerIcon-module_availability__LEzzj[data-availability=dnd] {\n  background-color: #4ab3e4;\n  border-color: #1a7fae;\n}\n.SummonerIcon-module_availability__LEzzj[data-availability=offline] {\n  background-color: #8f8b8b;\n  border-color: #5c5858;\n}\n.SummonerIcon-module_availability__LEzzj[data-availability=mobile] {\n  background-color: #8f8b8b;\n  border-color: #5c5858;\n}";
@@ -141,22 +114,22 @@ var styles$5 = {"profileIcon":"SummonerIcon-module_profileIcon__DtiAc","availabi
 styleInject(css_248z$5);
 
 var ICONS_URL = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons';
-var SummonerIcon = React__default["default"].forwardRef(function (_a, ref) {
+var SummonerIcon = React__default.forwardRef(function (_a, ref) {
     var iconId = _a.iconId, _b = _a.size, size = _b === void 0 ? 128 : _b, selected = _a.selected, favorite = _a.favorite, availability = _a.availability, props = __rest$1(_a, ["iconId", "size", "selected", "favorite", "availability"]);
-    return (React__default["default"].createElement("div", __assign$1({}, props, { ref: ref, className: styles$5.profileIcon, style: { width: size, height: size }, "data-selected": selected, "data-favorite": favorite }),
-        React__default["default"].createElement("img", { loading: 'lazy', src: "".concat(ICONS_URL, "/").concat(iconId, ".jpg") }),
-        availability !== undefined && (React__default["default"].createElement("div", { className: styles$5.availability, "data-availability": availability }))));
+    return (React__default.createElement("div", __assign$1({}, props, { ref: ref, className: styles$5.profileIcon, style: { width: size, height: size }, "data-selected": selected, "data-favorite": favorite }),
+        React__default.createElement("img", { loading: 'lazy', src: "".concat(ICONS_URL, "/").concat(iconId, ".jpg") }),
+        availability !== undefined && (React__default.createElement("div", { className: styles$5.availability, "data-availability": availability }))));
 });
 
 var css_248z$4 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Checkbox-module_checkbox__D0D4S {\n  width: fit-content;\n  min-width: 120px;\n  box-sizing: border-box;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  border: 3px solid #6957e7;\n  border-radius: 10px;\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  padding: 0.4rem;\n  user-select: none;\n}\n.Checkbox-module_checkbox__D0D4S input {\n  width: 1rem;\n  height: 1rem;\n  cursor: pointer;\n}";
 var styles$4 = {"checkbox":"Checkbox-module_checkbox__D0D4S"};
 styleInject(css_248z$4);
 
-var Checkbox = React__default["default"].forwardRef(function (_a, ref) {
+var Checkbox = React__default.forwardRef(function (_a, ref) {
     var title = _a.title, _b = _a.initialState, initialState = _b === void 0 ? false : _b, onChange = _a.onChange, props = __rest$1(_a, ["title", "initialState", "onChange"]);
-    return (React__default["default"].createElement("div", __assign$1({}, props, { ref: ref, className: styles$4.checkbox }),
-        React__default["default"].createElement("span", null, title),
-        React__default["default"].createElement("input", { type: 'checkbox', defaultChecked: initialState, onChange: function (e) { return onChange(e.currentTarget.checked); } })));
+    return (React__default.createElement("div", __assign$1({}, props, { ref: ref, className: styles$4.checkbox }),
+        React__default.createElement("span", null, title),
+        React__default.createElement("input", { type: 'checkbox', defaultChecked: initialState, onChange: function (e) { return onChange(e.currentTarget.checked); } })));
 });
 
 var DefaultContext = {
@@ -166,7 +139,7 @@ var DefaultContext = {
   style: undefined,
   attr: undefined
 };
-var IconContext = React__default["default"].createContext && React__default["default"].createContext(DefaultContext);
+var IconContext = React__default.createContext && React__default.createContext(DefaultContext);
 
 var __assign = undefined && undefined.__assign || function () {
   __assign = Object.assign || function (t) {
@@ -188,7 +161,7 @@ var __rest = undefined && undefined.__rest || function (s, e) {
 };
 function Tree2Element(tree) {
   return tree && tree.map(function (node, i) {
-    return React__default["default"].createElement(node.tag, __assign({
+    return React__default.createElement(node.tag, __assign({
       key: i
     }, node.attr), Tree2Element(node.child));
   });
@@ -196,7 +169,7 @@ function Tree2Element(tree) {
 function GenIcon(data) {
   // eslint-disable-next-line react/display-name
   return function (props) {
-    return React__default["default"].createElement(IconBase, __assign({
+    return React__default.createElement(IconBase, __assign({
       attr: __assign({}, data.attr)
     }, props), Tree2Element(data.child));
   };
@@ -211,7 +184,7 @@ function IconBase(props) {
     var className;
     if (conf.className) className = conf.className;
     if (props.className) className = (className ? className + " " : "") + props.className;
-    return React__default["default"].createElement("svg", __assign({
+    return React__default.createElement("svg", __assign({
       stroke: "currentColor",
       fill: "currentColor",
       strokeWidth: "0"
@@ -223,9 +196,9 @@ function IconBase(props) {
       height: computedSize,
       width: computedSize,
       xmlns: "http://www.w3.org/2000/svg"
-    }), title && React__default["default"].createElement("title", null, title), props.children);
+    }), title && React__default.createElement("title", null, title), props.children);
   };
-  return IconContext !== undefined ? React__default["default"].createElement(IconContext.Consumer, null, function (conf) {
+  return IconContext !== undefined ? React__default.createElement(IconContext.Consumer, null, function (conf) {
     return elem(conf);
   }) : elem(DefaultContext);
 }
@@ -243,12 +216,12 @@ var css_248z$3 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Dropdown-m
 var styles$3 = {"dropdown":"Dropdown-module_dropdown__HMCqD","head":"Dropdown-module_head__6dcyy","items":"Dropdown-module_items__COHNO","title":"Dropdown-module_title__fLsjF","item":"Dropdown-module_item__f-Rhh"};
 styleInject(css_248z$3);
 
-var Dropdown = React__default["default"].forwardRef(function (_a, ref) {
+var Dropdown = React__default.forwardRef(function (_a, ref) {
     var items = _a.items, initialItem = _a.initialItem, onChange = _a.onChange, props = __rest$1(_a, ["items", "initialItem", "onChange"]);
-    var _b = React.useState(false), extended = _b[0], setExtended = _b[1];
-    var _c = React.useState(initialItem), selected = _c[0], setSelected = _c[1];
+    var _b = useState(false), extended = _b[0], setExtended = _b[1];
+    var _c = useState(initialItem), selected = _c[0], setSelected = _c[1];
     var iconColor = '#fff';
-    var icon = extended ? (React__default["default"].createElement(AiFillCaretUp, { color: iconColor })) : (React__default["default"].createElement(AiFillCaretDown, { color: iconColor }));
+    var icon = extended ? (React__default.createElement(AiFillCaretUp, { color: iconColor })) : (React__default.createElement(AiFillCaretDown, { color: iconColor }));
     var handleChange = function (item) {
         setExtended(false);
         if (selected === item)
@@ -256,20 +229,20 @@ var Dropdown = React__default["default"].forwardRef(function (_a, ref) {
         setSelected(item);
         onChange(item);
     };
-    return (React__default["default"].createElement("div", __assign$1({}, props, { ref: ref, className: styles$3.dropdown, "data-extended": extended }),
-        React__default["default"].createElement("div", { className: styles$3.head, onClick: function () { return setExtended(!extended); } },
-            React__default["default"].createElement("span", { className: styles$3.title }, selected),
+    return (React__default.createElement("div", __assign$1({}, props, { ref: ref, className: styles$3.dropdown, "data-extended": extended }),
+        React__default.createElement("div", { className: styles$3.head, onClick: function () { return setExtended(!extended); } },
+            React__default.createElement("span", { className: styles$3.title }, selected),
             icon),
-        React__default["default"].createElement("div", { className: styles$3.items }, items.map(function (title) { return (React__default["default"].createElement("div", { className: styles$3.item, key: title, "data-selected": selected === title, onClick: function () { return handleChange(title); } },
-            React__default["default"].createElement("span", null, title))); }))));
+        React__default.createElement("div", { className: styles$3.items }, items.map(function (title) { return (React__default.createElement("div", { className: styles$3.item, key: title, "data-selected": selected === title, onClick: function () { return handleChange(title); } },
+            React__default.createElement("span", null, title))); }))));
 });
 
 var css_248z$2 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Textbox-module_textbox__y3fY0 {\n  all: unset;\n  background-color: #313131;\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  border: 3px solid #6957e7;\n  border-radius: 10px;\n  padding: 0.5rem;\n}";
 var styles$2 = {"textbox":"Textbox-module_textbox__y3fY0"};
 styleInject(css_248z$2);
 
-var Textbox = React__default["default"].forwardRef(function (props, ref) {
-    return (React__default["default"].createElement("input", __assign$1({}, props, { ref: ref, className: styles$2.textbox })));
+var Textbox = React__default.forwardRef(function (props, ref) {
+    return (React__default.createElement("input", __assign$1({}, props, { ref: ref, className: styles$2.textbox })));
 });
 
 var css_248z$1 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Splashart-module_splashart__9th0d {\n  border-radius: 20px;\n  width: 160px;\n  overflow: hidden;\n}\n.Splashart-module_splashart__9th0d[data-favorite=true] {\n  border: 4px solid #d86ada;\n}\n.Splashart-module_splashart__9th0d[data-selected=true] {\n  border: 4px solid #6957e7;\n}\n.Splashart-module_splashart__9th0d img {\n  display: block;\n  max-width: 100%;\n  max-height: 100%;\n  pointer-events: none;\n}";
@@ -277,11 +250,11 @@ var styles$1 = {"splashart":"Splashart-module_splashart__9th0d"};
 styleInject(css_248z$1);
 
 var SPLASHART_URL = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes';
-var Splashart = React__default["default"].forwardRef(function (_a, ref) {
+var Splashart = React__default.forwardRef(function (_a, ref) {
     var skinId = _a.skinId, selected = _a.selected, favorite = _a.favorite, props = __rest$1(_a, ["skinId", "selected", "favorite"]);
     var championId = Math.floor(skinId / 1000);
-    return (React__default["default"].createElement("div", __assign$1({}, props, { ref: ref, className: styles$1.splashart, "data-selected": selected, "data-favorite": favorite }),
-        React__default["default"].createElement("img", { loading: 'lazy', src: "".concat(SPLASHART_URL, "/").concat(championId, "/").concat(skinId, ".jpg") })));
+    return (React__default.createElement("div", __assign$1({}, props, { ref: ref, className: styles$1.splashart, "data-selected": selected, "data-favorite": favorite }),
+        React__default.createElement("img", { loading: 'lazy', src: "".concat(SPLASHART_URL, "/").concat(championId, "/").concat(skinId, ".jpg") })));
 });
 
 function _extends() {
@@ -317,7 +290,7 @@ function $e42e1063c40fb3ef$export$b9ecd428b558ff10(originalEventHandler, ourEven
     /* -----------------------------------------------------------------------------------------------
    * createContext
    * ---------------------------------------------------------------------------------------------*/ function $c512c27ab02ef895$export$fd42f52fd3ae1109(rootComponentName, defaultContext) {
-        const BaseContext = /*#__PURE__*/ React.createContext(defaultContext);
+        const BaseContext = /*#__PURE__*/ createContext(defaultContext);
         const index = defaultContexts.length;
         defaultContexts = [
             ...defaultContexts,
@@ -327,15 +300,15 @@ function $e42e1063c40fb3ef$export$b9ecd428b558ff10(originalEventHandler, ourEven
             const { scope: scope , children: children , ...context } = props;
             const Context = (scope === null || scope === void 0 ? void 0 : scope[scopeName][index]) || BaseContext; // Only re-memoize when prop values change
             // eslint-disable-next-line react-hooks/exhaustive-deps
-            const value = React.useMemo(()=>context
+            const value = useMemo(()=>context
             , Object.values(context));
-            return /*#__PURE__*/ React.createElement(Context.Provider, {
+            return /*#__PURE__*/ createElement(Context.Provider, {
                 value: value
             }, children);
         }
-        function useContext(consumerName, scope) {
+        function useContext$1(consumerName, scope) {
             const Context = (scope === null || scope === void 0 ? void 0 : scope[scopeName][index]) || BaseContext;
-            const context = React.useContext(Context);
+            const context = useContext(Context);
             if (context) return context;
             if (defaultContext !== undefined) return defaultContext; // if a defaultContext wasn't specified, it's a required context.
             throw new Error(`\`${consumerName}\` must be used within \`${rootComponentName}\``);
@@ -343,18 +316,18 @@ function $e42e1063c40fb3ef$export$b9ecd428b558ff10(originalEventHandler, ourEven
         Provider.displayName = rootComponentName + 'Provider';
         return [
             Provider,
-            useContext
+            useContext$1
         ];
     }
     /* -----------------------------------------------------------------------------------------------
    * createScope
    * ---------------------------------------------------------------------------------------------*/ const createScope = ()=>{
         const scopeContexts = defaultContexts.map((defaultContext)=>{
-            return /*#__PURE__*/ React.createContext(defaultContext);
+            return /*#__PURE__*/ createContext(defaultContext);
         });
         return function useScope(scope) {
             const contexts = (scope === null || scope === void 0 ? void 0 : scope[scopeName]) || scopeContexts;
-            return React.useMemo(()=>({
+            return useMemo(()=>({
                     [`__scope${scopeName}`]: {
                         ...scope,
                         [scopeName]: contexts
@@ -395,7 +368,7 @@ function $e42e1063c40fb3ef$export$b9ecd428b558ff10(originalEventHandler, ourEven
                     ...currentScope
                 };
             }, {});
-            return React.useMemo(()=>({
+            return useMemo(()=>({
                     [`__scope${baseScope.scopeName}`]: nextScopes1
                 })
             , [
@@ -427,14 +400,14 @@ function $e42e1063c40fb3ef$export$b9ecd428b558ff10(originalEventHandler, ourEven
  * Accepts callback refs and RefObject(s)
  */ function $6ed0406888f73fc4$export$c7b2cbe3552a0d05(...refs) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    return React.useCallback($6ed0406888f73fc4$export$43e446d32b3d21af(...refs), refs);
+    return useCallback($6ed0406888f73fc4$export$43e446d32b3d21af(...refs), refs);
 }
 
 /* -------------------------------------------------------------------------------------------------
  * Slot
- * -----------------------------------------------------------------------------------------------*/ const $5e63c961fc1ce211$export$8c6ed5c666ac1360 = /*#__PURE__*/ React.forwardRef((props, forwardedRef)=>{
+ * -----------------------------------------------------------------------------------------------*/ const $5e63c961fc1ce211$export$8c6ed5c666ac1360 = /*#__PURE__*/ forwardRef((props, forwardedRef)=>{
     const { children: children , ...slotProps } = props;
-    const childrenArray = React.Children.toArray(children);
+    const childrenArray = Children.toArray(children);
     const slottable = childrenArray.find($5e63c961fc1ce211$var$isSlottable);
     if (slottable) {
         // the new element to render is the one passed as a child of `Slottable`
@@ -443,37 +416,37 @@ function $e42e1063c40fb3ef$export$b9ecd428b558ff10(originalEventHandler, ourEven
             if (child === slottable) {
                 // because the new element will be the one rendered, we are only interested
                 // in grabbing its children (`newElement.props.children`)
-                if (React.Children.count(newElement) > 1) return React.Children.only(null);
-                return /*#__PURE__*/ React.isValidElement(newElement) ? newElement.props.children : null;
+                if (Children.count(newElement) > 1) return Children.only(null);
+                return /*#__PURE__*/ isValidElement(newElement) ? newElement.props.children : null;
             } else return child;
         });
-        return /*#__PURE__*/ React.createElement($5e63c961fc1ce211$var$SlotClone, _extends({}, slotProps, {
+        return /*#__PURE__*/ createElement($5e63c961fc1ce211$var$SlotClone, _extends({}, slotProps, {
             ref: forwardedRef
-        }), /*#__PURE__*/ React.isValidElement(newElement) ? /*#__PURE__*/ React.cloneElement(newElement, undefined, newChildren) : null);
+        }), /*#__PURE__*/ isValidElement(newElement) ? /*#__PURE__*/ cloneElement(newElement, undefined, newChildren) : null);
     }
-    return /*#__PURE__*/ React.createElement($5e63c961fc1ce211$var$SlotClone, _extends({}, slotProps, {
+    return /*#__PURE__*/ createElement($5e63c961fc1ce211$var$SlotClone, _extends({}, slotProps, {
         ref: forwardedRef
     }), children);
 });
 $5e63c961fc1ce211$export$8c6ed5c666ac1360.displayName = 'Slot';
 /* -------------------------------------------------------------------------------------------------
  * SlotClone
- * -----------------------------------------------------------------------------------------------*/ const $5e63c961fc1ce211$var$SlotClone = /*#__PURE__*/ React.forwardRef((props, forwardedRef)=>{
+ * -----------------------------------------------------------------------------------------------*/ const $5e63c961fc1ce211$var$SlotClone = /*#__PURE__*/ forwardRef((props, forwardedRef)=>{
     const { children: children , ...slotProps } = props;
-    if (/*#__PURE__*/ React.isValidElement(children)) return /*#__PURE__*/ React.cloneElement(children, {
+    if (/*#__PURE__*/ isValidElement(children)) return /*#__PURE__*/ cloneElement(children, {
         ...$5e63c961fc1ce211$var$mergeProps(slotProps, children.props),
         ref: forwardedRef ? $6ed0406888f73fc4$export$43e446d32b3d21af(forwardedRef, children.ref) : children.ref
     });
-    return React.Children.count(children) > 1 ? React.Children.only(null) : null;
+    return Children.count(children) > 1 ? Children.only(null) : null;
 });
 $5e63c961fc1ce211$var$SlotClone.displayName = 'SlotClone';
 /* -------------------------------------------------------------------------------------------------
  * Slottable
  * -----------------------------------------------------------------------------------------------*/ const $5e63c961fc1ce211$export$d9f1ccf0bdb05d45 = ({ children: children  })=>{
-    return /*#__PURE__*/ React.createElement(React.Fragment, null, children);
+    return /*#__PURE__*/ createElement(Fragment, null, children);
 };
 /* ---------------------------------------------------------------------------------------------- */ function $5e63c961fc1ce211$var$isSlottable(child) {
-    return /*#__PURE__*/ React.isValidElement(child) && child.type === $5e63c961fc1ce211$export$d9f1ccf0bdb05d45;
+    return /*#__PURE__*/ isValidElement(child) && child.type === $5e63c961fc1ce211$export$d9f1ccf0bdb05d45;
 }
 function $5e63c961fc1ce211$var$mergeProps(slotProps, childProps) {
     // all child props should override
@@ -523,9 +496,9 @@ function $e02a7d9cb1dc128c$export$c74125a8e3af6bb2(name) {
     });
     const CollectionProvider = (props)=>{
         const { scope: scope , children: children  } = props;
-        const ref = React__default["default"].useRef(null);
-        const itemMap = React__default["default"].useRef(new Map()).current;
-        return /*#__PURE__*/ React__default["default"].createElement(CollectionProviderImpl, {
+        const ref = React__default.useRef(null);
+        const itemMap = React__default.useRef(new Map()).current;
+        return /*#__PURE__*/ React__default.createElement(CollectionProviderImpl, {
             scope: scope,
             itemMap: itemMap,
             collectionRef: ref
@@ -534,11 +507,11 @@ function $e02a7d9cb1dc128c$export$c74125a8e3af6bb2(name) {
     /* -----------------------------------------------------------------------------------------------
    * CollectionSlot
    * ---------------------------------------------------------------------------------------------*/ const COLLECTION_SLOT_NAME = name + 'CollectionSlot';
-    const CollectionSlot = /*#__PURE__*/ React__default["default"].forwardRef((props, forwardedRef)=>{
+    const CollectionSlot = /*#__PURE__*/ React__default.forwardRef((props, forwardedRef)=>{
         const { scope: scope , children: children  } = props;
         const context = useCollectionContext(COLLECTION_SLOT_NAME, scope);
         const composedRefs = $6ed0406888f73fc4$export$c7b2cbe3552a0d05(forwardedRef, context.collectionRef);
-        return /*#__PURE__*/ React__default["default"].createElement($5e63c961fc1ce211$export$8c6ed5c666ac1360, {
+        return /*#__PURE__*/ React__default.createElement($5e63c961fc1ce211$export$8c6ed5c666ac1360, {
             ref: composedRefs
         }, children);
     });
@@ -546,12 +519,12 @@ function $e02a7d9cb1dc128c$export$c74125a8e3af6bb2(name) {
    * CollectionItem
    * ---------------------------------------------------------------------------------------------*/ const ITEM_SLOT_NAME = name + 'CollectionItemSlot';
     const ITEM_DATA_ATTR = 'data-radix-collection-item';
-    const CollectionItemSlot = /*#__PURE__*/ React__default["default"].forwardRef((props, forwardedRef)=>{
+    const CollectionItemSlot = /*#__PURE__*/ React__default.forwardRef((props, forwardedRef)=>{
         const { scope: scope , children: children , ...itemData } = props;
-        const ref = React__default["default"].useRef(null);
+        const ref = React__default.useRef(null);
         const composedRefs = $6ed0406888f73fc4$export$c7b2cbe3552a0d05(forwardedRef, ref);
         const context = useCollectionContext(ITEM_SLOT_NAME, scope);
-        React__default["default"].useEffect(()=>{
+        React__default.useEffect(()=>{
             context.itemMap.set(ref, {
                 ref: ref,
                 ...itemData
@@ -559,7 +532,7 @@ function $e02a7d9cb1dc128c$export$c74125a8e3af6bb2(name) {
             return ()=>void context.itemMap.delete(ref)
             ;
         });
-        return /*#__PURE__*/ React__default["default"].createElement($5e63c961fc1ce211$export$8c6ed5c666ac1360, {
+        return /*#__PURE__*/ React__default.createElement($5e63c961fc1ce211$export$8c6ed5c666ac1360, {
             [ITEM_DATA_ATTR]: '',
             ref: composedRefs
         }, children);
@@ -568,7 +541,7 @@ function $e02a7d9cb1dc128c$export$c74125a8e3af6bb2(name) {
    * useCollection
    * ---------------------------------------------------------------------------------------------*/ function useCollection(scope) {
         const context = useCollectionContext(name + 'CollectionConsumer', scope);
-        const getItems = React__default["default"].useCallback(()=>{
+        const getItems = React__default.useCallback(()=>{
             const collectionNode = context.collectionRef.current;
             if (!collectionNode) return [];
             const orderedNodes = Array.from(collectionNode.querySelectorAll(`[${ITEM_DATA_ATTR}]`));
@@ -593,9 +566,9 @@ function $e02a7d9cb1dc128c$export$c74125a8e3af6bb2(name) {
     ];
 }
 
-const $f631663db3294ace$var$DirectionContext = /*#__PURE__*/ React.createContext(undefined);
+const $f631663db3294ace$var$DirectionContext = /*#__PURE__*/ createContext(undefined);
 /* -----------------------------------------------------------------------------------------------*/ function $f631663db3294ace$export$b39126d51d94e6f3(localDir) {
-    const globalDir = React.useContext($f631663db3294ace$var$DirectionContext);
+    const globalDir = useContext($f631663db3294ace$var$DirectionContext);
     return localDir || globalDir || 'ltr';
 }
 
@@ -622,13 +595,13 @@ const $8927f6f2acc4f386$var$NODES = [
 /* -------------------------------------------------------------------------------------------------
  * Primitive
  * -----------------------------------------------------------------------------------------------*/ const $8927f6f2acc4f386$export$250ffa63cdc0d034 = $8927f6f2acc4f386$var$NODES.reduce((primitive, node)=>{
-    const Node = /*#__PURE__*/ React.forwardRef((props, forwardedRef)=>{
+    const Node = /*#__PURE__*/ forwardRef((props, forwardedRef)=>{
         const { asChild: asChild , ...primitiveProps } = props;
         const Comp = asChild ? $5e63c961fc1ce211$export$8c6ed5c666ac1360 : node;
-        React.useEffect(()=>{
+        useEffect(()=>{
             window[Symbol.for('radix-ui')] = true;
         }, []);
-        return /*#__PURE__*/ React.createElement(Comp, _extends({}, primitiveProps, {
+        return /*#__PURE__*/ createElement(Comp, _extends({}, primitiveProps, {
             ref: forwardedRef
         }));
     });
@@ -676,7 +649,7 @@ const $8927f6f2acc4f386$var$NODES = [
  * this utility with them. This is because it's possible for those handlers to be called implicitly during render
  * e.g. when focus is within a component as it is unmounted, or when managing focus on mount.
  */ function $8927f6f2acc4f386$export$6d1a0317bde7de7f(target, event) {
-    if (target) ReactDOM.flushSync(()=>target.dispatchEvent(event)
+    if (target) flushSync(()=>target.dispatchEvent(event)
     );
 }
 
@@ -684,11 +657,11 @@ const $8927f6f2acc4f386$var$NODES = [
  * A custom hook that converts a callback to a ref to avoid triggering re-renders when passed as a
  * prop or avoid re-executing effects when passed as a dependency
  */ function $b1b2314f5f9a1d84$export$25bec8c6f54ee79a(callback) {
-    const callbackRef = React.useRef(callback);
-    React.useEffect(()=>{
+    const callbackRef = useRef(callback);
+    useEffect(()=>{
         callbackRef.current = callback;
     }); // https://github.com/facebook/react/issues/19240
-    return React.useMemo(()=>(...args)=>{
+    return useMemo(()=>(...args)=>{
             var _callbackRef$current;
             return (_callbackRef$current = callbackRef.current) === null || _callbackRef$current === void 0 ? void 0 : _callbackRef$current.call(callbackRef, ...args);
         }
@@ -699,7 +672,7 @@ const $8927f6f2acc4f386$var$NODES = [
  * Listens for when the escape key is down
  */ function $addc16e1bbe58fd0$export$3a72a57244d6e765(onEscapeKeyDownProp, ownerDocument = globalThis === null || globalThis === void 0 ? void 0 : globalThis.document) {
     const onEscapeKeyDown = $b1b2314f5f9a1d84$export$25bec8c6f54ee79a(onEscapeKeyDownProp);
-    React.useEffect(()=>{
+    useEffect(()=>{
         const handleKeyDown = (event)=>{
             if (event.key === 'Escape') onEscapeKeyDown(event);
         };
@@ -716,18 +689,18 @@ const $5cb92bef7577960e$var$CONTEXT_UPDATE = 'dismissableLayer.update';
 const $5cb92bef7577960e$var$POINTER_DOWN_OUTSIDE = 'dismissableLayer.pointerDownOutside';
 const $5cb92bef7577960e$var$FOCUS_OUTSIDE = 'dismissableLayer.focusOutside';
 let $5cb92bef7577960e$var$originalBodyPointerEvents;
-const $5cb92bef7577960e$var$DismissableLayerContext = /*#__PURE__*/ React.createContext({
+const $5cb92bef7577960e$var$DismissableLayerContext = /*#__PURE__*/ createContext({
     layers: new Set(),
     layersWithOutsidePointerEventsDisabled: new Set(),
     branches: new Set()
 });
-const $5cb92bef7577960e$export$177fb62ff3ec1f22 = /*#__PURE__*/ React.forwardRef((props, forwardedRef)=>{
+const $5cb92bef7577960e$export$177fb62ff3ec1f22 = /*#__PURE__*/ forwardRef((props, forwardedRef)=>{
     var _node$ownerDocument;
     const { disableOutsidePointerEvents: disableOutsidePointerEvents = false , onEscapeKeyDown: onEscapeKeyDown , onPointerDownOutside: onPointerDownOutside , onFocusOutside: onFocusOutside , onInteractOutside: onInteractOutside , onDismiss: onDismiss , ...layerProps } = props;
-    const context = React.useContext($5cb92bef7577960e$var$DismissableLayerContext);
-    const [node1, setNode] = React.useState(null);
+    const context = useContext($5cb92bef7577960e$var$DismissableLayerContext);
+    const [node1, setNode] = useState(null);
     const ownerDocument = (_node$ownerDocument = node1 === null || node1 === void 0 ? void 0 : node1.ownerDocument) !== null && _node$ownerDocument !== void 0 ? _node$ownerDocument : globalThis === null || globalThis === void 0 ? void 0 : globalThis.document;
-    const [, force] = React.useState({});
+    const [, force] = useState({});
     const composedRefs = $6ed0406888f73fc4$export$c7b2cbe3552a0d05(forwardedRef, (node)=>setNode(node)
     );
     const layers = Array.from(context.layers);
@@ -769,7 +742,7 @@ const $5cb92bef7577960e$export$177fb62ff3ec1f22 = /*#__PURE__*/ React.forwardRef
             onDismiss();
         }
     }, ownerDocument);
-    React.useEffect(()=>{
+    useEffect(()=>{
         if (!node1) return;
         if (disableOutsidePointerEvents) {
             if (context.layersWithOutsidePointerEventsDisabled.size === 0) {
@@ -794,7 +767,7 @@ const $5cb92bef7577960e$export$177fb62ff3ec1f22 = /*#__PURE__*/ React.forwardRef
    * because a change to `disableOutsidePointerEvents` would remove this layer from the stack
    * and add it to the end again so the layering order wouldn't be _creation order_.
    * We only want them to be removed from context stacks when unmounted.
-   */ React.useEffect(()=>{
+   */ useEffect(()=>{
         return ()=>{
             if (!node1) return;
             context.layers.delete(node1);
@@ -805,14 +778,14 @@ const $5cb92bef7577960e$export$177fb62ff3ec1f22 = /*#__PURE__*/ React.forwardRef
         node1,
         context
     ]);
-    React.useEffect(()=>{
+    useEffect(()=>{
         const handleUpdate = ()=>force({})
         ;
         document.addEventListener($5cb92bef7577960e$var$CONTEXT_UPDATE, handleUpdate);
         return ()=>document.removeEventListener($5cb92bef7577960e$var$CONTEXT_UPDATE, handleUpdate)
         ;
     }, []);
-    return /*#__PURE__*/ React.createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.div, _extends({}, layerProps, {
+    return /*#__PURE__*/ createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.div, _extends({}, layerProps, {
         ref: composedRefs,
         style: {
             pointerEvents: isBodyPointerEventsDisabled ? isPointerEventsEnabled ? 'auto' : 'none' : undefined,
@@ -829,9 +802,9 @@ const $5cb92bef7577960e$export$177fb62ff3ec1f22 = /*#__PURE__*/ React.forwardRef
  * Returns props to pass to the node we want to check for outside events.
  */ function $5cb92bef7577960e$var$usePointerDownOutside(onPointerDownOutside, ownerDocument = globalThis === null || globalThis === void 0 ? void 0 : globalThis.document) {
     const handlePointerDownOutside = $b1b2314f5f9a1d84$export$25bec8c6f54ee79a(onPointerDownOutside);
-    const isPointerInsideReactTreeRef = React.useRef(false);
-    const handleClickRef = React.useRef(()=>{});
-    React.useEffect(()=>{
+    const isPointerInsideReactTreeRef = useRef(false);
+    const handleClickRef = useRef(()=>{});
+    useEffect(()=>{
         const handlePointerDown = (event)=>{
             if (event.target && !isPointerInsideReactTreeRef.current) {
                 const eventDetail = {
@@ -897,8 +870,8 @@ const $5cb92bef7577960e$export$177fb62ff3ec1f22 = /*#__PURE__*/ React.forwardRef
  * Returns props to pass to the root (node) of the subtree we want to check.
  */ function $5cb92bef7577960e$var$useFocusOutside(onFocusOutside, ownerDocument = globalThis === null || globalThis === void 0 ? void 0 : globalThis.document) {
     const handleFocusOutside = $b1b2314f5f9a1d84$export$25bec8c6f54ee79a(onFocusOutside);
-    const isFocusInsideReactTreeRef = React.useRef(false);
-    React.useEffect(()=>{
+    const isFocusInsideReactTreeRef = useRef(false);
+    useEffect(()=>{
         const handleFocus = (event)=>{
             if (event.target && !isFocusInsideReactTreeRef.current) {
                 const eventDetail = {
@@ -945,7 +918,7 @@ function $5cb92bef7577960e$var$handleAndDispatchCustomEvent(name, handler, detai
  * Injects a pair of focus guards at the edges of the whole DOM tree
  * to ensure `focusin` & `focusout` events can be caught consistently.
  */ function $3db38b7d1fb3fe6a$export$b7ece24a22aeda8c() {
-    React.useEffect(()=>{
+    useEffect(()=>{
         var _edgeGuards$, _edgeGuards$2;
         const edgeGuards = document.querySelectorAll('[data-radix-focus-guard]');
         document.body.insertAdjacentElement('afterbegin', (_edgeGuards$ = edgeGuards[0]) !== null && _edgeGuards$ !== void 0 ? _edgeGuards$ : $3db38b7d1fb3fe6a$var$createFocusGuard());
@@ -972,15 +945,15 @@ const $d3863c46a17e8a28$var$EVENT_OPTIONS = {
     bubbles: false,
     cancelable: true
 };
-const $d3863c46a17e8a28$export$20e40289641fbbb6 = /*#__PURE__*/ React.forwardRef((props, forwardedRef)=>{
+const $d3863c46a17e8a28$export$20e40289641fbbb6 = /*#__PURE__*/ forwardRef((props, forwardedRef)=>{
     const { loop: loop = false , trapped: trapped = false , onMountAutoFocus: onMountAutoFocusProp , onUnmountAutoFocus: onUnmountAutoFocusProp , ...scopeProps } = props;
-    const [container1, setContainer] = React.useState(null);
+    const [container1, setContainer] = useState(null);
     const onMountAutoFocus = $b1b2314f5f9a1d84$export$25bec8c6f54ee79a(onMountAutoFocusProp);
     const onUnmountAutoFocus = $b1b2314f5f9a1d84$export$25bec8c6f54ee79a(onUnmountAutoFocusProp);
-    const lastFocusedElementRef = React.useRef(null);
+    const lastFocusedElementRef = useRef(null);
     const composedRefs = $6ed0406888f73fc4$export$c7b2cbe3552a0d05(forwardedRef, (node)=>setContainer(node)
     );
-    const focusScope = React.useRef({
+    const focusScope = useRef({
         paused: false,
         pause () {
             this.paused = true;
@@ -989,7 +962,7 @@ const $d3863c46a17e8a28$export$20e40289641fbbb6 = /*#__PURE__*/ React.forwardRef
             this.paused = false;
         }
     }).current; // Takes care of trapping focus if focus is moved outside programmatically for example
-    React.useEffect(()=>{
+    useEffect(()=>{
         if (trapped) {
             function handleFocusIn(event) {
                 if (focusScope.paused || !container1) return;
@@ -1045,7 +1018,7 @@ const $d3863c46a17e8a28$export$20e40289641fbbb6 = /*#__PURE__*/ React.forwardRef
         container1,
         focusScope.paused
     ]);
-    React.useEffect(()=>{
+    useEffect(()=>{
         if (container1) {
             $d3863c46a17e8a28$var$focusScopesStack.add(focusScope);
             const previouslyFocusedElement = document.activeElement;
@@ -1084,7 +1057,7 @@ const $d3863c46a17e8a28$export$20e40289641fbbb6 = /*#__PURE__*/ React.forwardRef
         onUnmountAutoFocus,
         focusScope
     ]); // Takes care of looping focus (when tabbing whilst at the edges)
-    const handleKeyDown = React.useCallback((event)=>{
+    const handleKeyDown = useCallback((event)=>{
         if (!loop && !trapped) return;
         if (focusScope.paused) return;
         const isTabKey = event.key === 'Tab' && !event.altKey && !event.ctrlKey && !event.metaKey;
@@ -1114,7 +1087,7 @@ const $d3863c46a17e8a28$export$20e40289641fbbb6 = /*#__PURE__*/ React.forwardRef
         trapped,
         focusScope.paused
     ]);
-    return /*#__PURE__*/ React.createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.div, _extends({
+    return /*#__PURE__*/ createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.div, _extends({
         tabIndex: -1
     }, scopeProps, {
         ref: composedRefs,
@@ -1244,13 +1217,13 @@ function $d3863c46a17e8a28$var$removeLinks(items) {
  * We use this safe version which suppresses the warning by replacing it with a noop on the server.
  *
  * See: https://reactjs.org/docs/hooks-reference.html#uselayouteffect
- */ const $9f79659886946c16$export$e5c5a5f917a5871c = Boolean(globalThis === null || globalThis === void 0 ? void 0 : globalThis.document) ? React.useLayoutEffect : ()=>{};
+ */ const $9f79659886946c16$export$e5c5a5f917a5871c = Boolean(globalThis === null || globalThis === void 0 ? void 0 : globalThis.document) ? useLayoutEffect : ()=>{};
 
-const $1746a345f3d73bb7$var$useReactId = React__namespace['useId'.toString()] || (()=>undefined
+const $1746a345f3d73bb7$var$useReactId = React['useId'.toString()] || (()=>undefined
 );
 let $1746a345f3d73bb7$var$count = 0;
 function $1746a345f3d73bb7$export$f680877a34711e37(deterministicId) {
-    const [id, setId] = React__namespace.useState($1746a345f3d73bb7$var$useReactId()); // React versions older than 18 will have client-side ids only.
+    const [id, setId] = React.useState($1746a345f3d73bb7$var$useReactId()); // React versions older than 18 will have client-side ids only.
     $9f79659886946c16$export$e5c5a5f917a5871c(()=>{
         if (!deterministicId) setId((reactId)=>reactId !== null && reactId !== void 0 ? reactId : String($1746a345f3d73bb7$var$count++)
         );
@@ -2828,7 +2801,7 @@ const arrow = options => {
   };
 };
 
-var index = typeof document !== 'undefined' ? React.useLayoutEffect : React.useEffect;
+var index = typeof document !== 'undefined' ? useLayoutEffect : useEffect;
 
 // Fork of `fast-deep-equal` that only does the comparisons we need and compares
 // functions
@@ -2892,7 +2865,7 @@ function roundByDPR(element, value) {
 }
 
 function useLatestRef(value) {
-  const ref = React__namespace.useRef(value);
+  const ref = React.useRef(value);
   index(() => {
     ref.current = value;
   });
@@ -2920,7 +2893,7 @@ function useFloating(options) {
     whileElementsMounted,
     open
   } = options;
-  const [data, setData] = React__namespace.useState({
+  const [data, setData] = React.useState({
     x: 0,
     y: 0,
     strategy,
@@ -2928,19 +2901,19 @@ function useFloating(options) {
     middlewareData: {},
     isPositioned: false
   });
-  const [latestMiddleware, setLatestMiddleware] = React__namespace.useState(middleware);
+  const [latestMiddleware, setLatestMiddleware] = React.useState(middleware);
   if (!deepEqual(latestMiddleware, middleware)) {
     setLatestMiddleware(middleware);
   }
-  const [_reference, _setReference] = React__namespace.useState(null);
-  const [_floating, _setFloating] = React__namespace.useState(null);
-  const setReference = React__namespace.useCallback(node => {
+  const [_reference, _setReference] = React.useState(null);
+  const [_floating, _setFloating] = React.useState(null);
+  const setReference = React.useCallback(node => {
     if (node != referenceRef.current) {
       referenceRef.current = node;
       _setReference(node);
     }
   }, [_setReference]);
-  const setFloating = React__namespace.useCallback(node => {
+  const setFloating = React.useCallback(node => {
     if (node !== floatingRef.current) {
       floatingRef.current = node;
       _setFloating(node);
@@ -2948,12 +2921,12 @@ function useFloating(options) {
   }, [_setFloating]);
   const referenceEl = externalReference || _reference;
   const floatingEl = externalFloating || _floating;
-  const referenceRef = React__namespace.useRef(null);
-  const floatingRef = React__namespace.useRef(null);
-  const dataRef = React__namespace.useRef(data);
+  const referenceRef = React.useRef(null);
+  const floatingRef = React.useRef(null);
+  const dataRef = React.useRef(data);
   const whileElementsMountedRef = useLatestRef(whileElementsMounted);
   const platformRef = useLatestRef(platform);
-  const update = React__namespace.useCallback(() => {
+  const update = React.useCallback(() => {
     if (!referenceRef.current || !floatingRef.current) {
       return;
     }
@@ -2972,7 +2945,7 @@ function useFloating(options) {
       };
       if (isMountedRef.current && !deepEqual(dataRef.current, fullData)) {
         dataRef.current = fullData;
-        ReactDOM__namespace.flushSync(() => {
+        ReactDOM.flushSync(() => {
           setData(fullData);
         });
       }
@@ -2987,7 +2960,7 @@ function useFloating(options) {
       }));
     }
   }, [open]);
-  const isMountedRef = React__namespace.useRef(false);
+  const isMountedRef = React.useRef(false);
   index(() => {
     isMountedRef.current = true;
     return () => {
@@ -3005,17 +2978,17 @@ function useFloating(options) {
       }
     }
   }, [referenceEl, floatingEl, update, whileElementsMountedRef]);
-  const refs = React__namespace.useMemo(() => ({
+  const refs = React.useMemo(() => ({
     reference: referenceRef,
     floating: floatingRef,
     setReference,
     setFloating
   }), [setReference, setFloating]);
-  const elements = React__namespace.useMemo(() => ({
+  const elements = React.useMemo(() => ({
     reference: referenceEl,
     floating: floatingEl
   }), [referenceEl, floatingEl]);
-  const floatingStyles = React__namespace.useMemo(() => {
+  const floatingStyles = React.useMemo(() => {
     const initialStyles = {
       position: strategy,
       left: 0,
@@ -3041,7 +3014,7 @@ function useFloating(options) {
       top: y
     };
   }, [strategy, transform, elements.floating, data.x, data.y]);
-  return React__namespace.useMemo(() => ({
+  return React.useMemo(() => ({
     ...data,
     update,
     refs,
@@ -3051,7 +3024,7 @@ function useFloating(options) {
 }
 
 function $db6c3485150b8e66$export$1ab7ae714698c4b8(element) {
-    const [size, setSize] = React.useState(undefined);
+    const [size, setSize] = useState(undefined);
     $9f79659886946c16$export$e5c5a5f917a5871c(()=>{
         if (element) {
             // provide size as early as possible
@@ -3104,8 +3077,8 @@ const [$cf1ac5d9fe0e8206$var$createPopperContext, $cf1ac5d9fe0e8206$export$722aa
 const [$cf1ac5d9fe0e8206$var$PopperProvider, $cf1ac5d9fe0e8206$var$usePopperContext] = $cf1ac5d9fe0e8206$var$createPopperContext($cf1ac5d9fe0e8206$var$POPPER_NAME);
 const $cf1ac5d9fe0e8206$export$badac9ada3a0bdf9 = (props)=>{
     const { __scopePopper: __scopePopper , children: children  } = props;
-    const [anchor, setAnchor] = React.useState(null);
-    return /*#__PURE__*/ React.createElement($cf1ac5d9fe0e8206$var$PopperProvider, {
+    const [anchor, setAnchor] = useState(null);
+    return /*#__PURE__*/ createElement($cf1ac5d9fe0e8206$var$PopperProvider, {
         scope: __scopePopper,
         anchor: anchor,
         onAnchorChange: setAnchor
@@ -3114,18 +3087,18 @@ const $cf1ac5d9fe0e8206$export$badac9ada3a0bdf9 = (props)=>{
 /* -------------------------------------------------------------------------------------------------
  * PopperAnchor
  * -----------------------------------------------------------------------------------------------*/ const $cf1ac5d9fe0e8206$var$ANCHOR_NAME = 'PopperAnchor';
-const $cf1ac5d9fe0e8206$export$ecd4e1ccab6ed6d = /*#__PURE__*/ React.forwardRef((props, forwardedRef)=>{
+const $cf1ac5d9fe0e8206$export$ecd4e1ccab6ed6d = /*#__PURE__*/ forwardRef((props, forwardedRef)=>{
     const { __scopePopper: __scopePopper , virtualRef: virtualRef , ...anchorProps } = props;
     const context = $cf1ac5d9fe0e8206$var$usePopperContext($cf1ac5d9fe0e8206$var$ANCHOR_NAME, __scopePopper);
-    const ref = React.useRef(null);
+    const ref = useRef(null);
     const composedRefs = $6ed0406888f73fc4$export$c7b2cbe3552a0d05(forwardedRef, ref);
-    React.useEffect(()=>{
+    useEffect(()=>{
         // Consumer can anchor the popper to something that isn't
         // a DOM node e.g. pointer position, so we override the
         // `anchorRef` with their virtual ref in this case.
         context.onAnchorChange((virtualRef === null || virtualRef === void 0 ? void 0 : virtualRef.current) || ref.current);
     });
-    return virtualRef ? null : /*#__PURE__*/ React.createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.div, _extends({}, anchorProps, {
+    return virtualRef ? null : /*#__PURE__*/ createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.div, _extends({}, anchorProps, {
         ref: composedRefs
     }));
 });
@@ -3133,14 +3106,14 @@ const $cf1ac5d9fe0e8206$export$ecd4e1ccab6ed6d = /*#__PURE__*/ React.forwardRef(
  * PopperContent
  * -----------------------------------------------------------------------------------------------*/ const $cf1ac5d9fe0e8206$var$CONTENT_NAME = 'PopperContent';
 const [$cf1ac5d9fe0e8206$var$PopperContentProvider, $cf1ac5d9fe0e8206$var$useContentContext] = $cf1ac5d9fe0e8206$var$createPopperContext($cf1ac5d9fe0e8206$var$CONTENT_NAME);
-const $cf1ac5d9fe0e8206$export$bc4ae5855d3c4fc = /*#__PURE__*/ React.forwardRef((props, forwardedRef)=>{
+const $cf1ac5d9fe0e8206$export$bc4ae5855d3c4fc = /*#__PURE__*/ forwardRef((props, forwardedRef)=>{
     var _arrowSize$width, _arrowSize$height, _middlewareData$arrow, _middlewareData$arrow2, _middlewareData$arrow3, _middlewareData$trans, _middlewareData$trans2, _middlewareData$hide;
     const { __scopePopper: __scopePopper , side: side = 'bottom' , sideOffset: sideOffset = 0 , align: align = 'center' , alignOffset: alignOffset = 0 , arrowPadding: arrowPadding = 0 , collisionBoundary: collisionBoundary = [] , collisionPadding: collisionPaddingProp = 0 , sticky: sticky = 'partial' , hideWhenDetached: hideWhenDetached = false , avoidCollisions: avoidCollisions = true , onPlaced: onPlaced , ...contentProps } = props;
     const context = $cf1ac5d9fe0e8206$var$usePopperContext($cf1ac5d9fe0e8206$var$CONTENT_NAME, __scopePopper);
-    const [content, setContent] = React.useState(null);
+    const [content, setContent] = useState(null);
     const composedRefs = $6ed0406888f73fc4$export$c7b2cbe3552a0d05(forwardedRef, (node)=>setContent(node)
     );
-    const [arrow$1, setArrow] = React.useState(null);
+    const [arrow$1, setArrow] = useState(null);
     const arrowSize = $db6c3485150b8e66$export$1ab7ae714698c4b8(arrow$1);
     const arrowWidth = (_arrowSize$width = arrowSize === null || arrowSize === void 0 ? void 0 : arrowSize.width) !== null && _arrowSize$width !== void 0 ? _arrowSize$width : 0;
     const arrowHeight = (_arrowSize$height = arrowSize === null || arrowSize === void 0 ? void 0 : arrowSize.height) !== null && _arrowSize$height !== void 0 ? _arrowSize$height : 0;
@@ -3219,13 +3192,13 @@ const $cf1ac5d9fe0e8206$export$bc4ae5855d3c4fc = /*#__PURE__*/ React.forwardRef(
     const arrowX = (_middlewareData$arrow = middlewareData.arrow) === null || _middlewareData$arrow === void 0 ? void 0 : _middlewareData$arrow.x;
     const arrowY = (_middlewareData$arrow2 = middlewareData.arrow) === null || _middlewareData$arrow2 === void 0 ? void 0 : _middlewareData$arrow2.y;
     const cannotCenterArrow = ((_middlewareData$arrow3 = middlewareData.arrow) === null || _middlewareData$arrow3 === void 0 ? void 0 : _middlewareData$arrow3.centerOffset) !== 0;
-    const [contentZIndex, setContentZIndex] = React.useState();
+    const [contentZIndex, setContentZIndex] = useState();
     $9f79659886946c16$export$e5c5a5f917a5871c(()=>{
         if (content) setContentZIndex(window.getComputedStyle(content).zIndex);
     }, [
         content
     ]);
-    return /*#__PURE__*/ React.createElement("div", {
+    return /*#__PURE__*/ createElement("div", {
         ref: refs.setFloating,
         "data-radix-popper-content-wrapper": "",
         style: {
@@ -3241,14 +3214,14 @@ const $cf1ac5d9fe0e8206$export$bc4ae5855d3c4fc = /*#__PURE__*/ React.forwardRef(
         } // Floating UI interally calculates logical alignment based the `dir` attribute on
         ,
         dir: props.dir
-    }, /*#__PURE__*/ React.createElement($cf1ac5d9fe0e8206$var$PopperContentProvider, {
+    }, /*#__PURE__*/ createElement($cf1ac5d9fe0e8206$var$PopperContentProvider, {
         scope: __scopePopper,
         placedSide: placedSide,
         onArrowChange: setArrow,
         arrowX: arrowX,
         arrowY: arrowY,
         shouldHideArrow: cannotCenterArrow
-    }, /*#__PURE__*/ React.createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.div, _extends({
+    }, /*#__PURE__*/ createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.div, _extends({
         "data-side": placedSide,
         "data-align": placedAlign
     }, contentProps, {
@@ -3319,10 +3292,10 @@ const $cf1ac5d9fe0e8206$export$be92b6f5f03c0fe9 = $cf1ac5d9fe0e8206$export$badac
 const $cf1ac5d9fe0e8206$export$b688253958b8dfe7 = $cf1ac5d9fe0e8206$export$ecd4e1ccab6ed6d;
 const $cf1ac5d9fe0e8206$export$7c6e2c02157bb7d2 = $cf1ac5d9fe0e8206$export$bc4ae5855d3c4fc;
 
-const $f1701beae083dbae$export$602eac185826482c = /*#__PURE__*/ React.forwardRef((props, forwardedRef)=>{
+const $f1701beae083dbae$export$602eac185826482c = /*#__PURE__*/ forwardRef((props, forwardedRef)=>{
     var _globalThis$document;
     const { container: container = globalThis === null || globalThis === void 0 ? void 0 : (_globalThis$document = globalThis.document) === null || _globalThis$document === void 0 ? void 0 : _globalThis$document.body , ...portalProps } = props;
-    return container ? /*#__PURE__*/ ReactDOM__default["default"].createPortal(/*#__PURE__*/ React.createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.div, _extends({}, portalProps, {
+    return container ? /*#__PURE__*/ ReactDOM__default.createPortal(/*#__PURE__*/ createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.div, _extends({}, portalProps, {
         ref: forwardedRef
     })), container) : null;
 });
@@ -3335,7 +3308,7 @@ function $71cd76cc60e0454e$export$6f32135080cb4c3({ prop: prop , defaultProp: de
     const isControlled = prop !== undefined;
     const value1 = isControlled ? prop : uncontrolledProp;
     const handleChange = $b1b2314f5f9a1d84$export$25bec8c6f54ee79a(onChange);
-    const setValue = React.useCallback((nextValue)=>{
+    const setValue = useCallback((nextValue)=>{
         if (isControlled) {
             const setter = nextValue;
             const value = typeof nextValue === 'function' ? setter(prop) : nextValue;
@@ -3353,11 +3326,11 @@ function $71cd76cc60e0454e$export$6f32135080cb4c3({ prop: prop , defaultProp: de
     ];
 }
 function $71cd76cc60e0454e$var$useUncontrolledState({ defaultProp: defaultProp , onChange: onChange  }) {
-    const uncontrolledState = React.useState(defaultProp);
+    const uncontrolledState = useState(defaultProp);
     const [value] = uncontrolledState;
-    const prevValueRef = React.useRef(value);
+    const prevValueRef = useRef(value);
     const handleChange = $b1b2314f5f9a1d84$export$25bec8c6f54ee79a(onChange);
-    React.useEffect(()=>{
+    useEffect(()=>{
         if (prevValueRef.current !== value) {
             handleChange(value);
             prevValueRef.current = value;
@@ -3371,13 +3344,13 @@ function $71cd76cc60e0454e$var$useUncontrolledState({ defaultProp: defaultProp ,
 }
 
 function $010c2913dbd2fe3d$export$5cae361ad82dce8b(value) {
-    const ref = React.useRef({
+    const ref = useRef({
         value: value,
         previous: value
     }); // We compare values before making an update to ensure that
     // a change has been made. This ensures the previous value is
     // persisted correctly between renders.
-    return React.useMemo(()=>{
+    return useMemo(()=>{
         if (ref.current.value !== value) {
             ref.current.previous = ref.current.value;
             ref.current.value = value;
@@ -3388,8 +3361,8 @@ function $010c2913dbd2fe3d$export$5cae361ad82dce8b(value) {
     ]);
 }
 
-const $ea1ef594cf570d83$export$439d29a4e110a164 = /*#__PURE__*/ React.forwardRef((props, forwardedRef)=>{
-    return /*#__PURE__*/ React.createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.span, _extends({}, props, {
+const $ea1ef594cf570d83$export$439d29a4e110a164 = /*#__PURE__*/ forwardRef((props, forwardedRef)=>{
+    return /*#__PURE__*/ createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.span, _extends({}, props, {
         ref: forwardedRef,
         style: {
             // See: https://github.com/twbs/bootstrap/blob/master/scss/mixins/_screen-reader.scss
@@ -3585,7 +3558,7 @@ function assignRef(ref, value) {
  * @returns {MutableRefObject}
  */
 function useCallbackRef(initialValue, callback) {
-    var ref = React.useState(function () { return ({
+    var ref = useState(function () { return ({
         // value
         value: initialValue,
         // last callback
@@ -3710,7 +3683,7 @@ var SideCar$1 = function (_a) {
     if (!Target) {
         throw new Error('Sidecar medium not found');
     }
-    return React__namespace.createElement(Target, __assign$1({}, rest));
+    return React.createElement(Target, __assign$1({}, rest));
 };
 SideCar$1.isSideCarExport = true;
 function exportSidecar(medium, exported) {
@@ -3726,9 +3699,9 @@ var nothing = function () {
 /**
  * Removes scrollbar from the page and contain the scroll within the Lock
  */
-var RemoveScroll = React__namespace.forwardRef(function (props, parentRef) {
-    var ref = React__namespace.useRef(null);
-    var _a = React__namespace.useState({
+var RemoveScroll = React.forwardRef(function (props, parentRef) {
+    var ref = React.useRef(null);
+    var _a = React.useState({
         onScrollCapture: nothing,
         onWheelCapture: nothing,
         onTouchMoveCapture: nothing,
@@ -3737,9 +3710,9 @@ var RemoveScroll = React__namespace.forwardRef(function (props, parentRef) {
     var SideCar = sideCar;
     var containerRef = useMergeRefs([ref, parentRef]);
     var containerProps = __assign$1(__assign$1({}, rest), callbacks);
-    return (React__namespace.createElement(React__namespace.Fragment, null,
-        enabled && (React__namespace.createElement(SideCar, { sideCar: effectCar, removeScrollBar: removeScrollBar, shards: shards, noIsolation: noIsolation, inert: inert, setCallbacks: setCallbacks, allowPinchZoom: !!allowPinchZoom, lockRef: ref })),
-        forwardProps ? (React__namespace.cloneElement(React__namespace.Children.only(children), __assign$1(__assign$1({}, containerProps), { ref: containerRef }))) : (React__namespace.createElement(Container, __assign$1({}, containerProps, { className: className, ref: containerRef }), children))));
+    return (React.createElement(React.Fragment, null,
+        enabled && (React.createElement(SideCar, { sideCar: effectCar, removeScrollBar: removeScrollBar, shards: shards, noIsolation: noIsolation, inert: inert, setCallbacks: setCallbacks, allowPinchZoom: !!allowPinchZoom, lockRef: ref })),
+        forwardProps ? (React.cloneElement(React.Children.only(children), __assign$1(__assign$1({}, containerProps), { ref: containerRef }))) : (React.createElement(Container, __assign$1({}, containerProps, { className: className, ref: containerRef }), children))));
 });
 RemoveScroll.defaultProps = {
     enabled: true,
@@ -3818,7 +3791,7 @@ var stylesheetSingleton = function () {
 var styleHookSingleton = function () {
     var sheet = stylesheetSingleton();
     return function (styles, isDynamic) {
-        React__namespace.useEffect(function () {
+        React.useEffect(function () {
             sheet.add(styles);
             return function () {
                 sheet.remove();
@@ -3899,8 +3872,8 @@ var RemoveScrollBar = function (props) {
      however it will be used only by the "first" invocation
      due to singleton nature of <Style
      */
-    var gap = React__namespace.useMemo(function () { return getGapWidth(gapMode); }, [gapMode]);
-    return React__namespace.createElement(Style, { styles: getStyles(gap, !noRelative, gapMode, !noImportant ? '!important' : '') });
+    var gap = React.useMemo(function () { return getGapWidth(gapMode); }, [gapMode]);
+    return React.createElement(Style, { styles: getStyles(gap, !noRelative, gapMode, !noImportant ? '!important' : '') });
 };
 
 var passiveSupported = false;
@@ -4032,16 +4005,16 @@ var generateStyle = function (id) { return "\n  .block-interactivity-".concat(id
 var idCounter = 0;
 var lockStack = [];
 function RemoveScrollSideCar(props) {
-    var shouldPreventQueue = React__namespace.useRef([]);
-    var touchStartRef = React__namespace.useRef([0, 0]);
-    var activeAxis = React__namespace.useRef();
-    var id = React__namespace.useState(idCounter++)[0];
-    var Style = React__namespace.useState(function () { return styleSingleton(); })[0];
-    var lastProps = React__namespace.useRef(props);
-    React__namespace.useEffect(function () {
+    var shouldPreventQueue = React.useRef([]);
+    var touchStartRef = React.useRef([0, 0]);
+    var activeAxis = React.useRef();
+    var id = React.useState(idCounter++)[0];
+    var Style = React.useState(function () { return styleSingleton(); })[0];
+    var lastProps = React.useRef(props);
+    React.useEffect(function () {
         lastProps.current = props;
     }, [props]);
-    React__namespace.useEffect(function () {
+    React.useEffect(function () {
         if (props.inert) {
             document.body.classList.add("block-interactivity-".concat(id));
             var allow_1 = __spreadArray([props.lockRef.current], (props.shards || []).map(extractRef), true).filter(Boolean);
@@ -4053,7 +4026,7 @@ function RemoveScrollSideCar(props) {
         }
         return;
     }, [props.inert, props.lockRef.current, props.shards]);
-    var shouldCancelEvent = React__namespace.useCallback(function (event, parent) {
+    var shouldCancelEvent = React.useCallback(function (event, parent) {
         if ('touches' in event && event.touches.length === 2) {
             return !lastProps.current.allowPinchZoom;
         }
@@ -4092,7 +4065,7 @@ function RemoveScrollSideCar(props) {
         var cancelingAxis = activeAxis.current || currentAxis;
         return handleScroll(cancelingAxis, parent, event, cancelingAxis === 'h' ? deltaX : deltaY, true);
     }, []);
-    var shouldPrevent = React__namespace.useCallback(function (_event) {
+    var shouldPrevent = React.useCallback(function (_event) {
         var event = _event;
         if (!lockStack.length || lockStack[lockStack.length - 1] !== Style) {
             // not the last active
@@ -4121,24 +4094,24 @@ function RemoveScrollSideCar(props) {
             }
         }
     }, []);
-    var shouldCancel = React__namespace.useCallback(function (name, delta, target, should) {
+    var shouldCancel = React.useCallback(function (name, delta, target, should) {
         var event = { name: name, delta: delta, target: target, should: should };
         shouldPreventQueue.current.push(event);
         setTimeout(function () {
             shouldPreventQueue.current = shouldPreventQueue.current.filter(function (e) { return e !== event; });
         }, 1);
     }, []);
-    var scrollTouchStart = React__namespace.useCallback(function (event) {
+    var scrollTouchStart = React.useCallback(function (event) {
         touchStartRef.current = getTouchXY(event);
         activeAxis.current = undefined;
     }, []);
-    var scrollWheel = React__namespace.useCallback(function (event) {
+    var scrollWheel = React.useCallback(function (event) {
         shouldCancel(event.type, getDeltaXY(event), event.target, shouldCancelEvent(event, props.lockRef.current));
     }, []);
-    var scrollTouchMove = React__namespace.useCallback(function (event) {
+    var scrollTouchMove = React.useCallback(function (event) {
         shouldCancel(event.type, getTouchXY(event), event.target, shouldCancelEvent(event, props.lockRef.current));
     }, []);
-    React__namespace.useEffect(function () {
+    React.useEffect(function () {
         lockStack.push(Style);
         props.setCallbacks({
             onScrollCapture: scrollWheel,
@@ -4156,14 +4129,14 @@ function RemoveScrollSideCar(props) {
         };
     }, []);
     var removeScrollBar = props.removeScrollBar, inert = props.inert;
-    return (React__namespace.createElement(React__namespace.Fragment, null,
-        inert ? React__namespace.createElement(Style, { styles: generateStyle(id) }) : null,
-        removeScrollBar ? React__namespace.createElement(RemoveScrollBar, { gapMode: "margin" }) : null));
+    return (React.createElement(React.Fragment, null,
+        inert ? React.createElement(Style, { styles: generateStyle(id) }) : null,
+        removeScrollBar ? React.createElement(RemoveScrollBar, { gapMode: "margin" }) : null));
 }
 
 var SideCar = exportSidecar(effectCar, RemoveScrollSideCar);
 
-var ReactRemoveScroll = React__namespace.forwardRef(function (props, ref) { return (React__namespace.createElement(RemoveScroll, __assign$1({}, props, { ref: ref, sideCar: SideCar }))); });
+var ReactRemoveScroll = React.forwardRef(function (props, ref) { return (React.createElement(RemoveScroll, __assign$1({}, props, { ref: ref, sideCar: SideCar }))); });
 ReactRemoveScroll.classNames = RemoveScroll.classNames;
 var $01b9c$RemoveScroll = ReactRemoveScroll;
 
@@ -4191,9 +4164,9 @@ const [$cc7e05a45900e73f$var$SelectNativeOptionsProvider, $cc7e05a45900e73f$var$
 const $cc7e05a45900e73f$export$ef9b1a59e592288f = (props)=>{
     const { __scopeSelect: __scopeSelect , children: children , open: openProp , defaultOpen: defaultOpen , onOpenChange: onOpenChange , value: valueProp , defaultValue: defaultValue , onValueChange: onValueChange , dir: dir , name: name , autoComplete: autoComplete , disabled: disabled , required: required  } = props;
     const popperScope = $cc7e05a45900e73f$var$usePopperScope(__scopeSelect);
-    const [trigger, setTrigger] = React.useState(null);
-    const [valueNode, setValueNode] = React.useState(null);
-    const [valueNodeHasChildren, setValueNodeHasChildren] = React.useState(false);
+    const [trigger, setTrigger] = useState(null);
+    const [valueNode, setValueNode] = useState(null);
+    const [valueNodeHasChildren, setValueNodeHasChildren] = useState(false);
     const direction = $f631663db3294ace$export$b39126d51d94e6f3(dir);
     const [open = false, setOpen] = $71cd76cc60e0454e$export$6f32135080cb4c3({
         prop: openProp,
@@ -4205,16 +4178,16 @@ const $cc7e05a45900e73f$export$ef9b1a59e592288f = (props)=>{
         defaultProp: defaultValue,
         onChange: onValueChange
     });
-    const triggerPointerDownPosRef = React.useRef(null); // We set this to true by default so that events bubble to forms without JS (SSR)
+    const triggerPointerDownPosRef = useRef(null); // We set this to true by default so that events bubble to forms without JS (SSR)
     const isFormControl = trigger ? Boolean(trigger.closest('form')) : true;
-    const [nativeOptionsSet, setNativeOptionsSet] = React.useState(new Set()); // The native `select` only associates the correct default value if the corresponding
+    const [nativeOptionsSet, setNativeOptionsSet] = useState(new Set()); // The native `select` only associates the correct default value if the corresponding
     // `option` is rendered as a child **at the same time** as itself.
     // Because it might take a few renders for our items to gather the information to build
     // the native `option`(s), we generate a key on the `select` to make sure React re-builds it
     // each time the options change.
     const nativeSelectKey = Array.from(nativeOptionsSet).map((option)=>option.props.value
     ).join(';');
-    return /*#__PURE__*/ React.createElement($cf1ac5d9fe0e8206$export$be92b6f5f03c0fe9, popperScope, /*#__PURE__*/ React.createElement($cc7e05a45900e73f$var$SelectProvider, {
+    return /*#__PURE__*/ createElement($cf1ac5d9fe0e8206$export$be92b6f5f03c0fe9, popperScope, /*#__PURE__*/ createElement($cc7e05a45900e73f$var$SelectProvider, {
         required: required,
         scope: __scopeSelect,
         trigger: trigger,
@@ -4231,22 +4204,22 @@ const $cc7e05a45900e73f$export$ef9b1a59e592288f = (props)=>{
         dir: direction,
         triggerPointerDownPosRef: triggerPointerDownPosRef,
         disabled: disabled
-    }, /*#__PURE__*/ React.createElement($cc7e05a45900e73f$var$Collection.Provider, {
+    }, /*#__PURE__*/ createElement($cc7e05a45900e73f$var$Collection.Provider, {
         scope: __scopeSelect
-    }, /*#__PURE__*/ React.createElement($cc7e05a45900e73f$var$SelectNativeOptionsProvider, {
+    }, /*#__PURE__*/ createElement($cc7e05a45900e73f$var$SelectNativeOptionsProvider, {
         scope: props.__scopeSelect,
-        onNativeOptionAdd: React.useCallback((option)=>{
+        onNativeOptionAdd: useCallback((option)=>{
             setNativeOptionsSet((prev)=>new Set(prev).add(option)
             );
         }, []),
-        onNativeOptionRemove: React.useCallback((option)=>{
+        onNativeOptionRemove: useCallback((option)=>{
             setNativeOptionsSet((prev)=>{
                 const optionsSet = new Set(prev);
                 optionsSet.delete(option);
                 return optionsSet;
             });
         }, [])
-    }, children)), isFormControl ? /*#__PURE__*/ React.createElement($cc7e05a45900e73f$var$BubbleSelect, {
+    }, children)), isFormControl ? /*#__PURE__*/ createElement($cc7e05a45900e73f$var$BubbleSelect, {
         key: nativeSelectKey,
         "aria-hidden": true,
         required: required,
@@ -4258,14 +4231,14 @@ const $cc7e05a45900e73f$export$ef9b1a59e592288f = (props)=>{
         onChange: (event)=>setValue(event.target.value)
         ,
         disabled: disabled
-    }, value === undefined ? /*#__PURE__*/ React.createElement("option", {
+    }, value === undefined ? /*#__PURE__*/ createElement("option", {
         value: ""
     }) : null, Array.from(nativeOptionsSet)) : null));
 };
 /* -------------------------------------------------------------------------------------------------
  * SelectTrigger
  * -----------------------------------------------------------------------------------------------*/ const $cc7e05a45900e73f$var$TRIGGER_NAME = 'SelectTrigger';
-const $cc7e05a45900e73f$export$3ac1e88a1c0b9f1 = /*#__PURE__*/ React.forwardRef((props, forwardedRef)=>{
+const $cc7e05a45900e73f$export$3ac1e88a1c0b9f1 = /*#__PURE__*/ forwardRef((props, forwardedRef)=>{
     const { __scopeSelect: __scopeSelect , disabled: disabled = false , ...triggerProps } = props;
     const popperScope = $cc7e05a45900e73f$var$usePopperScope(__scopeSelect);
     const context = $cc7e05a45900e73f$var$useSelectContext($cc7e05a45900e73f$var$TRIGGER_NAME, __scopeSelect);
@@ -4286,9 +4259,9 @@ const $cc7e05a45900e73f$export$3ac1e88a1c0b9f1 = /*#__PURE__*/ React.forwardRef(
             resetTypeahead();
         }
     };
-    return /*#__PURE__*/ React.createElement($cf1ac5d9fe0e8206$export$b688253958b8dfe7, _extends({
+    return /*#__PURE__*/ createElement($cf1ac5d9fe0e8206$export$b688253958b8dfe7, _extends({
         asChild: true
-    }, popperScope), /*#__PURE__*/ React.createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.button, _extends({
+    }, popperScope), /*#__PURE__*/ createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.button, _extends({
         type: "button",
         role: "combobox",
         "aria-controls": context.contentId,
@@ -4342,7 +4315,7 @@ const $cc7e05a45900e73f$export$3ac1e88a1c0b9f1 = /*#__PURE__*/ React.forwardRef(
 /* -------------------------------------------------------------------------------------------------
  * SelectValue
  * -----------------------------------------------------------------------------------------------*/ const $cc7e05a45900e73f$var$VALUE_NAME = 'SelectValue';
-const $cc7e05a45900e73f$export$e288731fd71264f0 = /*#__PURE__*/ React.forwardRef((props, forwardedRef)=>{
+const $cc7e05a45900e73f$export$e288731fd71264f0 = /*#__PURE__*/ forwardRef((props, forwardedRef)=>{
     // We ignore `className` and `style` as this part shouldn't be styled.
     const { __scopeSelect: __scopeSelect , className: className , style: style , children: children , placeholder: placeholder , ...valueProps } = props;
     const context = $cc7e05a45900e73f$var$useSelectContext($cc7e05a45900e73f$var$VALUE_NAME, __scopeSelect);
@@ -4355,7 +4328,7 @@ const $cc7e05a45900e73f$export$e288731fd71264f0 = /*#__PURE__*/ React.forwardRef
         onValueNodeHasChildrenChange,
         hasChildren
     ]);
-    return /*#__PURE__*/ React.createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.span, _extends({}, valueProps, {
+    return /*#__PURE__*/ createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.span, _extends({}, valueProps, {
         ref: composedRefs // we don't want events from the portalled `SelectValue` children to bubble
         ,
         style: {
@@ -4364,28 +4337,28 @@ const $cc7e05a45900e73f$export$e288731fd71264f0 = /*#__PURE__*/ React.forwardRef
     }), context.value === undefined && placeholder !== undefined ? placeholder : children);
 });
 const $cc7e05a45900e73f$export$b2af6c9944296213 = (props)=>{
-    return /*#__PURE__*/ React.createElement($f1701beae083dbae$export$602eac185826482c, _extends({
+    return /*#__PURE__*/ createElement($f1701beae083dbae$export$602eac185826482c, _extends({
         asChild: true
     }, props));
 };
 /* -------------------------------------------------------------------------------------------------
  * SelectContent
  * -----------------------------------------------------------------------------------------------*/ const $cc7e05a45900e73f$var$CONTENT_NAME = 'SelectContent';
-const $cc7e05a45900e73f$export$c973a4b3cb86a03d = /*#__PURE__*/ React.forwardRef((props, forwardedRef)=>{
+const $cc7e05a45900e73f$export$c973a4b3cb86a03d = /*#__PURE__*/ forwardRef((props, forwardedRef)=>{
     const context = $cc7e05a45900e73f$var$useSelectContext($cc7e05a45900e73f$var$CONTENT_NAME, props.__scopeSelect);
-    const [fragment, setFragment] = React.useState(); // setting the fragment in `useLayoutEffect` as `DocumentFragment` doesn't exist on the server
+    const [fragment, setFragment] = useState(); // setting the fragment in `useLayoutEffect` as `DocumentFragment` doesn't exist on the server
     $9f79659886946c16$export$e5c5a5f917a5871c(()=>{
         setFragment(new DocumentFragment());
     }, []);
     if (!context.open) {
         const frag = fragment;
-        return frag ? /*#__PURE__*/ ReactDOM.createPortal(/*#__PURE__*/ React.createElement($cc7e05a45900e73f$var$SelectContentProvider, {
+        return frag ? /*#__PURE__*/ createPortal(/*#__PURE__*/ createElement($cc7e05a45900e73f$var$SelectContentProvider, {
             scope: props.__scopeSelect
-        }, /*#__PURE__*/ React.createElement($cc7e05a45900e73f$var$Collection.Slot, {
+        }, /*#__PURE__*/ createElement($cc7e05a45900e73f$var$Collection.Slot, {
             scope: props.__scopeSelect
-        }, /*#__PURE__*/ React.createElement("div", null, props.children))), frag) : null;
+        }, /*#__PURE__*/ createElement("div", null, props.children))), frag) : null;
     }
-    return /*#__PURE__*/ React.createElement($cc7e05a45900e73f$var$SelectContentImpl, _extends({}, props, {
+    return /*#__PURE__*/ createElement($cc7e05a45900e73f$var$SelectContentImpl, _extends({}, props, {
         ref: forwardedRef
     }));
 });
@@ -4393,29 +4366,29 @@ const $cc7e05a45900e73f$export$c973a4b3cb86a03d = /*#__PURE__*/ React.forwardRef
  * SelectContentImpl
  * -----------------------------------------------------------------------------------------------*/ const $cc7e05a45900e73f$var$CONTENT_MARGIN = 10;
 const [$cc7e05a45900e73f$var$SelectContentProvider, $cc7e05a45900e73f$var$useSelectContentContext] = $cc7e05a45900e73f$var$createSelectContext($cc7e05a45900e73f$var$CONTENT_NAME);
-const $cc7e05a45900e73f$var$SelectContentImpl = /*#__PURE__*/ React.forwardRef((props, forwardedRef)=>{
+const $cc7e05a45900e73f$var$SelectContentImpl = /*#__PURE__*/ forwardRef((props, forwardedRef)=>{
     const { __scopeSelect: __scopeSelect , position: position = 'item-aligned' , onCloseAutoFocus: onCloseAutoFocus , onEscapeKeyDown: onEscapeKeyDown , onPointerDownOutside: onPointerDownOutside , side: //
     // PopperContent props
     side , sideOffset: sideOffset , align: align , alignOffset: alignOffset , arrowPadding: arrowPadding , collisionBoundary: collisionBoundary , collisionPadding: collisionPadding , sticky: sticky , hideWhenDetached: hideWhenDetached , avoidCollisions: avoidCollisions , //
     ...contentProps } = props;
     const context = $cc7e05a45900e73f$var$useSelectContext($cc7e05a45900e73f$var$CONTENT_NAME, __scopeSelect);
-    const [content, setContent] = React.useState(null);
-    const [viewport, setViewport] = React.useState(null);
+    const [content, setContent] = useState(null);
+    const [viewport, setViewport] = useState(null);
     const composedRefs = $6ed0406888f73fc4$export$c7b2cbe3552a0d05(forwardedRef, (node)=>setContent(node)
     );
-    const [selectedItem, setSelectedItem] = React.useState(null);
-    const [selectedItemText, setSelectedItemText] = React.useState(null);
+    const [selectedItem, setSelectedItem] = useState(null);
+    const [selectedItemText, setSelectedItemText] = useState(null);
     const getItems = $cc7e05a45900e73f$var$useCollection(__scopeSelect);
-    const [isPositioned, setIsPositioned] = React.useState(false);
-    const firstValidItemFoundRef = React.useRef(false); // aria-hide everything except the content (better supported equivalent to setting aria-modal)
-    React.useEffect(()=>{
+    const [isPositioned, setIsPositioned] = useState(false);
+    const firstValidItemFoundRef = useRef(false); // aria-hide everything except the content (better supported equivalent to setting aria-modal)
+    useEffect(()=>{
         if (content) return hideOthers(content);
     }, [
         content
     ]); // Make sure the whole tree has focus guards as our `Select` may be
     // the last element in the DOM (because of the `Portal`)
     $3db38b7d1fb3fe6a$export$b7ece24a22aeda8c();
-    const focusFirst = React.useCallback((candidates)=>{
+    const focusFirst = useCallback((candidates)=>{
         const [firstItem, ...restItems] = getItems().map((item)=>item.ref.current
         );
         const [lastItem] = restItems.slice(-1);
@@ -4435,7 +4408,7 @@ const $cc7e05a45900e73f$var$SelectContentImpl = /*#__PURE__*/ React.forwardRef((
         getItems,
         viewport
     ]);
-    const focusSelectedItem = React.useCallback(()=>focusFirst([
+    const focusSelectedItem = useCallback(()=>focusFirst([
             selectedItem,
             content
         ])
@@ -4445,7 +4418,7 @@ const $cc7e05a45900e73f$var$SelectContentImpl = /*#__PURE__*/ React.forwardRef((
         content
     ]); // Since this is not dependent on layout, we want to ensure this runs at the same time as
     // other effects across components. Hence why we don't call `focusSelectedItem` inside `position`.
-    React.useEffect(()=>{
+    useEffect(()=>{
         if (isPositioned) focusSelectedItem();
     }, [
         isPositioned,
@@ -4453,7 +4426,7 @@ const $cc7e05a45900e73f$var$SelectContentImpl = /*#__PURE__*/ React.forwardRef((
     ]); // prevent selecting items on `pointerup` in some cases after opening from `pointerdown`
     // and close on `pointerup` outside.
     const { onOpenChange: onOpenChange , triggerPointerDownPosRef: triggerPointerDownPosRef  } = context;
-    React.useEffect(()=>{
+    useEffect(()=>{
         if (content) {
             let pointerMoveDelta = {
                 x: 0,
@@ -4493,7 +4466,7 @@ const $cc7e05a45900e73f$var$SelectContentImpl = /*#__PURE__*/ React.forwardRef((
         onOpenChange,
         triggerPointerDownPosRef
     ]);
-    React.useEffect(()=>{
+    useEffect(()=>{
         const close = ()=>onOpenChange(false)
         ;
         window.addEventListener('blur', close);
@@ -4517,7 +4490,7 @@ const $cc7e05a45900e73f$var$SelectContentImpl = /*#__PURE__*/ React.forwardRef((
        */ setTimeout(()=>nextItem.ref.current.focus()
         );
     });
-    const itemRefCallback = React.useCallback((node, value, disabled)=>{
+    const itemRefCallback = useCallback((node, value, disabled)=>{
         const isFirstValidItem = !firstValidItemFoundRef.current && !disabled;
         const isSelectedItem = context.value !== undefined && context.value === value;
         if (isSelectedItem || isFirstValidItem) {
@@ -4527,11 +4500,11 @@ const $cc7e05a45900e73f$var$SelectContentImpl = /*#__PURE__*/ React.forwardRef((
     }, [
         context.value
     ]);
-    const handleItemLeave = React.useCallback(()=>content === null || content === void 0 ? void 0 : content.focus()
+    const handleItemLeave = useCallback(()=>content === null || content === void 0 ? void 0 : content.focus()
     , [
         content
     ]);
-    const itemTextRefCallback = React.useCallback((node, value, disabled)=>{
+    const itemTextRefCallback = useCallback((node, value, disabled)=>{
         const isFirstValidItem = !firstValidItemFoundRef.current && !disabled;
         const isSelectedItem = context.value !== undefined && context.value === value;
         if (isSelectedItem || isFirstValidItem) setSelectedItemText(node);
@@ -4551,7 +4524,7 @@ const $cc7e05a45900e73f$var$SelectContentImpl = /*#__PURE__*/ React.forwardRef((
         hideWhenDetached: hideWhenDetached,
         avoidCollisions: avoidCollisions
     } : {};
-    return /*#__PURE__*/ React.createElement($cc7e05a45900e73f$var$SelectContentProvider, {
+    return /*#__PURE__*/ createElement($cc7e05a45900e73f$var$SelectContentProvider, {
         scope: __scopeSelect,
         content: content,
         viewport: viewport,
@@ -4565,10 +4538,10 @@ const $cc7e05a45900e73f$var$SelectContentImpl = /*#__PURE__*/ React.forwardRef((
         position: position,
         isPositioned: isPositioned,
         searchRef: searchRef
-    }, /*#__PURE__*/ React.createElement($01b9c$RemoveScroll, {
+    }, /*#__PURE__*/ createElement($01b9c$RemoveScroll, {
         as: $5e63c961fc1ce211$export$8c6ed5c666ac1360,
         allowPinchZoom: true
-    }, /*#__PURE__*/ React.createElement($d3863c46a17e8a28$export$20e40289641fbbb6, {
+    }, /*#__PURE__*/ createElement($d3863c46a17e8a28$export$20e40289641fbbb6, {
         asChild: true // we make sure we're not trapping once it's been closed
         ,
         trapped: context.open,
@@ -4583,7 +4556,7 @@ const $cc7e05a45900e73f$var$SelectContentImpl = /*#__PURE__*/ React.forwardRef((
             });
             event.preventDefault();
         })
-    }, /*#__PURE__*/ React.createElement($5cb92bef7577960e$export$177fb62ff3ec1f22, {
+    }, /*#__PURE__*/ createElement($5cb92bef7577960e$export$177fb62ff3ec1f22, {
         asChild: true,
         disableOutsidePointerEvents: true,
         onEscapeKeyDown: onEscapeKeyDown,
@@ -4592,7 +4565,7 @@ const $cc7e05a45900e73f$var$SelectContentImpl = /*#__PURE__*/ React.forwardRef((
         onFocusOutside: (event)=>event.preventDefault()
         ,
         onDismiss: ()=>context.onOpenChange(false)
-    }, /*#__PURE__*/ React.createElement(SelectPosition, _extends({
+    }, /*#__PURE__*/ createElement(SelectPosition, _extends({
         role: "listbox",
         id: context.contentId,
         "data-state": context.open ? 'open' : 'closed',
@@ -4646,19 +4619,19 @@ const $cc7e05a45900e73f$var$SelectContentImpl = /*#__PURE__*/ React.forwardRef((
         })
     }))))));
 });
-const $cc7e05a45900e73f$var$SelectItemAlignedPosition = /*#__PURE__*/ React.forwardRef((props, forwardedRef)=>{
+const $cc7e05a45900e73f$var$SelectItemAlignedPosition = /*#__PURE__*/ forwardRef((props, forwardedRef)=>{
     const { __scopeSelect: __scopeSelect , onPlaced: onPlaced , ...popperProps } = props;
     const context = $cc7e05a45900e73f$var$useSelectContext($cc7e05a45900e73f$var$CONTENT_NAME, __scopeSelect);
     const contentContext = $cc7e05a45900e73f$var$useSelectContentContext($cc7e05a45900e73f$var$CONTENT_NAME, __scopeSelect);
-    const [contentWrapper, setContentWrapper] = React.useState(null);
-    const [content, setContent] = React.useState(null);
+    const [contentWrapper, setContentWrapper] = useState(null);
+    const [content, setContent] = useState(null);
     const composedRefs = $6ed0406888f73fc4$export$c7b2cbe3552a0d05(forwardedRef, (node)=>setContent(node)
     );
     const getItems = $cc7e05a45900e73f$var$useCollection(__scopeSelect);
-    const shouldExpandOnScrollRef = React.useRef(false);
-    const shouldRepositionRef = React.useRef(true);
+    const shouldExpandOnScrollRef = useRef(false);
+    const shouldRepositionRef = useRef(true);
     const { viewport: viewport , selectedItem: selectedItem , selectedItemText: selectedItemText , focusSelectedItem: focusSelectedItem  } = contentContext;
-    const position = React.useCallback(()=>{
+    const position = useCallback(()=>{
         if (context.trigger && context.valueNode && contentWrapper && content && viewport && selectedItem && selectedItemText) {
             const triggerRect = context.trigger.getBoundingClientRect(); // -----------------------------------------------------------------------------------------
             //  Horizontal positioning
@@ -4754,7 +4727,7 @@ const $cc7e05a45900e73f$var$SelectItemAlignedPosition = /*#__PURE__*/ React.forw
     , [
         position
     ]); // copy z-index from content to wrapper
-    const [contentZIndex, setContentZIndex] = React.useState();
+    const [contentZIndex, setContentZIndex] = useState();
     $9f79659886946c16$export$e5c5a5f917a5871c(()=>{
         if (content) setContentZIndex(window.getComputedStyle(content).zIndex);
     }, [
@@ -4763,7 +4736,7 @@ const $cc7e05a45900e73f$var$SelectItemAlignedPosition = /*#__PURE__*/ React.forw
     // Because it is part of the normal flow, it will push down the viewport, thus throwing our
     // trigger => selectedItem alignment off by the amount the viewport was pushed down.
     // We wait for this to happen and then re-run the positining logic one more time to account for it.
-    const handleScrollButtonChange = React.useCallback((node)=>{
+    const handleScrollButtonChange = useCallback((node)=>{
         if (node && shouldRepositionRef.current === true) {
             position();
             focusSelectedItem === null || focusSelectedItem === void 0 || focusSelectedItem();
@@ -4773,12 +4746,12 @@ const $cc7e05a45900e73f$var$SelectItemAlignedPosition = /*#__PURE__*/ React.forw
         position,
         focusSelectedItem
     ]);
-    return /*#__PURE__*/ React.createElement($cc7e05a45900e73f$var$SelectViewportProvider, {
+    return /*#__PURE__*/ createElement($cc7e05a45900e73f$var$SelectViewportProvider, {
         scope: __scopeSelect,
         contentWrapper: contentWrapper,
         shouldExpandOnScrollRef: shouldExpandOnScrollRef,
         onScrollButtonChange: handleScrollButtonChange
-    }, /*#__PURE__*/ React.createElement("div", {
+    }, /*#__PURE__*/ createElement("div", {
         ref: setContentWrapper,
         style: {
             display: 'flex',
@@ -4786,7 +4759,7 @@ const $cc7e05a45900e73f$var$SelectItemAlignedPosition = /*#__PURE__*/ React.forw
             position: 'fixed',
             zIndex: contentZIndex
         }
-    }, /*#__PURE__*/ React.createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.div, _extends({}, popperProps, {
+    }, /*#__PURE__*/ createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.div, _extends({}, popperProps, {
         ref: composedRefs,
         style: {
             // When we get the height of the content, it includes borders. If we were to set
@@ -4798,10 +4771,10 @@ const $cc7e05a45900e73f$var$SelectItemAlignedPosition = /*#__PURE__*/ React.forw
         }
     }))));
 });
-const $cc7e05a45900e73f$var$SelectPopperPosition = /*#__PURE__*/ React.forwardRef((props, forwardedRef)=>{
+const $cc7e05a45900e73f$var$SelectPopperPosition = /*#__PURE__*/ forwardRef((props, forwardedRef)=>{
     const { __scopeSelect: __scopeSelect , align: align = 'start' , collisionPadding: collisionPadding = $cc7e05a45900e73f$var$CONTENT_MARGIN , ...popperProps } = props;
     const popperScope = $cc7e05a45900e73f$var$usePopperScope(__scopeSelect);
-    return /*#__PURE__*/ React.createElement($cf1ac5d9fe0e8206$export$7c6e2c02157bb7d2, _extends({}, popperScope, popperProps, {
+    return /*#__PURE__*/ createElement($cf1ac5d9fe0e8206$export$7c6e2c02157bb7d2, _extends({}, popperScope, popperProps, {
         ref: forwardedRef,
         align: align,
         collisionPadding: collisionPadding,
@@ -4820,46 +4793,74 @@ const $cc7e05a45900e73f$var$SelectPopperPosition = /*#__PURE__*/ React.forwardRe
 /* -------------------------------------------------------------------------------------------------
  * SelectViewport
  * -----------------------------------------------------------------------------------------------*/ const [$cc7e05a45900e73f$var$SelectViewportProvider, $cc7e05a45900e73f$var$useSelectViewportContext] = $cc7e05a45900e73f$var$createSelectContext($cc7e05a45900e73f$var$CONTENT_NAME, {});
+const $cc7e05a45900e73f$var$VIEWPORT_NAME = 'SelectViewport';
+const $cc7e05a45900e73f$export$9ed6e7b40248d36d = /*#__PURE__*/ forwardRef((props, forwardedRef)=>{
+    const { __scopeSelect: __scopeSelect , ...viewportProps } = props;
+    const contentContext = $cc7e05a45900e73f$var$useSelectContentContext($cc7e05a45900e73f$var$VIEWPORT_NAME, __scopeSelect);
+    const viewportContext = $cc7e05a45900e73f$var$useSelectViewportContext($cc7e05a45900e73f$var$VIEWPORT_NAME, __scopeSelect);
+    const composedRefs = $6ed0406888f73fc4$export$c7b2cbe3552a0d05(forwardedRef, contentContext.onViewportChange);
+    const prevScrollTopRef = useRef(0);
+    return /*#__PURE__*/ createElement(Fragment, null, /*#__PURE__*/ createElement("style", {
+        dangerouslySetInnerHTML: {
+            __html: `[data-radix-select-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-select-viewport]::-webkit-scrollbar{display:none}`
+        }
+    }), /*#__PURE__*/ createElement($cc7e05a45900e73f$var$Collection.Slot, {
+        scope: __scopeSelect
+    }, /*#__PURE__*/ createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.div, _extends({
+        "data-radix-select-viewport": "",
+        role: "presentation"
+    }, viewportProps, {
+        ref: composedRefs,
+        style: {
+            // we use position: 'relative' here on the `viewport` so that when we call
+            // `selectedItem.offsetTop` in calculations, the offset is relative to the viewport
+            // (independent of the scrollUpButton).
+            position: 'relative',
+            flex: 1,
+            overflow: 'auto',
+            ...viewportProps.style
+        },
+        onScroll: $e42e1063c40fb3ef$export$b9ecd428b558ff10(viewportProps.onScroll, (event)=>{
+            const viewport = event.currentTarget;
+            const { contentWrapper: contentWrapper , shouldExpandOnScrollRef: shouldExpandOnScrollRef  } = viewportContext;
+            if (shouldExpandOnScrollRef !== null && shouldExpandOnScrollRef !== void 0 && shouldExpandOnScrollRef.current && contentWrapper) {
+                const scrolledBy = Math.abs(prevScrollTopRef.current - viewport.scrollTop);
+                if (scrolledBy > 0) {
+                    const availableHeight = window.innerHeight - $cc7e05a45900e73f$var$CONTENT_MARGIN * 2;
+                    const cssMinHeight = parseFloat(contentWrapper.style.minHeight);
+                    const cssHeight = parseFloat(contentWrapper.style.height);
+                    const prevHeight = Math.max(cssMinHeight, cssHeight);
+                    if (prevHeight < availableHeight) {
+                        const nextHeight = prevHeight + scrolledBy;
+                        const clampedNextHeight = Math.min(availableHeight, nextHeight);
+                        const heightDiff = nextHeight - clampedNextHeight;
+                        contentWrapper.style.height = clampedNextHeight + 'px';
+                        if (contentWrapper.style.bottom === '0px') {
+                            viewport.scrollTop = heightDiff > 0 ? heightDiff : 0; // ensure the content stays pinned to the bottom
+                            contentWrapper.style.justifyContent = 'flex-end';
+                        }
+                    }
+                }
+            }
+            prevScrollTopRef.current = viewport.scrollTop;
+        })
+    }))));
+});
 /* -------------------------------------------------------------------------------------------------
  * SelectGroup
  * -----------------------------------------------------------------------------------------------*/ const $cc7e05a45900e73f$var$GROUP_NAME = 'SelectGroup';
-const [$cc7e05a45900e73f$var$SelectGroupContextProvider, $cc7e05a45900e73f$var$useSelectGroupContext] = $cc7e05a45900e73f$var$createSelectContext($cc7e05a45900e73f$var$GROUP_NAME);
-const $cc7e05a45900e73f$export$ee25a334c55de1f4 = /*#__PURE__*/ React.forwardRef((props, forwardedRef)=>{
-    const { __scopeSelect: __scopeSelect , ...groupProps } = props;
-    const groupId = $1746a345f3d73bb7$export$f680877a34711e37();
-    return /*#__PURE__*/ React.createElement($cc7e05a45900e73f$var$SelectGroupContextProvider, {
-        scope: __scopeSelect,
-        id: groupId
-    }, /*#__PURE__*/ React.createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.div, _extends({
-        role: "group",
-        "aria-labelledby": groupId
-    }, groupProps, {
-        ref: forwardedRef
-    })));
-});
-/* -------------------------------------------------------------------------------------------------
- * SelectLabel
- * -----------------------------------------------------------------------------------------------*/ const $cc7e05a45900e73f$var$LABEL_NAME = 'SelectLabel';
-const $cc7e05a45900e73f$export$f67338d29bd972f8 = /*#__PURE__*/ React.forwardRef((props, forwardedRef)=>{
-    const { __scopeSelect: __scopeSelect , ...labelProps } = props;
-    const groupContext = $cc7e05a45900e73f$var$useSelectGroupContext($cc7e05a45900e73f$var$LABEL_NAME, __scopeSelect);
-    return /*#__PURE__*/ React.createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.div, _extends({
-        id: groupContext.id
-    }, labelProps, {
-        ref: forwardedRef
-    }));
-});
+$cc7e05a45900e73f$var$createSelectContext($cc7e05a45900e73f$var$GROUP_NAME);
 /* -------------------------------------------------------------------------------------------------
  * SelectItem
  * -----------------------------------------------------------------------------------------------*/ const $cc7e05a45900e73f$var$ITEM_NAME = 'SelectItem';
 const [$cc7e05a45900e73f$var$SelectItemContextProvider, $cc7e05a45900e73f$var$useSelectItemContext] = $cc7e05a45900e73f$var$createSelectContext($cc7e05a45900e73f$var$ITEM_NAME);
-const $cc7e05a45900e73f$export$13ef48a934230896 = /*#__PURE__*/ React.forwardRef((props, forwardedRef)=>{
+const $cc7e05a45900e73f$export$13ef48a934230896 = /*#__PURE__*/ forwardRef((props, forwardedRef)=>{
     const { __scopeSelect: __scopeSelect , value: value , disabled: disabled = false , textValue: textValueProp , ...itemProps } = props;
     const context = $cc7e05a45900e73f$var$useSelectContext($cc7e05a45900e73f$var$ITEM_NAME, __scopeSelect);
     const contentContext = $cc7e05a45900e73f$var$useSelectContentContext($cc7e05a45900e73f$var$ITEM_NAME, __scopeSelect);
     const isSelected = context.value === value;
-    const [textValue, setTextValue] = React.useState(textValueProp !== null && textValueProp !== void 0 ? textValueProp : '');
-    const [isFocused, setIsFocused] = React.useState(false);
+    const [textValue, setTextValue] = useState(textValueProp !== null && textValueProp !== void 0 ? textValueProp : '');
+    const [isFocused, setIsFocused] = useState(false);
     const composedRefs = $6ed0406888f73fc4$export$c7b2cbe3552a0d05(forwardedRef, (node)=>{
         var _contentContext$itemR;
         return (_contentContext$itemR = contentContext.itemRefCallback) === null || _contentContext$itemR === void 0 ? void 0 : _contentContext$itemR.call(contentContext, node, value, disabled);
@@ -4871,24 +4872,24 @@ const $cc7e05a45900e73f$export$13ef48a934230896 = /*#__PURE__*/ React.forwardRef
             context.onOpenChange(false);
         }
     };
-    return /*#__PURE__*/ React.createElement($cc7e05a45900e73f$var$SelectItemContextProvider, {
+    return /*#__PURE__*/ createElement($cc7e05a45900e73f$var$SelectItemContextProvider, {
         scope: __scopeSelect,
         value: value,
         disabled: disabled,
         textId: textId,
         isSelected: isSelected,
-        onItemTextChange: React.useCallback((node)=>{
+        onItemTextChange: useCallback((node)=>{
             setTextValue((prevTextValue)=>{
                 var _node$textContent;
                 return prevTextValue || ((_node$textContent = node === null || node === void 0 ? void 0 : node.textContent) !== null && _node$textContent !== void 0 ? _node$textContent : '').trim();
             });
         }, [])
-    }, /*#__PURE__*/ React.createElement($cc7e05a45900e73f$var$Collection.ItemSlot, {
+    }, /*#__PURE__*/ createElement($cc7e05a45900e73f$var$Collection.ItemSlot, {
         scope: __scopeSelect,
         value: value,
         disabled: disabled,
         textValue: textValue
-    }, /*#__PURE__*/ React.createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.div, _extends({
+    }, /*#__PURE__*/ createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.div, _extends({
         role: "option",
         "aria-labelledby": textId,
         "data-highlighted": isFocused ? '' : undefined // `isFocused` caveat fixes stuttering in VoiceOver
@@ -4933,21 +4934,21 @@ const $cc7e05a45900e73f$export$13ef48a934230896 = /*#__PURE__*/ React.forwardRef
 /* -------------------------------------------------------------------------------------------------
  * SelectItemText
  * -----------------------------------------------------------------------------------------------*/ const $cc7e05a45900e73f$var$ITEM_TEXT_NAME = 'SelectItemText';
-const $cc7e05a45900e73f$export$3572fb0fb821ff49 = /*#__PURE__*/ React.forwardRef((props, forwardedRef)=>{
+const $cc7e05a45900e73f$export$3572fb0fb821ff49 = /*#__PURE__*/ forwardRef((props, forwardedRef)=>{
     // We ignore `className` and `style` as this part shouldn't be styled.
     const { __scopeSelect: __scopeSelect , className: className , style: style , ...itemTextProps } = props;
     const context = $cc7e05a45900e73f$var$useSelectContext($cc7e05a45900e73f$var$ITEM_TEXT_NAME, __scopeSelect);
     const contentContext = $cc7e05a45900e73f$var$useSelectContentContext($cc7e05a45900e73f$var$ITEM_TEXT_NAME, __scopeSelect);
     const itemContext = $cc7e05a45900e73f$var$useSelectItemContext($cc7e05a45900e73f$var$ITEM_TEXT_NAME, __scopeSelect);
     const nativeOptionsContext = $cc7e05a45900e73f$var$useSelectNativeOptionsContext($cc7e05a45900e73f$var$ITEM_TEXT_NAME, __scopeSelect);
-    const [itemTextNode, setItemTextNode] = React.useState(null);
+    const [itemTextNode, setItemTextNode] = useState(null);
     const composedRefs = $6ed0406888f73fc4$export$c7b2cbe3552a0d05(forwardedRef, (node)=>setItemTextNode(node)
     , itemContext.onItemTextChange, (node)=>{
         var _contentContext$itemT;
         return (_contentContext$itemT = contentContext.itemTextRefCallback) === null || _contentContext$itemT === void 0 ? void 0 : _contentContext$itemT.call(contentContext, node, itemContext.value, itemContext.disabled);
     });
     const textContent = itemTextNode === null || itemTextNode === void 0 ? void 0 : itemTextNode.textContent;
-    const nativeOption = React.useMemo(()=>/*#__PURE__*/ React.createElement("option", {
+    const nativeOption = useMemo(()=>/*#__PURE__*/ createElement("option", {
             key: itemContext.value,
             value: itemContext.value,
             disabled: itemContext.disabled
@@ -4967,30 +4968,30 @@ const $cc7e05a45900e73f$export$3572fb0fb821ff49 = /*#__PURE__*/ React.forwardRef
         onNativeOptionRemove,
         nativeOption
     ]);
-    return /*#__PURE__*/ React.createElement(React.Fragment, null, /*#__PURE__*/ React.createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.span, _extends({
+    return /*#__PURE__*/ createElement(Fragment, null, /*#__PURE__*/ createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.span, _extends({
         id: itemContext.textId
     }, itemTextProps, {
         ref: composedRefs
-    })), itemContext.isSelected && context.valueNode && !context.valueNodeHasChildren ? /*#__PURE__*/ ReactDOM.createPortal(itemTextProps.children, context.valueNode) : null);
+    })), itemContext.isSelected && context.valueNode && !context.valueNodeHasChildren ? /*#__PURE__*/ createPortal(itemTextProps.children, context.valueNode) : null);
 });
 /* -------------------------------------------------------------------------------------------------
  * SelectItemIndicator
  * -----------------------------------------------------------------------------------------------*/ const $cc7e05a45900e73f$var$ITEM_INDICATOR_NAME = 'SelectItemIndicator';
-const $cc7e05a45900e73f$export$6b9198de19accfe6 = /*#__PURE__*/ React.forwardRef((props, forwardedRef)=>{
+const $cc7e05a45900e73f$export$6b9198de19accfe6 = /*#__PURE__*/ forwardRef((props, forwardedRef)=>{
     const { __scopeSelect: __scopeSelect , ...itemIndicatorProps } = props;
     const itemContext = $cc7e05a45900e73f$var$useSelectItemContext($cc7e05a45900e73f$var$ITEM_INDICATOR_NAME, __scopeSelect);
-    return itemContext.isSelected ? /*#__PURE__*/ React.createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.span, _extends({
+    return itemContext.isSelected ? /*#__PURE__*/ createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.span, _extends({
         "aria-hidden": true
     }, itemIndicatorProps, {
         ref: forwardedRef
     })) : null;
 });
-/* -----------------------------------------------------------------------------------------------*/ const $cc7e05a45900e73f$var$BubbleSelect = /*#__PURE__*/ React.forwardRef((props, forwardedRef)=>{
+/* -----------------------------------------------------------------------------------------------*/ const $cc7e05a45900e73f$var$BubbleSelect = /*#__PURE__*/ forwardRef((props, forwardedRef)=>{
     const { value: value , ...selectProps } = props;
-    const ref = React.useRef(null);
+    const ref = useRef(null);
     const composedRefs = $6ed0406888f73fc4$export$c7b2cbe3552a0d05(forwardedRef, ref);
     const prevValue = $010c2913dbd2fe3d$export$5cae361ad82dce8b(value); // Bubble value change to parents (e.g form change event)
-    React.useEffect(()=>{
+    useEffect(()=>{
         const select = ref.current;
         const selectProto = window.HTMLSelectElement.prototype;
         const descriptor = Object.getOwnPropertyDescriptor(selectProto, 'value');
@@ -5017,9 +5018,9 @@ const $cc7e05a45900e73f$export$6b9198de19accfe6 = /*#__PURE__*/ React.forwardRef
    *
    * We use `VisuallyHidden` rather than `display: "none"` because Safari autofill
    * won't work otherwise.
-   */ return /*#__PURE__*/ React.createElement($ea1ef594cf570d83$export$439d29a4e110a164, {
+   */ return /*#__PURE__*/ createElement($ea1ef594cf570d83$export$439d29a4e110a164, {
         asChild: true
-    }, /*#__PURE__*/ React.createElement("select", _extends({}, selectProps, {
+    }, /*#__PURE__*/ createElement("select", _extends({}, selectProps, {
         ref: composedRefs,
         defaultValue: value
     })));
@@ -5027,9 +5028,9 @@ const $cc7e05a45900e73f$export$6b9198de19accfe6 = /*#__PURE__*/ React.forwardRef
 $cc7e05a45900e73f$var$BubbleSelect.displayName = 'BubbleSelect';
 function $cc7e05a45900e73f$var$useTypeaheadSearch(onSearchChange) {
     const handleSearchChange = $b1b2314f5f9a1d84$export$25bec8c6f54ee79a(onSearchChange);
-    const searchRef = React.useRef('');
-    const timerRef = React.useRef(0);
-    const handleTypeaheadSearch = React.useCallback((key)=>{
+    const searchRef = useRef('');
+    const timerRef = useRef(0);
+    const handleTypeaheadSearch = useCallback((key)=>{
         const search = searchRef.current + key;
         handleSearchChange(search);
         (function updateSearch(value) {
@@ -5041,11 +5042,11 @@ function $cc7e05a45900e73f$var$useTypeaheadSearch(onSearchChange) {
     }, [
         handleSearchChange
     ]);
-    const resetTypeahead = React.useCallback(()=>{
+    const resetTypeahead = useCallback(()=>{
         searchRef.current = '';
         window.clearTimeout(timerRef.current);
     }, []);
-    React.useEffect(()=>{
+    useEffect(()=>{
         return ()=>window.clearTimeout(timerRef.current)
         ;
     }, []);
@@ -5096,41 +5097,31 @@ const $cc7e05a45900e73f$export$41fb9f06171c75f4 = $cc7e05a45900e73f$export$3ac1e
 const $cc7e05a45900e73f$export$4c8d1a57a761ef94 = $cc7e05a45900e73f$export$e288731fd71264f0;
 const $cc7e05a45900e73f$export$602eac185826482c = $cc7e05a45900e73f$export$b2af6c9944296213;
 const $cc7e05a45900e73f$export$7c6e2c02157bb7d2 = $cc7e05a45900e73f$export$c973a4b3cb86a03d;
-const $cc7e05a45900e73f$export$eb2fcfdbd7ba97d4 = $cc7e05a45900e73f$export$ee25a334c55de1f4;
-const $cc7e05a45900e73f$export$b04be29aa201d4f5 = $cc7e05a45900e73f$export$f67338d29bd972f8;
+const $cc7e05a45900e73f$export$d5c6c08dc2d3ca7 = $cc7e05a45900e73f$export$9ed6e7b40248d36d;
 const $cc7e05a45900e73f$export$6d08773d2e66f8f2 = $cc7e05a45900e73f$export$13ef48a934230896;
 const $cc7e05a45900e73f$export$d6e5bf9c43ea9319 = $cc7e05a45900e73f$export$3572fb0fb821ff49;
 const $cc7e05a45900e73f$export$c3468e2714d175fa = $cc7e05a45900e73f$export$6b9198de19accfe6;
 
-var css_248z = "@import url(\"https://rsms.me/inter/inter.css\");\n.Select-module_trigger__xZVUG {\n  all: unset;\n  min-width: 150px;\n  padding: 5px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  background-color: #6957e7;\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  user-select: none;\n}\n.Select-module_trigger__xZVUG[data-state=closed] {\n  border-radius: 6px;\n}\n.Select-module_trigger__xZVUG[data-state=open] {\n  border-radius: 6px 6px 0 0;\n}\n\n.Select-module_content__Eftze {\n  background-color: #313131;\n  border-radius: 0 0 6px 6px;\n}\n\n.Select-module_label__zUgZC {\n  padding: 5px;\n  background-color: #3e3e3e;\n  font-family: Inter;\n  font-size: 15px;\n  font-weight: 300;\n  color: #d4cfcd;\n  font-size: 12px;\n  user-select: none;\n}\n\n.Select-module_item__72Rnu {\n  min-width: 150px;\n  padding: 5px;\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  border-radius: 6px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  outline: none;\n  user-select: none;\n}\n.Select-module_item__72Rnu[data-highlighted] {\n  background-color: #181818;\n}";
-var styles = {"trigger":"Select-module_trigger__xZVUG","content":"Select-module_content__Eftze","label":"Select-module_label__zUgZC","item":"Select-module_item__72Rnu"};
+var css_248z = "@import url(\"https://rsms.me/inter/inter.css\");\n.Select-module_trigger__xZVUG {\n  all: unset;\n  width: 150px;\n  padding: 5px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  background-color: #6957e7;\n  box-sizing: border-box;\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  user-select: none;\n}\n.Select-module_trigger__xZVUG[data-state=closed] {\n  border-radius: 6px;\n}\n.Select-module_trigger__xZVUG[data-state=open] {\n  border-radius: 6px 6px 0 0;\n}\n\n.Select-module_content__Eftze {\n  background-color: #181818;\n  border-radius: 0 0 6px 6px;\n}\n\n.Select-module_item__72Rnu {\n  box-sizing: border-box;\n  width: 150px;\n  padding: 5px;\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  border-radius: 6px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  outline: none;\n  user-select: none;\n}\n.Select-module_item__72Rnu[data-highlighted] {\n  background-color: black;\n}";
+var styles = {"trigger":"Select-module_trigger__xZVUG","content":"Select-module_content__Eftze","item":"Select-module_item__72Rnu"};
 styleInject(css_248z);
 
 var Select = function (_a) {
-    var initialItem = _a.initialItem, items = _a.items, title = _a.title, onValueChange = _a.onValueChange;
-    var _b = React.useState(false), open = _b[0], setOpen = _b[1];
-    return (React__default["default"].createElement($cc7e05a45900e73f$export$be92b6f5f03c0fe9, { defaultValue: initialItem.value, onOpenChange: setOpen, onValueChange: onValueChange },
-        React__default["default"].createElement($cc7e05a45900e73f$export$41fb9f06171c75f4, { className: styles.trigger },
-            React__default["default"].createElement($cc7e05a45900e73f$export$4c8d1a57a761ef94, null),
-            open ? React__default["default"].createElement(AiFillCaretUp, null) : React__default["default"].createElement(AiFillCaretDown, null)),
-        React__default["default"].createElement($cc7e05a45900e73f$export$602eac185826482c, null,
-            React__default["default"].createElement($cc7e05a45900e73f$export$7c6e2c02157bb7d2, { className: styles.content },
-                React__default["default"].createElement($cc7e05a45900e73f$export$eb2fcfdbd7ba97d4, null,
-                    title && React__default["default"].createElement($cc7e05a45900e73f$export$b04be29aa201d4f5, { className: styles.label }, title),
-                    items.map(function (item) {
-                        return React__default["default"].createElement($cc7e05a45900e73f$export$6d08773d2e66f8f2, { className: styles.item, value: item.value },
-                            React__default["default"].createElement($cc7e05a45900e73f$export$d6e5bf9c43ea9319, null, item.name),
-                            React__default["default"].createElement($cc7e05a45900e73f$export$c3468e2714d175fa, null,
-                                React__default["default"].createElement(AiOutlineCheck, null)));
-                    }))))));
+    var initialItem = _a.initialItem, items = _a.items; _a.title; var onValueChange = _a.onValueChange;
+    var _b = useState(false), open = _b[0], setOpen = _b[1];
+    return (React__default.createElement($cc7e05a45900e73f$export$be92b6f5f03c0fe9, { defaultValue: initialItem.value, onOpenChange: setOpen, onValueChange: onValueChange },
+        React__default.createElement($cc7e05a45900e73f$export$41fb9f06171c75f4, { className: styles.trigger },
+            React__default.createElement($cc7e05a45900e73f$export$4c8d1a57a761ef94, null),
+            open ? React__default.createElement(AiFillCaretUp, null) : React__default.createElement(AiFillCaretDown, null)),
+        React__default.createElement($cc7e05a45900e73f$export$602eac185826482c, null,
+            React__default.createElement($cc7e05a45900e73f$export$7c6e2c02157bb7d2, { className: styles.content, position: 'popper' },
+                React__default.createElement($cc7e05a45900e73f$export$d5c6c08dc2d3ca7, null, items.map(function (item) {
+                    return React__default.createElement($cc7e05a45900e73f$export$6d08773d2e66f8f2, { key: item.value, className: styles.item, value: item.value },
+                        React__default.createElement($cc7e05a45900e73f$export$d6e5bf9c43ea9319, null, item.name),
+                        React__default.createElement($cc7e05a45900e73f$export$c3468e2714d175fa, null,
+                            React__default.createElement(AiOutlineCheck, null)));
+                }))))));
 };
 
-exports.Badge = Badge;
-exports.Button = Button;
-exports.Checkbox = Checkbox;
-exports.Dropdown = Dropdown;
-exports.Select = Select;
-exports.Splashart = Splashart;
-exports.SummonerIcon = SummonerIcon;
-exports.Textbox = Textbox;
+export { Badge, Button, Checkbox, Dropdown, Select, Splashart, SummonerIcon, Textbox };
 //# sourceMappingURL=index.js.map

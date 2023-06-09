@@ -34,9 +34,9 @@ specifiers:
   sass-loader: ^12.6.0
   style-loader: ^3.3.1
   ts-loader: ^9.2.8
-  typescript: ~4.5.4
+  typescript: ~4.5.5
   uuid: ^9.0.0
-  webpack: '>=5.1.0 <6.0.0'
+  webpack: ^5.70.0
   ws: ^8.8.1
 
 dependencies:
@@ -229,7 +229,7 @@ packages:
       '@electron-forge/maker-base': 6.1.1
       '@electron-forge/shared-types': 6.1.1
     optionalDependencies:
-      electron-installer-redhat: 3.3.0
+      electron-installer-redhat: 3.4.0
     transitivePeerDependencies:
       - bluebird
       - enquirer
@@ -244,7 +244,7 @@ packages:
       '@electron-forge/shared-types': 6.1.1
       fs-extra: 10.0.1
     optionalDependencies:
-      electron-winstaller: 5.0.0
+      electron-winstaller: 5.1.0
     transitivePeerDependencies:
       - bluebird
       - enquirer
@@ -664,7 +664,7 @@ packages:
     resolution: {integrity: sha512-nEnwB++1u5lVDM2UI4c1+5R+FYaKfaAzS4OococimjVm3nQw3TuzH5UNsocrcTBbhnerblyHj4A49qXbIiZdpA==}
     requiresBuild: true
     dependencies:
-      '@types/node': 18.16.3
+      '@types/node': 18.16.16
     dev: true
     optional: true
 
@@ -672,8 +672,8 @@ packages:
     resolution: {integrity: sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==}
     requiresBuild: true
     dependencies:
-      '@types/minimatch': 3.0.5
-      '@types/node': 18.16.3
+      '@types/minimatch': 5.1.2
+      '@types/node': 18.16.16
     dev: true
     optional: true
 
@@ -708,8 +708,8 @@ packages:
     resolution: {integrity: sha512-YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==}
     dev: true
 
-  /@types/minimatch/3.0.5:
-    resolution: {integrity: sha512-Klz949h02Gz2uZCMGwDUSDS1YBlTdDDgbWHi+81l29tQALUtvz4rAYi5uoVhE5Lagoq6DeqAUlbrHvW/mXDgdQ==}
+  /@types/minimatch/5.1.2:
+    resolution: {integrity: sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==}
     dev: true
     optional: true
 
@@ -719,6 +719,11 @@ packages:
       '@types/node': 18.16.3
       form-data: 3.0.1
     dev: false
+
+  /@types/node/18.16.16:
+    resolution: {integrity: sha512-NpaM49IGQQAUlBhHMF82QH80J08os4ZmyF9MkpCzWAGuOHqE4gTEbhzd7L3l5LmWuZ6E0OiC1FweQ4tsiW35+g==}
+    dev: true
+    optional: true
 
   /@types/node/18.16.3:
     resolution: {integrity: sha512-OPs5WnnT1xkCBiuQrZA4+YAV4HEJejmHneyraIaxsbev5yCEr6KMwINNFP9wQeFIw8FWcoTqF3vQsa5CDaI+8Q==}
@@ -1227,33 +1232,15 @@ packages:
       es-abstract: 1.19.1
     dev: true
 
-  /asar/2.1.0:
-    resolution: {integrity: sha512-d2Ovma+bfqNpvBzY/KU8oPY67ZworixTpkjSx0PCXnQi67c2cXmssaTxpFDUM0ttopXoGx/KRxNg/GDThYbXQA==}
-    engines: {node: '>=8.0'}
-    deprecated: Please use @electron/asar moving forward.  There is no API change, just a package name change
-    hasBin: true
-    dependencies:
-      chromium-pickle-js: 0.2.0
-      commander: 2.20.3
-      cuint: 0.2.2
-      glob: 7.2.0
-      minimatch: 3.1.2
-      mkdirp: 0.5.5
-      tmp-promise: 1.1.0
-    optionalDependencies:
-      '@types/glob': 7.2.0
-    dev: true
-    optional: true
-
-  /asar/3.1.0:
-    resolution: {integrity: sha512-vyxPxP5arcAqN4F/ebHd/HhwnAiZtwhglvdmc7BR2f0ywbVNTOpSeyhLDbGXtE/y58hv1oC75TaNIXutnsOZsQ==}
+  /asar/3.2.0:
+    resolution: {integrity: sha512-COdw2ZQvKdFGFxXwX3oYh2/sOsJWJegrdJCGxnN4MZ7IULgRBp9P6665aqj9z1v9VwP4oP1hRBojRDQ//IGgAg==}
     engines: {node: '>=10.12.0'}
     deprecated: Please use @electron/asar moving forward.  There is no API change, just a package name change
     hasBin: true
     dependencies:
       chromium-pickle-js: 0.2.0
       commander: 5.1.0
-      glob: 7.2.0
+      glob: 7.2.3
       minimatch: 3.1.2
     optionalDependencies:
       '@types/glob': 7.2.0
@@ -1851,11 +1838,6 @@ packages:
     resolution: {integrity: sha512-sa6P2wJ+CAbgyy4KFssIb/JNMLxFvKF1pCYCSXS8ZMuqZnMsrxqI2E5sPyoTpxoPU/gVZMzr2zjOfg8GIZOMsw==}
     dev: true
 
-  /cuint/0.2.2:
-    resolution: {integrity: sha512-d4ZVpCW31eWwCMe1YT3ur7mUDnTXbgwyzaL320DrcRT45rfjYxkt5QWLrmOJ+/UEAI2+fQgKe/fCjR8l4TpRgw==}
-    dev: true
-    optional: true
-
   /debounce-fn/4.0.0:
     resolution: {integrity: sha512-8pYCQiL9Xdcg0UPSD3d+0KMlOjp+KGU5EPwYddgzQ7DATsg4fuUDjQtsYLmWjnk2obnNHgV3vE2Y4jejSOJVBQ==}
     engines: {node: '>=10'}
@@ -2112,13 +2094,13 @@ packages:
     requiresBuild: true
     dependencies:
       '@malept/cross-spawn-promise': 1.1.1
-      asar: 3.1.0
+      asar: 3.2.0
       debug: 4.3.4
       fs-extra: 9.1.0
-      glob: 7.2.0
+      glob: 7.2.3
       lodash: 4.17.21
       parse-author: 2.0.0
-      semver: 7.3.5
+      semver: 7.5.1
       tmp-promise: 3.0.3
     optionalDependencies:
       '@types/fs-extra': 9.0.13
@@ -2147,8 +2129,8 @@ packages:
     dev: true
     optional: true
 
-  /electron-installer-redhat/3.3.0:
-    resolution: {integrity: sha512-hXIXB3uQXmXZy/v3MpbwWN4Of28ALpPt9ZyUDNEoSe0w7QZceL9IqI2K6Q6imiBJCLRC0hmT94WhlKj1RyGOWg==}
+  /electron-installer-redhat/3.4.0:
+    resolution: {integrity: sha512-gEISr3U32Sgtj+fjxUAlSDo3wyGGq6OBx7rF5UdpIgbnpUvMN4W5uYb0ThpnAZ42VEJh/3aODQXHbFS4f5J3Iw==}
     engines: {node: '>= 10.0.0'}
     os: [darwin, linux]
     hasBin: true
@@ -2212,12 +2194,12 @@ packages:
   /electron-to-chromium/1.4.89:
     resolution: {integrity: sha512-z1Axg0Fu54fse8wN4fd+GAINdU5mJmLtcl6bqIcYyzNVGONcfHAeeJi88KYMQVKalhXlYuVPzKkFIU5VD0raUw==}
 
-  /electron-winstaller/5.0.0:
-    resolution: {integrity: sha512-V+jFda7aVAm0htCG8Q95buPUpmXZW9ujh1HdhSlWY6y4QnJnw4TfrmxTlQWV4p2ioF/71JMI/1YF+/qbSICogA==}
+  /electron-winstaller/5.1.0:
+    resolution: {integrity: sha512-4wlZzkUm5cJNiOtp5wL804+QpygdKTKkrZJXA3sSDEI2XnCVPv0kxmxUvVw4KHBwbNS+Yox89agEr+VkR7kxww==}
     engines: {node: '>=8.0.0'}
     requiresBuild: true
     dependencies:
-      asar: 2.1.0
+      '@electron/asar': 3.2.4
       debug: 4.3.4
       fs-extra: 7.0.1
       lodash.template: 4.5.0
@@ -3055,6 +3037,18 @@ packages:
       once: 1.4.0
       path-is-absolute: 1.0.1
     dev: true
+
+  /glob/7.2.3:
+    resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
+    dependencies:
+      fs.realpath: 1.0.0
+      inflight: 1.0.6
+      inherits: 2.0.4
+      minimatch: 3.1.2
+      once: 1.4.0
+      path-is-absolute: 1.0.1
+    dev: true
+    optional: true
 
   /glob/8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
@@ -5091,14 +5085,6 @@ packages:
     dev: true
     optional: true
 
-  /rimraf/2.7.1:
-    resolution: {integrity: sha512-uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w==}
-    hasBin: true
-    dependencies:
-      glob: 7.2.0
-    dev: true
-    optional: true
-
   /rimraf/3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
     hasBin: true
@@ -5242,6 +5228,15 @@ packages:
     hasBin: true
     dependencies:
       lru-cache: 6.0.0
+
+  /semver/7.5.1:
+    resolution: {integrity: sha512-Wvss5ivl8TMRZXXESstBA4uR5iXgEN/VC5/sOcuXdVLzcdkz4HWetIoRfG5gb5X+ij/G9rw9YoGn3QoQ8OCSpw==}
+    engines: {node: '>=10'}
+    hasBin: true
+    dependencies:
+      lru-cache: 6.0.0
+    dev: true
+    optional: true
 
   /send/0.17.2:
     resolution: {integrity: sha512-UJYB6wFSJE3G00nEivR5rgWp8c2xXvJ3OPWPhmuteU0IKj8nKbG3DrjiOmLwpnHGYWAVwA69zmTm++YG0Hmwww==}
@@ -5711,27 +5706,11 @@ packages:
     dev: true
     optional: true
 
-  /tmp-promise/1.1.0:
-    resolution: {integrity: sha512-8+Ah9aB1IRXCnIOxXZ0uFozV1nMU5xiu7hhFVUSxZ3bYu+psD4TzagCzVbexUCgNNGJnsmNDQlS4nG3mTyoNkw==}
-    dependencies:
-      bluebird: 3.7.2
-      tmp: 0.1.0
-    dev: true
-    optional: true
-
   /tmp-promise/3.0.3:
     resolution: {integrity: sha512-RwM7MoPojPxsOBYnyd2hy0bxtIlVrihNs9pj5SUvY8Zz1sQcQG2tG1hSr8PDxfgEB8RNKDhqbIlroIarSNDNsQ==}
     requiresBuild: true
     dependencies:
       tmp: 0.2.1
-    dev: true
-    optional: true
-
-  /tmp/0.1.0:
-    resolution: {integrity: sha512-J7Z2K08jbGcdA1kkQpJSqLF6T0tdQqpR2pnSUXsIchbPdTI9v3e85cLW0d6WDhwuAleOV71j2xWs8qMPfK7nKw==}
-    engines: {node: '>=6'}
-    dependencies:
-      rimraf: 2.7.1
     dev: true
     optional: true
 
@@ -6114,8 +6093,8 @@ packages:
       is-symbol: 1.0.4
     dev: true
 
-  /which-module/2.0.0:
-    resolution: {integrity: sha512-B+enWhmw6cjfVC7kS8Pj9pCrKSc5txArRyaYGe088shv/FGWH+0Rjx/xPgtsWfsUtS27FkP697E4DDhgrgoc0Q==}
+  /which-module/2.0.1:
+    resolution: {integrity: sha512-iBdZ57RDvnOR9AGBhML2vFZf7h8vmBjhoaZqODJBFWHVtKkDmKuHai3cx5PgVMrX5YDNp27AofYbAwctSS+vhQ==}
     requiresBuild: true
     dev: true
     optional: true
@@ -6291,7 +6270,7 @@ packages:
       require-main-filename: 2.0.0
       set-blocking: 2.0.0
       string-width: 4.2.3
-      which-module: 2.0.0
+      which-module: 2.0.1
       y18n: 4.0.3
       yargs-parser: 18.1.3
     dev: true

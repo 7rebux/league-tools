@@ -6,12 +6,13 @@ $borderRadius: 6px;
 
 .trigger {
   all: unset;
-  min-width: $width;
+  width: $width;
   padding: $padding;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: color('secondary');
+  box-sizing: border-box;
   @include font('body');
   user-select: none;
 
@@ -25,20 +26,13 @@ $borderRadius: 6px;
 }
 
 .content {
-  background-color: color('surface');
+  background-color: darken(color('surface'), 10);
   border-radius: 0 0 $borderRadius $borderRadius;
 }
 
-.label {
-  padding: $padding;
-  background-color: lighten(color('surface'), 5);
-  @include font('subtitle');
-  font-size: 12px;
-  user-select: none;
-}
-
 .item {
-  min-width: $width;
+  box-sizing: border-box;
+  width: $width;
   padding: $padding;
   @include font('body');
   border-radius: $borderRadius;
@@ -49,6 +43,6 @@ $borderRadius: 6px;
   user-select: none;
 
   &[data-highlighted] {
-    background-color: darken(color('surface'), 10);
+    background-color: darken(color('surface'), 20);
   }
 }

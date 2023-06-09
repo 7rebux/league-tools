@@ -19,7 +19,7 @@ const Select: React.FC<Props> = ({ initialItem, items, title, onValueChange }) =
   const [open, setOpen] = useState<boolean>(false);
 
   return (
-    <RadixSelect.Root 
+    <RadixSelect.Root
       defaultValue={initialItem.value} 
       onOpenChange={setOpen}
       onValueChange={onValueChange}
@@ -29,18 +29,17 @@ const Select: React.FC<Props> = ({ initialItem, items, title, onValueChange }) =
         {open ? <AiFillCaretUp /> : <AiFillCaretDown />}
       </RadixSelect.Trigger>
       <RadixSelect.Portal>
-        <RadixSelect.Content className={styles.content}>
-          <RadixSelect.Group>
-            {title && <RadixSelect.Label className={styles.label}>{title}</RadixSelect.Label>}
+        <RadixSelect.Content className={styles.content} position='popper'>
+          <RadixSelect.Viewport>
             {items.map(item =>
-              <RadixSelect.Item className={styles.item} value={item.value}>
+              <RadixSelect.Item key={item.value} className={styles.item} value={item.value}>
                 <RadixSelect.ItemText>{item.name}</RadixSelect.ItemText>
                 <RadixSelect.ItemIndicator>
                   <AiOutlineCheck />
                 </RadixSelect.ItemIndicator>
               </RadixSelect.Item>
             )}
-          </RadixSelect.Group>
+          </RadixSelect.Viewport>
         </RadixSelect.Content>
       </RadixSelect.Portal>
     </RadixSelect.Root>

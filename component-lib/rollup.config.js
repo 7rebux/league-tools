@@ -11,11 +11,6 @@ export default {
   input: 'src/index.ts',
   output: [
     {
-      file: pack.main,
-      format: 'cjs',
-      sourcemap: true,
-    },
-    {
       file: pack.module,
       format: 'esm',
       sourcemap: true,

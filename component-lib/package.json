@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": "true",
   "main": "build/cjs/index.js",
-  "module": "build/esm/index.js",
+  "module": "build/index.js",
   "types": "build/index.d.ts",
   "files": [
     "build"
@@ -38,8 +38,6 @@
     "babel-preset-react-app": "^10.0.1",
     "css-loader": "5.2.7",
     "node-sass": "^7.0.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "react-icons": "^4.9.0",
     "rollup": "^2.79.1",
     "rollup-plugin-copy": "^3.4.0",

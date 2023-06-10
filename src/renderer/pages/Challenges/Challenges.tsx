@@ -1,8 +1,8 @@
 import { 
-  Button, 
-  Textbox, 
-  Checkbox, 
-  Dropdown 
+  Button,
+  Textbox,
+  Checkbox,
+  Select
 } from 'component-lib';
 import React, { 
   useEffect, 
@@ -17,19 +17,28 @@ const UPDATE_ENDPOINT = '/lol-challenges/v1/update-player-preferences';
 const CHALLENGES_ENDPOINT = '/lol-challenges/v1/challenges/local-player';
 const TOKEN_ICON_URL = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/challenges/config';
 
-const TOKEN_TIERS = [
-  'IRON',
-  'BRONZE',
-  'SILVER',
-  'GOLD',
-  'PLATINUM',
-  'DIAMOND',
-  'MASTER',
-  'GRANDMASTER',
-  'CHALLENGER',
-] as const;
+type TokenTier = 'IRON'
+  | 'BRONZE'
+  | 'SILVER'
+  | 'GOLD'
+  | 'PLATINUM'
+  | 'DIAMOND'
+  | 'MASTER'
+  | 'GRANDMASTER'
+  | 'CHALLENGER';
 
-type TokenTier = typeof TOKEN_TIERS[number];
+const TOKEN_TIERS: { name: string, value: TokenTier | 'ALL' }[] = [
+  { name: 'All',          value: 'ALL' },
+  { name: 'Iron',         value: 'IRON' },
+  { name: 'Bronze',       value: 'BRONZE' },
+  { name: 'Silver',       value: 'SILVER' },
+  { name: 'Gold',         value: 'GOLD' },
+  { name: 'Platinum',     value: 'PLATINUM' },
+  { name: 'Diamond',      value: 'DIAMOND' },
+  { name: 'Master',       value: 'MASTER' },
+  { name: 'Grandmaster',  value: 'GRANDMASTER' },
+  { name: 'Challenger',   value: 'CHALLENGER' },
+];
 
 type Token = {
   id: number;
@@ -45,7 +54,7 @@ const Challenges: React.FC = () => {
   const lcuData = useLcuData();
   const [tokens, setTokens] = useState<Token[]>([]);
   const [nameFilter, setNameFilter] = useState<string>('');
-  const [tierFilter, setTierFilter] = useState<'All' | TokenTier>('All');
+  const [tierFilter, setTierFilter] = useState<'ALL' | TokenTier>('ALL');
   const [legacyFilter, setLegacyFilter] = useState<boolean>(true);
 
   const filter1 = useMemo(() => tokens.filter(({ name }) => 
@@ -53,7 +62,7 @@ const Challenges: React.FC = () => {
   ), [tokens, nameFilter]);
 
   const filter2 = useMemo(() => {
-    if (tierFilter === 'All')
+    if (tierFilter === 'ALL')
       return filter1;
     else
       return filter1.filter(({ tier }) => tier === tierFilter);
@@ -116,10 +125,10 @@ const Challenges: React.FC = () => {
             onInput={(event) => setNameFilter((event.target as HTMLInputElement).value)}
           />
           <div className='settings'>
-            <Dropdown
-              items={['All', ...TOKEN_TIERS]}
-              initialItem={tierFilter}
-              onChange={(value: 'All' | TokenTier) => setTierFilter(value)}
+            <Select
+              items={TOKEN_TIERS}
+              initialItem={TOKEN_TIERS.find(({ value }) => value === tierFilter)}
+              onValueChange={(value: TokenTier | 'ALL') => setTierFilter(value)}
             />
             <Checkbox
               initialState={legacyFilter}

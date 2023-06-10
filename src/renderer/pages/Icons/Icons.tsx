@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { request, getFavorites, addFavorite, removeFavorite } from '../../utils/ipcBridge';
 import { useLcuData } from '../../components/LcuContext';
-import { Checkbox, Dropdown, Textbox, SummonerIcon } from 'component-lib';
+import { Checkbox, Select, Textbox, SummonerIcon } from 'component-lib';
 import './Icons.scss';
 
 const ICON_DATA_URL = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-icons.json';
@@ -14,18 +14,23 @@ type Icon = {
   isFavorite: boolean;
 };
 
+const ITEMS: { name: string, value: string }[] = [
+  { name: 'All',        value: 'all' },
+  { name: 'Favorites',  value: 'favorites' },
+];
+
 const Icons: React.FC = () => {
   const lcuData = useLcuData();
   const [iconData, setIconData] = useState<Icon[]>([]);
-  const [typeFilter, setTypeFilter] = useState<string>('All');
+  const [typeFilter, setTypeFilter] = useState<string>('all');
   const [titleFilter, setTitleFilter] = useState<string>('');
   const [legacyFilter, setLegacyFilter] = useState<boolean>(true);
 
   const filter1 = useMemo(
     () => {
-      if (typeFilter === 'All') {
+      if (typeFilter === 'all') {
         return iconData;
-      } else if (typeFilter === 'Favorites') {
+      } else if (typeFilter === 'favorites') {
         return iconData.filter((i) => i.isFavorite);
       };
     },
@@ -99,10 +104,10 @@ const Icons: React.FC = () => {
           onInput={(event) => setTitleFilter((event.target as HTMLInputElement).value)}
         />
         <div className='settings'>
-          <Dropdown 
-            items={['All', 'Favorites']} 
-            initialItem={typeFilter}
-            onChange={(value) => setTypeFilter(value)}
+          <Select
+            items={ITEMS}
+            initialItem={ITEMS.find(({ value }) => typeFilter === value)}
+            onValueChange={(value) => setTypeFilter(value)}
           />
           <Checkbox
             initialState={legacyFilter}

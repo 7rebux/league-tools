@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { request, getFavorites, addFavorite, removeFavorite } from '../../utils/ipcBridge';
 import { useLcuData } from '../../components/LcuContext';
-import { Checkbox, Dropdown, Splashart, Textbox } from 'component-lib';
+import { Checkbox, Select, Splashart, Textbox } from 'component-lib';
 import './Backgrounds.scss';
 
 const SPLASHART_DATA_URL = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/skins.json';
@@ -15,19 +15,24 @@ type Splashart = {
   isFavorite: boolean;
 };
 
+const ITEMS: { name: string, value: string }[] = [
+  { name: 'All',        value: 'all' },
+  { name: 'Favorites',  value: 'favorites' },
+];
+
 const Backgrounds: React.FC = () => {
   const lcuData = useLcuData();
   const [splashartData, setSplashartData] = useState<Splashart[]>([]);
-  const [typeFilter, setTypeFilter] = useState<string>('All');
+  const [typeFilter, setTypeFilter] = useState<string>('all');
   const [nameFilter, setNameFilter] = useState<string>('');
   const [legacyFilter, setLegacyFilter] = useState<boolean>(true);
   const [baseFilter, setBaseFilter] = useState<boolean>(true);
 
   const filter1 = useMemo(
     () => {
-      if (typeFilter === 'All') {
+      if (typeFilter === 'all') {
         return splashartData;
-      } else if (typeFilter === 'Favorites') {
+      } else if (typeFilter === 'favorites') {
         return splashartData.filter((i) => i.isFavorite);
       };
     },
@@ -105,10 +110,10 @@ const Backgrounds: React.FC = () => {
           }
         />
         <div className='settings'>
-          <Dropdown 
-            items={['All', 'Favorites']} 
-            initialItem={typeFilter} 
-            onChange={(value) => setTypeFilter(value)}
+        <Select
+            items={ITEMS}
+            initialItem={ITEMS.find(({ value }) => typeFilter === value)}
+            onValueChange={(value) => setTypeFilter(value)}
           />
           <Checkbox
             title='Legacy'

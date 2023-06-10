@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   Button,
-  Dropdown,
+  Select,
   Textbox,
 } from 'component-lib';
 import { request } from '../../utils/ipcBridge';
@@ -10,40 +10,61 @@ import './Rank.scss';
 
 const ENDPOINT = '/lol-chat/v1/me'
 
-const QUEUES = [
-  'RANKED_SOLO_5x5',
-  'RANKED_FLEX_SR',
-  'RANKED_FLEX_TT',
-  'RANKED_TFT',
-  'RANKED_TFT_TURBO',
-  'RANKED_TFT_PAIRS',
-  'RANKED_TFT_DOUBLE_UP',
-] as const;
+type Queue = 'RANKED_SOLO_5x5'
+  | 'RANKED_FLEX_SR'
+  | 'RANKED_FLEX_TT'
+  | 'RANKED_TFT'
+  | 'RANKED_TFT_TURBO' 
+  | 'RANKED_TFT_PAIRS' 
+  | 'RANKED_TFT_DOUBLE_UP';
 
-const TIERS = [
-  'UNRANKED',
-  'IRON',
-  'BRONZE',
-  'SILVER',
-  'GOLD',
-  'PLATINUM',
-  'DIAMOND',
-  'MASTER',
-  'GRANDMASTER',
-  'CHALLENGER',
-] as const;
+const QUEUES: { name: string, value: Queue }[] = [
+  { name: 'Solo/Duo',       value: 'RANKED_SOLO_5x5' },
+  { name: 'Flex 5v5',       value: 'RANKED_FLEX_SR' },
+  { name: 'Flex 3v3',       value: 'RANKED_FLEX_TT' },
+  { name: 'TFT',            value: 'RANKED_TFT' },
+  { name: 'TFT Hyper Roll', value: 'RANKED_TFT_TURBO' },
+  { name: 'TFT Pairs',      value: 'RANKED_TFT_PAIRS' },
+  { name: 'TFT Double Up',  value: 'RANKED_TFT_DOUBLE_UP' },
+];
 
-const DIVISIONS = [
-  'NA',
-  'I',
-  'II',
-  'III',
-  'IV',
-] as const;
+type Tier = 'UNRANKED'
+  | 'IRON'
+  | 'BRONZE'
+  | 'SILVER'
+  | 'GOLD'
+  | 'PLATINUM'
+  | 'DIAMOND'
+  | 'MASTER'
+  | 'GRANDMASTER'
+  | 'CHALLENGER';
 
-type Queue = typeof QUEUES[number];
-type Tier = typeof TIERS[number];
-type Division = typeof DIVISIONS[number];
+const TIERS: { name: string, value: Tier }[] = [
+  { name: 'Unranked',     value: 'UNRANKED' },
+  { name: 'Iron',         value: 'IRON' },
+  { name: 'Bronze',       value: 'BRONZE' },
+  { name: 'Silver',       value: 'SILVER' },
+  { name: 'Gold',         value: 'GOLD' },
+  { name: 'Platinum',     value: 'PLATINUM' },
+  { name: 'Diamond',      value: 'DIAMOND' },
+  { name: 'Master',       value: 'MASTER' },
+  { name: 'Grandmaster',  value: 'GRANDMASTER' },
+  { name: 'Challenger',   value: 'CHALLENGER' },
+];
+
+type Division = 'NA'
+  | 'I'
+  | 'II'
+  | 'III'
+  | 'IV';
+
+const DIVISIONS: { name: string, value: Division }[] = [
+  { name: 'None', value: 'NA' },
+  { name: 'I',    value: 'I' },
+  { name: 'II',   value: 'II' },
+  { name: 'III',  value: 'III' },
+  { name: 'IV',   value: 'IV' },
+];
 
 const Rank: React.FC = () => {
   const lcuData = useLcuData();
@@ -85,20 +106,20 @@ const Rank: React.FC = () => {
     <div className='rank-page'>
       <div className='wrapper'>
         <div className='section'>
-          <Dropdown 
-            initialItem={queue}
-            items={Array.from(QUEUES)}
-            onChange={(value: Queue) => setQueue(value)}
+          <Select 
+            items={QUEUES}
+            initialItem={QUEUES.find(({ value }) => value === queue)}
+            onValueChange={(value: Queue) => setQueue(value)}
           />
-          <Dropdown 
-            initialItem={rankedTier}
-            items={Array.from(TIERS)}
-            onChange={(value: Tier) => setRankedTier(value)}
+          <Select 
+            items={TIERS}
+            initialItem={TIERS.find(({ value }) => value === rankedTier)}
+            onValueChange={(value: Tier) => setRankedTier(value)}
           />
-          <Dropdown 
-            initialItem={divisison}
-            items={Array.from(DIVISIONS)}
-            onChange={(value: Division) => setDivision(value)}
+          <Select 
+            items={DIVISIONS}
+            initialItem={DIVISIONS.find(({ value }) => divisison === value)}
+            onValueChange={(value: Division) => setDivision(value)}
           />
         </div>
           <div className='section'>
@@ -110,10 +131,10 @@ const Rank: React.FC = () => {
       </div>
       <div className='wrapper'>
         <div className='section'>
-          <Dropdown 
-            initialItem={challengesTier}
-            items={Array.from(TIERS)}
-            onChange={(value: Tier) => setChallengesTier(value)}
+        <Select 
+            items={TIERS}
+            initialItem={TIERS.find(({ value }) => value === challengesTier)}
+            onValueChange={(value: Tier) => setChallengesTier(value)}
           />
           <Textbox 
             defaultValue={lcuData.me.lol.challengePoints.toString()}

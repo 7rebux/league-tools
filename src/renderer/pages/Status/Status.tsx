@@ -11,7 +11,11 @@ import './Status.scss';
 
 const ENDPOINT = '/lol-chat/v1/me';
 
-type Availability = 'chat' | 'away' | 'dnd' | 'mobile' | 'offline';
+type Availability = 'chat' 
+  | 'away' 
+  | 'dnd' 
+  | 'mobile' 
+  | 'offline';
 
 const ITEMS: { name: string, value: Availability }[] = [
   { name: 'Online',   value: 'chat' },

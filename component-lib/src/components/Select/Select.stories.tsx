@@ -16,7 +16,6 @@ const fruits = [
 
 export const Default = () => (
   <Select
-    title='Select fruit...'
     items={fruits}
     initialItem={fruits[1]} 
   />

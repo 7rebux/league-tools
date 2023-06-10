@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { request, getFavorites, addFavorite, removeFavorite } from '../../utils/ipcBridge';
 import { useLcuData } from '../../components/LcuContext';
-import { Checkbox, Select, Textbox, SummonerIcon } from 'component-lib';
+import { Select, Textbox, SummonerIcon, Switch } from 'component-lib';
 import './Icons.scss';
 
 const ICON_DATA_URL = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-icons.json';
@@ -109,11 +109,13 @@ const Icons: React.FC = () => {
             initialItem={ITEMS.find(({ value }) => typeFilter === value)}
             onValueChange={(value) => setTypeFilter(value)}
           />
-          <Checkbox
-            initialState={legacyFilter}
-            title='Legacy'
-            onChange={(value) => setLegacyFilter(value)}
-          />
+          <div className='wrapper'>
+            <span>Legacy</span>
+            <Switch 
+              initialValue={legacyFilter}
+              onValueChange={setLegacyFilter}
+            />
+          </div>
         </div>
         <span className='info'>
           Showing <b>{filter3.length}</b> / {iconData.length} icons

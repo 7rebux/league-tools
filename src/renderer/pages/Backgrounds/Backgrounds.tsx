@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { request, getFavorites, addFavorite, removeFavorite } from '../../utils/ipcBridge';
 import { useLcuData } from '../../components/LcuContext';
-import { Checkbox, Select, Splashart, Textbox } from 'component-lib';
+import { Switch, Select, Splashart, Textbox } from 'component-lib';
 import './Backgrounds.scss';
 
 const SPLASHART_DATA_URL = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/skins.json';
@@ -110,21 +110,25 @@ const Backgrounds: React.FC = () => {
           }
         />
         <div className='settings'>
-        <Select
+          <Select
             items={ITEMS}
             initialItem={ITEMS.find(({ value }) => typeFilter === value)}
             onValueChange={(value) => setTypeFilter(value)}
           />
-          <Checkbox
-            title='Legacy'
-            initialState={legacyFilter}
-            onChange={(value) => setLegacyFilter(value)}
-          />
-          <Checkbox
-            title='Base skins'
-            initialState={baseFilter}
-            onChange={(value) => setBaseFilter(value)}
-          />
+          <div className='wrapper'>
+            <span>Legacy</span>
+            <Switch 
+              initialValue={legacyFilter}
+              onValueChange={setLegacyFilter}
+            />
+          </div>
+          <div className='wrapper'>
+            <span>Base skins</span>
+            <Switch 
+              initialValue={baseFilter}
+              onValueChange={setBaseFilter}
+            />
+          </div>
         </div>
         <span className='info'>
           Showing <b>{filter4.length}</b> / {splashartData.length} splasharts

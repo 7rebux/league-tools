@@ -4,7 +4,6 @@ type Item = {
     value: string;
 };
 interface Props {
-    title?: string;
     initialItem: Item;
     items: Item[];
     onValueChange?(value: string): void;

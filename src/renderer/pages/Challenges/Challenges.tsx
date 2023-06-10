@@ -1,7 +1,7 @@
 import { 
   Button,
   Textbox,
-  Checkbox,
+  Switch,
   Select
 } from 'component-lib';
 import React, { 
@@ -130,11 +130,13 @@ const Challenges: React.FC = () => {
               initialItem={TOKEN_TIERS.find(({ value }) => value === tierFilter)}
               onValueChange={(value: TokenTier | 'ALL') => setTierFilter(value)}
             />
-            <Checkbox
-              initialState={legacyFilter}
-              title='Legacy'
-              onChange={(value) => setLegacyFilter(value)}
-            />
+            <div className='wrapper'>
+              <span>Legacy</span>
+              <Switch 
+                initialValue={legacyFilter}
+                onValueChange={setLegacyFilter}
+              />
+            </div>
           </div>
           <span className='info'>
             Showing <b>{filter3.length}</b> / {tokens.length} tokens

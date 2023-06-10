@@ -78,9 +78,9 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$6 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Badge-module_badge__ZbEBU {\n  width: fit-content;\n  min-width: 4rem;\n  min-height: 1.3rem;\n  padding: 0.3rem 0.8rem 0.3rem 0.8rem;\n  border: 0.4rem solid;\n  border-radius: 100vw;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 0.3rem;\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  user-select: none;\n  pointer-events: none;\n}\n.Badge-module_badge__ZbEBU img {\n  width: 1.3rem;\n  height: 1.3rem;\n}";
-var styles$6 = {"badge":"Badge-module_badge__ZbEBU"};
-styleInject(css_248z$6);
+var css_248z$7 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Badge-module_badge__ZbEBU {\n  width: fit-content;\n  min-width: 4rem;\n  min-height: 1.3rem;\n  padding: 0.3rem 0.8rem 0.3rem 0.8rem;\n  border: 0.4rem solid;\n  border-radius: 100vw;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 0.3rem;\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  user-select: none;\n  pointer-events: none;\n}\n.Badge-module_badge__ZbEBU img {\n  width: 1.3rem;\n  height: 1.3rem;\n}";
+var styles$7 = {"badge":"Badge-module_badge__ZbEBU"};
+styleInject(css_248z$7);
 
 var adjustColor = function (color, anmount) {
     return color.replace(/\w\w/g, function (m) {
@@ -94,61 +94,61 @@ var Badge = React__default.forwardRef(function (_a, ref) {
         borderColor: adjustColor(backgroundColor, -20),
         color: color,
     };
-    return (React__default.createElement("div", __assign$1({}, props, { ref: ref, style: customStyle, className: styles$6.badge }),
+    return (React__default.createElement("div", __assign$1({}, props, { ref: ref, style: customStyle, className: styles$7.badge }),
         icon !== undefined && React__default.createElement("img", { src: icon }),
         text !== undefined && React__default.createElement("span", null, text)));
 });
 
-var css_248z$5 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Button-module_button__18Bed, .Button-module_secondary__j-3rj, .Button-module_primary__st6yY {\n  width: fit-content;\n  min-width: 7rem;\n  border-radius: 5px;\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  text-align: center;\n  padding: 9px;\n  cursor: pointer;\n  user-select: none;\n}\n.Button-module_button__18Bed:hover, .Button-module_secondary__j-3rj:hover, .Button-module_primary__st6yY:hover {\n  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;\n}\n\n.Button-module_primary__st6yY {\n  background: linear-gradient(72deg, #d86ada, #6957e7);\n}";
-var styles$5 = {"button":"Button-module_button__18Bed","secondary":"Button-module_secondary__j-3rj","primary":"Button-module_primary__st6yY"};
-styleInject(css_248z$5);
+var css_248z$6 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Button-module_button__18Bed, .Button-module_secondary__j-3rj, .Button-module_primary__st6yY {\n  width: fit-content;\n  min-width: 7rem;\n  border-radius: 5px;\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  text-align: center;\n  padding: 9px;\n  cursor: pointer;\n  user-select: none;\n}\n.Button-module_button__18Bed:hover, .Button-module_secondary__j-3rj:hover, .Button-module_primary__st6yY:hover {\n  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;\n}\n\n.Button-module_primary__st6yY {\n  background: linear-gradient(72deg, #d86ada, #6957e7);\n}";
+var styles$6 = {"button":"Button-module_button__18Bed","secondary":"Button-module_secondary__j-3rj","primary":"Button-module_primary__st6yY"};
+styleInject(css_248z$6);
 
 var Button = React__default.forwardRef(function (_a, ref) {
     var title = _a.title, _b = _a.variant, variant = _b === void 0 ? 'primary' : _b, props = __rest$1(_a, ["title", "variant"]);
-    return (React__default.createElement("div", __assign$1({}, props, { ref: ref, className: styles$5[variant] }),
+    return (React__default.createElement("div", __assign$1({}, props, { ref: ref, className: styles$6[variant] }),
         React__default.createElement("span", null, title)));
 });
 
-var css_248z$4 = "@import url(\"https://rsms.me/inter/inter.css\");\n.SummonerIcon-module_profileIcon__DtiAc {\n  box-sizing: border-box;\n  position: relative;\n  border-radius: 25%;\n  overflow: hidden;\n}\n.SummonerIcon-module_profileIcon__DtiAc[data-favorite=true] {\n  border: 4px solid #d86ada;\n}\n.SummonerIcon-module_profileIcon__DtiAc[data-selected=true] {\n  border: 4px solid #6957e7;\n}\n.SummonerIcon-module_profileIcon__DtiAc img {\n  max-width: 100%;\n  max-height: 100%;\n  pointer-events: none;\n}\n\n.SummonerIcon-module_availability__LEzzj {\n  box-sizing: content-box;\n  position: absolute;\n  bottom: 10%;\n  right: 10%;\n  height: 15%;\n  width: 15%;\n  border-radius: 50%;\n  border: 2px solid;\n}\n.SummonerIcon-module_availability__LEzzj[data-availability=chat] {\n  background-color: #29c45a;\n  border-color: #177033;\n}\n.SummonerIcon-module_availability__LEzzj[data-availability=away] {\n  background-color: #c73c3c;\n  border-color: #7a2323;\n}\n.SummonerIcon-module_availability__LEzzj[data-availability=dnd] {\n  background-color: #4ab3e4;\n  border-color: #1a7fae;\n}\n.SummonerIcon-module_availability__LEzzj[data-availability=offline] {\n  background-color: #8f8b8b;\n  border-color: #5c5858;\n}\n.SummonerIcon-module_availability__LEzzj[data-availability=mobile] {\n  background-color: #8f8b8b;\n  border-color: #5c5858;\n}";
-var styles$4 = {"profileIcon":"SummonerIcon-module_profileIcon__DtiAc","availability":"SummonerIcon-module_availability__LEzzj"};
-styleInject(css_248z$4);
+var css_248z$5 = "@import url(\"https://rsms.me/inter/inter.css\");\n.SummonerIcon-module_profileIcon__DtiAc {\n  box-sizing: border-box;\n  position: relative;\n  border-radius: 25%;\n  overflow: hidden;\n}\n.SummonerIcon-module_profileIcon__DtiAc[data-favorite=true] {\n  border: 4px solid #d86ada;\n}\n.SummonerIcon-module_profileIcon__DtiAc[data-selected=true] {\n  border: 4px solid #6957e7;\n}\n.SummonerIcon-module_profileIcon__DtiAc img {\n  max-width: 100%;\n  max-height: 100%;\n  pointer-events: none;\n}\n\n.SummonerIcon-module_availability__LEzzj {\n  box-sizing: content-box;\n  position: absolute;\n  bottom: 10%;\n  right: 10%;\n  height: 15%;\n  width: 15%;\n  border-radius: 50%;\n  border: 2px solid;\n}\n.SummonerIcon-module_availability__LEzzj[data-availability=chat] {\n  background-color: #29c45a;\n  border-color: #177033;\n}\n.SummonerIcon-module_availability__LEzzj[data-availability=away] {\n  background-color: #c73c3c;\n  border-color: #7a2323;\n}\n.SummonerIcon-module_availability__LEzzj[data-availability=dnd] {\n  background-color: #4ab3e4;\n  border-color: #1a7fae;\n}\n.SummonerIcon-module_availability__LEzzj[data-availability=offline] {\n  background-color: #8f8b8b;\n  border-color: #5c5858;\n}\n.SummonerIcon-module_availability__LEzzj[data-availability=mobile] {\n  background-color: #8f8b8b;\n  border-color: #5c5858;\n}";
+var styles$5 = {"profileIcon":"SummonerIcon-module_profileIcon__DtiAc","availability":"SummonerIcon-module_availability__LEzzj"};
+styleInject(css_248z$5);
 
 var ICONS_URL = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons';
 var SummonerIcon = React__default.forwardRef(function (_a, ref) {
     var iconId = _a.iconId, _b = _a.size, size = _b === void 0 ? 128 : _b, selected = _a.selected, favorite = _a.favorite, availability = _a.availability, props = __rest$1(_a, ["iconId", "size", "selected", "favorite", "availability"]);
-    return (React__default.createElement("div", __assign$1({}, props, { ref: ref, className: styles$4.profileIcon, style: { width: size, height: size }, "data-selected": selected, "data-favorite": favorite }),
+    return (React__default.createElement("div", __assign$1({}, props, { ref: ref, className: styles$5.profileIcon, style: { width: size, height: size }, "data-selected": selected, "data-favorite": favorite }),
         React__default.createElement("img", { loading: 'lazy', src: "".concat(ICONS_URL, "/").concat(iconId, ".jpg") }),
-        availability !== undefined && (React__default.createElement("div", { className: styles$4.availability, "data-availability": availability }))));
+        availability !== undefined && (React__default.createElement("div", { className: styles$5.availability, "data-availability": availability }))));
 });
 
-var css_248z$3 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Checkbox-module_checkbox__D0D4S {\n  width: fit-content;\n  min-width: 120px;\n  box-sizing: border-box;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  border: 3px solid #6957e7;\n  border-radius: 10px;\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  padding: 0.4rem;\n  user-select: none;\n}\n.Checkbox-module_checkbox__D0D4S input {\n  width: 1rem;\n  height: 1rem;\n  cursor: pointer;\n}";
-var styles$3 = {"checkbox":"Checkbox-module_checkbox__D0D4S"};
-styleInject(css_248z$3);
+var css_248z$4 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Checkbox-module_checkbox__D0D4S {\n  width: fit-content;\n  min-width: 120px;\n  box-sizing: border-box;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  border: 3px solid #6957e7;\n  border-radius: 10px;\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  padding: 0.4rem;\n  user-select: none;\n}\n.Checkbox-module_checkbox__D0D4S input {\n  width: 1rem;\n  height: 1rem;\n  cursor: pointer;\n}";
+var styles$4 = {"checkbox":"Checkbox-module_checkbox__D0D4S"};
+styleInject(css_248z$4);
 
 var Checkbox = React__default.forwardRef(function (_a, ref) {
     var title = _a.title, _b = _a.initialState, initialState = _b === void 0 ? false : _b, onChange = _a.onChange, props = __rest$1(_a, ["title", "initialState", "onChange"]);
-    return (React__default.createElement("div", __assign$1({}, props, { ref: ref, className: styles$3.checkbox }),
+    return (React__default.createElement("div", __assign$1({}, props, { ref: ref, className: styles$4.checkbox }),
         React__default.createElement("span", null, title),
         React__default.createElement("input", { type: 'checkbox', defaultChecked: initialState, onChange: function (e) { return onChange(e.currentTarget.checked); } })));
 });
 
-var css_248z$2 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Textbox-module_textbox__y3fY0 {\n  all: unset;\n  background-color: #313131;\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  border: 3px solid #6957e7;\n  border-radius: 10px;\n  padding: 0.5rem;\n}";
-var styles$2 = {"textbox":"Textbox-module_textbox__y3fY0"};
-styleInject(css_248z$2);
+var css_248z$3 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Textbox-module_textbox__y3fY0 {\n  all: unset;\n  background-color: #313131;\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  border: 3px solid #6957e7;\n  border-radius: 10px;\n  padding: 0.5rem;\n}";
+var styles$3 = {"textbox":"Textbox-module_textbox__y3fY0"};
+styleInject(css_248z$3);
 
 var Textbox = React__default.forwardRef(function (props, ref) {
-    return (React__default.createElement("input", __assign$1({}, props, { ref: ref, className: styles$2.textbox })));
+    return (React__default.createElement("input", __assign$1({}, props, { ref: ref, className: styles$3.textbox })));
 });
 
-var css_248z$1 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Splashart-module_splashart__9th0d {\n  border-radius: 20px;\n  width: 160px;\n  overflow: hidden;\n}\n.Splashart-module_splashart__9th0d[data-favorite=true] {\n  border: 4px solid #d86ada;\n}\n.Splashart-module_splashart__9th0d[data-selected=true] {\n  border: 4px solid #6957e7;\n}\n.Splashart-module_splashart__9th0d img {\n  display: block;\n  max-width: 100%;\n  max-height: 100%;\n  pointer-events: none;\n}";
-var styles$1 = {"splashart":"Splashart-module_splashart__9th0d"};
-styleInject(css_248z$1);
+var css_248z$2 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Splashart-module_splashart__9th0d {\n  border-radius: 20px;\n  width: 160px;\n  overflow: hidden;\n}\n.Splashart-module_splashart__9th0d[data-favorite=true] {\n  border: 4px solid #d86ada;\n}\n.Splashart-module_splashart__9th0d[data-selected=true] {\n  border: 4px solid #6957e7;\n}\n.Splashart-module_splashart__9th0d img {\n  display: block;\n  max-width: 100%;\n  max-height: 100%;\n  pointer-events: none;\n}";
+var styles$2 = {"splashart":"Splashart-module_splashart__9th0d"};
+styleInject(css_248z$2);
 
 var SPLASHART_URL = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes';
 var Splashart = React__default.forwardRef(function (_a, ref) {
     var skinId = _a.skinId, selected = _a.selected, favorite = _a.favorite, props = __rest$1(_a, ["skinId", "selected", "favorite"]);
     var championId = Math.floor(skinId / 1000);
-    return (React__default.createElement("div", __assign$1({}, props, { ref: ref, className: styles$1.splashart, "data-selected": selected, "data-favorite": favorite }),
+    return (React__default.createElement("div", __assign$1({}, props, { ref: ref, className: styles$2.splashart, "data-selected": selected, "data-favorite": favorite }),
         React__default.createElement("img", { loading: 'lazy', src: "".concat(SPLASHART_URL, "/").concat(championId, "/").concat(skinId, ".jpg") })));
 });
 
@@ -5077,26 +5077,150 @@ function AiFillCaretDown (props) {
   return GenIcon({"tag":"svg","attr":{"viewBox":"0 0 1024 1024"},"child":[{"tag":"path","attr":{"d":"M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 0 0-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z"}}]})(props);
 }
 
-var css_248z = "@import url(\"https://rsms.me/inter/inter.css\");\n.Select-module_trigger__xZVUG {\n  all: unset;\n  width: 150px;\n  padding: 5px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  background-color: #6957e7;\n  box-sizing: border-box;\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  user-select: none;\n}\n.Select-module_trigger__xZVUG[data-state=closed] {\n  border-radius: 6px;\n}\n.Select-module_trigger__xZVUG[data-state=open] {\n  border-radius: 6px 6px 0 0;\n}\n\n.Select-module_content__Eftze {\n  background-color: #181818;\n  border-radius: 0 0 6px 6px;\n}\n\n.Select-module_item__72Rnu {\n  box-sizing: border-box;\n  width: var(--radix-select-trigger-width);\n  padding: 5px;\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  border-radius: 6px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  outline: none;\n  user-select: none;\n}\n.Select-module_item__72Rnu[data-highlighted] {\n  background-color: black;\n}";
-var styles = {"trigger":"Select-module_trigger__xZVUG","content":"Select-module_content__Eftze","item":"Select-module_item__72Rnu"};
-styleInject(css_248z);
+var css_248z$1 = "@import url(\"https://rsms.me/inter/inter.css\");\n.Select-module_trigger__xZVUG {\n  all: unset;\n  cursor: pointer;\n  width: 150px;\n  padding: 5px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  background-color: #6957e7;\n  box-sizing: border-box;\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  user-select: none;\n}\n.Select-module_trigger__xZVUG[data-state=closed] {\n  border-radius: 6px;\n}\n.Select-module_trigger__xZVUG[data-state=open] {\n  border-radius: 6px 6px 0 0;\n}\n\n.Select-module_content__Eftze {\n  background-color: #181818;\n  border-radius: 0 0 6px 6px;\n}\n\n.Select-module_item__72Rnu {\n  box-sizing: border-box;\n  width: var(--radix-select-trigger-width);\n  padding: 5px;\n  font-family: Inter;\n  font-size: 13px;\n  font-weight: normal;\n  color: #fffbf4;\n  border-radius: 6px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  outline: none;\n  user-select: none;\n}\n.Select-module_item__72Rnu[data-highlighted] {\n  background-color: black;\n}";
+var styles$1 = {"trigger":"Select-module_trigger__xZVUG","content":"Select-module_content__Eftze","item":"Select-module_item__72Rnu"};
+styleInject(css_248z$1);
 
 var Select = function (_a) {
-    var initialItem = _a.initialItem, items = _a.items; _a.title; var onValueChange = _a.onValueChange;
+    var initialItem = _a.initialItem, items = _a.items, onValueChange = _a.onValueChange;
     var _b = useState(false), open = _b[0], setOpen = _b[1];
     return (React__default.createElement($cc7e05a45900e73f$export$be92b6f5f03c0fe9, { defaultValue: initialItem.value, onOpenChange: setOpen, onValueChange: onValueChange },
-        React__default.createElement($cc7e05a45900e73f$export$41fb9f06171c75f4, { className: styles.trigger },
+        React__default.createElement($cc7e05a45900e73f$export$41fb9f06171c75f4, { className: styles$1.trigger },
             React__default.createElement($cc7e05a45900e73f$export$4c8d1a57a761ef94, null),
             open ? React__default.createElement(AiFillCaretUp, null) : React__default.createElement(AiFillCaretDown, null)),
         React__default.createElement($cc7e05a45900e73f$export$602eac185826482c, null,
-            React__default.createElement($cc7e05a45900e73f$export$7c6e2c02157bb7d2, { className: styles.content, position: 'popper' },
+            React__default.createElement($cc7e05a45900e73f$export$7c6e2c02157bb7d2, { className: styles$1.content, position: 'popper' },
                 React__default.createElement($cc7e05a45900e73f$export$d5c6c08dc2d3ca7, null, items.map(function (item) {
-                    return React__default.createElement($cc7e05a45900e73f$export$6d08773d2e66f8f2, { key: item.value, className: styles.item, value: item.value },
+                    return React__default.createElement($cc7e05a45900e73f$export$6d08773d2e66f8f2, { key: item.value, className: styles$1.item, value: item.value },
                         React__default.createElement($cc7e05a45900e73f$export$d6e5bf9c43ea9319, null, item.name),
                         React__default.createElement($cc7e05a45900e73f$export$c3468e2714d175fa, null,
                             React__default.createElement(AiOutlineCheck, null)));
                 }))))));
 };
 
-export { Badge, Button, Checkbox, Select, Splashart, SummonerIcon, Textbox };
+/* -------------------------------------------------------------------------------------------------
+ * Switch
+ * -----------------------------------------------------------------------------------------------*/ const $6be4966fd9bbc698$var$SWITCH_NAME = 'Switch';
+const [$6be4966fd9bbc698$var$createSwitchContext, $6be4966fd9bbc698$export$cf7f5f17f69cbd43] = $c512c27ab02ef895$export$50c7b4e9d9f19c1($6be4966fd9bbc698$var$SWITCH_NAME);
+const [$6be4966fd9bbc698$var$SwitchProvider, $6be4966fd9bbc698$var$useSwitchContext] = $6be4966fd9bbc698$var$createSwitchContext($6be4966fd9bbc698$var$SWITCH_NAME);
+const $6be4966fd9bbc698$export$b5d5cf8927ab7262 = /*#__PURE__*/ forwardRef((props, forwardedRef)=>{
+    const { __scopeSwitch: __scopeSwitch , name: name , checked: checkedProp , defaultChecked: defaultChecked , required: required , disabled: disabled , value: value = 'on' , onCheckedChange: onCheckedChange , ...switchProps } = props;
+    const [button, setButton] = useState(null);
+    const composedRefs = $6ed0406888f73fc4$export$c7b2cbe3552a0d05(forwardedRef, (node)=>setButton(node)
+    );
+    const hasConsumerStoppedPropagationRef = useRef(false); // We set this to true by default so that events bubble to forms without JS (SSR)
+    const isFormControl = button ? Boolean(button.closest('form')) : true;
+    const [checked = false, setChecked] = $71cd76cc60e0454e$export$6f32135080cb4c3({
+        prop: checkedProp,
+        defaultProp: defaultChecked,
+        onChange: onCheckedChange
+    });
+    return /*#__PURE__*/ createElement($6be4966fd9bbc698$var$SwitchProvider, {
+        scope: __scopeSwitch,
+        checked: checked,
+        disabled: disabled
+    }, /*#__PURE__*/ createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.button, _extends({
+        type: "button",
+        role: "switch",
+        "aria-checked": checked,
+        "aria-required": required,
+        "data-state": $6be4966fd9bbc698$var$getState(checked),
+        "data-disabled": disabled ? '' : undefined,
+        disabled: disabled,
+        value: value
+    }, switchProps, {
+        ref: composedRefs,
+        onClick: $e42e1063c40fb3ef$export$b9ecd428b558ff10(props.onClick, (event)=>{
+            setChecked((prevChecked)=>!prevChecked
+            );
+            if (isFormControl) {
+                hasConsumerStoppedPropagationRef.current = event.isPropagationStopped(); // if switch is in a form, stop propagation from the button so that we only propagate
+                // one click event (from the input). We propagate changes from an input so that native
+                // form validation works and form events reflect switch updates.
+                if (!hasConsumerStoppedPropagationRef.current) event.stopPropagation();
+            }
+        })
+    })), isFormControl && /*#__PURE__*/ createElement($6be4966fd9bbc698$var$BubbleInput, {
+        control: button,
+        bubbles: !hasConsumerStoppedPropagationRef.current,
+        name: name,
+        value: value,
+        checked: checked,
+        required: required,
+        disabled: disabled // We transform because the input is absolutely positioned but we have
+        ,
+        style: {
+            transform: 'translateX(-100%)'
+        }
+    }));
+});
+/* -------------------------------------------------------------------------------------------------
+ * SwitchThumb
+ * -----------------------------------------------------------------------------------------------*/ const $6be4966fd9bbc698$var$THUMB_NAME = 'SwitchThumb';
+const $6be4966fd9bbc698$export$4d07bf653ea69106 = /*#__PURE__*/ forwardRef((props, forwardedRef)=>{
+    const { __scopeSwitch: __scopeSwitch , ...thumbProps } = props;
+    const context = $6be4966fd9bbc698$var$useSwitchContext($6be4966fd9bbc698$var$THUMB_NAME, __scopeSwitch);
+    return /*#__PURE__*/ createElement($8927f6f2acc4f386$export$250ffa63cdc0d034.span, _extends({
+        "data-state": $6be4966fd9bbc698$var$getState(context.checked),
+        "data-disabled": context.disabled ? '' : undefined
+    }, thumbProps, {
+        ref: forwardedRef
+    }));
+});
+/* ---------------------------------------------------------------------------------------------- */ const $6be4966fd9bbc698$var$BubbleInput = (props)=>{
+    const { control: control , checked: checked , bubbles: bubbles = true , ...inputProps } = props;
+    const ref = useRef(null);
+    const prevChecked = $010c2913dbd2fe3d$export$5cae361ad82dce8b(checked);
+    const controlSize = $db6c3485150b8e66$export$1ab7ae714698c4b8(control); // Bubble checked change to parents (e.g form change event)
+    useEffect(()=>{
+        const input = ref.current;
+        const inputProto = window.HTMLInputElement.prototype;
+        const descriptor = Object.getOwnPropertyDescriptor(inputProto, 'checked');
+        const setChecked = descriptor.set;
+        if (prevChecked !== checked && setChecked) {
+            const event = new Event('click', {
+                bubbles: bubbles
+            });
+            setChecked.call(input, checked);
+            input.dispatchEvent(event);
+        }
+    }, [
+        prevChecked,
+        checked,
+        bubbles
+    ]);
+    return /*#__PURE__*/ createElement("input", _extends({
+        type: "checkbox",
+        "aria-hidden": true,
+        defaultChecked: checked
+    }, inputProps, {
+        tabIndex: -1,
+        ref: ref,
+        style: {
+            ...props.style,
+            ...controlSize,
+            position: 'absolute',
+            pointerEvents: 'none',
+            opacity: 0,
+            margin: 0
+        }
+    }));
+};
+function $6be4966fd9bbc698$var$getState(checked) {
+    return checked ? 'checked' : 'unchecked';
+}
+const $6be4966fd9bbc698$export$be92b6f5f03c0fe9 = $6be4966fd9bbc698$export$b5d5cf8927ab7262;
+const $6be4966fd9bbc698$export$6521433ed15a34db = $6be4966fd9bbc698$export$4d07bf653ea69106;
+
+var css_248z = "@import url(\"https://rsms.me/inter/inter.css\");\n.Switch-module_root__DmzxH {\n  all: unset;\n  cursor: pointer;\n  display: inline-flex;\n  width: 44px;\n  height: 24px;\n  border-radius: 100vw;\n  padding: 2px;\n}\n.Switch-module_root__DmzxH[data-state=unchecked] {\n  background-color: black;\n}\n.Switch-module_root__DmzxH[data-state=checked] {\n  background-color: #6957e7;\n}\n\n.Switch-module_thumb__utQqb {\n  background-color: #f2f2f2;\n  padding: 2px;\n  width: 20px;\n  height: 20px;\n  border-radius: 100vw;\n}\n.Switch-module_thumb__utQqb[data-state=unchecked] {\n  transform: translateX(0px);\n}\n.Switch-module_thumb__utQqb[data-state=checked] {\n  transform: translateX(20px);\n}";
+var styles = {"root":"Switch-module_root__DmzxH","thumb":"Switch-module_thumb__utQqb"};
+styleInject(css_248z);
+
+var Switch = function (_a) {
+    var _b = _a.initialValue, initialValue = _b === void 0 ? false : _b, onValueChange = _a.onValueChange;
+    return (React__default.createElement($6be4966fd9bbc698$export$be92b6f5f03c0fe9, { className: styles.root, defaultChecked: initialValue, onCheckedChange: onValueChange },
+        React__default.createElement($6be4966fd9bbc698$export$6521433ed15a34db, { className: styles.thumb })));
+};
+
+export { Badge, Button, Checkbox, Select, Splashart, SummonerIcon, Switch, Textbox };
 //# sourceMappingURL=index.js.map

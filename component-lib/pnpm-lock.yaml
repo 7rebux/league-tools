@@ -6,6 +6,7 @@ specifiers:
   '@babel/preset-react': ^7.22.3
   '@babel/preset-typescript': ^7.21.5
   '@radix-ui/react-select': ^1.2.2
+  '@radix-ui/react-switch': ^1.0.3
   '@rollup/plugin-commonjs': ^21.1.0
   '@rollup/plugin-node-resolve': ^13.3.0
   '@rollup/plugin-typescript': ^8.5.0
@@ -36,6 +37,7 @@ specifiers:
 
 dependencies:
   '@radix-ui/react-select': 1.2.2
+  '@radix-ui/react-switch': 1.0.3
 
 devDependencies:
   '@babel/core': 7.22.1
@@ -3236,6 +3238,29 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.3
       '@radix-ui/react-compose-refs': 1.0.1
+    dev: false
+
+  /@radix-ui/react-switch/1.0.3:
+    resolution: {integrity: sha512-mxm87F88HyHztsI7N+ZUmEoARGkC22YVW5CaC+Byc+HRpuvCrOBPTAnXgf+tZ/7i0Sg/eOePGdMhUKhPaQEqow==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.22.3
+      '@radix-ui/primitive': 1.0.1
+      '@radix-ui/react-compose-refs': 1.0.1
+      '@radix-ui/react-context': 1.0.1
+      '@radix-ui/react-primitive': 1.0.3
+      '@radix-ui/react-use-controllable-state': 1.0.1
+      '@radix-ui/react-use-previous': 1.0.1
+      '@radix-ui/react-use-size': 1.0.1
     dev: false
 
   /@radix-ui/react-use-callback-ref/1.0.1:

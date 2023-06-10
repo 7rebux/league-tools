@@ -1,0 +1,35 @@
+@use '../../_theme' as *;
+
+.root {
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  width: 44px;
+  height: 24px;
+  border-radius: 100vw;
+  padding: 2px;
+
+  &[data-state='unchecked'] {
+    background-color: darken(color('surface'), 20);
+  }
+
+  &[data-state='checked'] {
+    background-color: color('secondary');
+  }
+}
+
+.thumb {
+  background-color: #f2f2f2;
+  padding: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 100vw;
+
+  &[data-state='unchecked'] {
+    transform: translateX(0px);
+  }
+
+  &[data-state='checked'] {
+    transform: translateX(20px);
+  }
+}

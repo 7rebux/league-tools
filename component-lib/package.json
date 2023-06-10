@@ -53,6 +53,7 @@
     "typescript-plugin-css-modules": "^3.4.0"
   },
   "dependencies": {
-    "@radix-ui/react-select": "^1.2.2"
+    "@radix-ui/react-select": "^1.2.2",
+    "@radix-ui/react-switch": "^1.0.3"
   }
 }

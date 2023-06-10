@@ -59,6 +59,12 @@ $border-radius: 20px;
         border-radius: $border-radius;
         padding: $gap;
 
+        .wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
         > * {
           width: 100%;
         }

@@ -5,6 +5,7 @@ $borderRadius: 6px;
 
 .trigger {
   all: unset;
+  cursor: pointer;
   width: 150px;
   padding: $padding;
   display: flex;

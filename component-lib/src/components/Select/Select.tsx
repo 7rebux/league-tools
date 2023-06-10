@@ -9,13 +9,12 @@ type Item = {
 };
 
 interface Props {
-  title?: string;
   initialItem: Item;
   items: Item[];
   onValueChange?(value: string): void;
 };
 
-const Select: React.FC<Props> = ({ initialItem, items, title, onValueChange }) => {
+const Select: React.FC<Props> = ({ initialItem, items, onValueChange }) => {
   const [open, setOpen] = useState<boolean>(false);
 
   return (

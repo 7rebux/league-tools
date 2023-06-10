@@ -1,13 +1,29 @@
 import React, { useState } from 'react';
 import { request } from '../../utils/ipcBridge';
 import { useLcuData } from '../../components/LcuContext';
-import { Button, Dropdown, Textbox, SummonerIcon } from 'component-lib';
+import { 
+  Button,
+  Textbox,
+  SummonerIcon,
+  Select 
+} from 'component-lib';
 import './Status.scss';
 
-const AVAILABILITES = ['chat', 'away', 'dnd', 'mobile', 'offline'] as const;
-const ENDPOINT = '/lol-chat/v1/me/';
+const ENDPOINT = '/lol-chat/v1/me';
 
-type Availability = typeof AVAILABILITES[number];
+type Availability = 'chat' 
+  | 'away' 
+  | 'dnd' 
+  | 'mobile' 
+  | 'offline';
+
+const ITEMS: { name: string, value: Availability }[] = [
+  { name: 'Online',   value: 'chat' },
+  { name: 'Away',     value: 'away' },
+  { name: 'Playing',  value: 'dnd' },
+  { name: 'Mobile',   value: 'mobile' },
+  { name: 'Offline',  value: 'offline' },
+];
 
 const Status: React.FC = () => {
   const lcuData = useLcuData();
@@ -44,7 +60,7 @@ const Status: React.FC = () => {
   return (
     <div className='status-page'>
       <div className='wrapper'>
-        <div className='left'>
+        <div className='section'>
           <SummonerIcon 
             iconId={lcuData.me.icon} 
             availability={lcuData.me.availability}
@@ -54,13 +70,13 @@ const Status: React.FC = () => {
             ref={statusBox}
             placeholder={lcuData.me.statusMessage === '' ? 'Empty status' : lcuData.me.statusMessage}
           />
-          <Dropdown
-            items={Array.from(AVAILABILITES)}
-            initialItem={lcuData.me.availability}
-            onChange={(item) => {setAvailabilty(item as Availability)}}
+          <Select
+            items={ITEMS}
+            initialItem={ITEMS.find(({ value }) => value === availability)}
+            onValueChange={(value: Availability) => setAvailabilty(value)}
           />
         </div>
-        <div className='right'>
+        <div className='section'>
           <Button title='Apply' onClick={apply} />
           <Button title='Clear' onClick={clear} />
         </div>

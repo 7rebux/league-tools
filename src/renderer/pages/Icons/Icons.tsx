@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { request, getFavorites, addFavorite, removeFavorite } from '../../utils/ipcBridge';
 import { useLcuData } from '../../components/LcuContext';
-import { Select, Textbox, SummonerIcon, Switch } from 'component-lib';
+import { Select, Textbox, SummonerIcon, Switch, Skeleton } from 'component-lib';
 import './Icons.scss';
 
 const ICON_DATA_URL = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-icons.json';
@@ -21,6 +21,7 @@ const ITEMS: { name: string, value: string }[] = [
 
 const Icons: React.FC = () => {
   const lcuData = useLcuData();
+  const [loading, setLoading] = useState<boolean>(true);
   const [iconData, setIconData] = useState<Icon[]>([]);
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [titleFilter, setTitleFilter] = useState<string>('');
@@ -91,6 +92,7 @@ const Icons: React.FC = () => {
       console.log('Found %d favorite icons:', favorites.icons.length, favorites.icons);
 
       setIconData(icons);
+      setLoading(false);
     };
 
     fetchIconData();
@@ -111,7 +113,7 @@ const Icons: React.FC = () => {
           />
           <div className='wrapper'>
             <span>Legacy</span>
-            <Switch 
+            <Switch
               initialValue={legacyFilter}
               onValueChange={setLegacyFilter}
             />
@@ -122,17 +124,23 @@ const Icons: React.FC = () => {
         </span>
       </div>
       <div className='icons'>
-        {filter3.map((icon) => (
-          <SummonerIcon
-            key={icon.id}
-            iconId={icon.id}
-            size={85}
-            selected={lcuData.me.icon === icon.id}
-            favorite={icon.isFavorite}
-            onClick={() => setIcon(icon.id)}
-            onContextMenu={() => toggleFavorite(icon.id)}
-          />
-        ))}
+        { loading ? (
+          Array.from({ length: 300 }, (_, i) => 
+            <Skeleton key={i} width={85} height={85} />
+          )
+        ) : (
+          filter3.map((icon) => (
+            <SummonerIcon
+              key={icon.id}
+              iconId={icon.id}
+              size={85}
+              selected={lcuData.me.icon === icon.id}
+              favorite={icon.isFavorite}
+              onClick={() => setIcon(icon.id)}
+              onContextMenu={() => toggleFavorite(icon.id)}
+            />
+          ))
+        )}
       </div>
     </div>
   );

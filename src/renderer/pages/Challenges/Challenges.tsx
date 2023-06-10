@@ -2,7 +2,8 @@ import {
   Button,
   Textbox,
   Switch,
-  Select
+  Select,
+  Skeleton,
 } from 'component-lib';
 import React, { 
   useEffect, 
@@ -52,6 +53,7 @@ const getTokenIcon = (id: number, tier: TokenTier) =>
 
 const Challenges: React.FC = () => {
   const lcuData = useLcuData();
+  const [loading, setLoading] = useState<boolean>(true);
   const [tokens, setTokens] = useState<Token[]>([]);
   const [nameFilter, setNameFilter] = useState<string>('');
   const [tierFilter, setTierFilter] = useState<'ALL' | TokenTier>('ALL');
@@ -98,6 +100,7 @@ const Challenges: React.FC = () => {
       console.log('Fetched %d tokens', tokens.length);
 
       setTokens(tokens);
+      setLoading(false);
     };
 
     fetchChallenges();
@@ -144,12 +147,18 @@ const Challenges: React.FC = () => {
         </div>
       </div>
       <div className='challenges'>
-        {filter3.map((x: any) =>
-          <img
-            key={x.id}
-            src={getTokenIcon(x.id, x.tier)}
-            onClick={() => updateTokens([x.id, x.id, x.id])}
-          />
+        { loading ? (
+          Array.from({ length: 300 }, (_, i) =>
+            <Skeleton key={i} width={85} height={85} borderRadius={'100%'} />
+          )
+        ) : (
+          filter3.map((x: any) =>
+            <img
+              key={x.id}
+              src={getTokenIcon(x.id, x.tier)}
+              onClick={() => updateTokens([x.id, x.id, x.id])}
+            />
+          )
         )}
       </div>
     </div>

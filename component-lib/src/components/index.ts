@@ -6,3 +6,4 @@ export { default as Textbox } from './Textbox';
 export { default as Splashart } from './Splashart';
 export { default as Select } from './Select';
 export { default as Switch } from './Switch';
+export { default as Skeleton } from './Skeleton';

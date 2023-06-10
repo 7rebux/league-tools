@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { request, getFavorites, addFavorite, removeFavorite } from '../../utils/ipcBridge';
 import { useLcuData } from '../../components/LcuContext';
-import { Switch, Select, Splashart, Textbox } from 'component-lib';
+import { Switch, Select, Splashart, Textbox, Skeleton } from 'component-lib';
 import './Backgrounds.scss';
 
 const SPLASHART_DATA_URL = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/skins.json';
@@ -22,6 +22,7 @@ const ITEMS: { name: string, value: string }[] = [
 
 const Backgrounds: React.FC = () => {
   const lcuData = useLcuData();
+  const [loading, setLoading] = useState<boolean>(true);
   const [splashartData, setSplashartData] = useState<Splashart[]>([]);
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [nameFilter, setNameFilter] = useState<string>('');
@@ -95,6 +96,7 @@ const Backgrounds: React.FC = () => {
       console.log('Found %d favorite backgrounds:', favorites.backgrounds.length, favorites.backgrounds);
 
       setSplashartData(splasharts);
+      setLoading(false);
     };
 
     fetchData();
@@ -135,16 +137,22 @@ const Backgrounds: React.FC = () => {
         </span>
       </div>
       <div className='backgrounds'>
-        {filter4.map((splashart) => (
-          <Splashart 
-            key={splashart.id} 
-            skinId={splashart.id} 
-            selected={lcuData.profile.backgroundSkinId === splashart.id}
-            favorite={splashart.isFavorite}
-            onClick={() => setBackground(splashart.id)}
-            onContextMenu={() => toggleFavorite(splashart.id)}
-          />
-        ))}
+        { loading ? (
+          Array.from({ length: 150 }, (_, i) =>
+            <Skeleton key={i} width={160} height={90} />
+          )
+        ) : (
+          filter4.map((splashart) => (
+            <Splashart 
+              key={splashart.id} 
+              skinId={splashart.id} 
+              selected={lcuData.profile.backgroundSkinId === splashart.id}
+              favorite={splashart.isFavorite}
+              onClick={() => setBackground(splashart.id)}
+              onContextMenu={() => toggleFavorite(splashart.id)}
+            />
+          ))
+        )}
       </div>
     </div>
   );

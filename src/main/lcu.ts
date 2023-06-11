@@ -4,7 +4,7 @@ import {
   Credentials,
   EventResponse,
   JsonObjectLike,
-  LeagueClient
+  LeagueClient,
 } from 'league-connect';
 import { WebSocket } from 'ws';
 import { BrowserWindow } from 'electron';

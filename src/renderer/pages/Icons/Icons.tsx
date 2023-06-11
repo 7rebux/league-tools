@@ -1,7 +1,22 @@
-import React, { useEffect, useState, useMemo } from 'react';
-import { request, getFavorites, addFavorite, removeFavorite } from '../../utils/ipcBridge';
+import React, {
+  useEffect,
+  useState,
+  useMemo,
+} from 'react';
+import {
+  request,
+  getFavorites,
+  addFavorite,
+  removeFavorite,
+} from '../../utils/ipcBridge';
 import { useLcuData } from '../../components/LcuContext';
-import { Select, Textbox, SummonerIcon, Switch, Skeleton } from 'component-lib';
+import {
+  Select,
+  Textbox,
+  SummonerIcon,
+  Switch,
+  Skeleton,
+} from 'component-lib';
 import './Icons.scss';
 
 const ICON_DATA_URL = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-icons.json';
@@ -27,28 +42,23 @@ const Icons: React.FC = () => {
   const [titleFilter, setTitleFilter] = useState<string>('');
   const [legacyFilter, setLegacyFilter] = useState<boolean>(true);
 
-  const filter1 = useMemo(
-    () => {
-      if (typeFilter === 'all') {
-        return iconData;
-      } else if (typeFilter === 'favorites') {
-        return iconData.filter((i) => i.isFavorite);
-      };
-    },
-    [iconData, typeFilter]
-  );
-  const filter2 = useMemo(
-    () =>
-      filter1.filter((i) =>
-        i.title.toLowerCase().includes(titleFilter.toLowerCase())
-      ),
-    [filter1, titleFilter]
-  );
-  const filter3 = useMemo(
-    () =>
-      legacyFilter ? filter2 : filter2.filter((i) => i.isLegacy === false),
-    [filter2, legacyFilter]
-  );
+  const filter1 = useMemo(() => {
+    if (typeFilter === 'all')
+      return iconData;
+    else if (typeFilter === 'favorites')
+      return iconData.filter((i) => i.isFavorite);
+  }, [iconData, typeFilter]);
+
+  const filter2 = useMemo(() => filter1.filter((i) => 
+    i.title.toLowerCase().includes(titleFilter.toLowerCase())
+  ), [filter1, titleFilter]);
+
+  const filter3 = useMemo(() => {
+    if (legacyFilter)
+      return filter2;
+    else 
+      return filter2.filter((i) => i.isLegacy === false);
+  }, [filter2, legacyFilter]);
 
   const setIcon = (id: number) => {
     if (id === lcuData.me.icon) return;
@@ -61,7 +71,7 @@ const Icons: React.FC = () => {
     const icon = iconData.find((i) => i.id === id);
 
     if (icon.isFavorite)
-      removeFavorite('icon', id) 
+      removeFavorite('icon', id);
     else
       addFavorite('icon', id);
 

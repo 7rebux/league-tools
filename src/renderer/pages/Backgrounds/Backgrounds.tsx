@@ -1,7 +1,22 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { request, getFavorites, addFavorite, removeFavorite } from '../../utils/ipcBridge';
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+} from 'react';
+import { 
+  request,
+  getFavorites,
+  addFavorite,
+  removeFavorite,
+} from '../../utils/ipcBridge';
 import { useLcuData } from '../../components/LcuContext';
-import { Switch, Select, Splashart, Textbox, Skeleton } from 'component-lib';
+import {
+  Switch,
+  Select,
+  Splashart,
+  Textbox,
+  Skeleton,
+} from 'component-lib';
 import './Backgrounds.scss';
 
 const SPLASHART_DATA_URL = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/skins.json';
@@ -29,32 +44,30 @@ const Backgrounds: React.FC = () => {
   const [legacyFilter, setLegacyFilter] = useState<boolean>(true);
   const [baseFilter, setBaseFilter] = useState<boolean>(true);
 
-  const filter1 = useMemo(
-    () => {
-      if (typeFilter === 'all') {
-        return splashartData;
-      } else if (typeFilter === 'favorites') {
-        return splashartData.filter((i) => i.isFavorite);
-      };
-    },
-    [splashartData, typeFilter]
-  );
-  const filter2 = useMemo(
-    () =>
-      filter1.filter((i) =>
-        i.name.toLowerCase().includes(nameFilter.toLowerCase())
-      ),
-    [filter1, nameFilter]
-  );
-  const filter3 = useMemo(
-    () =>
-      legacyFilter ? filter2 : filter2.filter((i) => i.isLegacy === false),
-    [filter2, legacyFilter]
-  );
-  const filter4 = useMemo(
-    () => (baseFilter ? filter3 : filter3.filter((i) => i.isBase === false)),
-    [filter3, baseFilter]
-  );
+  const filter1 = useMemo(() => {
+    if (typeFilter === 'all')
+      return splashartData;
+    else if (typeFilter === 'favorites')
+      return splashartData.filter((i) => i.isFavorite);
+  }, [splashartData, typeFilter]);
+
+  const filter2 = useMemo(() => filter1.filter((i) =>
+    i.name.toLowerCase().includes(nameFilter.toLowerCase())
+  ), [filter1, nameFilter]);
+
+  const filter3 = useMemo(() => {
+    if (legacyFilter)
+      return filter2;
+    else 
+      return filter2.filter((i) => i.isLegacy === false);
+  }, [filter2, legacyFilter]);
+
+  const filter4 = useMemo(() => {
+    if (baseFilter)
+      return filter3;
+    else
+      return filter3.filter((i) => i.isBase === false);
+  }, [filter3, baseFilter]);
 
   const setBackground = (id: number) => {
     if (id === lcuData.profile.backgroundSkinId) return;

@@ -1,6 +1,18 @@
-import { app, BrowserWindow, session, ipcMain, Menu } from 'electron';
+import {
+  app,
+  BrowserWindow,
+  session,
+  ipcMain,
+  Menu,
+} from 'electron';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer'
-import { setBounds, getBounds, addFavorite, removeFavorite, getFavorites } from './settings';
+import {
+  setBounds,
+  getBounds,
+  addFavorite,
+  removeFavorite,
+  getFavorites,
+} from './settings';
 import LCU from './lcu';
 
 // electron forge entry point declared in package.json

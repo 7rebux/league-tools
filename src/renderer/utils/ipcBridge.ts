@@ -1,6 +1,7 @@
-const { ipcRenderer } = window.require('electron');
 import { JsonObjectLike } from 'league-connect';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as UUID } from 'uuid';
+
+const { ipcRenderer } = window.require('electron');
 
 type Favorites = {
   icons: number[];
@@ -13,7 +14,8 @@ const connect = (navigate: any): Promise<undefined> => {
       if (reason) {
         console.log(reason);
         return reject(reason);
-      }
+      };
+
       console.log('Connected to league client');
       resolve(undefined);
     });
@@ -31,10 +33,10 @@ const connect = (navigate: any): Promise<undefined> => {
 const request = (
   method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
   endpoint: string,
-  body?: any
+  body?: any,
 ): Promise<JsonObjectLike> => {
   return new Promise((resolve) => {
-    const id = uuidv4();
+    const id = UUID();
 
     ipcRenderer.once('lcu-response-' + id, (_event, data) => {
       console.log('Received response for', id, data);
@@ -64,4 +66,10 @@ const removeFavorite = (type: 'icon' | 'background', id: number) => {
   ipcRenderer.send('store-remove-favorite', type, id);
 };
 
-export { connect, request, getFavorites, addFavorite, removeFavorite };
+export { 
+  connect,
+  request,
+  getFavorites,
+  addFavorite,
+  removeFavorite,
+};

@@ -1,22 +1,22 @@
 import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { 
-  HashRouter, 
-  Routes, 
-  Route, 
-  Navigate 
+import {
+  HashRouter,
+  Routes,
+  Route,
+  Navigate,
 } from 'react-router-dom';
-import { 
-  NavBar, 
-  LcuContext ,
+import {
+  NavBar,
+  LcuContext,
 } from './components';
-import { 
+import {
   Backgrounds,
   Challenges,
   Connect,
-  Home, 
-  Icons, 
-  Status, 
+  Home,
+  Icons,
+  Status,
   Rank,
 } from './pages';
 

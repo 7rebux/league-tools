@@ -5,10 +5,10 @@ import {
   Select,
   Skeleton,
 } from 'component-lib';
-import React, { 
-  useEffect, 
-  useState, 
-  useMemo 
+import React, {
+  useEffect,
+  useState,
+  useMemo,
 } from 'react';
 import { request } from '../../utils/ipcBridge';
 import { useLcuData } from '../../components/LcuContext';

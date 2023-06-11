@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { 
+import {
   Button,
   Select,
   Textbox,
@@ -8,7 +8,7 @@ import { request } from '../../utils/ipcBridge';
 import { useLcuData } from '../../components/LcuContext';
 import './Rank.scss';
 
-const ENDPOINT = '/lol-chat/v1/me'
+const ENDPOINT = '/lol-chat/v1/me';
 
 type Queue = 'RANKED_SOLO_5x5'
   | 'RANKED_FLEX_SR'

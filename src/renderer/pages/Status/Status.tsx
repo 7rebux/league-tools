@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import { request } from '../../utils/ipcBridge';
 import { useLcuData } from '../../components/LcuContext';
-import { 
+import {
   Button,
   Textbox,
   SummonerIcon,
-  Select 
+  Select,
 } from 'component-lib';
 import './Status.scss';
 
 const ENDPOINT = '/lol-chat/v1/me';
 
-type Availability = 'chat' 
-  | 'away' 
-  | 'dnd' 
-  | 'mobile' 
+type Availability = 'chat'
+  | 'away'
+  | 'dnd'
+  | 'mobile'
   | 'offline';
 
 const ITEMS: { name: string, value: Availability }[] = [

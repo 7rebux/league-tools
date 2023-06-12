@@ -14,6 +14,7 @@ A cross-platform desktop app with many League Client exploits:
 - Change your availability (for example appear as offline)
 - Clear selected challenge tokens
 - Use the same challenge token multiple times
+- Display custom ranks in all ranked game modes & challenges
 
 ## 🧩 Demo
 

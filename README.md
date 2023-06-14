@@ -26,7 +26,7 @@ Either download and install the latest release or make your own changes to this 
 
 ### Download
 
-- [Windows](https://github.com/7rebux/league-tools/releases/download/0.2.0/league-tools-0.2.0-win32-x64.zip)
+- [Windows](https://github.com/7rebux/league-tools/releases/download/0.3.0/league-tools-0.3.0-win32-x64.zip)
 - Linux (Coming soon)
 
 ### Development

@@ -46,17 +46,12 @@ class LCU {
   ): Promise<JsonObjectLike> => {
     if (!this.connected) return { };
 
-    const response = await createHttp1Request(
-      {
-        method: method,
-        url: endpoint,
-        body: body,
-      },
-      this.credentials
-    );
-    const json = await response.json();
-    
-    return json;
+    return new Promise((resolve, reject) => {
+      createHttp1Request({ method: method, url: endpoint, body: body }, this.credentials)
+        .then(response => response.json())
+        .then(json => resolve(json))
+        .catch(reason => reject(reason));
+    });
   };
 
   private createSocket = () => {

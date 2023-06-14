@@ -65,9 +65,9 @@ app.on('ready', () => {
   });
 
   ipcMain.on('lcu-request', (event, id, method, endpoint, body?) => {
-    leagueClient.request(method, endpoint, body).then((data) => {
-      event.reply(`lcu-response-${id}`, data);
-    });
+    leagueClient.request(method, endpoint, body)
+      .then(data => event.reply(`lcu-response-${id}`, data))
+      .catch(() => event.reply(`lcu-response-${id}`, { }));
   });
 
   ipcMain.on('store-get-favorites', (event) => {

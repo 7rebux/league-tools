@@ -14,7 +14,7 @@ const COLORS = new Map<string, string>([
     ['DIAMOND',     '#71b0d1'],
     ['MASTER',      '#7840a3'],
     ['GRANDMASTER', '#9e3342'],
-    ['CHALLENGER',  '#1298e0'],
+    ['CHALLENGER',  '#288fc7'],
 ]);
 
 const Home: React.FC = () => {

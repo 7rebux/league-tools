@@ -6,6 +6,7 @@ import {
 } from 'component-lib';
 import { request } from '../../utils/ipcBridge';
 import { useLcuData } from '../../components/LcuContext';
+import { toast } from 'react-hot-toast';
 import './Rank.scss';
 
 const ENDPOINT = '/lol-chat/v1/me';
@@ -87,6 +88,9 @@ const Rank: React.FC = () => {
         rankedLeagueTier: tier,
         rankedLeagueDivision: division,
       },
+    }).then(() => {
+      toast.success('Updated chat rank');
+      console.log('Set chat rank to', { queue: queue, tier: tier, division: division });
     });
   };
 
@@ -99,6 +103,9 @@ const Rank: React.FC = () => {
         challengeCrystalLevel: tier,
         challengePoints: points,
       },
+    }).then(() => {
+      toast.success('Updated challenges rank');
+      console.log('Set challenges rank to', { tier: tier, points: points });
     });
   };
 

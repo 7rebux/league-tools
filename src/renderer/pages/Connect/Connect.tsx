@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { connect } from '../../utils/ipcBridge';
 import { Button } from 'component-lib';
+import { toast } from 'react-hot-toast';
 import './Connect.scss';
 
 const Connect: React.FC = () => {
@@ -10,8 +11,14 @@ const Connect: React.FC = () => {
 
   const handleConnect = () => {
     connect(navigate).then(
-      () => navigate('/home'), 
-      () => setStatus('Try again')
+      () => {
+        navigate('/home');
+        toast.success('Connected');
+      }, 
+      () => {
+        toast.error('Connection failed!');
+        setStatus('Try again');
+      }
     );
     setStatus('Connecting...');
   };

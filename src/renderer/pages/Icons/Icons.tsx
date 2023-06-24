@@ -17,6 +17,7 @@ import {
   Switch,
   Skeleton,
 } from 'component-lib';
+import { toast } from 'react-hot-toast';
 import './Icons.scss';
 
 const ICON_DATA_URL = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-icons.json';
@@ -63,8 +64,10 @@ const Icons: React.FC = () => {
   const setIcon = (id: number) => {
     if (id === lcuData.me.icon) return;
 
-    request('PUT', ENDPOINT, { icon: id })
-      .then((data) => console.log('Set icon to', data.icon));
+    request('PUT', ENDPOINT, { icon: id }).then((data) => {
+      toast.success('Updated icon');
+      console.log('Set icon to', data.icon);
+    });
   };
 
   const toggleFavorite = (id: number) => {

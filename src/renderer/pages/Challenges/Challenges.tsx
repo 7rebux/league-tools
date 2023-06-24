@@ -12,6 +12,7 @@ import React, {
 } from 'react';
 import { request } from '../../utils/ipcBridge';
 import { useLcuData } from '../../components/LcuContext';
+import { toast } from 'react-hot-toast';
 import './Challenges.scss';
 
 const UPDATE_ENDPOINT = '/lol-challenges/v1/update-player-preferences';
@@ -81,6 +82,9 @@ const Challenges: React.FC = () => {
     request('POST', UPDATE_ENDPOINT, { 
       'challengeIds': ids,
       'title': lcuData.challenges.title === -1 ? '' : lcuData.challenges.title.toString(),
+    }).then(() => {
+      toast.success('Updated tokens');
+      console.log('Set tokens to', ids);
     });
   };
 

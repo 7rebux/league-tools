@@ -7,6 +7,7 @@ import {
   SummonerIcon,
   Select,
 } from 'component-lib';
+import { toast } from 'react-hot-toast';
 import './Status.scss';
 
 const ENDPOINT = '/lol-chat/v1/me';
@@ -46,15 +47,26 @@ const Status: React.FC = () => {
       return request('PUT', ENDPOINT, { availability: availability });
     };
 
-    updateStatus()
-      .then((data) => { if (data) console.log('Update status to', data.statusMessage) });
-    updateAvailability()
-      .then((data) => { if (data) console.log('Set availability to', data.availability) });
+    updateStatus().then((data) => { 
+      if (!data) return;
+
+      toast.success('Updated status');
+      console.log('Set status to', data.statusMessage);
+    });
+
+    updateAvailability().then((data) => { 
+      if (!data) return;
+      
+      toast.success('Updated availability');
+      console.log('Set availability to', data.availability);
+    });
   };
 
   const clear = () => {
-    request('PUT', ENDPOINT, { statusMessage: '' })
-      .then(() => console.log('Cleared status'));
+    request('PUT', ENDPOINT, { statusMessage: '' }).then(() => {
+      toast.success('Cleared status');
+      console.log('Cleared status');
+    });
   };
 
   return (

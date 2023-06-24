@@ -17,6 +17,7 @@ import {
   Textbox,
   Skeleton,
 } from 'component-lib';
+import { toast } from 'react-hot-toast';
 import './Backgrounds.scss';
 
 const SPLASHART_DATA_URL = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/skins.json';
@@ -72,8 +73,10 @@ const Backgrounds: React.FC = () => {
   const setBackground = (id: number) => {
     if (id === lcuData.profile.backgroundSkinId) return;
 
-    request('POST', ENDPOINT, { key: 'backgroundSkinId', value: id })
-      .then((data) => console.log('Set background to', data.backgroundSkinId));
+    request('POST', ENDPOINT, { key: 'backgroundSkinId', value: id }).then((data) => {
+      toast.success('Updated backgroud');
+      console.log('Set background to', data.backgroundSkinId);
+    });
   };
 
   const toggleFavorite = (id: number) => {

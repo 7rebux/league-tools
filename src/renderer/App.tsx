@@ -19,6 +19,7 @@ import {
   Status,
   Rank,
 } from './pages';
+import { Toaster } from 'react-hot-toast';
 
 const App: React.FC = () => {
   return (
@@ -36,6 +37,19 @@ const App: React.FC = () => {
             <Route path='/challenges'   element={<Challenges />} />
             <Route path='/rank'         element={<Rank />} />
           </Routes>
+          <Toaster 
+            position='top-right' 
+            toastOptions={{
+              style: { 
+                backgroundColor: '#222222',
+                color: '#f2f2f2'
+              },
+              iconTheme: {
+                primary: '#d86ada',
+                secondary: '#f2f2f2'
+              }
+            }}
+          />
         </div>
       </LcuContext>
     </HashRouter>

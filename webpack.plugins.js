@@ -6,6 +6,6 @@ const path = require('path');
 module.exports = [
   new ForkTsCheckerWebpackPlugin(),
   new CopyWebpackPlugin({
-    patterns: [{ from: path.resolve(__dirname, 'assets'), to: 'assets' }],
+    patterns: [{ from: path.resolve(__dirname, 'assets'), to: 'main/assets' }],
   }),
 ];

@@ -57,6 +57,7 @@ const TIERS = [
   'SILVER',
   'GOLD',
   'PLATINUM',
+  'EMERALD',
   'DIAMOND',
   'MASTER',
   'GRANDMASTER',

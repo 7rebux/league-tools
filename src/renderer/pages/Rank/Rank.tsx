@@ -35,6 +35,7 @@ type Tier = 'UNRANKED'
   | 'SILVER'
   | 'GOLD'
   | 'PLATINUM'
+  | 'EMERALD'
   | 'DIAMOND'
   | 'MASTER'
   | 'GRANDMASTER'
@@ -47,6 +48,7 @@ const TIERS: { name: string, value: Tier }[] = [
   { name: 'Silver',       value: 'SILVER' },
   { name: 'Gold',         value: 'GOLD' },
   { name: 'Platinum',     value: 'PLATINUM' },
+  { name: 'Emerald',      value: 'EMERALD' },
   { name: 'Diamond',      value: 'DIAMOND' },
   { name: 'Master',       value: 'MASTER' },
   { name: 'Grandmaster',  value: 'GRANDMASTER' },

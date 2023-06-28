@@ -105,3 +105,4 @@ dist
 
 .webpack
 component-lib/build
+out

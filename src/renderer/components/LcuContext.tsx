@@ -190,12 +190,12 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
       }));
     });
 
-    request('GET', '/lol-store/v1/wallet').then((response: any) => {
+    request('GET', '/lol-inventory/v1/wallet?currencyTypes=["lol_blue_essence","RP"]').then((response: any) => {
       setState((oldState) => ({
         ...oldState,
         wallet: {
-          riotPoints: response.rp ?? 0,
-          blueEssence: response.ip ?? 0,
+          riotPoints: response.RP ?? 0,
+          blueEssence: response.lol_blue_essence ?? 0,
         },
       }));
     });
@@ -250,7 +250,7 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
           }));
           break;
         }
-        case '/lol-store/v1/wallet': {
+        case '/lol-inventory/v1/wallet': {
           setState((oldState) => ({
             ...oldState,
             wallet: {

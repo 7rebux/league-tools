@@ -107,10 +107,10 @@ type ChallengesState = {
   title: number,
 };
 
-type State = { 
+type State = {
   me: MeState;
   wallet: WalletState;
-  profile: ProfileState; 
+  profile: ProfileState;
   challenges: ChallengesState;
 };
 
@@ -171,9 +171,9 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
           gameTag: response.gameTag,
           lol: {
             level: response.lol.level,
-            rankedLeagueQueue: response.lol.rankedLeagueQueue,
-            rankedLeagueTier: response.lol.rankedLeagueTier === '' ? 'UNRANKED' : response.lol.rankedLeagueTier,
-            rankedLeagueDivision: response.lol.rankedLeagueDivision,
+            rankedLeagueQueue: response.lol.rankedLeagueQueue ?? 'RANKED_SOLO_5x5',
+            rankedLeagueTier: response.lol.rankedLeagueTier ? (response.lol.rankedLeagueTier === '' ? 'UNRANKED' : response.lol.rankedLeagueTier) : 'UNRANKED',
+            rankedLeagueDivision: response.lol.rankedLeagueDivision ?? 'NA',
             challengeCrystalLevel: response.lol.challengeCrystalLevel,
             challengePoints: response.lol.challengePoints,
           },

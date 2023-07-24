@@ -9,9 +9,16 @@ const adjustColor = (color: string, anmount: number) => {
 };
 
 const Badge = React.forwardRef<
-  HTMLDivElement,
+  HTMLDivElement, 
   BadgeProps & React.HTMLAttributes<HTMLDivElement>
->(({text, icon, backgroundColor = '#d86ada', color = '#fffbf4', ...props}, ref) => {
+>(({ 
+  text, 
+  icon, 
+  backgroundColor = '#d86ada', 
+  color = '#fffbf4', 
+  style, 
+  ...props 
+}, ref) => {
   const customStyle: React.CSSProperties = {
     backgroundColor: backgroundColor,
     borderColor: adjustColor(backgroundColor, -20),
@@ -19,14 +26,18 @@ const Badge = React.forwardRef<
   };
 
   return (
-    <div 
-      {...props}
+    <div
       ref={ref}
-      style={customStyle}
-      className={styles.badge}
+      style={{ ...customStyle, ...style }}
+      className={styles.root}
+      {...props}
     >
-      {icon !== undefined && <img src={icon} />}
-      {text !== undefined && <span>{text}</span>}
+      {icon && (
+        <div className={styles.icon}>
+          {icon}
+        </div>
+      )}
+      {text && <span className={styles.text}>{text}</span>}
     </div>
   );
 });

@@ -15,19 +15,12 @@ $borderRadius: 6px;
   box-sizing: border-box;
   @include font('body');
   user-select: none;
-
-  &[data-state='closed'] {
-    border-radius: $borderRadius;
-  }
-
-  &[data-state='open'] {
-    border-radius: $borderRadius $borderRadius 0 0;
-  }
+  border-radius: $borderRadius;
 }
 
 .content {
   background-color: darken(color('surface'), 10);
-  border-radius: 0 0 $borderRadius $borderRadius;
+  border-radius: $borderRadius;
 }
 
 .item {

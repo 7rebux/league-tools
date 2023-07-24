@@ -1,22 +1,31 @@
 @use '../../_theme' as *;
 
-.badge {
-  width: fit-content;
-  min-width: 4rem;
-  min-height: 1.3rem;
-  padding: 0.3rem 0.8rem 0.3rem 0.8rem;
-  border: 0.4rem solid;
-  border-radius: 100vw; // pill shape
+$height: 20px;
+
+.root {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.3rem;
-  @include font('body');
-  user-select: none; // disable text selection
-  pointer-events: none; // set untargetable
+  min-height: $height;
+  max-width: fit-content;
+  padding: 3px 6px;
+  border: 6px solid;
+  border-radius: 100vw;
+  gap: 3px;
+  user-select: none;
+  pointer-events: none;
+}
 
-  img {
-    width: 1.3rem;
-    height: 1.3rem;
+.text {
+  @include font('body');
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+
+  > * {
+    width: $height;
+    height: $height;
   }
 }

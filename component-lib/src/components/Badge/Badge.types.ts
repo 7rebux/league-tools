@@ -1,3 +1,5 @@
+import React from 'react';
+
 export interface BadgeProps {
   /**
    * The text of the badge
@@ -7,7 +9,7 @@ export interface BadgeProps {
   /**
    * The icon of the badge
    */
-  icon?: string;
+  icon?: React.ReactElement;
 
   /**
    * The foreground color of the badge

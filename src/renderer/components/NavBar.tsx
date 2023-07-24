@@ -45,12 +45,12 @@ const NavBar: React.FC = () => {
         <span>{lcuData.me.name}</span>
         <Badge 
           text={lcuData.wallet.blueEssence.toString()} 
-          icon='assets/be.png' 
+          icon={<img src='assets/be.png' />} 
           backgroundColor='#5098DA' 
         />
         <Badge 
           text={lcuData.wallet.riotPoints.toString()} 
-          icon='assets/rp.png' 
+          icon={<img src='assets/rp.png' />} 
           backgroundColor='#EA5D5F' 
         />
       </div>

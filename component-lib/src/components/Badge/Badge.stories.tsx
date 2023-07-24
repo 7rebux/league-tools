@@ -1,46 +1,59 @@
 import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import Badge from './Badge';
-import { BadgeProps } from './Badge.types';
+
+type Story = StoryObj<typeof Badge>;
+
+const rankColors = {
+  'Unranked': '#404241',
+  'Iron': '#6b6b64',
+  'Bronze': '#a46628',
+  'Silver': '#b5b5b5',
+  'Gold': '#d6a738',
+  'Platinum': '#80aba4',
+  'Emerald': '#43ab3e',
+  'Diamond': '#71b0d1',
+  'Master': '#7840a3', 
+  'Grandmaster': '#9e3342',
+  'Challenger': '#288fc7',
+};
 
 export default {
-  title: 'Library/Badge',
+  title: 'Components/Badge',
   component: Badge,
-} as Meta;
+} as Meta<typeof Badge>;
 
-const RANK_CREST_URL = 'https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/ranked-mini-crests/';
-const ICON_URL = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/items/icons2d/3041_mage_t2_mejaissoulstealer.png';
-const TEXT = 'Title';
-
-const Template: Story<BadgeProps> = (args) => <Badge {...args} />;
-
-export const Text = Template.bind({});
-Text.args = {
-  text: TEXT,
+export const Default: Story = {
+  args: {
+    text: 'Text',
+  },
 };
 
-export const Ranks = () => (
-  <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap', backgroundColor: '#222222', padding: 15 }}>
-    <Badge text='Unranked' backgroundColor='#404241' icon={`${RANK_CREST_URL}unranked.png`} />
-    <Badge text='Iron' backgroundColor='#6b6b64' icon={`${RANK_CREST_URL}iron.png`} />
-    <Badge text='Bronze' backgroundColor='#a46628' icon={`${RANK_CREST_URL}bronze.png`} />
-    <Badge text='Silver' backgroundColor='#b5b5b5' icon={`${RANK_CREST_URL}silver.png`} />
-    <Badge text='Gold' backgroundColor='#d6a738' icon={`${RANK_CREST_URL}gold.png`} />
-    <Badge text='Platinum' backgroundColor='#80aba4' icon={`${RANK_CREST_URL}platinum.png`} />
-    <Badge text='Diamond' backgroundColor='#71b0d1' icon={`${RANK_CREST_URL}diamond.png`} />
-    <Badge text='Master' backgroundColor='#7840a3' icon={`${RANK_CREST_URL}master.png`} />
-    <Badge text='Grandmaster' backgroundColor='#9e3342' icon={`${RANK_CREST_URL}grandmaster.png`} />
-    <Badge text='Challenger' backgroundColor='#288fc7' icon={`${RANK_CREST_URL}challenger.png`} />
-  </div>
-);
-
-export const Icon = Template.bind({});
-Icon.args = {
-  icon: ICON_URL,
+export const Icon: Story = {
+  args: {
+    icon: <img src='https://cdn.icon-icons.com/icons2/2620/PNG/512/among_us_player_red_icon_156942.png' />,
+    backgroundColor: '#c6c1c1'
+  },
 };
 
-export const Both = Template.bind({});
-Both.args = {
-  text: TEXT,
-  icon: ICON_URL,
+export const TextAndIcon: Story = {
+  args: {
+    text: 'Riot Games',
+    icon: <img src='https://api.nuget.org/v3-flatcontainer/mikaeldui.riotgames.client/12.1.1.162/icon' />,
+    backgroundColor: '#ce3535'
+  },
+};
+
+export const Ranks: Story = {
+  render: (_args) => (
+    <div style={{ display: 'flex', gap: 4 }}>
+      {Object.entries(rankColors).map(([ rank, color ]) => (
+        <Badge
+          text={rank}
+          icon={<img src={`https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/ranked-mini-crests/${rank.toLowerCase()}.svg`} />}
+          backgroundColor={color}
+        />
+      ))}
+    </div>
+  ),
 };

@@ -140,6 +140,9 @@ const Icons: React.FC = () => {
         <span className='info'>
           Showing <b>{filter3.length}</b> / {iconData.length} icons
         </span>
+        <span className='tip'>
+          <b>💡Tip:</b> Right click on an icon to add or remove it from your favorites
+        </span>
       </div>
       <div className='icons'>
         {loading

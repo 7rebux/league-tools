@@ -1,11 +1,7 @@
-import {
-  app,
-  BrowserWindow,
-  session,
-  ipcMain,
-  Menu,
-} from 'electron';
-import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer'
+import { app, BrowserWindow, session, ipcMain, Menu } from 'electron';
+import installExtension, {
+  REACT_DEVELOPER_TOOLS,
+} from 'electron-devtools-installer';
 import {
   setBounds,
   getBounds,
@@ -42,17 +38,15 @@ const createWindow = (): BrowserWindow => {
   });
 
   mainWindow.loadURL(MAIN_WEBPACK_ENTRY);
-  
-  if (isDevelopment) 
-    mainWindow.webContents.openDevTools();
-  else
-    Menu.setApplicationMenu(null);
+
+  if (isDevelopment) mainWindow.webContents.openDevTools();
+  else Menu.setApplicationMenu(null);
 
   return mainWindow;
 };
 
 app.on('ready', () => {
-  if (isDevelopment) installExtension(REACT_DEVELOPER_TOOLS)
+  if (isDevelopment) installExtension(REACT_DEVELOPER_TOOLS);
 
   const browserWindow = createWindow();
   const leagueClient = new LCU(browserWindow.id);
@@ -60,14 +54,15 @@ app.on('ready', () => {
   ipcMain.on('lcu-connect', (event) => {
     leagueClient.connect().then(
       () => event.reply('lcu-connected'),
-      (reason) => event.reply('lcu-connected', reason)
+      (reason) => event.reply('lcu-connected', reason),
     );
   });
 
   ipcMain.on('lcu-request', (event, id, method, endpoint, body?) => {
-    leagueClient.request(method, endpoint, body)
-      .then(data => event.reply(`lcu-response-${id}`, data))
-      .catch(() => event.reply(`lcu-response-${id}`, { }));
+    leagueClient
+      .request(method, endpoint, body)
+      .then((data) => event.reply(`lcu-response-${id}`, data))
+      .catch(() => event.reply(`lcu-response-${id}`, {}));
   });
 
   ipcMain.on('store-get-favorites', (event) => {

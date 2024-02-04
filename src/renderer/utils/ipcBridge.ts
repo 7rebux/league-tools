@@ -14,7 +14,7 @@ const connect = (navigate: any): Promise<undefined> => {
       if (reason) {
         console.log(reason);
         return reject(reason);
-      };
+      }
 
       console.log('Connected to league client');
       resolve(undefined);
@@ -66,10 +66,4 @@ const removeFavorite = (type: 'icon' | 'background', id: number) => {
   ipcRenderer.send('store-remove-favorite', type, id);
 };
 
-export { 
-  connect,
-  request,
-  getFavorites,
-  addFavorite,
-  removeFavorite,
-};
+export { connect, request, getFavorites, addFavorite, removeFavorite };

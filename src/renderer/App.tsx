@@ -1,15 +1,7 @@
 import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import {
-  HashRouter,
-  Routes,
-  Route,
-  Navigate,
-} from 'react-router-dom';
-import {
-  NavBar,
-  LcuContext,
-} from './components';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { NavBar, LcuContext } from './components';
 import {
   Backgrounds,
   Challenges,
@@ -28,26 +20,26 @@ const App: React.FC = () => {
         <NavBar />
         <div id='content'>
           <Routes>
-            <Route path='/'             element={<Navigate to='/connect' />} />
-            <Route path='/connect'      element={<Connect />} />
-            <Route path='/home'         element={<Home />} />
-            <Route path='/icons'        element={<Icons />} />
-            <Route path='/backgrounds'  element={<Backgrounds />} />
-            <Route path='/status'       element={<Status />} />
-            <Route path='/challenges'   element={<Challenges />} />
-            <Route path='/rank'         element={<Rank />} />
+            <Route path='/' element={<Navigate to='/connect' />} />
+            <Route path='/connect' element={<Connect />} />
+            <Route path='/home' element={<Home />} />
+            <Route path='/icons' element={<Icons />} />
+            <Route path='/backgrounds' element={<Backgrounds />} />
+            <Route path='/status' element={<Status />} />
+            <Route path='/challenges' element={<Challenges />} />
+            <Route path='/rank' element={<Rank />} />
           </Routes>
-          <Toaster 
-            position='top-right' 
+          <Toaster
+            position='top-right'
             toastOptions={{
-              style: { 
+              style: {
                 backgroundColor: '#222222',
-                color: '#f2f2f2'
+                color: '#f2f2f2',
               },
               iconTheme: {
                 primary: '#d86ada',
-                secondary: '#f2f2f2'
-              }
+                secondary: '#f2f2f2',
+              },
             }}
           />
         </div>
@@ -62,5 +54,5 @@ const root = createRoot(container!);
 root.render(
   <StrictMode>
     <App />
-  </StrictMode>
+  </StrictMode>,
 );

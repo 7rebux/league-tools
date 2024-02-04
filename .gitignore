@@ -106,3 +106,4 @@ dist
 .webpack
 component-lib/build
 out
+bun.lockb

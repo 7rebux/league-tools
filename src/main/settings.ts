@@ -1,8 +1,8 @@
 const Store = require('electron-store');
 
 type Favorites = {
-  icons: number[],
-  backgrounds: number[],
+  icons: number[];
+  backgrounds: number[];
 };
 
 const schema = {
@@ -36,10 +36,7 @@ const getBounds = () => {
   };
 };
 
-const addFavorite = (
-  type: 'icon' | 'background', 
-  id: number
-) => {
+const addFavorite = (type: 'icon' | 'background', id: number) => {
   if (type === 'icon') {
     const icons = store.get('favorites.icons');
 
@@ -47,7 +44,7 @@ const addFavorite = (
       store.set('favorites.icons', icons.concat(id));
     } else {
       store.set('favorites.icons', [id]);
-    };
+    }
   } else {
     const backgrounds = store.get('favorites.backgrounds');
 
@@ -55,27 +52,22 @@ const addFavorite = (
       store.set('favorites.backgrounds', backgrounds.concat(id));
     } else {
       store.set('favorites.backgrounds', [id]);
-    };
-  };
+    }
+  }
 };
 
-const removeFavorite = (
-  type: 'icon' | 'background',
-  id: number
-) => {
+const removeFavorite = (type: 'icon' | 'background', id: number) => {
   if (type === 'icon') {
     store.set(
-      'favorites.icons', 
-      store.get('favorites.icons')
-        .filter((n: number) => n !== id)
+      'favorites.icons',
+      store.get('favorites.icons').filter((n: number) => n !== id),
     );
   } else {
     store.set(
-      'favorites.backgrounds', 
-      store.get('favorites.backgrounds')
-        .filter((n: number) => n !== id)
+      'favorites.backgrounds',
+      store.get('favorites.backgrounds').filter((n: number) => n !== id),
     );
-  };
+  }
 };
 
 const getFavorites = (): Favorites => {
@@ -85,10 +77,4 @@ const getFavorites = (): Favorites => {
   };
 };
 
-export {
-  setBounds,
-  getBounds,
-  addFavorite,
-  removeFavorite,
-  getFavorites,
-};
+export { setBounds, getBounds, addFavorite, removeFavorite, getFavorites };

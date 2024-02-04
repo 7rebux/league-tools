@@ -14,11 +14,11 @@ const Connect: React.FC = () => {
       () => {
         navigate('/home');
         toast.success('Connected');
-      }, 
+      },
       () => {
         toast.error('Connection failed!');
         setStatus('Try again');
-      }
+      },
     );
     setStatus('Connecting...');
   };
@@ -36,11 +36,7 @@ const Connect: React.FC = () => {
             </p>
           </div>
           <div className='button-wrapper'>
-            <Button
-              variant='primary'
-              title={status}
-              onClick={handleConnect}
-            />
+            <Button variant='primary' title={status} onClick={handleConnect} />
             <Button variant='secondary' title='Functions -->' />
           </div>
         </div>

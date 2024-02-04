@@ -1,34 +1,27 @@
 import React, { useState } from 'react';
 import { request } from '../../utils/ipcBridge';
 import { useLcuData } from '../../components/LcuContext';
-import {
-  Button,
-  Textbox,
-  SummonerIcon,
-  Select,
-} from 'component-lib';
+import { Button, Textbox, SummonerIcon, Select } from 'component-lib';
 import { toast } from 'react-hot-toast';
 import './Status.scss';
 
 const ENDPOINT = '/lol-chat/v1/me';
 
-type Availability = 'chat'
-  | 'away'
-  | 'dnd'
-  | 'mobile'
-  | 'offline';
+type Availability = 'chat' | 'away' | 'dnd' | 'mobile' | 'offline';
 
-const ITEMS: { name: string, value: Availability }[] = [
-  { name: 'Online',   value: 'chat' },
-  { name: 'Away',     value: 'away' },
-  { name: 'Playing',  value: 'dnd' },
-  { name: 'Mobile',   value: 'mobile' },
-  { name: 'Offline',  value: 'offline' },
+const ITEMS: { name: string; value: Availability }[] = [
+  { name: 'Online', value: 'chat' },
+  { name: 'Away', value: 'away' },
+  { name: 'Playing', value: 'dnd' },
+  { name: 'Mobile', value: 'mobile' },
+  { name: 'Offline', value: 'offline' },
 ];
 
 const Status: React.FC = () => {
   const lcuData = useLcuData();
-  const [availability, setAvailabilty] = useState<Availability>(lcuData.me.availability);
+  const [availability, setAvailabilty] = useState<Availability>(
+    lcuData.me.availability,
+  );
   const statusBox = React.createRef<HTMLInputElement>();
 
   const apply = () => {
@@ -47,16 +40,16 @@ const Status: React.FC = () => {
       return request('PUT', ENDPOINT, { availability: availability });
     };
 
-    updateStatus().then((data) => { 
+    updateStatus().then((data) => {
       if (!data) return;
 
       toast.success('Updated status');
       console.log('Set status to', data.statusMessage);
     });
 
-    updateAvailability().then((data) => { 
+    updateAvailability().then((data) => {
       if (!data) return;
-      
+
       toast.success('Updated availability');
       console.log('Set availability to', data.availability);
     });
@@ -73,14 +66,18 @@ const Status: React.FC = () => {
     <div className='status-page'>
       <div className='wrapper'>
         <div className='section'>
-          <SummonerIcon 
-            iconId={lcuData.me.icon} 
+          <SummonerIcon
+            iconId={lcuData.me.icon}
             availability={lcuData.me.availability}
-            size={50} 
+            size={50}
           />
           <Textbox
             ref={statusBox}
-            placeholder={lcuData.me.statusMessage === '' ? 'Empty status' : lcuData.me.statusMessage}
+            placeholder={
+              lcuData.me.statusMessage === ''
+                ? 'Empty status'
+                : lcuData.me.statusMessage
+            }
           />
           <Select
             items={ITEMS}

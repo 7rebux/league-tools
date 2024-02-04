@@ -38,19 +38,22 @@ class LCU {
 
     this.connected = true;
   };
-  
+
   request = async (
     method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
     endpoint: string,
-    body?: any
+    body?: any,
   ): Promise<JsonObjectLike> => {
-    if (!this.connected) return { };
+    if (!this.connected) return {};
 
     return new Promise((resolve, reject) => {
-      createHttp1Request({ method: method, url: endpoint, body: body }, this.credentials)
-        .then(response => response.json())
-        .then(json => resolve(json))
-        .catch(reason => reject(reason));
+      createHttp1Request(
+        { method: method, url: endpoint, body: body },
+        this.credentials,
+      )
+        .then((response) => response.json())
+        .then((json) => resolve(json))
+        .catch((reason) => reject(reason));
     });
   };
 
@@ -62,12 +65,19 @@ class LCU {
       socket = new WebSocket(url, {
         headers: {
           Authorization:
-            'Basic ' + Buffer.from(`riot:${this.credentials.password}`).toString('base64'),
+            'Basic ' +
+            Buffer.from(`riot:${this.credentials.password}`).toString('base64'),
         },
-        agent: new https.Agent(typeof this.credentials?.certificate === 'undefined' ? 
-          { rejectUnauthorized: false } : { ca: this.credentials?.certificate }),
+        agent: new https.Agent(
+          typeof this.credentials?.certificate === 'undefined'
+            ? { rejectUnauthorized: false }
+            : { ca: this.credentials?.certificate },
+        ),
       });
-    } while (socket?.readyState !== WebSocket.OPEN && socket?.readyState !== WebSocket.CONNECTING);
+    } while (
+      socket?.readyState !== WebSocket.OPEN &&
+      socket?.readyState !== WebSocket.CONNECTING
+    );
 
     // handle incoming messages
     socket.on('message', (content: string) => {
@@ -76,7 +86,7 @@ class LCU {
         const [res]: [EventResponse] = json.slice(2);
 
         this.window.webContents.send('lcu-event', res);
-      } catch { }
+      } catch {}
     });
 
     // subscribe to Json API

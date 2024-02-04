@@ -1,5 +1,5 @@
+const fs = require('node:fs/promises');
 const Store = require('electron-store');
-
 type Favorites = {
   icons: number[];
   backgrounds: number[];
@@ -77,4 +77,23 @@ const getFavorites = (): Favorites => {
   };
 };
 
-export { setBounds, getBounds, addFavorite, removeFavorite, getFavorites };
+const exportFavorites = async (path: string) => {
+  await fs.writeFile(path, JSON.stringify(getFavorites()));
+};
+
+const importFavorites = async (path: string) => {
+  const content = await fs.readFile(path);
+  const favorites = JSON.parse(content);
+
+  store.set('favorites', favorites);
+};
+
+export {
+  setBounds,
+  getBounds,
+  addFavorite,
+  removeFavorite,
+  getFavorites,
+  exportFavorites,
+  importFavorites,
+};

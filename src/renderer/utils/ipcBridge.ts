@@ -66,4 +66,32 @@ const removeFavorite = (type: 'icon' | 'background', id: number) => {
   ipcRenderer.send('store-remove-favorite', type, id);
 };
 
-export { connect, request, getFavorites, addFavorite, removeFavorite };
+const exportFavorites = (): Promise<boolean> => {
+  return new Promise((resolve) => {
+    ipcRenderer.once('store-export-response', (_event, success) => {
+      resolve(success);
+    });
+
+    ipcRenderer.send('store-export');
+  });
+};
+
+const importFavorites = (): Promise<boolean> => {
+  return new Promise((resolve) => {
+    ipcRenderer.once('store-import-response', (_event, success) => {
+      resolve(success);
+    });
+
+    ipcRenderer.send('store-import');
+  });
+};
+
+export {
+  connect,
+  request,
+  getFavorites,
+  addFavorite,
+  removeFavorite,
+  exportFavorites,
+  importFavorites,
+};

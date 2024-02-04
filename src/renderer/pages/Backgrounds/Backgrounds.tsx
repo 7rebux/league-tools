@@ -63,12 +63,13 @@ const Backgrounds: React.FC = () => {
   const setBackground = (background: SplashartType) => {
     if (background.id === lcuData.profile.backgroundSkinId) return;
 
-    request('POST', ENDPOINT, { key: 'backgroundSkinId', value: background.id }).then(
-      (data) => {
-        toast.success(`Updated backgroud to "${background.name}"`);
-        console.log('Set background to', data.backgroundSkinId);
-      },
-    );
+    request('POST', ENDPOINT, {
+      key: 'backgroundSkinId',
+      value: background.id,
+    }).then((data) => {
+      toast.success(`Updated backgroud to "${background.name}"`);
+      console.log('Set background to', data.backgroundSkinId);
+    });
   };
 
   const toggleFavorite = (id: number) => {

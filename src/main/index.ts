@@ -1,4 +1,4 @@
-import { app, BrowserWindow, session, ipcMain, Menu } from 'electron';
+import { app, BrowserWindow, session, ipcMain, Menu, dialog } from 'electron';
 import installExtension, {
   REACT_DEVELOPER_TOOLS,
 } from 'electron-devtools-installer';
@@ -8,6 +8,8 @@ import {
   addFavorite,
   removeFavorite,
   getFavorites,
+  exportFavorites,
+  importFavorites,
 } from './settings';
 import LCU from './lcu';
 
@@ -75,6 +77,33 @@ app.on('ready', () => {
 
   ipcMain.on('store-remove-favorite', (_event, type, id) => {
     removeFavorite(type, id);
+  });
+
+  ipcMain.on('store-export', async (event) => {
+    const response = await dialog.showSaveDialog(browserWindow, {
+      filters: [{ extensions: ['json'], name: 'JSON' }],
+      defaultPath: 'favorites.json',
+    });
+
+    if (response.canceled) {
+      event.reply('store-export-response', false);
+    }
+
+    await exportFavorites(response.filePath);
+    event.reply('store-export-response', true);
+  });
+
+  ipcMain.on('store-import', async (event) => {
+    const response = await dialog.showOpenDialog(browserWindow, {
+      filters: [{ extensions: ['json'], name: 'JSON' }],
+    });
+
+    if (response.canceled) {
+      event.reply('store-import-response', false);
+    }
+
+    await importFavorites(response.filePaths[0]);
+    event.reply('store-import-response', true);
   });
 
   session.defaultSession.webRequest.onHeadersReceived((details, callback) => {

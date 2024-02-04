@@ -37,6 +37,7 @@ const NavBar: React.FC = () => {
         <NavItem title='Status' href='/status' />
         <NavItem title='Challenges' href='/challenges' />
         <NavItem title='Chat Rank' href='/rank' />
+        <NavItem title='Settings' href='/settings' />
       </div>
       <div className='profile'>
         <SummonerIcon

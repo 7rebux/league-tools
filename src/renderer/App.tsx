@@ -10,6 +10,7 @@ import {
   Icons,
   Status,
   Rank,
+  Settings,
 } from './pages';
 import { Toaster } from 'react-hot-toast';
 
@@ -28,6 +29,7 @@ const App: React.FC = () => {
             <Route path='/status' element={<Status />} />
             <Route path='/challenges' element={<Challenges />} />
             <Route path='/rank' element={<Rank />} />
+            <Route path='/settings' element={<Settings />} />
           </Routes>
           <Toaster
             position='top-right'

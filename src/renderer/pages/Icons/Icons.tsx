@@ -6,7 +6,13 @@ import {
   removeFavorite,
 } from '../../utils/ipcBridge';
 import { useLcuData } from '../../components/LcuContext';
-import { Select, Textbox, SummonerIcon, Switch, Skeleton } from 'component-lib';
+import {
+  Select,
+  Textbox,
+  SummonerIcon,
+  Switch,
+  Skeleton,
+} from '../../components';
 import { toast } from 'react-hot-toast';
 import './Icons.scss';
 
@@ -36,8 +42,7 @@ const Icons: React.FC = () => {
 
   const filter1 = useMemo(() => {
     if (typeFilter === 'all') return iconData;
-    else if (typeFilter === 'favorites')
-      return iconData.filter((i) => i.isFavorite);
+    if (typeFilter === 'favorites') return iconData.filter((i) => i.isFavorite);
   }, [iconData, typeFilter]);
 
   const filter2 = useMemo(
@@ -50,7 +55,7 @@ const Icons: React.FC = () => {
 
   const filter3 = useMemo(() => {
     if (legacyFilter) return filter2;
-    else return filter2.filter((i) => i.isLegacy === false);
+    return filter2.filter((i) => i.isLegacy === false);
   }, [filter2, legacyFilter]);
 
   const setIcon = (id: number) => {
@@ -69,7 +74,7 @@ const Icons: React.FC = () => {
     else addFavorite('icon', id);
 
     console.log(
-      (icon.isFavorite ? 'Removed' : 'Added') + ' favorite icon:',
+      `${icon.isFavorite ? 'Removed' : 'Added'} favorite icon:`,
       icon.id,
     );
 

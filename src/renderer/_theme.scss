@@ -1,0 +1,40 @@
+@import url('https://rsms.me/inter/inter.css');
+
+$colors: (
+  background: #222222,
+  surface: #313131,
+  primary: #d86ada,
+  secondary: #6957e7,
+);
+
+@function color($name) {
+  @return map-get($colors, $name);
+}
+
+$fonts: (
+  headline: (
+    family: Inter,
+    size: 28px,
+    weight: 300,
+    color: #fffbf4,
+  ),
+  subtitle: (
+    family: Inter,
+    size: 15px,
+    weight: 300,
+    color: #d4cfcd,
+  ),
+  body: (
+    family: Inter,
+    size: 13px,
+    weight: normal,
+    color: #fffbf4,
+  ),
+);
+
+@mixin font($name) {
+  font-family: map-get($fonts, $name, 'family');
+  font-size: map-get($fonts, $name, 'size');
+  font-weight: map-get($fonts, $name, 'weight');
+  color: map-get($fonts, $name, 'color');
+}

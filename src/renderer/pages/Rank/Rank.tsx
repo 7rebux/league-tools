@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Select, Textbox } from 'component-lib';
+import { Button, Select, Textbox } from '../../components';
 import { request } from '../../utils/ipcBridge';
 import { useLcuData } from '../../components/LcuContext';
 import { toast } from 'react-hot-toast';

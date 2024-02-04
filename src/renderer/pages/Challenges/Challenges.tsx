@@ -1,4 +1,4 @@
-import { Button, Textbox, Switch, Select, Skeleton } from 'component-lib';
+import { Button, Textbox, Switch, Select, Skeleton } from '../../components';
 import React, { useEffect, useState, useMemo } from 'react';
 import { request } from '../../utils/ipcBridge';
 import { useLcuData } from '../../components/LcuContext';
@@ -62,12 +62,12 @@ const Challenges: React.FC = () => {
 
   const filter2 = useMemo(() => {
     if (tierFilter === 'ALL') return filter1;
-    else return filter1.filter(({ tier }) => tier === tierFilter);
+    return filter1.filter(({ tier }) => tier === tierFilter);
   }, [filter1, tierFilter]);
 
   const filter3 = useMemo(() => {
     if (legacyFilter) return filter2;
-    else return filter2.filter(({ legacy }) => legacy === false);
+    return filter2.filter(({ legacy }) => legacy === false);
   }, [filter2, legacyFilter]);
 
   const updateTokens = (ids: number[]) => {
@@ -112,7 +112,11 @@ const Challenges: React.FC = () => {
           <div className='activeTokens'>
             {lcuData.challenges.tokens.length > 0 &&
               lcuData.challenges.tokens.map((token, index) => (
-                <img key={index} src={getTokenIcon(token.id, token.tier)} />
+                <img
+                  key={index}
+                  src={getTokenIcon(token.id, token.tier)}
+                  alt={`Token ${token.id}`}
+                />
               ))}
           </div>
           <Button title='Clear' onClick={() => updateTokens([])} />
@@ -155,6 +159,7 @@ const Challenges: React.FC = () => {
                 key={x.id}
                 src={getTokenIcon(x.id, x.tier)}
                 onClick={() => updateTokens([x.id, x.id, x.id])}
+                alt={`Token ${x.id}`}
               />
             ))}
       </div>

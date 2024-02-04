@@ -6,7 +6,7 @@ import {
   removeFavorite,
 } from '../../utils/ipcBridge';
 import { useLcuData } from '../../components/LcuContext';
-import { Switch, Select, Splashart, Textbox, Skeleton } from 'component-lib';
+import { Switch, Select, Splashart, Textbox, Skeleton } from '../../components';
 import { toast } from 'react-hot-toast';
 import './Backgrounds.scss';
 
@@ -14,7 +14,7 @@ const SPLASHART_DATA_URL =
   'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/skins.json';
 const ENDPOINT = '/lol-summoner/v1/current-summoner/summoner-profile/';
 
-type Splashart = {
+type SplashartType = {
   id: number;
   name: string;
   isLegacy: boolean;
@@ -30,7 +30,7 @@ const ITEMS: { name: string; value: string }[] = [
 const Backgrounds: React.FC = () => {
   const lcuData = useLcuData();
   const [loading, setLoading] = useState<boolean>(true);
-  const [splashartData, setSplashartData] = useState<Splashart[]>([]);
+  const [splashartData, setSplashartData] = useState<SplashartType[]>([]);
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [nameFilter, setNameFilter] = useState<string>('');
   const [legacyFilter, setLegacyFilter] = useState<boolean>(true);
@@ -38,7 +38,7 @@ const Backgrounds: React.FC = () => {
 
   const filter1 = useMemo(() => {
     if (typeFilter === 'all') return splashartData;
-    else if (typeFilter === 'favorites')
+    if (typeFilter === 'favorites')
       return splashartData.filter((i) => i.isFavorite);
   }, [splashartData, typeFilter]);
 
@@ -52,12 +52,12 @@ const Backgrounds: React.FC = () => {
 
   const filter3 = useMemo(() => {
     if (legacyFilter) return filter2;
-    else return filter2.filter((i) => i.isLegacy === false);
+    return filter2.filter((i) => i.isLegacy === false);
   }, [filter2, legacyFilter]);
 
   const filter4 = useMemo(() => {
     if (baseFilter) return filter3;
-    else return filter3.filter((i) => i.isBase === false);
+    return filter3.filter((i) => i.isBase === false);
   }, [filter3, baseFilter]);
 
   const setBackground = (id: number) => {
@@ -78,7 +78,7 @@ const Backgrounds: React.FC = () => {
     else addFavorite('background', id);
 
     console.log(
-      (background.isFavorite ? 'Removed' : 'Added') + ' favorite background:',
+      `${background.isFavorite ? 'Removed' : 'Added'} favorite background:`,
       background.id,
     );
 

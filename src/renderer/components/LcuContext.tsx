@@ -260,6 +260,7 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
               blueEssence: message.data.ip ?? 0,
             },
           }));
+          break;
         }
         case `/lol-challenges/v1/summary-player-data/player/${state.me.puuid}`: {
           setState((oldState) => ({
@@ -276,6 +277,7 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
               title: message.data.title.itemId ?? -1,
             },
           }));
+          break;
         }
         default: {
           console.log(message);

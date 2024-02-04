@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation, NavLink } from 'react-router-dom';
 import { useLcuData } from './LcuContext';
-import { Badge, SummonerIcon } from 'component-lib';
+import { Badge, SummonerIcon } from '../components';
 
 interface NavItemProps {
   title: string;
@@ -47,12 +47,12 @@ const NavBar: React.FC = () => {
         <span>{lcuData.me.name}</span>
         <Badge
           text={lcuData.wallet.blueEssence.toString()}
-          icon='assets/be.png'
+          icon={<img src='assets/be.png' alt='Blue Essence' />}
           backgroundColor='#5098DA'
         />
         <Badge
           text={lcuData.wallet.riotPoints.toString()}
-          icon='assets/rp.png'
+          icon={<img src='assets/rp.png' alt='Riot Points' />}
           backgroundColor='#EA5D5F'
         />
       </div>

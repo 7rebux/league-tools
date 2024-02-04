@@ -38,7 +38,7 @@ const request = (
   return new Promise((resolve) => {
     const id = UUID();
 
-    ipcRenderer.once('lcu-response-' + id, (_event, data) => {
+    ipcRenderer.once(`lcu-response-${id}`, (_event, data) => {
       console.log('Received response for', id, data);
       resolve(data);
     });

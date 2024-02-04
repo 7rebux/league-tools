@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { request } from '../../utils/ipcBridge';
 import { useLcuData } from '../../components/LcuContext';
-import { Button, Textbox, SummonerIcon, Select } from 'component-lib';
+import { Button, Textbox, SummonerIcon, Select } from '../../components';
 import { toast } from 'react-hot-toast';
 import './Status.scss';
 

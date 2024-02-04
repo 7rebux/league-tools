@@ -1,4 +1,4 @@
-import { Badge, SummonerIcon } from 'component-lib';
+import { Badge, SummonerIcon } from '../../components';
 import React from 'react';
 import { useLcuData } from '../../components/LcuContext';
 import './Home.scss';
@@ -45,11 +45,16 @@ const Home: React.FC = () => {
           <div className='badges'>
             <Badge
               text={lcuData.me.lol.level.toString()}
-              icon='assets/level.png'
+              icon={<img src='assets/level.png' alt='Level' />}
             />
             <Badge
               text={getRankText()}
-              icon={`${RANK_CREST_URL}${lcuData.me.lol.rankedLeagueTier.toLowerCase()}.png`}
+              icon={
+                <img
+                  src={`${RANK_CREST_URL}${lcuData.me.lol.rankedLeagueTier.toLowerCase()}.png`}
+                  alt='Rank'
+                />
+              }
               backgroundColor={COLORS.get(lcuData.me.lol.rankedLeagueTier)}
             />
           </div>

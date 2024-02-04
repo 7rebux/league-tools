@@ -1,0 +1,41 @@
+@use '../../_theme' as *;
+
+$padding: 5px;
+$borderRadius: 6px;
+
+.trigger {
+  all: unset;
+  cursor: pointer;
+  width: 150px;
+  padding: $padding;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: color('secondary');
+  box-sizing: border-box;
+  @include font('body');
+  user-select: none;
+  border-radius: $borderRadius;
+}
+
+.content {
+  background-color: darken(color('surface'), 10);
+  border-radius: $borderRadius;
+}
+
+.item {
+  box-sizing: border-box;
+  width: var(--radix-select-trigger-width);
+  padding: $padding;
+  @include font('body');
+  border-radius: $borderRadius;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  outline: none;
+  user-select: none;
+
+  &[data-highlighted] {
+    background-color: darken(color('surface'), 20);
+  }
+}

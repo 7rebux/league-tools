@@ -8,7 +8,7 @@ type Favorites = {
   backgrounds: number[];
 };
 
-const connect = (navigate: any): Promise<undefined> => {
+export const connect = (navigate: any): Promise<undefined> => {
   return new Promise((resolve, reject) => {
     ipcRenderer.once('lcu-connected', (_event, reason) => {
       if (reason) {
@@ -30,7 +30,7 @@ const connect = (navigate: any): Promise<undefined> => {
   });
 };
 
-const request = (
+export const request = (
   method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
   endpoint: string,
   body?: any,
@@ -48,7 +48,7 @@ const request = (
   });
 };
 
-const getFavorites = (): Promise<Favorites> => {
+export const getFavorites = (): Promise<Favorites> => {
   return new Promise((resolve) => {
     ipcRenderer.once('store-favorites', (_event, favorites) => {
       resolve(favorites);
@@ -58,15 +58,15 @@ const getFavorites = (): Promise<Favorites> => {
   });
 };
 
-const addFavorite = (type: 'icon' | 'background', id: number) => {
+export const addFavorite = (type: 'icon' | 'background', id: number) => {
   ipcRenderer.send('store-add-favorite', type, id);
 };
 
-const removeFavorite = (type: 'icon' | 'background', id: number) => {
+export const removeFavorite = (type: 'icon' | 'background', id: number) => {
   ipcRenderer.send('store-remove-favorite', type, id);
 };
 
-const exportFavorites = (): Promise<boolean> => {
+export const exportFavorites = (): Promise<boolean> => {
   return new Promise((resolve) => {
     ipcRenderer.once('store-export-response', (_event, success) => {
       resolve(success);
@@ -76,7 +76,7 @@ const exportFavorites = (): Promise<boolean> => {
   });
 };
 
-const importFavorites = (): Promise<boolean> => {
+export const importFavorites = (): Promise<boolean> => {
   return new Promise((resolve) => {
     ipcRenderer.once('store-import-response', (_event, success) => {
       resolve(success);
@@ -84,14 +84,4 @@ const importFavorites = (): Promise<boolean> => {
 
     ipcRenderer.send('store-import');
   });
-};
-
-export {
-  connect,
-  request,
-  getFavorites,
-  addFavorite,
-  removeFavorite,
-  exportFavorites,
-  importFavorites,
 };

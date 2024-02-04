@@ -1,5 +1,6 @@
 const fs = require('node:fs/promises');
 const Store = require('electron-store');
+
 type Favorites = {
   icons: number[];
   backgrounds: number[];
@@ -7,7 +8,8 @@ type Favorites = {
 
 const schema = {
   window: {
-    default: {}, // https://github.com/ajv-validator/ajv/issues/1710
+    // https://github.com/ajv-validator/ajv/issues/1710
+    default: {},
     width: {
       type: 'number',
       default: 900,
@@ -24,39 +26,29 @@ const schema = {
 };
 const store = new Store(schema);
 
-const setBounds = (width: number, height: number) => {
+export const setBounds = (width: number, height: number) => {
   store.set('window.width', width);
   store.set('window.height', height);
 };
 
-const getBounds = () => {
+export const getBounds = () => {
   return {
     width: store.get('window.width'),
     height: store.get('window.height'),
   };
 };
 
-const addFavorite = (type: 'icon' | 'background', id: number) => {
+export const addFavorite = (type: 'icon' | 'background', id: number) => {
   if (type === 'icon') {
-    const icons = store.get('favorites.icons');
-
-    if (icons) {
-      store.set('favorites.icons', icons.concat(id));
-    } else {
-      store.set('favorites.icons', [id]);
-    }
+    const icons = store.get('favorites.icons') ?? [];
+    store.set('favorites.icons', icons.concat(id));
   } else {
-    const backgrounds = store.get('favorites.backgrounds');
-
-    if (backgrounds) {
-      store.set('favorites.backgrounds', backgrounds.concat(id));
-    } else {
-      store.set('favorites.backgrounds', [id]);
-    }
+    const backgrounds = store.get('favorites.backgrounds') ?? [];
+    store.set('favorites.backgrounds', backgrounds.concat(id));
   }
 };
 
-const removeFavorite = (type: 'icon' | 'background', id: number) => {
+export const removeFavorite = (type: 'icon' | 'background', id: number) => {
   if (type === 'icon') {
     store.set(
       'favorites.icons',
@@ -70,30 +62,20 @@ const removeFavorite = (type: 'icon' | 'background', id: number) => {
   }
 };
 
-const getFavorites = (): Favorites => {
+export const getFavorites = (): Favorites => {
   return {
     icons: store.get('favorites.icons') ?? [],
     backgrounds: store.get('favorites.backgrounds') ?? [],
   };
 };
 
-const exportFavorites = async (path: string) => {
-  await fs.writeFile(path, JSON.stringify(getFavorites()));
+export const exportFavorites = async (path: string) => {
+  const favorites = getFavorites();
+  await fs.writeFile(path, JSON.stringify(favorites));
 };
 
-const importFavorites = async (path: string) => {
+export const importFavorites = async (path: string) => {
   const content = await fs.readFile(path);
   const favorites = JSON.parse(content);
-
   store.set('favorites', favorites);
-};
-
-export {
-  setBounds,
-  getBounds,
-  addFavorite,
-  removeFavorite,
-  getFavorites,
-  exportFavorites,
-  importFavorites,
 };

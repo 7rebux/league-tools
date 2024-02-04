@@ -13,7 +13,7 @@ import {
 } from './settings';
 import LCU from './lcu';
 
-// electron forge entry point declared in package.json
+// Electron forge entry point declared in package.json
 declare const MAIN_WEBPACK_ENTRY: string;
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
@@ -35,7 +35,6 @@ const createWindow = (): BrowserWindow => {
 
   mainWindow.on('resize', () => {
     const size = mainWindow.getSize();
-
     setBounds(size[0], size[1]);
   });
 
@@ -87,10 +86,10 @@ app.on('ready', () => {
 
     if (response.canceled) {
       event.reply('store-export-response', false);
+    } else {
+      await exportFavorites(response.filePath);
+      event.reply('store-export-response', true);
     }
-
-    await exportFavorites(response.filePath);
-    event.reply('store-export-response', true);
   });
 
   ipcMain.on('store-import', async (event) => {
@@ -100,10 +99,10 @@ app.on('ready', () => {
 
     if (response.canceled) {
       event.reply('store-import-response', false);
+    } else {
+      await importFavorites(response.filePaths[0]);
+      event.reply('store-import-response', true);
     }
-
-    await importFavorites(response.filePaths[0]);
-    event.reply('store-import-response', true);
   });
 
   session.defaultSession.webRequest.onHeadersReceived((details, callback) => {

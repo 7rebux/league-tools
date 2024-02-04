@@ -25,7 +25,7 @@ const NavBar: React.FC = () => {
   const location = useLocation();
   const lcuData = useLcuData();
 
-  // hide navbar on connect page
+  // Hide navbar on connect page
   if (location.pathname === '/connect') return <></>;
 
   return (

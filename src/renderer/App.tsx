@@ -51,7 +51,7 @@ const App: React.FC = () => {
 };
 
 const container = document.getElementById('main');
-const root = createRoot(container!);
+const root = createRoot(container);
 
 root.render(
   <StrictMode>

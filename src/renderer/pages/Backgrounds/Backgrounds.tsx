@@ -149,13 +149,14 @@ const Backgrounds: React.FC = () => {
           Showing <b>{filter4.length}</b> / {splashartData.length} splasharts
         </span>
         <span className='tip'>
-          <b>💡Tip:</b> Right click on an icon to add or remove it from your favorites
+          <b>💡Tip:</b> Right click on a splashart to add or remove it from your
+          favorites
         </span>
       </div>
       <div className='backgrounds'>
         {loading
-          ? Array.from({ length: 150 }, (_, i) => (
-              <Skeleton key={i} width={160} height={90} />
+          ? Array.from({ length: 150 }, () => (
+              <Skeleton width={160} height={90} />
             ))
           : filter4.map((splashart) => (
               <Splashart

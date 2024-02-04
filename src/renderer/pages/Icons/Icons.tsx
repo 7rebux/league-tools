@@ -141,13 +141,14 @@ const Icons: React.FC = () => {
           Showing <b>{filter3.length}</b> / {iconData.length} icons
         </span>
         <span className='tip'>
-          <b>💡Tip:</b> Right click on an icon to add or remove it from your favorites
+          <b>💡Tip:</b> Right click on an icon to add or remove it from your
+          favorites
         </span>
       </div>
       <div className='icons'>
         {loading
-          ? Array.from({ length: 300 }, (_, i) => (
-              <Skeleton key={i} width={85} height={85} />
+          ? Array.from({ length: 300 }, () => (
+              <Skeleton width={85} height={85} />
             ))
           : filter3.map((icon) => (
               <SummonerIcon

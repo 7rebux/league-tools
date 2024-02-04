@@ -2,7 +2,7 @@
   "name": "league-tools",
   "description": "A simple application with many useful functions which work with the LCU api of Riot Games ",
   "version": "2.1.0",
-  "author": "Rebux",
+  "author": "Nils Osswald",
   "license": "MIT",
   "private": true,
   "main": ".webpack/main",
@@ -24,9 +24,7 @@
         },
         {
           "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
+          "platforms": ["darwin"]
         },
         {
           "name": "@electron-forge/maker-deb",

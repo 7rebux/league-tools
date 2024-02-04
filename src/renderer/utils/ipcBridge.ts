@@ -14,7 +14,7 @@ const connect = (navigate: any): Promise<undefined> => {
       if (reason) {
         console.log(reason);
         return reject(reason);
-      };
+      }
 
       console.log('Connected to league client');
       resolve(undefined);
@@ -38,7 +38,7 @@ const request = (
   return new Promise((resolve) => {
     const id = UUID();
 
-    ipcRenderer.once('lcu-response-' + id, (_event, data) => {
+    ipcRenderer.once(`lcu-response-${id}`, (_event, data) => {
       console.log('Received response for', id, data);
       resolve(data);
     });
@@ -66,10 +66,4 @@ const removeFavorite = (type: 'icon' | 'background', id: number) => {
   ipcRenderer.send('store-remove-favorite', type, id);
 };
 
-export { 
-  connect,
-  request,
-  getFavorites,
-  addFavorite,
-  removeFavorite,
-};
+export { connect, request, getFavorites, addFavorite, removeFavorite };

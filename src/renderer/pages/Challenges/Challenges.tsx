@@ -1,15 +1,5 @@
-import { 
-  Button,
-  Textbox,
-  Switch,
-  Select,
-  Skeleton,
-} from 'component-lib';
-import React, {
-  useEffect,
-  useState,
-  useMemo,
-} from 'react';
+import { Button, Textbox, Switch, Select, Skeleton } from '../../components';
+import React, { useEffect, useState, useMemo } from 'react';
 import { request } from '../../utils/ipcBridge';
 import { useLcuData } from '../../components/LcuContext';
 import { toast } from 'react-hot-toast';
@@ -17,9 +7,11 @@ import './Challenges.scss';
 
 const UPDATE_ENDPOINT = '/lol-challenges/v1/update-player-preferences';
 const CHALLENGES_ENDPOINT = '/lol-challenges/v1/challenges/local-player';
-const TOKEN_ICON_URL = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/challenges/config';
+const TOKEN_ICON_URL =
+  'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/challenges/config';
 
-type TokenTier = 'IRON'
+type TokenTier =
+  | 'IRON'
   | 'BRONZE'
   | 'SILVER'
   | 'GOLD'
@@ -29,17 +21,17 @@ type TokenTier = 'IRON'
   | 'GRANDMASTER'
   | 'CHALLENGER';
 
-const TOKEN_TIERS: { name: string, value: TokenTier | 'ALL' }[] = [
-  { name: 'All',          value: 'ALL' },
-  { name: 'Iron',         value: 'IRON' },
-  { name: 'Bronze',       value: 'BRONZE' },
-  { name: 'Silver',       value: 'SILVER' },
-  { name: 'Gold',         value: 'GOLD' },
-  { name: 'Platinum',     value: 'PLATINUM' },
-  { name: 'Diamond',      value: 'DIAMOND' },
-  { name: 'Master',       value: 'MASTER' },
-  { name: 'Grandmaster',  value: 'GRANDMASTER' },
-  { name: 'Challenger',   value: 'CHALLENGER' },
+const TOKEN_TIERS: { name: string; value: TokenTier | 'ALL' }[] = [
+  { name: 'All', value: 'ALL' },
+  { name: 'Iron', value: 'IRON' },
+  { name: 'Bronze', value: 'BRONZE' },
+  { name: 'Silver', value: 'SILVER' },
+  { name: 'Gold', value: 'GOLD' },
+  { name: 'Platinum', value: 'PLATINUM' },
+  { name: 'Diamond', value: 'DIAMOND' },
+  { name: 'Master', value: 'MASTER' },
+  { name: 'Grandmaster', value: 'GRANDMASTER' },
+  { name: 'Challenger', value: 'CHALLENGER' },
 ];
 
 type Token = {
@@ -60,28 +52,31 @@ const Challenges: React.FC = () => {
   const [tierFilter, setTierFilter] = useState<'ALL' | TokenTier>('ALL');
   const [legacyFilter, setLegacyFilter] = useState<boolean>(true);
 
-  const filter1 = useMemo(() => tokens.filter(({ name }) => 
-    name.toLowerCase().includes(nameFilter.toLowerCase())
-  ), [tokens, nameFilter]);
+  const filter1 = useMemo(
+    () =>
+      tokens.filter(({ name }) =>
+        name.toLowerCase().includes(nameFilter.toLowerCase()),
+      ),
+    [tokens, nameFilter],
+  );
 
   const filter2 = useMemo(() => {
-    if (tierFilter === 'ALL')
-      return filter1;
-    else
-      return filter1.filter(({ tier }) => tier === tierFilter);
+    if (tierFilter === 'ALL') return filter1;
+    return filter1.filter(({ tier }) => tier === tierFilter);
   }, [filter1, tierFilter]);
 
   const filter3 = useMemo(() => {
-    if (legacyFilter)
-      return filter2;
-    else
-      return filter2.filter(({ legacy }) => legacy === false);
+    if (legacyFilter) return filter2;
+    return filter2.filter(({ legacy }) => legacy === false);
   }, [filter2, legacyFilter]);
 
   const updateTokens = (ids: number[]) => {
-    request('POST', UPDATE_ENDPOINT, { 
-      'challengeIds': ids,
-      'title': lcuData.challenges.title === -1 ? '' : lcuData.challenges.title.toString(),
+    request('POST', UPDATE_ENDPOINT, {
+      challengeIds: ids,
+      title:
+        lcuData.challenges.title === -1
+          ? ''
+          : lcuData.challenges.title.toString(),
     }).then(() => {
       toast.success('Updated tokens');
       console.log('Set tokens to', ids);
@@ -98,7 +93,7 @@ const Challenges: React.FC = () => {
           id: x.id,
           name: x.name,
           tier: x.currentLevel,
-          legacy: x.retireTimestamp != 0
+          legacy: x.retireTimestamp != 0,
         }));
 
       console.log('Fetched %d tokens', tokens.length);
@@ -116,30 +111,34 @@ const Challenges: React.FC = () => {
         <div className='showcase'>
           <div className='activeTokens'>
             {lcuData.challenges.tokens.length > 0 &&
-              lcuData.challenges.tokens.map((token, index) =>
-                <img key={index} src={getTokenIcon(token.id, token.tier)} />
-              )
-            }
+              lcuData.challenges.tokens.map((token, index) => (
+                <img
+                  key={index}
+                  src={getTokenIcon(token.id, token.tier)}
+                  alt={`Token ${token.id}`}
+                />
+              ))}
           </div>
-          <Button 
-            title='Clear' 
-            onClick={() => updateTokens([])} 
-          />
+          <Button title='Clear' onClick={() => updateTokens([])} />
         </div>
         <div className='filter'>
           <Textbox
             placeholder='Search..'
-            onInput={(event) => setNameFilter((event.target as HTMLInputElement).value)}
+            onInput={(event) =>
+              setNameFilter((event.target as HTMLInputElement).value)
+            }
           />
           <div className='settings'>
             <Select
               items={TOKEN_TIERS}
-              initialItem={TOKEN_TIERS.find(({ value }) => value === tierFilter)}
+              initialItem={TOKEN_TIERS.find(
+                ({ value }) => value === tierFilter,
+              )}
               onValueChange={(value: TokenTier | 'ALL') => setTierFilter(value)}
             />
             <div className='wrapper'>
               <span>Legacy</span>
-              <Switch 
+              <Switch
                 initialValue={legacyFilter}
                 onValueChange={setLegacyFilter}
               />
@@ -151,19 +150,18 @@ const Challenges: React.FC = () => {
         </div>
       </div>
       <div className='challenges'>
-        { loading ? (
-          Array.from({ length: 300 }, (_, i) =>
-            <Skeleton key={i} width={85} height={85} borderRadius={'100%'} />
-          )
-        ) : (
-          filter3.map((x: any) =>
-            <img
-              key={x.id}
-              src={getTokenIcon(x.id, x.tier)}
-              onClick={() => updateTokens([x.id, x.id, x.id])}
-            />
-          )
-        )}
+        {loading
+          ? Array.from({ length: 300 }, (_, i) => (
+              <Skeleton key={i} width={85} height={85} borderRadius={'100%'} />
+            ))
+          : filter3.map((x: any) => (
+              <img
+                key={x.id}
+                src={getTokenIcon(x.id, x.tier)}
+                onClick={() => updateTokens([x.id, x.id, x.id])}
+                alt={`Token ${x.id}`}
+              />
+            ))}
       </div>
     </div>
   );

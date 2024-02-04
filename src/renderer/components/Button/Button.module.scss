@@ -1,0 +1,25 @@
+@use '../../theme' as *;
+
+.button {
+  width: fit-content;
+  min-width: 7rem;
+  border-radius: 5px;
+  @include font('body');
+  text-align: center;
+  padding: 9px;
+  cursor: pointer;
+  user-select: none; // disable text selection
+
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
+  }
+}
+
+.primary {
+  @extend .button;
+  background: linear-gradient(72deg, color('primary'), color('secondary'));
+}
+
+.secondary {
+  @extend .button;
+}

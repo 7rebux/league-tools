@@ -1,0 +1,31 @@
+@use '../../_theme' as *;
+
+$height: 20px;
+
+.root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: $height;
+  max-width: fit-content;
+  padding: 3px 6px;
+  border: 6px solid;
+  border-radius: 100vw;
+  gap: 3px;
+  user-select: none;
+  pointer-events: none;
+}
+
+.text {
+  @include font('body');
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+
+  > * {
+    width: $height;
+    height: $height;
+  }
+}

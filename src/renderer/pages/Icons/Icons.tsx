@@ -1,8 +1,4 @@
-import React, {
-  useEffect,
-  useState,
-  useMemo,
-} from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import {
   request,
   getFavorites,
@@ -16,11 +12,12 @@ import {
   SummonerIcon,
   Switch,
   Skeleton,
-} from 'component-lib';
+} from '../../components';
 import { toast } from 'react-hot-toast';
 import './Icons.scss';
 
-const ICON_DATA_URL = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-icons.json';
+const ICON_DATA_URL =
+  'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-icons.json';
 const ENDPOINT = '/lol-chat/v1/me';
 
 type Icon = {
@@ -30,9 +27,9 @@ type Icon = {
   isFavorite: boolean;
 };
 
-const ITEMS: { name: string, value: string }[] = [
-  { name: 'All',        value: 'all' },
-  { name: 'Favorites',  value: 'favorites' },
+const ITEMS: { name: string; value: string }[] = [
+  { name: 'All', value: 'all' },
+  { name: 'Favorites', value: 'favorites' },
 ];
 
 const Icons: React.FC = () => {
@@ -44,21 +41,21 @@ const Icons: React.FC = () => {
   const [legacyFilter, setLegacyFilter] = useState<boolean>(true);
 
   const filter1 = useMemo(() => {
-    if (typeFilter === 'all')
-      return iconData;
-    else if (typeFilter === 'favorites')
-      return iconData.filter((i) => i.isFavorite);
+    if (typeFilter === 'all') return iconData;
+    if (typeFilter === 'favorites') return iconData.filter((i) => i.isFavorite);
   }, [iconData, typeFilter]);
 
-  const filter2 = useMemo(() => filter1.filter((i) => 
-    i.title.toLowerCase().includes(titleFilter.toLowerCase())
-  ), [filter1, titleFilter]);
+  const filter2 = useMemo(
+    () =>
+      filter1.filter((i) =>
+        i.title.toLowerCase().includes(titleFilter.toLowerCase()),
+      ),
+    [filter1, titleFilter],
+  );
 
   const filter3 = useMemo(() => {
-    if (legacyFilter)
-      return filter2;
-    else 
-      return filter2.filter((i) => i.isLegacy === false);
+    if (legacyFilter) return filter2;
+    return filter2.filter((i) => i.isLegacy === false);
   }, [filter2, legacyFilter]);
 
   const setIcon = (id: number) => {
@@ -73,16 +70,19 @@ const Icons: React.FC = () => {
   const toggleFavorite = (id: number) => {
     const icon = iconData.find((i) => i.id === id);
 
-    if (icon.isFavorite)
-      removeFavorite('icon', id);
-    else
-      addFavorite('icon', id);
+    if (icon.isFavorite) removeFavorite('icon', id);
+    else addFavorite('icon', id);
 
-    console.log((icon.isFavorite ? 'Removed' : 'Added') + ' favorite icon:', icon.id);
+    console.log(
+      `${icon.isFavorite ? 'Removed' : 'Added'} favorite icon:`,
+      icon.id,
+    );
 
-    setIconData(iconData.map((i) =>
-      i === icon ? {...i, isFavorite: !i.isFavorite } : i
-    ));
+    setIconData(
+      iconData.map((i) =>
+        i === icon ? { ...i, isFavorite: !i.isFavorite } : i,
+      ),
+    );
   };
 
   useEffect(() => {
@@ -98,11 +98,14 @@ const Icons: React.FC = () => {
           title: icon.title,
           isLegacy: icon.isLegacy,
           isFavorite: favorites.icons.includes(icon.id),
-        }
-      ));
+        }));
 
       console.log('Fetched %d icons', icons.length);
-      console.log('Found %d favorite icons:', favorites.icons.length, favorites.icons);
+      console.log(
+        'Found %d favorite icons:',
+        favorites.icons.length,
+        favorites.icons,
+      );
 
       setIconData(icons);
       setLoading(false);
@@ -116,7 +119,9 @@ const Icons: React.FC = () => {
       <div className='filter'>
         <Textbox
           placeholder='Search..'
-          onInput={(event) => setTitleFilter((event.target as HTMLInputElement).value)}
+          onInput={(event) =>
+            setTitleFilter((event.target as HTMLInputElement).value)
+          }
         />
         <div className='settings'>
           <Select
@@ -137,23 +142,21 @@ const Icons: React.FC = () => {
         </span>
       </div>
       <div className='icons'>
-        { loading ? (
-          Array.from({ length: 300 }, (_, i) => 
-            <Skeleton key={i} width={85} height={85} />
-          )
-        ) : (
-          filter3.map((icon) => (
-            <SummonerIcon
-              key={icon.id}
-              iconId={icon.id}
-              size={85}
-              selected={lcuData.me.icon === icon.id}
-              favorite={icon.isFavorite}
-              onClick={() => setIcon(icon.id)}
-              onContextMenu={() => toggleFavorite(icon.id)}
-            />
-          ))
-        )}
+        {loading
+          ? Array.from({ length: 300 }, (_, i) => (
+              <Skeleton key={i} width={85} height={85} />
+            ))
+          : filter3.map((icon) => (
+              <SummonerIcon
+                key={icon.id}
+                iconId={icon.id}
+                size={85}
+                selected={lcuData.me.icon === icon.id}
+                favorite={icon.isFavorite}
+                onClick={() => setIcon(icon.id)}
+                onContextMenu={() => toggleFavorite(icon.id)}
+              />
+            ))}
       </div>
     </div>
   );

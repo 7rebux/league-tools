@@ -1,0 +1,10 @@
+@use '../../_theme' as *;
+
+.textbox {
+  all: unset; // unset default styling
+  background-color: color('surface');
+  @include font('body');
+  border: 3px solid color('secondary');
+  border-radius: 10px;
+  padding: 0.5rem;
+}

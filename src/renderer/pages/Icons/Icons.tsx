@@ -58,11 +58,11 @@ const Icons: React.FC = () => {
     return filter2.filter((i) => i.isLegacy === false);
   }, [filter2, legacyFilter]);
 
-  const setIcon = (id: number) => {
-    if (id === lcuData.me.icon) return;
+  const setIcon = (icon: Icon) => {
+    if (icon.id === lcuData.me.icon) return;
 
-    request('PUT', ENDPOINT, { icon: id }).then((data) => {
-      toast.success('Updated icon');
+    request('PUT', ENDPOINT, { icon: icon.id }).then((data) => {
+      toast.success(`Updated icon to "${icon.title}"`);
       console.log('Set icon to', data.icon);
     });
   };
@@ -156,8 +156,9 @@ const Icons: React.FC = () => {
                 size={85}
                 selected={lcuData.me.icon === icon.id}
                 favorite={icon.isFavorite}
-                onClick={() => setIcon(icon.id)}
+                onClick={() => setIcon(icon)}
                 onContextMenu={() => toggleFavorite(icon.id)}
+                title={icon.title}
               />
             ))}
       </div>

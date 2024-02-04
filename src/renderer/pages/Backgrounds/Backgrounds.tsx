@@ -60,12 +60,12 @@ const Backgrounds: React.FC = () => {
     return filter3.filter((i) => i.isBase === false);
   }, [filter3, baseFilter]);
 
-  const setBackground = (id: number) => {
-    if (id === lcuData.profile.backgroundSkinId) return;
+  const setBackground = (background: SplashartType) => {
+    if (background.id === lcuData.profile.backgroundSkinId) return;
 
-    request('POST', ENDPOINT, { key: 'backgroundSkinId', value: id }).then(
+    request('POST', ENDPOINT, { key: 'backgroundSkinId', value: background.id }).then(
       (data) => {
-        toast.success('Updated backgroud');
+        toast.success(`Updated backgroud to "${background.name}"`);
         console.log('Set background to', data.backgroundSkinId);
       },
     );
@@ -162,8 +162,9 @@ const Backgrounds: React.FC = () => {
                 skinId={splashart.id}
                 selected={lcuData.profile.backgroundSkinId === splashart.id}
                 favorite={splashart.isFavorite}
-                onClick={() => setBackground(splashart.id)}
+                onClick={() => setBackground(splashart)}
                 onContextMenu={() => toggleFavorite(splashart.id)}
+                title={splashart.name}
               />
             ))}
       </div>

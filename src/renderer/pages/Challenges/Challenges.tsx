@@ -118,7 +118,6 @@ const Challenges: React.FC = () => {
             {lcuData.challenges.tokens.length > 0 &&
               lcuData.challenges.tokens.map((token) => (
                 <img
-                  key={token.id}
                   src={getTokenIcon(token.id, token.tier)}
                   alt={`Token ${token.id}`}
                   title={token.name}

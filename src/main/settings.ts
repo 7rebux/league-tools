@@ -28,9 +28,19 @@ const schema = {
     },
   },
   favorites: {
-    icons: [] as number[],
-    backgrounds: [] as number[],
-    statuses: [] as string[],
+    default: {},
+    icons: {
+      type: 'number[]',
+      default: [] as number[],
+    },
+    backgrounds: {
+      type: 'number[]',
+      default: [] as number[],
+    },
+    statuses: {
+      type: 'string[]',
+      default: [] as string[],
+    },
   },
 };
 const store = new Store(schema);
@@ -40,11 +50,18 @@ export const setBounds = (bounds: Bounds) => {
 };
 
 export const getBounds = (): Bounds => {
-  return store.get('window');
+  return {
+    width: store.get('window.width') ?? 900,
+    height: store.get('window.height') ?? 659,
+  };
 };
 
 export const getFavorites = (): Favorites => {
-  return store.get('favorites');
+  return {
+    icons: store.get('favorites.icons') ?? [],
+    backgrounds: store.get('favorites.backgrounds') ?? [],
+    statuses: store.get('favorites.statuses') ?? [],
+  };
 };
 
 export const addFavorite = (type: FavoriteType, value: unknown) => {

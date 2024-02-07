@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { request } from '../../utils/ipcBridge';
+import React, { useEffect, useState } from 'react';
+import { addFavorite, getFavorites, request } from '../../utils/ipcBridge';
 import { useLcuData } from '../../components/LcuContext';
 import { Button, Textbox, SummonerIcon, Select } from '../../components';
 import { toast } from 'react-hot-toast';
@@ -23,6 +23,27 @@ const Status: React.FC = () => {
     lcuData.me.availability,
   );
   const statusBox = React.createRef<HTMLInputElement>();
+  const [favorites, setFavorites] = useState<string[]>([]);
+
+  useEffect(() => {
+    getFavorites().then((res) => {
+      setFavorites(res.statuses);
+      console.log(
+        'Found %d favorite statuses:',
+        res.statuses.length,
+        res.statuses,
+      );
+    });
+  }, []);
+
+  function add(value: string) {
+    if (favorites.includes(value)) {
+      toast.error('Status already exists');
+      return;
+    }
+
+    addFavorite('status', value);
+  }
 
   const apply = () => {
     const updateStatus = async () => {

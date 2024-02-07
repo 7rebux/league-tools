@@ -35,7 +35,7 @@ const createWindow = (): BrowserWindow => {
 
   mainWindow.on('resize', () => {
     const size = mainWindow.getSize();
-    setBounds(size[0], size[1]);
+    setBounds({ width: size[0], height: size[1] });
   });
 
   mainWindow.loadURL(MAIN_WEBPACK_ENTRY);

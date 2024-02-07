@@ -6,7 +6,10 @@ const { ipcRenderer } = window.require('electron');
 type Favorites = {
   icons: number[];
   backgrounds: number[];
+  statuses: string[];
 };
+
+type FavoriteType = 'icon' | 'background' | 'status';
 
 export const connect = (navigate: any): Promise<undefined> => {
   return new Promise((resolve, reject) => {
@@ -58,12 +61,12 @@ export const getFavorites = (): Promise<Favorites> => {
   });
 };
 
-export const addFavorite = (type: 'icon' | 'background', id: number) => {
-  ipcRenderer.send('store-add-favorite', type, id);
+export const addFavorite = (type: FavoriteType, value: number | string) => {
+  ipcRenderer.send('store-add-favorite', type, value);
 };
 
-export const removeFavorite = (type: 'icon' | 'background', id: number) => {
-  ipcRenderer.send('store-remove-favorite', type, id);
+export const removeFavorite = (type: FavoriteType, value: number | string) => {
+  ipcRenderer.send('store-remove-favorite', type, value);
 };
 
 export const exportFavorites = (): Promise<boolean> => {

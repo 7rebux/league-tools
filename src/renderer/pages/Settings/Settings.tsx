@@ -20,8 +20,11 @@ const Settings: React.FC = () => {
   return (
     <div className='settings-page'>
       <div className='wrapper'>
-        <Button title='Import' onClick={handleImport} />
-        <Button title='Export' onClick={handleExport} />
+        <p>Favorites:</p>
+        <div className='section'>
+          <Button title='Import' onClick={handleImport} />
+          <Button title='Export' onClick={handleExport} />
+        </div>
       </div>
     </div>
   );

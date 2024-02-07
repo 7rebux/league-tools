@@ -51,7 +51,7 @@ const Home: React.FC = () => {
               text={getRankText()}
               icon={
                 <img
-                  src={`${RANK_CREST_URL}${lcuData.me.lol.rankedLeagueTier.toLowerCase()}.png`}
+                  src={`${RANK_CREST_URL}${lcuData.me.lol.rankedLeagueTier.toLowerCase()}.svg`}
                   alt='Rank'
                 />
               }

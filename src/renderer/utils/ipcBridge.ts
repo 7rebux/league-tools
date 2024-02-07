@@ -6,9 +6,12 @@ const { ipcRenderer } = window.require('electron');
 type Favorites = {
   icons: number[];
   backgrounds: number[];
+  statuses: string[];
 };
 
-const connect = (navigate: any): Promise<undefined> => {
+type FavoriteType = 'icon' | 'background' | 'status';
+
+export const connect = (navigate: any): Promise<undefined> => {
   return new Promise((resolve, reject) => {
     ipcRenderer.once('lcu-connected', (_event, reason) => {
       if (reason) {
@@ -30,7 +33,7 @@ const connect = (navigate: any): Promise<undefined> => {
   });
 };
 
-const request = (
+export const request = (
   method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
   endpoint: string,
   body?: any,
@@ -48,7 +51,7 @@ const request = (
   });
 };
 
-const getFavorites = (): Promise<Favorites> => {
+export const getFavorites = (): Promise<Favorites> => {
   return new Promise((resolve) => {
     ipcRenderer.once('store-favorites', (_event, favorites) => {
       resolve(favorites);
@@ -58,12 +61,30 @@ const getFavorites = (): Promise<Favorites> => {
   });
 };
 
-const addFavorite = (type: 'icon' | 'background', id: number) => {
-  ipcRenderer.send('store-add-favorite', type, id);
+export const addFavorite = (type: FavoriteType, value: number | string) => {
+  ipcRenderer.send('store-add-favorite', type, value);
 };
 
-const removeFavorite = (type: 'icon' | 'background', id: number) => {
-  ipcRenderer.send('store-remove-favorite', type, id);
+export const removeFavorite = (type: FavoriteType, value: number | string) => {
+  ipcRenderer.send('store-remove-favorite', type, value);
 };
 
-export { connect, request, getFavorites, addFavorite, removeFavorite };
+export const exportFavorites = (): Promise<boolean> => {
+  return new Promise((resolve) => {
+    ipcRenderer.once('store-export-response', (_event, success) => {
+      resolve(success);
+    });
+
+    ipcRenderer.send('store-export');
+  });
+};
+
+export const importFavorites = (): Promise<boolean> => {
+  return new Promise((resolve) => {
+    ipcRenderer.once('store-import-response', (_event, success) => {
+      resolve(success);
+    });
+
+    ipcRenderer.send('store-import');
+  });
+};

@@ -1,12 +1,12 @@
 @use '../../_theme' as *;
 
-.status-page {
+.settings-page {
   height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  gap: 40px;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
 
   .wrapper {
     background-color: color('surface');

@@ -44,6 +44,14 @@ $border-radius: 20px;
       text-align: center;
       font-size: 12px;
     }
+
+    .tip {
+      @include font('subtitle');
+      text-align: center;
+      font-size: 12px;
+      max-width: 35ch;
+      margin-top: auto;
+    }
   }
 
   .backgrounds {

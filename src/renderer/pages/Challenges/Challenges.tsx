@@ -70,16 +70,21 @@ const Challenges: React.FC = () => {
     return filter2.filter(({ legacy }) => legacy === false);
   }, [filter2, legacyFilter]);
 
-  const updateTokens = (ids: number[]) => {
+  const updateTokens = (token?: Token) => {
     request('POST', UPDATE_ENDPOINT, {
-      challengeIds: ids,
+      challengeIds: token ? [token.id, token.id, token.id] : [],
       title:
         lcuData.challenges.title === -1
           ? ''
           : lcuData.challenges.title.toString(),
     }).then(() => {
-      toast.success('Updated tokens');
-      console.log('Set tokens to', ids);
+      if (token) {
+        toast.success(`Updated tokens to "${token.name}"`);
+        console.log('Set tokens to 3x', token.id);
+      } else {
+        toast.success('Cleared tokens');
+        console.log('Cleared tokens');
+      }
     });
   };
 
@@ -93,7 +98,7 @@ const Challenges: React.FC = () => {
           id: x.id,
           name: x.name,
           tier: x.currentLevel,
-          legacy: x.retireTimestamp != 0,
+          legacy: x.retireTimestamp !== 0,
         }));
 
       console.log('Fetched %d tokens', tokens.length);
@@ -111,15 +116,15 @@ const Challenges: React.FC = () => {
         <div className='showcase'>
           <div className='activeTokens'>
             {lcuData.challenges.tokens.length > 0 &&
-              lcuData.challenges.tokens.map((token, index) => (
+              lcuData.challenges.tokens.map((token) => (
                 <img
-                  key={index}
                   src={getTokenIcon(token.id, token.tier)}
                   alt={`Token ${token.id}`}
+                  title={token.name}
                 />
               ))}
           </div>
-          <Button title='Clear' onClick={() => updateTokens([])} />
+          <Button title='Clear' onClick={() => updateTokens()} />
         </div>
         <div className='filter'>
           <Textbox
@@ -151,15 +156,16 @@ const Challenges: React.FC = () => {
       </div>
       <div className='challenges'>
         {loading
-          ? Array.from({ length: 300 }, (_, i) => (
-              <Skeleton key={i} width={85} height={85} borderRadius={'100%'} />
+          ? Array.from({ length: 300 }, () => (
+              <Skeleton width={85} height={85} borderRadius={'100%'} />
             ))
-          : filter3.map((x: any) => (
+          : filter3.map((x: Token) => (
               <img
                 key={x.id}
                 src={getTokenIcon(x.id, x.tier)}
-                onClick={() => updateTokens([x.id, x.id, x.id])}
+                onClick={() => updateTokens(x)}
                 alt={`Token ${x.id}`}
+                title={x.name}
               />
             ))}
       </div>

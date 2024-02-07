@@ -1,4 +1,4 @@
-import { app, BrowserWindow, session, ipcMain, Menu } from 'electron';
+import { app, BrowserWindow, session, ipcMain, Menu, dialog } from 'electron';
 import installExtension, {
   REACT_DEVELOPER_TOOLS,
 } from 'electron-devtools-installer';
@@ -8,10 +8,12 @@ import {
   addFavorite,
   removeFavorite,
   getFavorites,
+  exportFavorites,
+  importFavorites,
 } from './settings';
 import LCU from './lcu';
 
-// electron forge entry point declared in package.json
+// Electron forge entry point declared in package.json
 declare const MAIN_WEBPACK_ENTRY: string;
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
@@ -33,8 +35,7 @@ const createWindow = (): BrowserWindow => {
 
   mainWindow.on('resize', () => {
     const size = mainWindow.getSize();
-
-    setBounds(size[0], size[1]);
+    setBounds({ width: size[0], height: size[1] });
   });
 
   mainWindow.loadURL(MAIN_WEBPACK_ENTRY);
@@ -75,6 +76,33 @@ app.on('ready', () => {
 
   ipcMain.on('store-remove-favorite', (_event, type, id) => {
     removeFavorite(type, id);
+  });
+
+  ipcMain.on('store-export', async (event) => {
+    const response = await dialog.showSaveDialog(browserWindow, {
+      filters: [{ extensions: ['json'], name: 'JSON' }],
+      defaultPath: 'favorites.json',
+    });
+
+    if (response.canceled) {
+      event.reply('store-export-response', false);
+    } else {
+      await exportFavorites(response.filePath);
+      event.reply('store-export-response', true);
+    }
+  });
+
+  ipcMain.on('store-import', async (event) => {
+    const response = await dialog.showOpenDialog(browserWindow, {
+      filters: [{ extensions: ['json'], name: 'JSON' }],
+    });
+
+    if (response.canceled) {
+      event.reply('store-import-response', false);
+    } else {
+      await importFavorites(response.filePaths[0]);
+      event.reply('store-import-response', true);
+    }
   });
 
   session.defaultSession.webRequest.onHeadersReceived((details, callback) => {

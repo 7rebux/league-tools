@@ -42,7 +42,7 @@ class LCU {
   request = async (
     method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
     endpoint: string,
-    body?: any,
+    body?: JsonObjectLike,
   ): Promise<JsonObjectLike> => {
     if (!this.connected) return {};
 
@@ -64,9 +64,9 @@ class LCU {
     do {
       socket = new WebSocket(url, {
         headers: {
-          Authorization:
-            'Basic ' +
-            Buffer.from(`riot:${this.credentials.password}`).toString('base64'),
+          Authorization: `Basic ${Buffer.from(
+            `riot:${this.credentials.password}`,
+          ).toString('base64')}`,
         },
         agent: new https.Agent(
           typeof this.credentials?.certificate === 'undefined'
@@ -79,7 +79,7 @@ class LCU {
       socket?.readyState !== WebSocket.CONNECTING
     );
 
-    // handle incoming messages
+    // Handle incoming messages
     socket.on('message', (content: string) => {
       try {
         const json = JSON.parse(content);
@@ -89,8 +89,8 @@ class LCU {
       } catch {}
     });
 
-    // subscribe to Json API
-    if (socket.readyState == WebSocket.OPEN)
+    // Subscribe to Json API
+    if (socket.readyState === WebSocket.OPEN)
       socket.send(JSON.stringify([5, 'OnJsonApiEvent']));
     else {
       socket.on('open', () => {

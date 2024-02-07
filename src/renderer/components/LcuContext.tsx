@@ -279,9 +279,6 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
           }));
           break;
         }
-        default: {
-          console.log(message);
-        }
       }
     };
 

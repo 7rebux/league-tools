@@ -60,15 +60,16 @@ const Backgrounds: React.FC = () => {
     return filter3.filter((i) => i.isBase === false);
   }, [filter3, baseFilter]);
 
-  const setBackground = (id: number) => {
-    if (id === lcuData.profile.backgroundSkinId) return;
+  const setBackground = (background: SplashartType) => {
+    if (background.id === lcuData.profile.backgroundSkinId) return;
 
-    request('POST', ENDPOINT, { key: 'backgroundSkinId', value: id }).then(
-      (data) => {
-        toast.success('Updated backgroud');
-        console.log('Set background to', data.backgroundSkinId);
-      },
-    );
+    request('POST', ENDPOINT, {
+      key: 'backgroundSkinId',
+      value: background.id,
+    }).then((data) => {
+      toast.success(`Updated backgroud to "${background.name}"`);
+      console.log('Set background to', data.backgroundSkinId);
+    });
   };
 
   const toggleFavorite = (id: number) => {
@@ -147,11 +148,15 @@ const Backgrounds: React.FC = () => {
         <span className='info'>
           Showing <b>{filter4.length}</b> / {splashartData.length} splasharts
         </span>
+        <span className='tip'>
+          <b>💡Tip:</b> Right click on a splashart to add or remove it from your
+          favorites
+        </span>
       </div>
       <div className='backgrounds'>
         {loading
-          ? Array.from({ length: 150 }, (_, i) => (
-              <Skeleton key={i} width={160} height={90} />
+          ? Array.from({ length: 150 }, () => (
+              <Skeleton width={160} height={90} />
             ))
           : filter4.map((splashart) => (
               <Splashart
@@ -159,8 +164,9 @@ const Backgrounds: React.FC = () => {
                 skinId={splashart.id}
                 selected={lcuData.profile.backgroundSkinId === splashart.id}
                 favorite={splashart.isFavorite}
-                onClick={() => setBackground(splashart.id)}
+                onClick={() => setBackground(splashart)}
                 onContextMenu={() => toggleFavorite(splashart.id)}
+                title={splashart.name}
               />
             ))}
       </div>

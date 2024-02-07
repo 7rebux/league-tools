@@ -1,13 +1,23 @@
+const fs = require('node:fs/promises');
 const Store = require('electron-store');
+
+type Bounds = {
+  width: number;
+  height: number;
+};
 
 type Favorites = {
   icons: number[];
   backgrounds: number[];
+  statuses: string[];
 };
+
+type FavoriteType = 'icon' | 'background' | 'status';
 
 const schema = {
   window: {
-    default: {}, // https://github.com/ajv-validator/ajv/issues/1710
+    // https://github.com/ajv-validator/ajv/issues/1710
+    default: {},
     width: {
       type: 'number',
       default: 900,
@@ -18,63 +28,94 @@ const schema = {
     },
   },
   favorites: {
-    icons: {},
-    backgrounds: {},
+    default: {},
+    icons: {
+      type: 'number[]',
+      default: [] as number[],
+    },
+    backgrounds: {
+      type: 'number[]',
+      default: [] as number[],
+    },
+    statuses: {
+      type: 'string[]',
+      default: [] as string[],
+    },
   },
 };
 const store = new Store(schema);
 
-const setBounds = (width: number, height: number) => {
-  store.set('window.width', width);
-  store.set('window.height', height);
+export const setBounds = (bounds: Bounds) => {
+  store.set('window', bounds);
 };
 
-const getBounds = () => {
+export const getBounds = (): Bounds => {
   return {
-    width: store.get('window.width'),
-    height: store.get('window.height'),
+    width: store.get('window.width') ?? 900,
+    height: store.get('window.height') ?? 659,
   };
 };
 
-const addFavorite = (type: 'icon' | 'background', id: number) => {
-  if (type === 'icon') {
-    const icons = store.get('favorites.icons');
-
-    if (icons) {
-      store.set('favorites.icons', icons.concat(id));
-    } else {
-      store.set('favorites.icons', [id]);
-    }
-  } else {
-    const backgrounds = store.get('favorites.backgrounds');
-
-    if (backgrounds) {
-      store.set('favorites.backgrounds', backgrounds.concat(id));
-    } else {
-      store.set('favorites.backgrounds', [id]);
-    }
-  }
-};
-
-const removeFavorite = (type: 'icon' | 'background', id: number) => {
-  if (type === 'icon') {
-    store.set(
-      'favorites.icons',
-      store.get('favorites.icons').filter((n: number) => n !== id),
-    );
-  } else {
-    store.set(
-      'favorites.backgrounds',
-      store.get('favorites.backgrounds').filter((n: number) => n !== id),
-    );
-  }
-};
-
-const getFavorites = (): Favorites => {
+export const getFavorites = (): Favorites => {
   return {
     icons: store.get('favorites.icons') ?? [],
     backgrounds: store.get('favorites.backgrounds') ?? [],
+    statuses: store.get('favorites.statuses') ?? [],
   };
 };
 
-export { setBounds, getBounds, addFavorite, removeFavorite, getFavorites };
+export const addFavorite = (type: FavoriteType, value: unknown) => {
+  const favorites = getFavorites();
+
+  switch (type) {
+    case 'icon':
+      store.set('favorites.icons', favorites.icons.concat(value as number));
+      break;
+    case 'background':
+      store.set(
+        'favorites.backgrounds',
+        favorites.backgrounds.concat(value as number),
+      );
+      break;
+    case 'status':
+      store.set(
+        'favorites.statuses',
+        favorites.statuses.concat(value as string),
+      );
+  }
+};
+
+export const removeFavorite = (type: FavoriteType, value: unknown) => {
+  const favorites = getFavorites();
+
+  switch (type) {
+    case 'icon':
+      store.set(
+        'favorites.icons',
+        favorites.icons.filter((x) => x !== (value as number)),
+      );
+      break;
+    case 'background':
+      store.set(
+        'favorites.backgrounds',
+        favorites.backgrounds.filter((x) => x !== (value as number)),
+      );
+      break;
+    case 'status':
+      store.set(
+        'favorites.statuses',
+        favorites.statuses.filter((x) => x !== (value as string)),
+      );
+  }
+};
+
+export const exportFavorites = async (path: string) => {
+  const favorites = getFavorites();
+  await fs.writeFile(path, JSON.stringify(favorites));
+};
+
+export const importFavorites = async (path: string) => {
+  const content = await fs.readFile(path);
+  const favorites = JSON.parse(content);
+  store.set('favorites', favorites);
+};

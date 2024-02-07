@@ -58,11 +58,11 @@ const Icons: React.FC = () => {
     return filter2.filter((i) => i.isLegacy === false);
   }, [filter2, legacyFilter]);
 
-  const setIcon = (id: number) => {
-    if (id === lcuData.me.icon) return;
+  const setIcon = (icon: Icon) => {
+    if (icon.id === lcuData.me.icon) return;
 
-    request('PUT', ENDPOINT, { icon: id }).then((data) => {
-      toast.success('Updated icon');
+    request('PUT', ENDPOINT, { icon: icon.id }).then((data) => {
+      toast.success(`Updated icon to "${icon.title}"`);
       console.log('Set icon to', data.icon);
     });
   };
@@ -140,11 +140,15 @@ const Icons: React.FC = () => {
         <span className='info'>
           Showing <b>{filter3.length}</b> / {iconData.length} icons
         </span>
+        <span className='tip'>
+          <b>💡Tip:</b> Right click on an icon to add or remove it from your
+          favorites
+        </span>
       </div>
       <div className='icons'>
         {loading
-          ? Array.from({ length: 300 }, (_, i) => (
-              <Skeleton key={i} width={85} height={85} />
+          ? Array.from({ length: 300 }, () => (
+              <Skeleton width={85} height={85} />
             ))
           : filter3.map((icon) => (
               <SummonerIcon
@@ -153,8 +157,9 @@ const Icons: React.FC = () => {
                 size={85}
                 selected={lcuData.me.icon === icon.id}
                 favorite={icon.isFavorite}
-                onClick={() => setIcon(icon.id)}
+                onClick={() => setIcon(icon)}
                 onContextMenu={() => toggleFavorite(icon.id)}
+                title={icon.title}
               />
             ))}
       </div>

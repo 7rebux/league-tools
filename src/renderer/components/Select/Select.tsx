@@ -9,22 +9,28 @@ type Item = {
 };
 
 interface Props {
-  initialItem: Item;
+  initialItem?: Item;
+  placeholder?: string;
   items: Item[];
   onValueChange?(value: string): void;
 }
 
-const Select: React.FC<Props> = ({ initialItem, items, onValueChange }) => {
+const Select: React.FC<Props> = ({
+  initialItem,
+  items,
+  onValueChange,
+  placeholder = 'Select...',
+}) => {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
     <RadixSelect.Root
-      defaultValue={initialItem.value}
+      defaultValue={initialItem?.value}
       onOpenChange={setOpen}
       onValueChange={onValueChange}
     >
       <RadixSelect.Trigger className={styles.trigger}>
-        <RadixSelect.Value />
+        <RadixSelect.Value placeholder={placeholder} />
         {open ? <AiFillCaretUp /> : <AiFillCaretDown />}
       </RadixSelect.Trigger>
       <RadixSelect.Portal>

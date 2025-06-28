@@ -104,7 +104,4 @@ dist
 .tern-port
 
 .webpack
-component-lib/build
 out
-bun.lockb
-pnpm-lock.yaml

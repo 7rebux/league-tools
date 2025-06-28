@@ -1,7 +1,7 @@
 {
   "name": "league-tools",
   "description": "A simple application with many useful functions which work with the LCU api of Riot Games ",
-  "version": "2.1.0",
+  "version": "0.6.1",
   "author": "Nils Osswald",
   "license": "MIT",
   "private": true,

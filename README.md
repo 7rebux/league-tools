@@ -26,12 +26,10 @@ Either download and install the latest release or make your own changes to this 
 
 ### Download
 
-- [Windows](https://github.com/7rebux/league-tools/releases/download/0.6.0/league-tools-0.6.0-win32-x64.zip)
+- [Windows](https://github.com/7rebux/league-tools/releases/download/0.6.1/league-tools-0.6.1-win32-x64.zip)
 - Linux (Coming soon)
 
 ### Development
-
-#### App
 
 ```bash
 git clone "https://github.com/7rebux/league-tools"
@@ -40,16 +38,6 @@ cd "./league-tools"
 pnpm i
 pnpm start
 ```
-
-#### Component Library
-
-```bash
-cd "./component-lib"
-pnpm i
-pnpm start # This will start a local storybook instance
-```
-
-Make sure to run `pnpm build` after you made changes, to update the library for the app project.
 
 ## 👨‍💻 Contributing
 

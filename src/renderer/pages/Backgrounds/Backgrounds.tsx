@@ -17,6 +17,7 @@ const ENDPOINT = '/lol-summoner/v1/current-summoner/summoner-profile/';
 type SplashartType = {
   id: number;
   name: string;
+  splashPath: string;
   isLegacy: boolean;
   isBase: boolean;
   isFavorite: boolean;
@@ -99,6 +100,7 @@ const Backgrounds: React.FC = () => {
       const splasharts = Object.values(data).map((splashart: any) => ({
         id: splashart.id,
         name: splashart.name,
+        splashPath: splashart.splashPath,
         isLegacy: splashart.isLegacy,
         isBase: splashart.isBase,
         isFavorite: favorites.backgrounds.includes(splashart.id),
@@ -162,6 +164,7 @@ const Backgrounds: React.FC = () => {
               <Splashart
                 key={splashart.id}
                 skinId={splashart.id}
+                splashPath={splashart.splashPath}
                 selected={lcuData.profile.backgroundSkinId === splashart.id}
                 favorite={splashart.isFavorite}
                 onClick={() => setBackground(splashart)}

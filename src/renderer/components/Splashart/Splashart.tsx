@@ -3,18 +3,22 @@ import styles from './Splashart.module.scss';
 
 export interface SplashartProps {
   skinId: number;
+  splashPath: string;
   favorite?: boolean;
   selected?: boolean;
 }
 
-const SPLASHART_URL =
-  'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes';
+const SPLASHART_BASE_URL =
+  'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets';
 
 const Splashart = React.forwardRef<
   HTMLDivElement,
   SplashartProps & React.HTMLAttributes<HTMLDivElement>
->(({ skinId, selected, favorite, ...props }, ref) => {
+>(({ skinId, splashPath, selected, favorite, ...props }, ref) => {
   const championId: number = Math.floor(skinId / 1000);
+  const normalizedSplashPath = splashPath
+    .replace('/lol-game-data/assets/ASSETS/', '')
+    .toLowerCase();
 
   return (
     <div
@@ -26,7 +30,7 @@ const Splashart = React.forwardRef<
     >
       <img
         loading='lazy'
-        src={`${SPLASHART_URL}/${championId}/${skinId}.jpg`}
+        src={`${SPLASHART_BASE_URL}/${normalizedSplashPath}`}
         alt={`Splashart ${championId}/${skinId}`}
       />
     </div>

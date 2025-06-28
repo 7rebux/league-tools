@@ -33,10 +33,9 @@ Either download and install the latest release or make your own changes to this 
 
 ```bash
 git clone "https://github.com/7rebux/league-tools"
-npm i -G pnpm
 cd "./league-tools"
-pnpm i
-pnpm start
+bun install
+bun run start
 ```
 
 ## 👨‍💻 Contributing

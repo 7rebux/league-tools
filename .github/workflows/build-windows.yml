@@ -31,4 +31,5 @@ jobs:
       with:
         name: league-tools-windows
         path: out/
+        include-hidden-files: true
         retention-days: 30

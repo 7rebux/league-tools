@@ -16,7 +16,7 @@ import LCU from './lcu';
 // Electron forge entry point declared in package.json
 declare const MAIN_WEBPACK_ENTRY: string;
 
-const isDevelopment = process.env.NODE_ENV !== 'production';
+const isDevelopment = true; // process.env.NODE_ENV !== 'production';
 
 if (require('electron-squirrel-startup')) app.quit();
 

@@ -18,7 +18,7 @@ import './Icons.scss';
 
 const ICON_DATA_URL =
   'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-icons.json';
-const ENDPOINT = '/lol-chat/v1/me';
+const ENDPOINT = '/lol-summoner/v1/current-summoner/icon';
 
 type Icon = {
   id: number;
@@ -61,7 +61,7 @@ const Icons: React.FC = () => {
   const setIcon = (icon: Icon) => {
     if (icon.id === lcuData.me.icon) return;
 
-    request('PUT', ENDPOINT, { icon: icon.id }).then((data) => {
+    request('PUT', ENDPOINT, { profileIconId: icon.id }).then((data) => {
       toast.success(`Updated icon to "${icon.title}"`);
       console.log('Set icon to', data.icon);
     });

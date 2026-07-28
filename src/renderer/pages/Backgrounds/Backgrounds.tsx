@@ -97,14 +97,25 @@ const Backgrounds: React.FC = () => {
       const data = await response.json();
       const favorites = await getFavorites();
 
-      const splasharts = Object.values(data).map((splashart: any) => ({
-        id: splashart.id,
-        name: splashart.name,
-        splashPath: splashart.splashPath,
-        isLegacy: splashart.isLegacy,
-        isBase: splashart.isBase,
-        isFavorite: favorites.backgrounds.includes(splashart.id),
-      }));
+      const splasharts = Object.values(data).flatMap((splashart: any) => {
+        const base = {
+          id: splashart.id,
+          name: splashart.name,
+          splashPath: splashart.splashPath,
+          isLegacy: splashart.isLegacy,
+          isBase: splashart.isBase,
+          isFavorite: favorites.backgrounds.includes(splashart.id),
+        };
+        if (!splashart.questSkinInfo) return [base];
+        const tiers = Object.values(splashart.questSkinInfo).map((tier: any) => ({
+          ...base,
+          id: tier.skinId,
+          name: tier.name,
+          splashPath: tier.splashPath,
+          isFavorite: favorites.backgrounds.includes(tier.skinId),
+        }));
+        return [base, ...tiers];
+      });
 
       console.log('Fetched %d backgrounds', splasharts.length);
       console.log(

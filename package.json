@@ -8,6 +8,7 @@
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
+    "start:mock": "MOCK_LCU=true electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "lint": "biome lint ./src"

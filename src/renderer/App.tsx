@@ -21,7 +21,10 @@ const App: React.FC = () => {
         <NavBar />
         <div id='content'>
           <Routes>
-            <Route path='/' element={<Navigate to='/connect' />} />
+            <Route
+              path='/'
+              element={<Navigate to={MOCK_LCU ? '/home' : '/connect'} />}
+            />
             <Route path='/connect' element={<Connect />} />
             <Route path='/home' element={<Home />} />
             <Route path='/icons' element={<Icons />} />

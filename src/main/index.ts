@@ -12,11 +12,13 @@ import {
   importFavorites,
 } from './settings';
 import LCU from './lcu';
+import MockLCU from './mockLcu';
 
 // Electron forge entry point declared in package.json
 declare const MAIN_WEBPACK_ENTRY: string;
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
+const isMocked = isDevelopment && process.env.MOCK_LCU === 'true';
 
 if (require('electron-squirrel-startup')) app.quit();
 
@@ -50,7 +52,9 @@ app.on('ready', () => {
   if (isDevelopment) installExtension(REACT_DEVELOPER_TOOLS);
 
   const browserWindow = createWindow();
-  const leagueClient = new LCU(browserWindow.id);
+  const leagueClient = isMocked
+    ? new MockLCU(browserWindow.id)
+    : new LCU(browserWindow.id);
 
   ipcMain.on('lcu-connect', (event) => {
     leagueClient.connect().then(

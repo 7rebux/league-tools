@@ -27,7 +27,6 @@ Either download and install the latest release or make your own changes to this 
 ### Download
 
 - [Windows](https://github.com/7rebux/league-tools/releases/download/0.6.1/league-tools-0.6.1-win32-x64.zip)
-- Linux (Coming soon)
 
 ### Development
 
@@ -36,6 +35,14 @@ git clone "https://github.com/7rebux/league-tools"
 cd "./league-tools"
 bun install
 bun run start
+```
+
+To work on the UI without a running League Client (for example on macOS), start the
+app with a mocked LCU. It serves canned summoner data, skips the connect screen and
+applies changes locally, so every page is reachable and interactive:
+
+```bash
+bun run start:mock
 ```
 
 ## 👨‍💻 Contributing

@@ -40,7 +40,16 @@ const createWindow = (): BrowserWindow => {
     setBounds({ width: size[0], height: size[1] });
   });
 
-  mainWindow.loadURL(MAIN_WEBPACK_ENTRY);
+  // In development the entry is served at `http://localhost:3000/main` without a
+  // trailing slash, so relative urls resolve against the server root instead of
+  // the entry directory (`assets/be.png` becomes `/assets/be.png`). Loading the
+  // directory url gives the document the same base as the packaged
+  // `.webpack/renderer/main/index.html` and keeps asset paths working in both.
+  mainWindow.loadURL(
+    isDevelopment && !MAIN_WEBPACK_ENTRY.endsWith('/')
+      ? `${MAIN_WEBPACK_ENTRY}/`
+      : MAIN_WEBPACK_ENTRY,
+  );
 
   if (isDevelopment) mainWindow.webContents.openDevTools();
   else Menu.setApplicationMenu(null);

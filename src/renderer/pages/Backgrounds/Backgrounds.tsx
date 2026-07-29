@@ -106,15 +106,17 @@ const Backgrounds: React.FC = () => {
           isBase: splashart.isBase,
           isFavorite: favorites.backgrounds.includes(splashart.id),
         };
-        if (!splashart.questSkinInfo) return [base];
-        const tiers = Object.values(splashart.questSkinInfo).map((tier: any) => ({
+        const tiers = splashart.questSkinInfo?.tiers ?? [];
+        if (tiers.length === 0) return [base];
+
+        // The first tier is the base skin itself, so the tiers fully replace it
+        return tiers.map((tier: any) => ({
           ...base,
-          id: tier.skinId,
+          id: tier.id,
           name: tier.name,
           splashPath: tier.splashPath,
-          isFavorite: favorites.backgrounds.includes(tier.skinId),
+          isFavorite: favorites.backgrounds.includes(tier.id),
         }));
-        return [base, ...tiers];
       });
 
       console.log('Fetched %d backgrounds', splasharts.length);

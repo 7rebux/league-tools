@@ -5,6 +5,7 @@ import {
   addFavorite,
   removeFavorite,
 } from '../../utils/ipcBridge';
+import { useStickyState } from '../../utils/useStickyState';
 import { useLcuData } from '../../components/LcuContext';
 import {
   Select,
@@ -36,13 +37,16 @@ const Icons: React.FC = () => {
   const lcuData = useLcuData();
   const [loading, setLoading] = useState<boolean>(true);
   const [iconData, setIconData] = useState<Icon[]>([]);
-  const [typeFilter, setTypeFilter] = useState<string>('all');
+  const [typeFilter, setTypeFilter] = useStickyState<string>(
+    'icons.typeFilter',
+    'all',
+  );
   const [titleFilter, setTitleFilter] = useState<string>('');
   const [legacyFilter, setLegacyFilter] = useState<boolean>(true);
 
   const filter1 = useMemo(() => {
-    if (typeFilter === 'all') return iconData;
     if (typeFilter === 'favorites') return iconData.filter((i) => i.isFavorite);
+    return iconData;
   }, [iconData, typeFilter]);
 
   const filter2 = useMemo(
@@ -126,7 +130,9 @@ const Icons: React.FC = () => {
         <div className='settings'>
           <Select
             items={ITEMS}
-            initialItem={ITEMS.find(({ value }) => typeFilter === value)}
+            initialItem={
+              ITEMS.find(({ value }) => typeFilter === value) ?? ITEMS[0]
+            }
             onValueChange={(value) => setTypeFilter(value)}
           />
           <div className='wrapper'>

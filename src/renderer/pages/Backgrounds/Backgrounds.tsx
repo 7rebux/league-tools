@@ -5,6 +5,7 @@ import {
   addFavorite,
   removeFavorite,
 } from '../../utils/ipcBridge';
+import { useStickyState } from '../../utils/useStickyState';
 import { useLcuData } from '../../components/LcuContext';
 import { Switch, Select, Splashart, Textbox, Skeleton } from '../../components';
 import { toast } from 'react-hot-toast';
@@ -32,15 +33,18 @@ const Backgrounds: React.FC = () => {
   const lcuData = useLcuData();
   const [loading, setLoading] = useState<boolean>(true);
   const [splashartData, setSplashartData] = useState<SplashartType[]>([]);
-  const [typeFilter, setTypeFilter] = useState<string>('all');
+  const [typeFilter, setTypeFilter] = useStickyState<string>(
+    'backgrounds.typeFilter',
+    'all',
+  );
   const [nameFilter, setNameFilter] = useState<string>('');
   const [legacyFilter, setLegacyFilter] = useState<boolean>(true);
   const [baseFilter, setBaseFilter] = useState<boolean>(true);
 
   const filter1 = useMemo(() => {
-    if (typeFilter === 'all') return splashartData;
     if (typeFilter === 'favorites')
       return splashartData.filter((i) => i.isFavorite);
+    return splashartData;
   }, [splashartData, typeFilter]);
 
   const filter2 = useMemo(
@@ -145,7 +149,9 @@ const Backgrounds: React.FC = () => {
         <div className='settings'>
           <Select
             items={ITEMS}
-            initialItem={ITEMS.find(({ value }) => typeFilter === value)}
+            initialItem={
+              ITEMS.find(({ value }) => typeFilter === value) ?? ITEMS[0]
+            }
             onValueChange={(value) => setTypeFilter(value)}
           />
           <div className='wrapper'>

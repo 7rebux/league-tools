@@ -3,12 +3,14 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { request } from '../../utils/ipcBridge';
 import { useLcuData } from '../../components/LcuContext';
 import { toast } from 'react-hot-toast';
+import { AiOutlinePlus } from 'react-icons/ai';
 import './Challenges.scss';
 
 const UPDATE_ENDPOINT = '/lol-challenges/v1/update-player-preferences';
 const CHALLENGES_ENDPOINT = '/lol-challenges/v1/challenges/local-player';
 const TOKEN_ICON_URL =
   'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/challenges/config';
+const TOKEN_SLOT_COUNT = 3;
 
 type TokenTier =
   | 'IRON'
@@ -70,14 +72,59 @@ const Challenges: React.FC = () => {
     return filter2.filter(({ legacy }) => legacy === false);
   }, [filter2, legacyFilter]);
 
-  const updateTokens = (token?: Token) => {
+  const [selectedSlot, setSelectedSlot] = useState<number | null>(null);
+
+  const sendTokens = (challengeIds: number[]) =>
     request('POST', UPDATE_ENDPOINT, {
-      challengeIds: token ? [token.id, token.id, token.id] : [],
+      challengeIds,
       title:
         lcuData.challenges.title === -1
           ? ''
           : lcuData.challenges.title.toString(),
-    }).then(() => {
+    });
+
+  // Sends the given slot layout. The LCU stores a compact list, so empty
+  // slots are dropped and later tokens move up to the first free position.
+  const sendSlots = (ids: (number | undefined)[]) =>
+    sendTokens(ids.filter((id): id is number => id !== undefined));
+
+  const getSlotIds = (): (number | undefined)[] =>
+    Array.from(
+      { length: TOKEN_SLOT_COUNT },
+      (_, slot) => lcuData.challenges.tokens[slot]?.id,
+    );
+
+  const clearSlot = (slot: number) => {
+    const token = lcuData.challenges.tokens[slot];
+    if (!token) return;
+
+    const ids = getSlotIds();
+    ids[slot] = undefined;
+    setSelectedSlot(null);
+
+    sendSlots(ids).then(() => {
+      toast.success(`Cleared slot ${slot + 1}`);
+      console.log('Cleared token slot %d', slot, token.id);
+    });
+  };
+
+  const updateTokens = (token?: Token) => {
+    if (token && selectedSlot !== null) {
+      // Replace only the selected slot
+      const ids = getSlotIds();
+      ids[selectedSlot] = token.id;
+      const slot = selectedSlot;
+      setSelectedSlot(null);
+
+      sendSlots(ids).then(() => {
+        toast.success(`Set slot ${slot + 1} to "${token.name}"`);
+        console.log('Set token slot %d to', slot, token.id);
+      });
+      return;
+    }
+
+    setSelectedSlot(null);
+    sendTokens(token ? [token.id, token.id, token.id] : []).then(() => {
       if (token) {
         toast.success(`Updated tokens to "${token.name}"`);
         console.log('Set tokens to 3x', token.id);
@@ -115,14 +162,40 @@ const Challenges: React.FC = () => {
       <div className='sidebar'>
         <div className='showcase'>
           <div className='activeTokens'>
-            {lcuData.challenges.tokens.length > 0 &&
-              lcuData.challenges.tokens.map((token) => (
-                <img
-                  src={getTokenIcon(token.id, token.tier)}
-                  alt={`Token ${token.id}`}
-                  title={token.name}
-                />
-              ))}
+            {Array.from(
+              { length: TOKEN_SLOT_COUNT },
+              (_, slot) => lcuData.challenges.tokens[slot],
+            ).map((token, slot) => (
+              <button
+                // biome-ignore lint/suspicious/noArrayIndexKey: slots are fixed positions
+                key={slot}
+                type='button'
+                className={`tokenSlot${token ? '' : ' empty'}${
+                  selectedSlot === slot ? ' selected' : ''
+                }`}
+                title={
+                  token
+                    ? `${token.name} (slot ${slot + 1}, right-click to clear)`
+                    : `Empty slot ${slot + 1}`
+                }
+                onClick={() =>
+                  setSelectedSlot((current) => (current === slot ? null : slot))
+                }
+                onContextMenu={(event) => {
+                  event.preventDefault();
+                  clearSlot(slot);
+                }}
+              >
+                {token ? (
+                  <img
+                    src={getTokenIcon(token.id, token.tier)}
+                    alt={`Token ${token.id}`}
+                  />
+                ) : (
+                  <AiOutlinePlus />
+                )}
+              </button>
+            ))}
           </div>
           <Button title='Clear' onClick={() => updateTokens()} />
         </div>

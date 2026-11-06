@@ -56,7 +56,9 @@ type Me = {
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // Strip the query string, endpoints are matched by path only
-const path = (endpoint: string) => endpoint.split('?')[0];
+// The renderer sometimes calls endpoints with a trailing slash
+// (e.g. `.../summoner-profile/`), which the real client accepts too
+const path = (endpoint: string) => endpoint.split('?')[0].replace(/\/$/, '');
 
 const fetchJson = <T>(url: string): Promise<T> =>
   new Promise<T>((resolve, reject) => {

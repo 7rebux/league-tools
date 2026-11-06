@@ -45,6 +45,16 @@ applies changes locally, so every page is reachable and interactive:
 bun run start:mock
 ```
 
+#### Application icon
+
+The app icon lives in `icons/`. To change it, replace `icons/icon.png` with a square
+PNG (ideally 1024×1024, at least 512×512) and regenerate the Windows (`.ico`) and macOS (`.icns`) variants
+(requires macOS), then commit all three files:
+
+```bash
+bun run icons
+```
+
 ## 👨‍💻 Contributing
 
 Just open a pull request and explain your additions and changes.

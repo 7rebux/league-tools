@@ -1,3 +1,4 @@
+import path from 'node:path';
 import { app, BrowserWindow, session, ipcMain, Menu, dialog } from 'electron';
 import installExtension, {
   REACT_DEVELOPER_TOOLS,
@@ -22,10 +23,17 @@ const isMocked = isDevelopment && process.env.MOCK_LCU === 'true';
 
 if (require('electron-squirrel-startup')) app.quit();
 
+// Packaged builds get the icon via `extraResource` in the forge config; in
+// development it is read straight from the project root.
+const iconPath = app.isPackaged
+  ? path.join(process.resourcesPath, 'icon.png')
+  : path.join(app.getAppPath(), 'icons', 'icon.png');
+
 const createWindow = (): BrowserWindow => {
   const bounds = getBounds();
   const mainWindow = new BrowserWindow({
     show: false,
+    icon: iconPath,
     width: bounds.width,
     height: bounds.height,
     webPreferences: {
@@ -59,6 +67,7 @@ const createWindow = (): BrowserWindow => {
 
 app.on('ready', () => {
   if (isDevelopment) installExtension(REACT_DEVELOPER_TOOLS);
+  if (!app.isPackaged) app.dock?.setIcon(iconPath);
 
   const browserWindow = createWindow();
   const leagueClient = isMocked

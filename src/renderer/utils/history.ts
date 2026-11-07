@@ -22,3 +22,18 @@ export const resolveHistory = <T extends { id: number }>(
     .map((id) => byId.get(id))
     .filter((item): item is T => item !== undefined);
 };
+
+/**
+ * Ids to record when switching from `previousId` to `id`, oldest first. The
+ * previous item is recorded too unless it already is the newest entry, so an
+ * item set before this feature existed, or directly in the client, also ends
+ * up in the history.
+ */
+export const idsToRecord = (
+  history: number[],
+  previousId: number | undefined,
+  id: number,
+): number[] =>
+  previousId && previousId !== id && history[0] !== previousId
+    ? [previousId, id]
+    : [id];

@@ -8,7 +8,7 @@ import {
   addToHistory,
 } from '../../utils/ipcBridge';
 import { useStickyState } from '../../utils/useStickyState';
-import { pushHistory, resolveHistory } from '../../utils/history';
+import { idsToRecord, pushHistory, resolveHistory } from '../../utils/history';
 import { useLcuData } from '../../components/LcuContext';
 import {
   Select,
@@ -69,7 +69,8 @@ const Icons: React.FC = () => {
   }, [filter2, legacyFilter]);
 
   const setIcon = (icon: Icon) => {
-    if (icon.id === lcuData.me.icon) return;
+    const previousId = lcuData.me.icon;
+    if (icon.id === previousId) return;
 
     request('PUT', ENDPOINT, { icon: icon.id }).then((data) => {
       toast.success(`Updated icon to "${icon.title}"`);
@@ -77,8 +78,9 @@ const Icons: React.FC = () => {
 
       // Failed requests resolve with an empty object or an error payload
       if (data.icon !== icon.id) return;
-      addToHistory('icon', icon.id);
-      setHistory((prev) => pushHistory(prev, icon.id));
+      const ids = idsToRecord(history, previousId, icon.id);
+      for (const id of ids) addToHistory('icon', id);
+      setHistory((prev) => ids.reduce(pushHistory, prev));
     });
   };
 

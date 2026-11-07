@@ -8,7 +8,7 @@ import {
   addToHistory,
 } from '../../utils/ipcBridge';
 import { useStickyState } from '../../utils/useStickyState';
-import { pushHistory, resolveHistory } from '../../utils/history';
+import { idsToRecord, pushHistory, resolveHistory } from '../../utils/history';
 import { useLcuData } from '../../components/LcuContext';
 import { Switch, Select, Splashart, Textbox, Skeleton } from '../../components';
 import { toast } from 'react-hot-toast';
@@ -72,7 +72,8 @@ const Backgrounds: React.FC = () => {
   }, [filter3, baseFilter]);
 
   const setBackground = (background: SplashartType) => {
-    if (background.id === lcuData.profile.backgroundSkinId) return;
+    const previousId = lcuData.profile.backgroundSkinId;
+    if (background.id === previousId) return;
 
     request('POST', ENDPOINT, {
       key: 'backgroundSkinId',
@@ -83,8 +84,9 @@ const Backgrounds: React.FC = () => {
 
       // Failed requests resolve with an empty object or an error payload
       if (data.backgroundSkinId !== background.id) return;
-      addToHistory('background', background.id);
-      setHistory((prev) => pushHistory(prev, background.id));
+      const ids = idsToRecord(history, previousId, background.id);
+      for (const id of ids) addToHistory('background', id);
+      setHistory((prev) => ids.reduce(pushHistory, prev));
     });
   };
 

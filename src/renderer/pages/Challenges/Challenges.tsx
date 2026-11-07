@@ -1,5 +1,5 @@
 import { Button, Textbox, Switch, Select, Skeleton } from '../../components';
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { request } from '../../utils/ipcBridge';
 import { useLcuData } from '../../components/LcuContext';
 import { toast } from 'react-hot-toast';
@@ -72,66 +72,61 @@ const Challenges: React.FC = () => {
     return filter2.filter(({ legacy }) => legacy === false);
   }, [filter2, legacyFilter]);
 
-  const [selectedSlot, setSelectedSlot] = useState<number | null>(null);
+  // Last list we sent, so quick consecutive clicks build on each other
+  // instead of on stale LCU data. Reset whenever the LCU reports new tokens.
+  const pendingIds = useRef<number[] | null>(null);
 
-  const sendTokens = (challengeIds: number[]) =>
-    request('POST', UPDATE_ENDPOINT, {
+  // biome-ignore lint/correctness/useExhaustiveDependencies: runs on every LCU token update
+  useEffect(() => {
+    pendingIds.current = null;
+  }, [lcuData.challenges.tokens]);
+
+  const getEquippedIds = () =>
+    pendingIds.current ?? lcuData.challenges.tokens.map(({ id }) => id);
+
+  // The LCU stores the equipped tokens as a compact list (no gaps)
+  const sendTokens = (challengeIds: number[]) => {
+    pendingIds.current = challengeIds;
+
+    return request('POST', UPDATE_ENDPOINT, {
       challengeIds,
       title:
         lcuData.challenges.title === -1
           ? ''
           : lcuData.challenges.title.toString(),
     });
-
-  // Sends the given slot layout. The LCU stores a compact list, so empty
-  // slots are dropped and later tokens move up to the first free position.
-  const sendSlots = (ids: (number | undefined)[]) =>
-    sendTokens(ids.filter((id): id is number => id !== undefined));
-
-  const getSlotIds = (): (number | undefined)[] =>
-    Array.from(
-      { length: TOKEN_SLOT_COUNT },
-      (_, slot) => lcuData.challenges.tokens[slot]?.id,
-    );
-
-  const clearSlot = (slot: number) => {
-    const token = lcuData.challenges.tokens[slot];
-    if (!token) return;
-
-    const ids = getSlotIds();
-    ids[slot] = undefined;
-    setSelectedSlot(null);
-
-    sendSlots(ids).then(() => {
-      toast.success(`Cleared slot ${slot + 1}`);
-      console.log('Cleared token slot %d', slot, token.id);
-    });
   };
 
-  const updateTokens = (token?: Token) => {
-    if (token && selectedSlot !== null) {
-      // Replace only the selected slot
-      const ids = getSlotIds();
-      ids[selectedSlot] = token.id;
-      const slot = selectedSlot;
-      setSelectedSlot(null);
+  const addToken = (token: Token) => {
+    const ids = getEquippedIds();
 
-      sendSlots(ids).then(() => {
-        toast.success(`Set slot ${slot + 1} to "${token.name}"`);
-        console.log('Set token slot %d to', slot, token.id);
-      });
+    if (ids.length >= TOKEN_SLOT_COUNT) {
+      toast.error('All slots are full, remove a token first');
       return;
     }
 
-    setSelectedSlot(null);
-    sendTokens(token ? [token.id, token.id, token.id] : []).then(() => {
-      if (token) {
-        toast.success(`Updated tokens to "${token.name}"`);
-        console.log('Set tokens to 3x', token.id);
-      } else {
-        toast.success('Cleared tokens');
-        console.log('Cleared tokens');
-      }
+    sendTokens([...ids, token.id]).then(() => {
+      toast.success(`Added "${token.name}"`);
+      console.log('Added token', token.id);
+    });
+  };
+
+  const removeToken = (slot: number) => {
+    const ids = getEquippedIds();
+    if (slot >= ids.length) return;
+
+    const token = lcuData.challenges.tokens[slot];
+
+    sendTokens(ids.filter((_, index) => index !== slot)).then(() => {
+      toast.success(token ? `Removed "${token.name}"` : 'Removed token');
+      console.log('Removed token in slot %d', slot);
+    });
+  };
+
+  const clearTokens = () => {
+    sendTokens([]).then(() => {
+      toast.success('Cleared tokens');
+      console.log('Cleared tokens');
     });
   };
 
@@ -170,21 +165,10 @@ const Challenges: React.FC = () => {
                 // biome-ignore lint/suspicious/noArrayIndexKey: slots are fixed positions
                 key={slot}
                 type='button'
-                className={`tokenSlot${token ? '' : ' empty'}${
-                  selectedSlot === slot ? ' selected' : ''
-                }`}
-                title={
-                  token
-                    ? `${token.name} (slot ${slot + 1}, right-click to clear)`
-                    : `Empty slot ${slot + 1}`
-                }
-                onClick={() =>
-                  setSelectedSlot((current) => (current === slot ? null : slot))
-                }
-                onContextMenu={(event) => {
-                  event.preventDefault();
-                  clearSlot(slot);
-                }}
+                className={`tokenSlot${token ? '' : ' empty'}`}
+                title={token ? `${token.name} (click to remove)` : 'Empty slot'}
+                disabled={!token}
+                onClick={() => removeToken(slot)}
               >
                 {token ? (
                   <img
@@ -197,7 +181,7 @@ const Challenges: React.FC = () => {
               </button>
             ))}
           </div>
-          <Button title='Clear' onClick={() => updateTokens()} />
+          <Button title='Clear' onClick={clearTokens} />
         </div>
         <div className='filter'>
           <Textbox
@@ -236,7 +220,7 @@ const Challenges: React.FC = () => {
               <img
                 key={x.id}
                 src={getTokenIcon(x.id, x.tier)}
-                onClick={() => updateTokens(x)}
+                onClick={() => addToken(x)}
                 alt={`Token ${x.id}`}
                 title={x.name}
               />

@@ -4,8 +4,11 @@ import {
   getFavorites,
   addFavorite,
   removeFavorite,
+  getHistory,
+  addToHistory,
 } from '../../utils/ipcBridge';
 import { useStickyState } from '../../utils/useStickyState';
+import { idsToRecord, pushHistory, resolveHistory } from '../../utils/history';
 import { useLcuData } from '../../components/LcuContext';
 import { Switch, Select, Splashart, Textbox, Skeleton } from '../../components';
 import { toast } from 'react-hot-toast';
@@ -27,12 +30,14 @@ type SplashartType = {
 const ITEMS: { name: string; value: string }[] = [
   { name: 'All', value: 'all' },
   { name: 'Favorites', value: 'favorites' },
+  { name: 'Recent', value: 'recent' },
 ];
 
 const Backgrounds: React.FC = () => {
   const lcuData = useLcuData();
   const [loading, setLoading] = useState<boolean>(true);
   const [splashartData, setSplashartData] = useState<SplashartType[]>([]);
+  const [history, setHistory] = useState<number[]>([]);
   const [typeFilter, setTypeFilter] = useStickyState<string>(
     'backgrounds.typeFilter',
     'all',
@@ -44,8 +49,9 @@ const Backgrounds: React.FC = () => {
   const filter1 = useMemo(() => {
     if (typeFilter === 'favorites')
       return splashartData.filter((i) => i.isFavorite);
+    if (typeFilter === 'recent') return resolveHistory(history, splashartData);
     return splashartData;
-  }, [splashartData, typeFilter]);
+  }, [splashartData, history, typeFilter]);
 
   const filter2 = useMemo(
     () =>
@@ -66,7 +72,8 @@ const Backgrounds: React.FC = () => {
   }, [filter3, baseFilter]);
 
   const setBackground = (background: SplashartType) => {
-    if (background.id === lcuData.profile.backgroundSkinId) return;
+    const previousId = lcuData.profile.backgroundSkinId;
+    if (background.id === previousId) return;
 
     request('POST', ENDPOINT, {
       key: 'backgroundSkinId',
@@ -74,6 +81,12 @@ const Backgrounds: React.FC = () => {
     }).then((data) => {
       toast.success(`Updated backgroud to "${background.name}"`);
       console.log('Set background to', data.backgroundSkinId);
+
+      // Failed requests resolve with an empty object or an error payload
+      if (data.backgroundSkinId !== background.id) return;
+      const ids = idsToRecord(history, previousId, background.id);
+      for (const id of ids) addToHistory('background', id);
+      setHistory((prev) => ids.reduce(pushHistory, prev));
     });
   };
 
@@ -99,7 +112,10 @@ const Backgrounds: React.FC = () => {
     const fetchData = async () => {
       const response = await fetch(SPLASHART_DATA_URL);
       const data = await response.json();
-      const favorites = await getFavorites();
+      const [favorites, history] = await Promise.all([
+        getFavorites(),
+        getHistory(),
+      ]);
 
       const splasharts = Object.values(data).flatMap((splashart: any) => {
         const base = {
@@ -131,6 +147,7 @@ const Backgrounds: React.FC = () => {
       );
 
       setSplashartData(splasharts);
+      setHistory(history.backgrounds);
       setLoading(false);
     };
 

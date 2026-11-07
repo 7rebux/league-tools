@@ -11,6 +11,13 @@ type Favorites = {
 
 type FavoriteType = 'icon' | 'background' | 'status';
 
+type History = {
+  icons: number[];
+  backgrounds: number[];
+};
+
+type HistoryType = 'icon' | 'background';
+
 export const connect = (navigate: any): Promise<undefined> => {
   return new Promise((resolve, reject) => {
     ipcRenderer.once('lcu-connected', (_event, reason) => {
@@ -67,6 +74,20 @@ export const addFavorite = (type: FavoriteType, value: number | string) => {
 
 export const removeFavorite = (type: FavoriteType, value: number | string) => {
   ipcRenderer.send('store-remove-favorite', type, value);
+};
+
+export const getHistory = (): Promise<History> => {
+  return new Promise((resolve) => {
+    ipcRenderer.once('store-history', (_event, history) => {
+      resolve(history);
+    });
+
+    ipcRenderer.send('store-get-history');
+  });
+};
+
+export const addToHistory = (type: HistoryType, id: number) => {
+  ipcRenderer.send('store-add-history', type, id);
 };
 
 export const exportFavorites = (): Promise<boolean> => {

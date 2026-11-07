@@ -14,6 +14,15 @@ type Favorites = {
 
 type FavoriteType = 'icon' | 'background' | 'status';
 
+type History = {
+  icons: number[];
+  backgrounds: number[];
+};
+
+type HistoryType = 'icon' | 'background';
+
+const HISTORY_LIMIT = 30;
+
 const schema = {
   window: {
     // https://github.com/ajv-validator/ajv/issues/1710
@@ -40,6 +49,17 @@ const schema = {
     statuses: {
       type: 'string[]',
       default: [] as string[],
+    },
+  },
+  history: {
+    default: {},
+    icons: {
+      type: 'number[]',
+      default: [] as number[],
+    },
+    backgrounds: {
+      type: 'number[]',
+      default: [] as number[],
     },
   },
 };
@@ -107,6 +127,27 @@ export const removeFavorite = (type: FavoriteType, value: unknown) => {
         favorites.statuses.filter((x) => x !== (value as string)),
       );
   }
+};
+
+export const getHistory = (): History => {
+  return {
+    icons: store.get('history.icons') ?? [],
+    backgrounds: store.get('history.backgrounds') ?? [],
+  };
+};
+
+/**
+ * Moves the given id to the front of the history, so the list stays ordered
+ * from most to least recently applied without duplicates.
+ */
+export const addToHistory = (type: HistoryType, id: number) => {
+  const key = type === 'icon' ? 'icons' : 'backgrounds';
+  const history = getHistory()[key];
+
+  store.set(
+    `history.${key}`,
+    [id, ...history.filter((x) => x !== id)].slice(0, HISTORY_LIMIT),
+  );
 };
 
 export const exportFavorites = async (path: string) => {

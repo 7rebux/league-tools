@@ -11,6 +11,8 @@ import {
   getFavorites,
   exportFavorites,
   importFavorites,
+  getHistory,
+  addToHistory,
 } from './settings';
 import LCU from './lcu';
 import MockLCU from './mockLcu';
@@ -98,6 +100,14 @@ app.on('ready', () => {
 
   ipcMain.on('store-remove-favorite', (_event, type, id) => {
     removeFavorite(type, id);
+  });
+
+  ipcMain.on('store-get-history', (event) => {
+    event.reply('store-history', getHistory());
+  });
+
+  ipcMain.on('store-add-history', (_event, type, id) => {
+    addToHistory(type, id);
   });
 
   ipcMain.on('store-export', async (event) => {

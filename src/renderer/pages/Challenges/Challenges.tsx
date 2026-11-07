@@ -1,14 +1,16 @@
 import { Button, Textbox, Switch, Select, Skeleton } from '../../components';
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { request } from '../../utils/ipcBridge';
 import { useLcuData } from '../../components/LcuContext';
 import { toast } from 'react-hot-toast';
+import { AiOutlinePlus } from 'react-icons/ai';
 import './Challenges.scss';
 
 const UPDATE_ENDPOINT = '/lol-challenges/v1/update-player-preferences';
 const CHALLENGES_ENDPOINT = '/lol-challenges/v1/challenges/local-player';
 const TOKEN_ICON_URL =
   'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/challenges/config';
+const TOKEN_SLOT_COUNT = 3;
 
 type TokenTier =
   | 'IRON'
@@ -70,21 +72,61 @@ const Challenges: React.FC = () => {
     return filter2.filter(({ legacy }) => legacy === false);
   }, [filter2, legacyFilter]);
 
-  const updateTokens = (token?: Token) => {
-    request('POST', UPDATE_ENDPOINT, {
-      challengeIds: token ? [token.id, token.id, token.id] : [],
+  // Last list we sent, so quick consecutive clicks build on each other
+  // instead of on stale LCU data. Reset whenever the LCU reports new tokens.
+  const pendingIds = useRef<number[] | null>(null);
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: runs on every LCU token update
+  useEffect(() => {
+    pendingIds.current = null;
+  }, [lcuData.challenges.tokens]);
+
+  const getEquippedIds = () =>
+    pendingIds.current ?? lcuData.challenges.tokens.map(({ id }) => id);
+
+  // The LCU stores the equipped tokens as a compact list (no gaps)
+  const sendTokens = (challengeIds: number[]) => {
+    pendingIds.current = challengeIds;
+
+    return request('POST', UPDATE_ENDPOINT, {
+      challengeIds,
       title:
         lcuData.challenges.title === -1
           ? ''
           : lcuData.challenges.title.toString(),
-    }).then(() => {
-      if (token) {
-        toast.success(`Updated tokens to "${token.name}"`);
-        console.log('Set tokens to 3x', token.id);
-      } else {
-        toast.success('Cleared tokens');
-        console.log('Cleared tokens');
-      }
+    });
+  };
+
+  const addToken = (token: Token) => {
+    const ids = getEquippedIds();
+
+    if (ids.length >= TOKEN_SLOT_COUNT) {
+      toast.error('All slots are full, remove a token first');
+      return;
+    }
+
+    sendTokens([...ids, token.id]).then(() => {
+      toast.success(`Added "${token.name}"`);
+      console.log('Added token', token.id);
+    });
+  };
+
+  const removeToken = (slot: number) => {
+    const ids = getEquippedIds();
+    if (slot >= ids.length) return;
+
+    const token = lcuData.challenges.tokens[slot];
+
+    sendTokens(ids.filter((_, index) => index !== slot)).then(() => {
+      toast.success(token ? `Removed "${token.name}"` : 'Removed token');
+      console.log('Removed token in slot %d', slot);
+    });
+  };
+
+  const clearTokens = () => {
+    sendTokens([]).then(() => {
+      toast.success('Cleared tokens');
+      console.log('Cleared tokens');
     });
   };
 
@@ -115,16 +157,31 @@ const Challenges: React.FC = () => {
       <div className='sidebar'>
         <div className='showcase'>
           <div className='activeTokens'>
-            {lcuData.challenges.tokens.length > 0 &&
-              lcuData.challenges.tokens.map((token) => (
-                <img
-                  src={getTokenIcon(token.id, token.tier)}
-                  alt={`Token ${token.id}`}
-                  title={token.name}
-                />
-              ))}
+            {Array.from(
+              { length: TOKEN_SLOT_COUNT },
+              (_, slot) => lcuData.challenges.tokens[slot],
+            ).map((token, slot) => (
+              <button
+                // biome-ignore lint/suspicious/noArrayIndexKey: slots are fixed positions
+                key={slot}
+                type='button'
+                className={`tokenSlot${token ? '' : ' empty'}`}
+                title={token ? `${token.name} (click to remove)` : 'Empty slot'}
+                disabled={!token}
+                onClick={() => removeToken(slot)}
+              >
+                {token ? (
+                  <img
+                    src={getTokenIcon(token.id, token.tier)}
+                    alt={`Token ${token.id}`}
+                  />
+                ) : (
+                  <AiOutlinePlus />
+                )}
+              </button>
+            ))}
           </div>
-          <Button title='Clear' onClick={() => updateTokens()} />
+          <Button title='Clear' onClick={clearTokens} />
         </div>
         <div className='filter'>
           <Textbox
@@ -163,7 +220,7 @@ const Challenges: React.FC = () => {
               <img
                 key={x.id}
                 src={getTokenIcon(x.id, x.tier)}
-                onClick={() => updateTokens(x)}
+                onClick={() => addToken(x)}
                 alt={`Token ${x.id}`}
                 title={x.name}
               />

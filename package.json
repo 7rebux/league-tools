@@ -11,16 +11,22 @@
     "start:mock": "MOCK_LCU=true electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "lint": "biome lint ./src"
+    "lint": "biome lint ./src",
+    "icons": "./scripts/generate-icons.sh"
   },
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "icon": "./icons/icon",
+        "extraResource": ["./icons/icon.png"]
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "league-tools"
+            "name": "league-tools",
+            "setupIcon": "./icons/icon.ico",
+            "iconUrl": "https://raw.githubusercontent.com/7rebux/league-tools/main/icons/icon.ico"
           }
         }
       ],

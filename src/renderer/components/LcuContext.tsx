@@ -64,7 +64,7 @@ type MeState = {
   puuid: string;
   icon: number;
   availability: Availability;
-  name: string;
+  gameName: string;
   statusMessage: string;
   gameTag: string;
   lol: {
@@ -103,7 +103,7 @@ const DEFAULT_STATE: State = {
     puuid: '',
     availability: 'offline',
     icon: 29,
-    name: 'Loading...',
+    gameName: 'Loading...',
     statusMessage: 'Loading...',
     gameTag: '0000',
     lol: {
@@ -153,7 +153,7 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
           puuid: response.puuid,
           icon: response.icon,
           availability: response.availability,
-          name: response.name,
+          gameName: response.gameName,
           statusMessage: response.statusMessage,
           gameTag: response.gameTag,
           lol: {
@@ -225,7 +225,7 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
               puuid: message.data.puuid,
               icon: message.data.icon,
               availability: message.data.availability,
-              name: message.data.name,
+              gameName: message.data.gameName,
               statusMessage: message.data.statusMessage,
               gameTag: message.data.gameTag,
               lol: {

@@ -40,7 +40,7 @@ type Me = {
   puuid: string;
   icon: number;
   availability: string;
-  name: string;
+  gameName: string;
   statusMessage: string;
   gameTag: string;
   lol: {
@@ -139,7 +139,7 @@ class MockLCU {
     puuid: '00000000-0000-0000-0000-000000000000',
     icon: 5678,
     availability: 'chat',
-    name: 'MockSummoner',
+    gameName: 'MockSummoner',
     statusMessage: 'Running without a League client',
     gameTag: 'DEV1',
     lol: {

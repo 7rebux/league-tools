@@ -226,6 +226,8 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const listener = (_event: never, message: EventResponse) => {
+      console.log('Received event:', message);
+
       switch (message.uri) {
         case '/lol-chat/v1/me': {
           setState((oldState) => ({

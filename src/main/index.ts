@@ -20,7 +20,7 @@ import MockLCU from './mockLcu';
 // Electron forge entry point declared in package.json
 declare const MAIN_WEBPACK_ENTRY: string;
 
-const isDevelopment = process.env.NODE_ENV !== 'production';
+const isDevelopment = true; // process.env.NODE_ENV !== 'production';
 const isMocked = isDevelopment && process.env.MOCK_LCU === 'true';
 
 if (require('electron-squirrel-startup')) app.quit();

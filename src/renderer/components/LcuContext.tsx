@@ -92,6 +92,7 @@ type ChallengesState = {
 };
 
 type State = {
+  gameflowPhase: string;
   me: MeState;
   wallet: WalletState;
   profile: ProfileState;
@@ -99,6 +100,7 @@ type State = {
 };
 
 const DEFAULT_STATE: State = {
+  gameflowPhase: 'None',
   me: {
     puuid: '',
     availability: 'offline',
@@ -173,6 +175,13 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
       }));
     });
 
+    request('GET', '/lol-gameflow/v1/gameflow-phase').then((response: any) => {
+      setState((oldState) => ({
+        ...oldState,
+        gameflowPhase: typeof response === 'string' ? response : 'None',
+      }));
+    });
+
     request('GET', '/lol-summoner/v1/current-summoner/summoner-profile').then(
       (response: any) => {
         setState((oldState) => ({
@@ -240,6 +249,14 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
                 challengePoints: message.data.lol.challengePoints,
               },
             },
+          }));
+          break;
+        }
+        case '/lol-gameflow/v1/gameflow-phase': {
+          setState((oldState) => ({
+            ...oldState,
+            gameflowPhase:
+              typeof message.data === 'string' ? message.data : 'None',
           }));
           break;
         }

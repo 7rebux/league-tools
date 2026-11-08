@@ -32,6 +32,43 @@ $border-radius: 20px;
           width: 55px;
           height: 55px;
         }
+
+        .tokenSlot {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0;
+          border: 2px solid transparent;
+          border-radius: 100%;
+          background: none;
+          cursor: pointer;
+          transition: border-color 0.15s ease;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+
+          &.empty {
+            border: 2px dashed rgba(#d4cfcd, 0.3);
+            background-color: color('background');
+            color: rgba(#d4cfcd, 0.5);
+            font-size: 20px;
+          }
+
+          &:hover:not(:disabled):not(.selected) {
+            border-color: rgba(color('primary'), 0.5);
+          }
+
+          &.selected {
+            border: 2px solid color('primary');
+          }
+
+          &:disabled {
+            cursor: default;
+            opacity: 0.4;
+          }
+        }
       }
 
       > div {

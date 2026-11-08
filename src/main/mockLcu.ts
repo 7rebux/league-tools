@@ -216,6 +216,9 @@ class MockLCU {
         return this.profile as JsonObjectLike;
       }
 
+      case '/lol-gameflow/v1/gameflow-phase':
+        return 'None' as unknown as JsonObjectLike;
+
       case '/lol-inventory/v1/wallet':
         return this.wallet as JsonObjectLike;
 

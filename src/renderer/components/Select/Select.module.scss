@@ -38,4 +38,9 @@ $borderRadius: 6px;
   &[data-highlighted] {
     background-color: darken(color('surface'), 20);
   }
+
+  &[data-disabled] {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
 }

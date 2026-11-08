@@ -64,7 +64,7 @@ type MeState = {
   puuid: string;
   icon: number;
   availability: Availability;
-  name: string;
+  gameName: string;
   statusMessage: string;
   gameTag: string;
   lol: {
@@ -92,6 +92,7 @@ type ChallengesState = {
 };
 
 type State = {
+  gameflowPhase: string;
   me: MeState;
   wallet: WalletState;
   profile: ProfileState;
@@ -99,11 +100,12 @@ type State = {
 };
 
 const DEFAULT_STATE: State = {
+  gameflowPhase: 'None',
   me: {
     puuid: '',
     availability: 'offline',
     icon: 29,
-    name: 'Loading...',
+    gameName: 'Loading...',
     statusMessage: 'Loading...',
     gameTag: '0000',
     lol: {
@@ -153,7 +155,7 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
           puuid: response.puuid,
           icon: response.icon,
           availability: response.availability,
-          name: response.name,
+          gameName: response.gameName,
           statusMessage: response.statusMessage,
           gameTag: response.gameTag,
           lol: {
@@ -170,6 +172,13 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
             challengePoints: response.lol.challengePoints,
           },
         },
+      }));
+    });
+
+    request('GET', '/lol-gameflow/v1/gameflow-phase').then((response: any) => {
+      setState((oldState) => ({
+        ...oldState,
+        gameflowPhase: typeof response === 'string' ? response : 'None',
       }));
     });
 
@@ -227,7 +236,7 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
               puuid: message.data.puuid,
               icon: message.data.icon,
               availability: message.data.availability,
-              name: message.data.name,
+              gameName: message.data.gameName,
               statusMessage: message.data.statusMessage,
               gameTag: message.data.gameTag,
               lol: {
@@ -242,6 +251,14 @@ export const LcuContext = ({ children }: { children: ReactNode }) => {
                 challengePoints: message.data.lol.challengePoints,
               },
             },
+          }));
+          break;
+        }
+        case '/lol-gameflow/v1/gameflow-phase': {
+          setState((oldState) => ({
+            ...oldState,
+            gameflowPhase:
+              typeof message.data === 'string' ? message.data : 'None',
           }));
           break;
         }

@@ -6,6 +6,7 @@ import styles from './Select.module.scss';
 type Item = {
   name: string;
   value: string;
+  disabled?: boolean;
 };
 
 interface Props {
@@ -41,6 +42,7 @@ const Select: React.FC<Props> = ({
                 key={item.value}
                 className={styles.item}
                 value={item.value}
+                disabled={item.disabled}
               >
                 <RadixSelect.ItemText>{item.name}</RadixSelect.ItemText>
                 <RadixSelect.ItemIndicator>

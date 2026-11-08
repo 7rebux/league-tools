@@ -4,7 +4,11 @@ import {
   getFavorites,
   addFavorite,
   removeFavorite,
+  getHistory,
+  addToHistory,
 } from '../../utils/ipcBridge';
+import { useStickyState } from '../../utils/useStickyState';
+import { idsToRecord, pushHistory, resolveHistory } from '../../utils/history';
 import { useLcuData } from '../../components/LcuContext';
 import {
   Select,
@@ -30,20 +34,26 @@ type Icon = {
 const ITEMS: { name: string; value: string }[] = [
   { name: 'All', value: 'all' },
   { name: 'Favorites', value: 'favorites' },
+  { name: 'Recent', value: 'recent' },
 ];
 
 const Icons: React.FC = () => {
   const lcuData = useLcuData();
   const [loading, setLoading] = useState<boolean>(true);
   const [iconData, setIconData] = useState<Icon[]>([]);
-  const [typeFilter, setTypeFilter] = useState<string>('all');
+  const [history, setHistory] = useState<number[]>([]);
+  const [typeFilter, setTypeFilter] = useStickyState<string>(
+    'icons.typeFilter',
+    'all',
+  );
   const [titleFilter, setTitleFilter] = useState<string>('');
   const [legacyFilter, setLegacyFilter] = useState<boolean>(true);
 
   const filter1 = useMemo(() => {
-    if (typeFilter === 'all') return iconData;
     if (typeFilter === 'favorites') return iconData.filter((i) => i.isFavorite);
-  }, [iconData, typeFilter]);
+    if (typeFilter === 'recent') return resolveHistory(history, iconData);
+    return iconData;
+  }, [iconData, history, typeFilter]);
 
   const filter2 = useMemo(
     () =>
@@ -59,11 +69,18 @@ const Icons: React.FC = () => {
   }, [filter2, legacyFilter]);
 
   const setIcon = (icon: Icon) => {
-    if (icon.id === lcuData.me.icon) return;
+    const previousId = lcuData.me.icon;
+    if (icon.id === previousId) return;
 
     request('PUT', ENDPOINT, { profileIconId: icon.id }).then((data) => {
       toast.success(`Updated icon to "${icon.title}"`);
       console.log('Set icon to', data.icon);
+
+      // Failed requests resolve with an empty object or an error payload
+      if (data.icon !== icon.id) return;
+      const ids = idsToRecord(history, previousId, icon.id);
+      for (const id of ids) addToHistory('icon', id);
+      setHistory((prev) => ids.reduce(pushHistory, prev));
     });
   };
 
@@ -89,7 +106,10 @@ const Icons: React.FC = () => {
     const fetchIconData = async () => {
       const response = await fetch(ICON_DATA_URL);
       const data = await response.json();
-      const favorites = await getFavorites();
+      const [favorites, history] = await Promise.all([
+        getFavorites(),
+        getHistory(),
+      ]);
 
       const icons = data
         .filter((icon: any) => icon.imagePath) // filter out non existent icons
@@ -108,6 +128,7 @@ const Icons: React.FC = () => {
       );
 
       setIconData(icons);
+      setHistory(history.icons);
       setLoading(false);
     };
 
@@ -126,7 +147,9 @@ const Icons: React.FC = () => {
         <div className='settings'>
           <Select
             items={ITEMS}
-            initialItem={ITEMS.find(({ value }) => typeFilter === value)}
+            initialItem={
+              ITEMS.find(({ value }) => typeFilter === value) ?? ITEMS[0]
+            }
             onValueChange={(value) => setTypeFilter(value)}
           />
           <div className='wrapper'>

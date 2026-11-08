@@ -45,7 +45,7 @@ const NavBar: React.FC = () => {
           iconId={lcuData.me.icon}
           availability={lcuData.me.availability}
         />
-        <span>{lcuData.me.name}</span>
+        <span>{lcuData.me.gameName}</span>
         <Badge
           text={lcuData.wallet.blueEssence.toString()}
           icon={<img src='assets/be.png' alt='Blue Essence' />}

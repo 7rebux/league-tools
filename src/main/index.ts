@@ -1,3 +1,4 @@
+import path from 'node:path';
 import { app, BrowserWindow, session, ipcMain, Menu, dialog } from 'electron';
 import installExtension, {
   REACT_DEVELOPER_TOOLS,
@@ -10,20 +11,31 @@ import {
   getFavorites,
   exportFavorites,
   importFavorites,
+  getHistory,
+  addToHistory,
 } from './settings';
 import LCU from './lcu';
+import MockLCU from './mockLcu';
 
 // Electron forge entry point declared in package.json
 declare const MAIN_WEBPACK_ENTRY: string;
 
 const isDevelopment = true; // process.env.NODE_ENV !== 'production';
+const isMocked = isDevelopment && process.env.MOCK_LCU === 'true';
 
 if (require('electron-squirrel-startup')) app.quit();
+
+// Packaged builds get the icon via `extraResource` in the forge config; in
+// development it is read straight from the project root.
+const iconPath = app.isPackaged
+  ? path.join(process.resourcesPath, 'icon.png')
+  : path.join(app.getAppPath(), 'icons', 'icon.png');
 
 const createWindow = (): BrowserWindow => {
   const bounds = getBounds();
   const mainWindow = new BrowserWindow({
     show: false,
+    icon: iconPath,
     width: bounds.width,
     height: bounds.height,
     webPreferences: {
@@ -38,7 +50,16 @@ const createWindow = (): BrowserWindow => {
     setBounds({ width: size[0], height: size[1] });
   });
 
-  mainWindow.loadURL(MAIN_WEBPACK_ENTRY);
+  // In development the entry is served at `http://localhost:3000/main` without a
+  // trailing slash, so relative urls resolve against the server root instead of
+  // the entry directory (`assets/be.png` becomes `/assets/be.png`). Loading the
+  // directory url gives the document the same base as the packaged
+  // `.webpack/renderer/main/index.html` and keeps asset paths working in both.
+  mainWindow.loadURL(
+    isDevelopment && !MAIN_WEBPACK_ENTRY.endsWith('/')
+      ? `${MAIN_WEBPACK_ENTRY}/`
+      : MAIN_WEBPACK_ENTRY,
+  );
 
   if (isDevelopment) mainWindow.webContents.openDevTools();
   else Menu.setApplicationMenu(null);
@@ -48,9 +69,12 @@ const createWindow = (): BrowserWindow => {
 
 app.on('ready', () => {
   if (isDevelopment) installExtension(REACT_DEVELOPER_TOOLS);
+  if (!app.isPackaged) app.dock?.setIcon(iconPath);
 
   const browserWindow = createWindow();
-  const leagueClient = new LCU(browserWindow.id);
+  const leagueClient = isMocked
+    ? new MockLCU(browserWindow.id)
+    : new LCU(browserWindow.id);
 
   ipcMain.on('lcu-connect', (event) => {
     leagueClient.connect().then(
@@ -76,6 +100,14 @@ app.on('ready', () => {
 
   ipcMain.on('store-remove-favorite', (_event, type, id) => {
     removeFavorite(type, id);
+  });
+
+  ipcMain.on('store-get-history', (event) => {
+    event.reply('store-history', getHistory());
+  });
+
+  ipcMain.on('store-add-history', (_event, type, id) => {
+    addToHistory(type, id);
   });
 
   ipcMain.on('store-export', async (event) => {

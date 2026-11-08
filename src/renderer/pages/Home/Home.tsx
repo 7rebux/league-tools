@@ -40,7 +40,8 @@ const Home: React.FC = () => {
         />
         <div className='info'>
           <div>
-            {lcuData.me.name} <span className='id'>#{lcuData.me.gameTag}</span>
+            {lcuData.me.gameName}{' '}
+            <span className='id'>#{lcuData.me.gameTag}</span>
           </div>
           <div className='badges'>
             <Badge

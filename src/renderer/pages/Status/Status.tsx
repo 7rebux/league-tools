@@ -14,6 +14,9 @@ const ENDPOINT = '/lol-chat/v1/me';
 
 type Availability = 'chat' | 'away' | 'dnd' | 'mobile' | 'offline';
 
+// The client only accepts "dnd" (Playing) while in champ select or in game
+const PLAYING_PHASES = ['ChampSelect', 'GameStart', 'InProgress', 'Reconnect'];
+
 const ITEMS: { name: string; value: Availability }[] = [
   { name: 'Online', value: 'chat' },
   { name: 'Away', value: 'away' },
@@ -27,6 +30,11 @@ const Status: React.FC = () => {
   const [availability, setAvailabilty] = useState<Availability>(
     lcuData.me.availability,
   );
+  const canSetPlaying = PLAYING_PHASES.includes(lcuData.gameflowPhase);
+  const items = ITEMS.map((item) => ({
+    ...item,
+    disabled: item.value === 'dnd' && !canSetPlaying,
+  }));
   const statusBox = React.createRef<HTMLInputElement>();
   const [favorites, setFavorites] = useState<string[]>([]);
   const [selectedFavorite, setSelectedFavorite] = useState<string>(null);
@@ -96,6 +104,11 @@ const Status: React.FC = () => {
     const updateAvailability = async () => {
       if (availability === lcuData.me.availability) return;
 
+      if (availability === 'dnd' && !canSetPlaying) {
+        toast.error('Playing is only available in champ select or in game');
+        return;
+      }
+
       return request('PUT', ENDPOINT, { availability: availability });
     };
 
@@ -139,8 +152,8 @@ const Status: React.FC = () => {
             }
           />
           <Select
-            items={ITEMS}
-            initialItem={ITEMS.find(({ value }) => value === availability)}
+            items={items}
+            initialItem={items.find(({ value }) => value === availability)}
             onValueChange={(value: Availability) => setAvailabilty(value)}
           />
         </div>

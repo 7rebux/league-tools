@@ -97,33 +97,26 @@ const Challenges: React.FC = () => {
     });
   };
 
-  const addToken = (token: Token) => {
-    const ids = getEquippedIds();
+  const [selectedSlot, setSelectedSlot] = useState<number>(0);
 
-    if (ids.length >= TOKEN_SLOT_COUNT) {
-      toast.error('All slots are full, remove a token first');
-      return;
-    }
+  // The LCU has no gaps, so only filled slots and the first empty one can be
+  // selected. Clamp in case tokens were removed elsewhere (e.g. in the client).
+  const equippedCount = lcuData.challenges.tokens.length;
+  const activeSlot = Math.min(selectedSlot, equippedCount);
 
-    sendTokens([...ids, token.id]).then(() => {
-      toast.success(`Added "${token.name}"`);
-      console.log('Added token', token.id);
-    });
-  };
+  const applyToken = (token: Token) => {
+    const ids = [...getEquippedIds()];
+    const slot = Math.min(activeSlot, ids.length);
+    ids[slot] = token.id;
 
-  const removeToken = (slot: number) => {
-    const ids = getEquippedIds();
-    if (slot >= ids.length) return;
-
-    const token = lcuData.challenges.tokens[slot];
-
-    sendTokens(ids.filter((_, index) => index !== slot)).then(() => {
-      toast.success(token ? `Removed "${token.name}"` : 'Removed token');
-      console.log('Removed token in slot %d', slot);
+    sendTokens(ids).then(() => {
+      toast.success(`Set slot ${slot + 1} to "${token.name}"`);
+      console.log('Set token slot %d to', slot, token.id);
     });
   };
 
   const clearTokens = () => {
+    setSelectedSlot(0);
     sendTokens([]).then(() => {
       toast.success('Cleared tokens');
       console.log('Cleared tokens');
@@ -165,10 +158,12 @@ const Challenges: React.FC = () => {
                 // biome-ignore lint/suspicious/noArrayIndexKey: slots are fixed positions
                 key={slot}
                 type='button'
-                className={`tokenSlot${token ? '' : ' empty'}`}
-                title={token ? `${token.name} (click to remove)` : 'Empty slot'}
-                disabled={!token}
-                onClick={() => removeToken(slot)}
+                className={`tokenSlot${token ? '' : ' empty'}${
+                  activeSlot === slot ? ' selected' : ''
+                }`}
+                title={token ? token.name : 'Empty slot'}
+                disabled={slot > equippedCount}
+                onClick={() => setSelectedSlot(slot)}
               >
                 {token ? (
                   <img
@@ -220,7 +215,7 @@ const Challenges: React.FC = () => {
               <img
                 key={x.id}
                 src={getTokenIcon(x.id, x.tier)}
-                onClick={() => addToken(x)}
+                onClick={() => applyToken(x)}
                 alt={`Token ${x.id}`}
                 title={x.name}
               />

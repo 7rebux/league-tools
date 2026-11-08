@@ -56,12 +56,17 @@ $border-radius: 20px;
             font-size: 20px;
           }
 
-          &:hover:not(:disabled) {
+          &:hover:not(:disabled):not(.selected) {
             border-color: rgba(color('primary'), 0.5);
+          }
+
+          &.selected {
+            border: 2px solid color('primary');
           }
 
           &:disabled {
             cursor: default;
+            opacity: 0.4;
           }
         }
       }
